@@ -1,0 +1,17 @@
+/* pages/index/index.wxss */
+page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* londing 页面 */
+.loading {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  /* height: 100%; */
+  align-items: center;
+  justify-content: center;
+  color: #888888;
+}
+

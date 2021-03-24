@@ -1,0 +1,25 @@
+function variantInfo (variant) {
+  if (variant == null || variant.option_values == null || variant.option_values.length <= 0) {
+    return ''
+  }
+
+  var result = []
+  for (var i=0; i < variant.option_values.length; i++) {
+    result.push(variant.option_values[i].label) 
+  }
+
+  return result.join(', ')
+}
+
+function optionValidate(allOptionIds, option) {
+  if(allOptionIds.indexOf(option.id) >= 0) {
+    return true
+  } else {
+    return false
+  }
+}
+
+module.exports = {
+  variantInfo: variantInfo,
+  optionValidate: optionValidate
+}

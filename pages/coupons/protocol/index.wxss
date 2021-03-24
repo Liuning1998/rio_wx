@@ -1,0 +1,71 @@
+/* pages/coupons/protocol/index.wxss */
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 750rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #333333;
+  padding: 0 40rpx 60rpx 40rpx;
+  box-sizing: border-box;
+  text-align: justify;
+}
+
+.protocol-tile {
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-top: 52rpx;
+  margin-bottom: 32rpx;
+}
+
+.protocol-description {
+  margin-bottom: 20rpx;
+}
+
+.section-contianer {
+  margin-bottom: 14rpx;
+}
+
+.section-contianer, .section-item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-item-content {
+  margin-bottom: 10rpx;
+}
+
+.section-item-content:last-child {
+  margin-bottom: 0;
+}
+
+.section-title, .section-item-title {
+  margin-bottom: 10rpx;
+}
+
+.section-detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-detail-item text {
+  margin-bottom: 6rpx;
+}
+
+.section-detail-item text:last-child {
+  margin-bottom: 0;
+}
+
+.return-btn {
+  height: 80rpx;
+  width: 300rpx;
+  line-height: 80rpx;
+  color: #A88070;
+  text-align: center;
+  border-radius: 40rpx;
+  background: linear-gradient(90deg, #DAB082, #FFF4E3, #E0BE98);
+  font-size: 32rpx;
+  margin-top: 30rpx;
+}

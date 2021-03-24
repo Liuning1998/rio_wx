@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单确认",
+  "usingComponents": {
+    "navbar": "../../components/navbar/index"
+  },
+  "navigationBarTextStyle": "white"
+}

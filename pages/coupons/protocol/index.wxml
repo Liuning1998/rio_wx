@@ -1,0 +1,26 @@
+<!--pages/coupons/protocol/index.wxml-->
+<navbar return-able="{{true}}" title="{{ title || '用户协议'}}"/>
+<view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class="main-container">
+  <text class="protocol-tile">{{protocolData.title}}</text>
+
+  <text wx:if="{{protocolData.description != null}}" class="protocol-description">{{protocolData.description}}</text>
+
+  <view class="protocol-content">
+    <view wx:for="{{protocolData.sections}}" wx:for-item="section" wx:key="index" class="section-contianer">
+      <text class="section-title">{{section.section_title}}</text>
+
+      <view wx:for="{{section.section_items}}" wx:for-item="sectionItem"  wx:key="itemIndex" class="section-item-content">
+        <text class="section-item-title">{{sectionItem.section_item_title}}</text>
+        <view wx:if="{{sectionItem.section_item_contents != null && sectionItem.section_item_contents.length > 0}}" class="section-detail-item">
+          <text wx:for="{{sectionItem.section_item_contents}}" wx:for-item="scontent" wx:key="contentIndex">{{scontent}}</text>
+        </view>
+      </view>
+    </view>
+
+    <text wx:if="{{protocolData.company != null}}" class="company">{{protocolData.company}}</text>
+  </view>
+
+  <text class="return-btn" bindtap="goback">确 定</text>
+</view>

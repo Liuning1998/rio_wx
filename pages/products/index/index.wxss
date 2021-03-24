@@ -1,0 +1,14 @@
+/* pages/products/index/index.wxss */
+.loading-icon {
+  position: fixed;
+  z-index: 90;
+  width: 30rpx;
+  height: 30rpx;
+  left: 360rpx;
+  margin-top: 20rpx;
+}
+
+.hidden {
+  display: none;
+  /* animation: viewlinear 2s linear infinite; */
+}

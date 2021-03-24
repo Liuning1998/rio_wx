@@ -1,0 +1,115 @@
+<!--pages/account/index/index.wxml-->
+<!-- <navbar textStyle="color: #8E662F; font-weight: 600;" returnAble="{{false}}" appendStyle="background: rgba(0,0,0,0)" return-able="{{true}}" title="我的"/> -->
+<!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
+
+<view class="navbar" style="height: {{pageMarginTop+44}}px;">
+  <image class="{{!scollStatus && 'hidden'}}" src="https://score-admin-file.ixiaoliu.com/brcb_wxs/images/account_index_background_001.png"></image>
+  <text style="margin-top: {{pageMarginTop}}px;">我的</text>
+</view>
+
+<scroll-view bindtouchstart='changeNavbar'>
+<view class="page-header">
+  <view class="header-background-container">
+    <image src="https://score-admin-file.ixiaoliu.com/brcb_wxs/images/account_index_background_001.png"></image>
+  </view>
+
+  <view class="header-content">
+    <view style='height: {{pageMarginTop+44}}px; width: 750rpx;'></view>
+
+    <view class="user-container">
+      <view wx:if="{{authLoginStatus}}" class="user-content">
+        <view class="welcome-info">
+          <view class="user-name">
+            <text >Hi~,</text>
+            <open-data class="name" type="userNickName"></open-data>
+          </view>
+          <text class="mark">欢迎来到金色家园·幸福生活~</text>
+        </view>
+        <view class="avatar-container" >
+          <open-data class='avatar-image' type="userAvatarUrl"></open-data>
+        </view>
+      </view>
+
+      <view wx:else class="no-login" bindtap="login">
+        <text class="label">登录</text>
+        <text class="sub-label">点击登录，享受更多优惠及服务~</text>
+      </view>
+    </view>
+    
+    <view class="actions">
+      <view bindtap="gotoOrders" class="item">
+        <image class="icon" src="/images/order_icon.png"></image>
+        <text>我的订单</text>
+      </view>
+
+      <view bindtap="gotoLink" data-url="/pages/coupons/dashboard/index" class="item">
+        <image class="icon" src="/images/package_icon.png"></image>
+        <text>卡券包</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="links-container">
+  <view class="links-content">
+    <view data-url="/pages/addresses/index/index" bindtap="gotoLink" class="item">
+      <view class="item-content">
+        <image src="/images/address_icon.png"></image>
+        <text>地址管理</text>
+      </view>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view>
+
+    <!-- <view data-url="/try_product/pages/orders/index/index" bindtap="gotoLink" class="item">
+      <view class="item-content">
+        <image src="/images/try_product_icon_001.png"></image>
+        <text>我的试用</text>
+      </view>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view> -->
+
+    <view data-url="/agreement/pages/price/index" bindtap="gotoLink" class="item">
+      <view class="item-content">
+        <image src="/images/rule_icon.png"></image>
+        <text>价格说明</text>
+      </view>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view>
+
+    <view data-url="/agreement/pages/sale_service/index" bindtap="gotoLink" class="item">
+      <view class="item-content">
+        <image src="/images/shouhouxieyi.png"></image>
+        <text>售后协议</text>
+      </view>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view>
+
+    <view data-url="/agreement/pages/yinsizhengce/index" bindtap="gotoLink" class="item">
+      <view class="item-content">
+        <image src="/images/yinsizhengce.png"></image>
+        <text>隐私政策</text>
+      </view>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view>
+
+    <view data-url="/agreement/pages/user_agreement/index" bindtap="gotoLink" class="item">
+      <view class="item-content">
+        <image src="/images/yonghuxieyi.png"></image>
+        <text>用户协议</text>
+      </view>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view>
+
+    <view data-url="/pages/contact/index" bindtap="gotoLink" class="item">
+      <view class="item-content">
+        <image src="/images/contact_icon.png"></image>
+        <text>联系我们</text>
+      </view>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view>
+    
+  </view>
+</view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>

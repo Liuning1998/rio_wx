@@ -1,0 +1,111 @@
+<!--pages/products/show/index.wxml-->
+<!-- <navbar title="商品详情" /> -->
+<wxs module="helper" src="../helper.wxs"></wxs>
+<wxs module="sh" src="../../helper.wxs"></wxs>
+
+<view style='height: {{pageMarginTop}}px;' class="status-bar"></view>
+<view style='margin-top: {{pageMarginTop}}px;'></view>
+
+<view class="navbar {{!navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
+  <view class="return simple" bindtap="goback">
+    <image mode="heightFix" src="/images/arrow_o_white_01.png"></image>
+  </view>
+</view>
+
+<view class="navbar block {{navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
+  <image bindtap="goback" mode="heightFix" class="return" src="/images/arrow_o_black.png"></image>
+  <view class="actions">
+    <view class="item {{ navbarActive == 1 && 'active' }}">
+      <text class="">商品</text>
+      <view class="border"></view>
+    </view>
+    <view class="item {{ navbarActive == 2 && 'active' }}">
+      <text class="">详情</text>
+      <view class="border"></view>
+    </view>
+  </view>
+  <view style="width: 20rpx; height: 20rpx; margin-left: 30rpx;"> </view>
+</view>
+
+<scroll-view bindscroll='changeNavbar' scroll-y class='product-detail-container'>
+  <view class='product-detail {{ isIphoneX && "iphone-x" }}'>
+    <view class='carousels'>
+      <view wx:if="{{currentVariant.stock <= 0}}" class="sold-out-container">
+        <view class="sold-out-content">
+          <text class="main">抢光了</text>
+          <text class="sub">SOLD OUT</text>
+        </view>
+      </view>
+      <swiper bindchange='changeSwiperCurrent' circular autoplay="true">
+        <block wx:for="{{ product.carousels }}" wx:key="index">
+          <swiper-item>
+            <image src="{{item}}" class="slide-image" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class='number'>{{ swiperCurrent + 1 }}/{{ product.carousels.length || 0 }}</view>
+    </view>
+
+    <view class='product-info'>
+      <view class='product-name'>{{ product.name || '' }}</view>
+      <text class='product-description'>{{ product.description || '' }}</text>
+      <view class='price-group'>
+        <text decode class='product-origin-price' style="color: #ffffff;">{{ product.origin_price || 0 }}</text>
+
+        <text decode class='product-price'>{{ product.price || 0 }}</text>
+        <text decode class='product-origin-price'>{{ product.origin_price || 0 }}</text>
+      </view>
+
+      <!-- <view class="stock-group">
+        <text class="sold">已售: {{product.saled_num}}件</text>
+        <text class="stock">库存: {{product.stock}}件</text>
+      </view> -->
+      <view class="time-and-joiner">
+        <text class="joiner">{{product.enter_count}} 人申请</text>
+        <view class="time-container">
+          <text>距结束</text>
+          <text>{{sh.getD(product.activity.end_at - now)}}天{{sh.getH(product.activity.end_at - now)}}时{{sh.getM(product.activity.end_at - now)}}分{{sh.getS(product.activity.end_at - now)}}秒</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- <block>
+      <view class='selected-desc' bindtap='showSelectContainer'>
+        <text class="">已选: {{quantity}} 件 {{ currentVariant.show_name }}</text>
+        <image class='arrow' src='/images/arrow.png'></image>
+      </view>
+    </block> -->
+
+    <view class="goto-rule" bindtap="gotoLink" data-url="/agreement/pages/try_product/index" >
+      <text>试用规则</text>
+      <image class="arrow" src="/images/arrow.png"></image>
+    </view>
+
+    <view class="try-rule" style="margin-top: 16rpx;">
+      <image style="width: 750rpx; height: 364rpx;" src="https://score-admin-file.ixiaoliu.com/brcb_wxs/images/%E8%AF%95%E7%94%A8%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE_001.png"></image>
+    </view>
+
+    <view class='pop-detail' id="pop-detail">
+      <!-- <view class='line'></view> -->
+      <image src="/images/product_description.png" class="desc-image"></image>
+      <text decode class='text-muted'>商品详情</text>
+      <!-- <view class='line'></view> -->
+    </view>
+
+    <view class='product-detail-desc dimages'>
+      <block class='desc-image' wx:for="{{ product.images }}" wx:key="index">
+        <image mode="widthFix" src='{{ item }}'></image>
+      </block>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
+  <!-- <view class='disabled-mark' wx:if='{{ !available }}'>该商品已下架</view> -->
+  <view class="btn-container">
+    <button wx:if="{{ now > product.activity.end_at }}" class="btn btn-lg buy-btn doing disabled }}" bindtap='gotoConfirm' style="width: 400rpx;" data-state='buyNow'>已结束</button>
+    <button wx:else class="btn btn-lg buy-btn doing {{ canBuy ? ' ' : 'disabled'  }}" bindtap='gotoConfirm' style="width: 400rpx;" data-state='buyNow'>免费申请</button>
+  </view>
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

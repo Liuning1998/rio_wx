@@ -1,0 +1,109 @@
+<!--pages/products/buy/index.wxml-->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+
+<navbar navbarStyle='dark' title="订单确认" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view class="page-background"></view>
+    <view class="main-container">
+      <view bindtap="selectAddress" wx:if="{{shipAddress == null || shipAddress.phone == null || shipAddress.phone.length <= 0}}" class="select-address-empty">
+        <image class="location" src="/images/location_icon_001.png"></image>
+        <text>选择收货地址</text>
+        <image class="arrow" src="/images/arrow_o_black.png"></image>
+      </view>
+
+      <view wx:else class="select-address-container">
+        <view class="user-info">
+          <text class="user-name">{{shipAddress.real_name}}</text>
+          <text class="phone">{{shipAddress.phone}}</text>
+        </view>
+
+        <view bindtap="selectAddress" class="address-content">
+          <view class="address-info">
+            <text wx:if="{{shipAddress.default_address}}" class="default-address">默认</text>
+            <text wx:if="{{ shipAddress.province }}">{{ shipAddress.province || ''}}</text>
+            <text wx:if="{{ shipAddress.city }}">{{ shipAddress.city || ''}}</text>
+            <text wx:if="{{ shipAddress.district }}">{{ shipAddress.district || '' }}</text>
+            <text wx:if="{{ shipAddress.address_info }}">{{ shipAddress.address_info || '' }}</text>
+          </view>
+          <image class="arrow" src="/images/arrow_o_black.png"></image>
+        </view>
+      </view>
+
+      <view class="content-title"><text>商品信息</text></view>
+      <image class="split-image" src="/images/buy_page_split.png" mode="widthFix"></image>
+      <view class="products">
+        <view wx:for="{{ storeCart.lineItems }}" wx:for-item="item" wx:key="index"  class="product-item" wx:if="{{item.selectStatus}}">
+          <image mode="heightFix" class="avatar" src="{{avatars[item.product.id] || item.product.avatar}}"></image>
+
+          <view class="product-info">
+            <view class='name-quantity'>
+              <text class="name">{{item.product.name}}</text>
+              <text class="quantity">X {{item.quantity}}</text>
+            </view>
+            <view class="variant-price">
+              <text wx:if="{{ item.show_name != '' }}" class="variant-desc">已选: {{item.show_name}}</text>  
+              <view wx:else></view> 
+              <view class="price-container">
+                <text class="price">￥{{price.tos(item.vip_price)}}</text>
+                <text class="origin-price">￥{{price.tos(item.price)}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="split-container">
+        <image class="split-image" src="/images/buy_page_split.png" mode="widthFix"></image>
+      </view>
+
+      <view class="expenses">
+        <view class="product-expenses">
+          <text class="label">商品金额</text>
+          <view class="total-container">
+            <text>￥{{price.tos(storeCart.vip_total)}}</text>
+            <text class='origin-price'>￥{{price.tos(storeCart.total)}}</text>
+          </view>
+        </view>
+
+        <image class="split-image" src="/images/buy_page_split.png" mode="widthFix"></image>
+
+        <view class="amount">
+          <text class="label">合计:</text>
+          <view class="total-container">
+            <text class="price">￥{{price.tos(storeCart.vip_total)}}</text>
+            <text class="origin-price">￥{{price.tos(storeCart.total)}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="secret-container" wx:if="{{ productType == 3 }}">
+        <text>换购码</text>
+        <input bindinput='inputChange' data-name='secretText'  class="input" placeholder-class="input-placeholder" placeholder="请输入换购码"></input>
+      </view>
+
+      <view class="protocol" wx:if="{{ productType == 3 }}">
+        <view bindtap="changeProtocol" class="checkbox {{ protocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
+        <view>
+          <text bindtap="changeProtocol" class="btn">您已阅读并同意</text>
+          <text bindtap="gotoLink" data-url="/agreement/pages/yiyuangou/index" class="protocol-item">《一元购活动规则》</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</scroll-view>
+
+
+
+<view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
+  <view class="time-remark">
+    <image src="/images/info_icon_01.png"></image>
+    <text>请在10分钟内完成支付</text>
+  </view>
+  <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

@@ -1,0 +1,75 @@
+/* web/pages/haoxiuyang/store/index.wxss */
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 750rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #333333;
+  padding: 0 40rpx 160rpx 40rpx;
+  box-sizing: border-box;
+  text-align: justify;
+}
+
+.h1 {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-top: 52rpx;
+  margin-bottom: 32rpx;
+}
+
+.s1 {
+  /* margin-bottom: 10rpx; */
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.li::before {
+  content: ' ';
+  display: inline-block;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #333333;
+  margin-right: 20rpx;
+  position: relative;
+  bottom: 6rpx;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.return-btn {
+  height: 80rpx;
+  width: 300rpx;
+  line-height: 80rpx;
+  color: #A88070;
+  text-align: center;
+  border-radius: 40rpx;
+  background: linear-gradient(90deg, #DAB082, #FFF4E3, #E0BE98);
+  font-size: 32rpx;
+  margin-top: 60rpx;
+}
+
+.store-name {
+  margin-top: 20rpx;
+}
+
+.address-info {
+  margin-top: 4rpx;
+}
+
+.contact {
+  font-size: 28rpx;
+  color: #333333;
+  margin-top: 10rpx;
+}

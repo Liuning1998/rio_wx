@@ -1,0 +1,87 @@
+<!--pages/coupons/list/index.wxml-->
+<navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="{{ title || '卡券包'}}"/>
+<view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view wx:if="{{couponEmpty}}" class="empty-container">
+      <image src="/images/coupon_empty.png"></image>
+      <text class="title">没有相关卡券</text>
+      <text class="sub-title">去首页看看吧</text>
+      <text bindtap="gotoHome" class="btn">去看看</text>
+    </view>
+
+    <view wx:else class="coupons-container">
+      <block wx:for="{{ coupons }}" wx:for-item="item" wx:key="index" wx:if="{{!item.deleted}}">
+        <view class="coupon-container">
+          <!-- <view  class='bg-action'>
+            <view class='delete-line-item' bindtap='deleteItem' data-item='{{ item }}'>
+              <image src="/images/delete_icon.png"></image>
+              <text>删除</text>
+            </view>
+          </view> -->
+
+          <view class="dot right"></view>
+          
+          <mp-slideview style="flex: 1;" show="{{ deleteButtonShowId == item.id }}" bindshow="slideviewShow" buttons="{{deleteButton}}" bindbuttontap="deleteItem" data-item='{{ item }}'>
+          <view style="width: 100%; position: relative; z-index: 993;"  bindtouchcancel='touchEnd' data-item="{{ item }}">
+          <view class="" >
+
+            <view class="left-top-icon">
+            </view>
+            <text class="left-top-text">{{ item.coupon_type == 1 ? '券' : '卡' }}</text>
+            <view class="coupon-content">
+              <image wx:if="{{ item.copied_at != null }}" class="copied" src="/images/copied.png"></image>
+              <view class="main-content">
+                <view class="dot left"></view>
+                <view class="amount-description">
+                  <image class="logo" src="{{item.image}}"></image>
+                  <text>{{item.name}}</text>
+                </view>
+                <text class="expire">{{item.amount_description}}</text>
+              </view>
+              <view class="sub-content">
+                <text class="amount-limit">{{item.amount_limit}}</text>
+                <text class="btn" bindtap="showInfo" data-item="{{ item }}">查看</text>
+              </view>
+              <view wx:if="{{item.coupon_mark == 2}}" class="time-container">
+                <text wx:if="{{item.used_at != null}}" class="time">使用时间: {{item.used_at_t}}</text>
+                <text wx:else class="time">过期时间: {{item.expired_at_t}}</text>
+              </view>
+            </view>
+          </view>
+          </view>
+          </mp-slideview>
+        </view>
+
+      </block>
+
+    </view>
+  </view>
+</scroll-view>
+
+<view class="copy-layer {{ !copyLayerStatus && 'hidden' }}" bindtap="hideCopyLayer">
+  <view class="copy-container" catchtap="false">
+    <view class="copy-content">
+      <image class="copy-background" src="/images/copy_coupon_info.png"></image>
+      <view bindtap="hideCopyLayer" class="close"></view>
+      <view class="main-content">
+        <view wx:if="{{ showInfo.number.length > 0 }}" class="number-container row">
+          <text class="label">卡号: </text>
+          <text class="info-text">{{ showInfo.number }}</text>
+        </view>
+
+        <view  wx:if="{{ showInfo.secret.length > 0 }}" class="secret-container row">
+          <text class="label">卡密: </text>
+          <text class="info-text">{{ showInfo.secret }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="actions">
+      <text bindtap="copyInfo" data-id="{{ showInfo.id }}" data-item="{{showInfo.number}}" wx:if="{{ showInfo.number.length > 0 }}" class="copy-number btn">复制卡号</text>
+      <text bindtap="copyInfo" data-id="{{ showInfo.id }}" data-item="{{showInfo.secret}}" wx:if="{{ showInfo.secret.length > 0 }}" class="copy-secret btn">复制卡密</text>
+    </view>
+  </view>
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

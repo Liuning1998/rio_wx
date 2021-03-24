@@ -1,0 +1,28 @@
+/* agreement/pages/sale_service/index.wxss */
+page {
+  background: #f7f7f7;
+}
+
+.actions {
+  background: #ffffff;
+  margin-top: 12rpx;
+  padding: 0 24rpx;
+}
+
+.actions .item {
+  display: flex;
+  justify-content: space-between;
+  height: 112rpx;
+  align-items: center;
+  
+}
+
+.actions .item-content {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.actions .arrow {
+  height: 54rpx;
+  width: 30rpx;
+}

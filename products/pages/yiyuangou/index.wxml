@@ -1,0 +1,40 @@
+<!--products/pages/yiyuangou/index.wxml-->
+
+<view class="navbar" style="top: 0;">
+  <view class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
+    <view bindtap="goback" class="return-image-container">
+      <image class="return-image" src="/images/arrow_o_white_01.png"></image>
+    </view>
+    <text class="title">{{pageTitle}}</text>
+  </view>
+</view>
+
+<scroll-view scroll-y class='page-container' scroll-y="{{true}}">
+  <!-- <image class="page-background" src="https://score-admin-file.ixiaoliu.com/brcb_wxs/images/yiyuangou_background_02.png"></image> -->
+  <view wx:if="{{loaded && products.length <= 0}}" class="products-container empty-container">
+    <image class="empty-image" src="../../../images/empty_icon_001.png"></image>
+    <text>暂无相关商品信息</text>
+  </view>
+
+  <view wx:else class="products-container">
+    <view bindtap="gotoProduct" data-item="{{products[0]}}" class="avatar-container">
+      <image wx:if="{{products[0].ad_image1 != null && products[0].ad_image1.length > 0}}" class="avatar" src="{{products[0].ad_image1}}"></image>
+      <image wx:else class="avatar" src="{{products[0].avatar}}"></image>
+    </view>
+
+    <view class="btn-group">
+      <view bindtap="gotoProduct" data-item="{{products[0]}}" class="price-and-name">
+        <text class="name">{{products[0].name}}</text>
+        <text class="stock">库存: {{products[0].stock}}</text>
+        <view wx:if="{{products[0] != null}}" class="price-container">
+          <text class="price">{{products[0].vip_price}}</text>
+          <text class="origin-price">￥{{products[0].price}}</text>
+        </view>
+      </view>
+      
+      <text bindtap="gotoProduct" data-item="{{products[0]}}" class="btn">立即抢购</text>
+    </view>
+  </view>
+
+  
+</scroll-view>

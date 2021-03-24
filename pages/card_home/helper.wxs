@@ -1,0 +1,22 @@
+function fdWidth(number) {
+  return 456 * number / 100
+}
+
+function iconLeft(number) {
+  return (436 * number / 100) - 20
+}
+
+function fdWidth2(number) {
+  return 416 * number / 100
+}
+
+function iconLeft2(number) {
+  return (382 * number / 100) + 14
+}
+
+module.exports = {
+  fdWidth: fdWidth,
+  iconLeft: iconLeft,
+  fdWidth2: fdWidth2,
+  iconLeft2: iconLeft2
+}

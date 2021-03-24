@@ -1,0 +1,249 @@
+/* pages/address/index/index.wxss */
+page {
+  background-color: #f7f7f7;
+}
+.container {
+  padding-bottom: 120rpx;
+  padding-top: 0;
+  height: auto;
+}
+
+.container.iphone-x {
+  padding-bottom: 188rpx;
+}
+
+.address-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 750rpx;
+  /* height: 100%; */
+}
+
+.empty-list {
+  margin-top: 290rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 750rpx;
+  height: 100%;
+}
+
+.empty-list image {
+  width: 250rpx;
+  height: 250rpx;
+  margin-bottom: 400rpx;
+}
+
+/* .empty-list .add-address {
+  font-size: 36rpx;
+  color: #967039;
+  height: 88rpx;
+  border: 1px solid #8E662F;
+  border-radius: 8rpx;
+  line-height: 88rpx;
+  box-sizing: border-box;
+  width: 630rpx;
+  text-align: center;
+  margin-bottom: 160rpx;
+} */
+
+.item-container {
+  width: 690rpx;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.item-container:first-child {
+  margin-top: 20rpx;
+}
+
+.item-container .bg-action {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 990;
+  height: 100%;
+}
+
+.item-container .delete-line-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFF6E6;
+  color: #8E662F;
+  width: 122rpx;
+  justify-content: center;
+  height: 100%;
+  border-top-right-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  font-size: 20rpx;
+}
+
+.weui-slideview__btn-group_warn .weui-slideview__btn {
+  background-color: #FFF6E6;
+  color: #8E662F;
+  font-size: 20rpx;
+}
+
+.item-container .delete-line-item image {
+  height: 26rpx;
+  width: 30rpx;
+  margin-bottom: 8rpx;
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  z-index: 992;
+  padding: 30rpx 0;
+  background: #ffffff;
+  border-radius: 8rpx;
+  position: relative;
+}
+
+.address .address-icon {
+  width: 66rpx;
+  height: 62rpx;
+  margin: 0 22rpx;
+  flex-shrink: 0;
+}
+
+.address .line {
+  height: 80rpx;
+  width: 1px;
+  background: #f5f5f5;
+  flex-shrink: 0;
+  margin-left: 28rpx;
+}
+
+.address .address-default-icon {
+  width: 72rpx;
+  height: 70rpx;
+  position: absolute;
+  right: -2rpx;
+  top: 0;
+}
+
+.address .info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.address .info .info-detail {
+  flex: 1;
+  font-size: 24rpx;
+  color: #333333;
+  margin-top: 12rpx;
+}
+
+.address .default-address-icon {
+  margin-left: 30rpx;
+  width: 84rpx;
+  height: 40rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.address .default-address-icon text{
+  background: #FC750026;
+  height: 34rpx;
+  line-height: 34rpx;
+  width: 84rpx;
+  border-radius: 17rpx;
+  font-size: 24rpx;
+  color: #FC7500;
+  text-align: center;
+}
+
+.address .info .user {
+  display: flex;
+  /* justify-content: space-between; */
+  line-height: 32rpx;
+  flex-grow: 1;
+}
+
+.address .info .user .name {
+  font-size: 32rpx;
+  color: #000000;
+  margin-right: 20rpx;
+  text-overflow:ellipsis; white-space:nowrap; max-width: 260rpx; overflow:hidden;
+}
+
+.address .info .user .phone {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.address .info .addr {
+  font-size: 24rpx;
+  color: #333333;
+  text-align: justify;
+  margin-top: 14rpx;
+  box-sizing: border-box;
+}
+
+.address .action {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20rpx;
+  color: #999999;
+  width: 88rpx;
+}
+
+.address .action image {
+  height: 26rpx;
+  width: 26rpx;
+  margin-bottom: 8rpx;
+}
+
+.add-address {
+  font-size: 32rpx;
+  color: #967039;
+  height: 88rpx;
+  border: 1px solid #8E662F;
+  border-radius: 8rpx;
+  line-height: 88rpx;
+  box-sizing: border-box;
+  width: 690rpx;
+  text-align: center;
+  margin-bottom: 160rpx;
+  margin-top: 32rpx;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+.footer.iphone-x {
+  padding-bottom: 68rpx;
+  height: 168rpx;
+}
+
+.footer .btn {
+  width: 374rpx;
+  justify-content: center;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-color: #FA5151;
+  color: #FC7500;
+}

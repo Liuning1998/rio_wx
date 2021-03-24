@@ -1,0 +1,126 @@
+<!--pages/orders/cart/index.wxml-->
+<wxs module="helper" src="./helper.wxs"></wxs>
+<wxs module="product" src="../../../utils/product.wxs"></wxs>
+
+<navbar returnAble="{{false}}" appendStyle="background: #fff;" title="购物车" textStyle="font-weight: 600;"/>
+<view class="top-actions" style="top: {{pageMarginTop+44}}px;">
+  <view></view>
+  <text class="info">已选({{cartData.quantity || 0}})件商品</text>
+  <view bindtap="clearCart" class="delete-all">
+    <image src="/images/delete_icon_001.png"></image>
+    <text> 全部清除</text>
+  </view>
+</view>
+<view style='margin-top: {{pageMarginTop+44}}px; padding-top: 64rpx;'></view>
+
+<!-- <scroll-view scroll-y="{{canScroll}}" class='page-container'> -->
+<scroll-view scroll-y="{{canScroll}}" class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view wx:if="{{helper.empty(cartData) && cartLoaded}}" class="cart-empty">
+      <image src="/images/empty_icon_002.png"></image>
+      <text>没有可结算的商品 </text>
+    </view>
+
+    <view wx:if="{{!helper.empty(cartData)}}" class="cart-container">
+      <view wx:for="{{ cartData.data }}" wx:for-item="storeCart" wx:key="sindex"  class="store-cart-container">
+        <view class="store-header">
+          <view style="display: flex; align-items: center;">
+            <view bindtap="allSelected" data-item="{{storeCart}}" class="select {{ storeCart.allSelectStatus && 'selected' }}"><image src="/images/selected_icon_001.png"></image></view>
+            <image class="store-icon" src="/images/store_icon_001.png"></image>
+            <text class="name">{{storeCart.store_name}}</text>
+            <!-- <image style="height: 14rpx; width: 7rpx; margin-left: 10rpx; margin-top: 2rpx;" src="/images/arrow_o_black_01.png"></image> -->
+          </view>
+          <text bindtap="deleteStoreItem" data-item="{{storeCart}}" class="delete">删除</text>
+        </view>
+
+        <view wx:for="{{ storeCart.lineItems }}" wx:for-item="item" wx:key="index" class="line-item-container">
+          <!-- <view  class='bg-action'>
+            <view class='delete-line-item' bindtap='deleteItem' data-item='{{ item }}'>
+              <image src="/images/delete_icon.png"></image>
+              <text>删除</text>
+            </view>
+          </view> -->
+          <view class="weui-slidecells">
+          <mp-slideview show="{{ deleteButtonShowId == item.variant_id }}" bindshow="slideviewShow" buttons="{{deleteButton}}" bindbuttontap="deleteItem" data-item='{{ item }}'>
+          <view  data-item="{{ item }}" class="weui-slidecell line-item-content">
+            <view bindtap="changeSelectStatus" data-item="{{item}}" class="select {{ item.selectStatus && 'selected' }}"><image src="/images/selected_icon_001.png"></image></view>
+            <image bindtap="gotoProduct" data-item="{{item.product}}" class="avatar" src="{{ avatars[item.product.id] || item.product.avatar}}"></image>
+            <view class="line-item-info">
+              <view bindtap="gotoProduct" data-item="{{item.product}}" style="display: flex; flex-direction: column; flex: 1;">
+                <text class="name">{{item.product.name}}</text>
+                <text class="variant-info">{{item.show_name}}</text>
+              </view>
+              <view class="price-and-quantity">
+                <text class="price">￥{{item.vip_price}}<text wx:if="{{item.price != null && item.price > 0}}" class="origin-price">￥{{item.price}}</text></text>
+                <view class="quantity-container">
+                  <text bindtap="subQuantity" data-item="{{item}}" class="sub-icon btn {{ item.quantity <= 1 && 'disabled'}}">-</text>
+                  <text class="quantity">{{item.quantity}}</text>
+                  <text bindtap="plusQuantity" data-item="{{item}}" class="plus-icon btn {{!helper.canPlus(item) && 'disabled'}}">+</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          </mp-slideview>
+          </view>
+        </view>
+
+        <view class="store-bottom-info">
+          <view style="display: flex; align-items: flex-end; display:table-cell; vertical-align: bottom;">
+            <text class="quantity">共计{{storeCart.quantity}}件</text>
+            <text class="total">合计</text>
+            <text class="amount">￥{{storeCart.vip_total}}</text>
+          </view>
+          <text class="goto-confirm" bindtap="gotoConfirm" data-item="{{storeCart}}">立即付款</text>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="products-container">
+      <view class="split-container">
+        <view class="line"></view>
+        <view class="label">
+          <image src="/images/cart_split_001.png"></image>
+          <text>为你推荐</text>
+          <image src="/images/cart_split_001.png"></image>
+        </view>
+        <view class="line"></view>
+      </view>
+
+      <view class="product-list-container">
+        <view class="item-container" wx:for="{{recommendProducts}}" wx:key="index">
+          <view bindtap="gotoProduct" data-item="{{item}}" class="avatar-container">
+            <image class="avatar" src="{{item.avatar}}"></image>
+            <view wx:if="{{item.show_product_label != null && item.show_product_label.length > 0}}" class="coupon-description">
+              <image src="/images/coupon_icon_03.png"></image>
+              <text>{{item.show_product_label}}</text>
+            </view>
+          </view>
+
+          <text bindtap="gotoProduct" data-item="{{item}}" class="name">{{item.name}}</text>
+
+          <view class="bottom-info-container">
+            <view class="info-content">
+              <view class="badges">
+                <text wx:for="{{item.badges}}" wx:for-item="badge" wx:key="index">{{badge}}</text>
+              </view>
+              <view class="price">
+                <text class="">￥{{item.vip_price}}</text>
+                <text class="origin-price">￥{{item.price}}</text>
+              </view>
+            </view>
+            <view bindtap="addCart" data-item="{{item}}" class="cart-icon">
+              <view wx:if="{{!product.canAddCart(item)}}" class="go-product">
+                <text>GO</text>
+                <image src="/images/store/go_arrow_002.png"></image>
+              </view>
+              <image wx:else src="/images/cart_icon_001.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>

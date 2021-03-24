@@ -1,0 +1,137 @@
+/* pages/account/phone/validate.wxss */
+page {
+  background-color: white;
+}
+
+.page-container {
+  width: 750rpx;
+  position: relative;
+}
+
+.page-container .background {
+  width: 750rpx;
+  height: 690rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background: linear-gradient(to right, #EEDEB0, #D3B17D);
+}
+
+.page-container .background .bottom {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 750rpx;
+  height: 160rpx;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1))
+}
+
+.page-container .page-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-container .page-content .label {
+  font-size: 36rpx;
+  color: #8E662F;
+  padding: 60rpx 50rpx;
+}
+
+.form {
+  width: 670rpx;
+  background: #ffffff;
+  border-top-right-radius: 20rpx;
+  border-top-left-radius: 20rpx;
+  margin: auto;
+  position: relative;
+  padding: 80rpx 10rpx 0 10rpx;
+  box-sizing: border-box;
+}
+
+.form::before {
+  content: ' ';
+  /* height: 20rpx; */
+  /* width: 40rpx; */
+  /* background: #ffffff; */
+  position: absolute;
+  left: 120rpx;
+  top: -40rpx;
+  border-style: solid;
+  border-width: 20rpx;
+  border-color: transparent transparent #ffffff transparent;
+}
+
+
+.form .field-group {
+  display: flex;
+  align-items: center;
+  height: 86rpx;
+  width: 100%;
+  border-radius: 43rpx;
+  border: 1rpx solid #d8d8d8;
+  margin-bottom: 30rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.form .field-group .input-group {
+  display: flex;
+  flex: 1;
+}
+
+.form .field-group .input-group image{
+  height: 44rpx;
+  width: 36rpx;
+  margin-right: 24rpx;
+}
+
+.form .field-group .input-group input {
+  font-size: 32rpx;
+  color: #333333;
+  flex: 1;
+}
+
+.form .field-group .input-group .placeholder {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.form .field-group .rucaptcha-img {
+  height: 80rpx;
+  width: 225rpx;
+}
+
+.code-btn {
+  font-size: 28rpx;
+  color: #58A4EF;
+}
+
+.waiting {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.submit {
+  width: 630rpx !important;
+  margin: auto;
+  margin-top: 50rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #8E662F;
+  border-radius: 8rpx;
+  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
+  padding: 0;
+  border: 0;
+}
+
+.submit.disabled {
+  background: #aaaaaa;
+  color: #ffffff;
+}

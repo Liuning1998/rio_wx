@@ -1,0 +1,9 @@
+<!--pages/components/message/index.wxml-->
+<view wx:if="{{ msgData.show }}" class='score-message-toast-container'>
+  <view catchtap='false' class='{{ msgData.hasClose && "has-close" }} score-message-toast-content {{ msgData.type }} a {{ msgData.size }}'>
+      <image bindtap='closeToast' wx:if="{{ msgData.hasClose }}" class='score-message-close' src='/images/close_white.png'></image>
+      <!-- <image class="score-message-title" src="/images/{{ msgData.type }}_title.png"></image> -->
+      <image class='score-message-badge' src='/images/{{ msgData.type }}_badge.png'></image>
+      <text class='score-message-text'>{{ msgData.content }}</text>
+  </view>
+</view>

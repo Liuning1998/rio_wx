@@ -1,0 +1,95 @@
+<!--products/pages/index/index.wxml-->
+<!-- 排行榜页面、热门精选 -->
+<wxs module="price" src="../../utils/price.wxs"></wxs>
+<wxs module="product" src="../../utils/product.wxs"></wxs>
+
+<!-- <navbar navbarStyle="dark" appendStyle="background: rgba(0,0,0,0);" textStyle="color: rgba(0,0,0,0)" title="{{tagName}}" /> -->
+<!-- <view style='margin-top: {{pageMarginTop+44}}px;'></view> -->
+
+<view class="navbar" style="top: 0;">
+  <!-- <image class="background-image" src="{{brand.banners[0]}}"></image> -->
+  <view wx:if="{{!scollStatus}}" class="navbar-content" style="height: {{pageMarginTop+44}}px;">
+    <view bindtap="goback" class="return-image-container">
+      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/arrow_o_black.png"></image>
+      <image wx:else class="return-image" src="/images/arrow_o_black.png"></image>
+    </view>
+  </view>
+
+  <view wx:else class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
+    <view bindtap="goback" class="return-image-container">
+      <image class="return-image" src="/images/arrow_o_black.png"></image>
+    </view>
+    <text class="title">{{pageTitle}}</text>
+  </view>
+</view>
+
+<scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
+  <image class="ad-image" src="{{banner.images[0]}}"></image>
+  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
+    <image src="../../images/products_empty_icon_001.png"></image>
+    <text>商品上架中，敬请期待</text>
+  </view>
+  <view wx:else class="products-container">
+    <!-- <block wx:for="{{products}}" wx:for-item="productsData"> -->
+    <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatar}}"></image>
+        <image wx:if="{{sortBadge && index <= 2}}" class="sort-badge" src="/images/sort_0{{index+1}}.png"></image>
+        <view wx:if="{{ item.stock <= 0 && item.product_show_content != null }}" class="sale-out-container">
+          <view class="sale-out-content">
+            <text class="cn">{{item.product_show_content.chinese}}</text>
+            <view class="line"></view>
+            <text class="en">{{item.product_show_content.english}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="item-content">
+        <view class="info">
+          <text class="name">{{item.name}}</text>
+          <text class="description">{{item.description}}</text>
+          <text class="stock">库存: {{ item.stock }}</text>
+        </view>
+
+        <view class="price-and-cart">
+          <view class="price-container">
+            <text class="price">{{price.tos(item.vip_price)}}</text>
+            <text class="origin-price">原价<text>{{price.tos(item.price)}}</text></text>
+          </view>
+          <view catchtap="gotoProduct" data-item="{{item}}" class="cart-container">
+            <view class="go-product">
+              <text>GO</text>
+              <image src="/images/store/go_arrow_002.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- </block> -->
+  </view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<image bindtap="gotoLink" data-url="/pages/activity_rule/index" mode="heightFix" class="rule-explain" src="/images/rule_explain.png"></image>
+
+<!-- 
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 110rpx;"></image> -->
+
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px"></image>
+
+<view wx:if="{{ noticeText != null && noticeText.length > 0 }}" class="float-notice-container" style="top: {{pageMarginTop + 44}}px;">
+  <view class="image-container">
+    <image src="/images/message_icon_01.png"></image>
+  </view>
+  <view class="line"></view>
+  <view class="scroll-container">
+    <view class="scroll-content">
+      <view class="float-notice-content" style="left: {{floatNoticeLeft}}px;">
+        <text class="float-notice-text">{{ noticeText }}</text>
+        <text class="float-notice-text">{{ noticeText }}</text>
+        <text class="float-notice-text">{{ noticeText }}</text>
+      </view>
+    </view>
+  </view>
+</view>

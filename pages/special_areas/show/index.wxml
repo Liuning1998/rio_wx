@@ -1,0 +1,157 @@
+<!--pages/store/home/index.wxml-->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+
+<!-- <navbar navbarStyle="dark" appendStyle="background: {{navbarBackgroundcolor}};" title="{{pageTitle}}" /> -->
+
+<view style="background: {{navbarBackgroundcolor}};" class="navbar-container">
+  <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
+  <view class='navbar-content'>
+    <view bindtap='goback' class='return-image-container'>
+      <image class='return-image' src='../../../images/arrow_o_white_01.png'></image>
+    </view>
+    <text style="{{textStyle}}" class='navbar-title'>{{ pageTitle }}</text>
+  </view>
+</view>
+
+<!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
+
+<view class="search-container {{ searchStatus == 1 && 'hidden' }}" style="position: fixed; left: 0; top: {{pageMarginTop+44}}px; z-index: 991; padding-top: 16rpx;">
+  <view bindtap="showSearchInput" class="search-input {{searchInputStatus && 'active'}}">
+    <!-- <input></input> -->
+    <image class="search-icon" src="../../../images/search_icon_002.png"></image>
+    <input bindconfirm="searchProducts" bindinput="inputChange" focus="{{focus}}" placeholder-style="color: rgba(255, 255, 255, 0.6); font-size: 28rpx;" placeholder="输入商品名称" confirm-type="search" data-name='searchText' value='{{ searchText }}'></input>
+    <text class="remark">搜索商品</text>
+    <view catchtap="clearSearchText" class="close">
+      <image class="close-icon" src="../../../images/close_white.png"></image>
+    </view>
+  </view>
+  <text bindtap="hideSearchInput" wx:if="{{searchInputStatus}}" class="cancel">取消</text>
+</view>
+  
+<scroll-view bindtouchstart='changeNavbar' scroll-y class='page-container'>
+  <view class="ads-background" style="padding-top: {{pageMarginTop+44}}px;">
+    <view class="background-image">
+      <image src="{{ads[0].images[0]}}"></image>
+    </view>
+  </view>
+
+  <view class="ads-container" style="padding-top: {{pageMarginTop+44}}px;">
+    <view class="ads-content">
+      <view class="search-container {{ searchStatus == 2 && 'hidden' }}">
+        <view bindtap="showSearchInput" class="search-input {{searchInputStatus && 'active'}}">
+          <!-- <input></input> -->
+          <image class="search-icon" src="../../../images/search_icon_002.png"></image>
+          <input bindconfirm="searchProducts" bindinput="inputChange" focus="{{focus}}" placeholder-style="color: rgba(255, 255, 255, 0.6); font-size: 28rpx;" placeholder="输入商品名称" confirm-type="search" data-name='searchText' value='{{ searchText }}'></input>
+          <text class="remark">搜索商品</text>
+          <view catchtap="clearSearchText" class="close">
+            <image class="close-icon" src="../../../images/close_white.png"></image>
+          </view>
+        </view>
+        <text bindtap="hideSearchInput" wx:if="{{searchInputStatus}}" class="cancel">取消</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{ categories.length > 0 }}" class="category-container">
+    <view bindtap="gotoCategory" data-item="{{item}}" class="category-item" wx:for="{{categories}}" wx:key="index">
+      <view class="icon-container"><image src="{{item.icon}}"></image></view>
+      <text class="name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <view class="page-main-container {{ categories.length <= 0 && 'container-01' }}">
+    <view class="fine-container" wx:if="{{fineProducts.length > 0}}">
+      <view class="section-label" style="margin-top: {{ categories.length > 0 ? -18 : 18}}rpx;">
+        <view class="dot-1"></view>
+        <view class="dot-2"></view>
+        <text>专区精选</text>
+        <view class="dot-2"></view>
+        <view class="dot-1"></view>
+      </view>
+
+      <view class="products-container">
+        <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{fineProducts}}" wx:key="index">
+          <view class="avatar-container">
+            <image class="top-badge" src="../../../images/special_area_top0{{ index + 1 }}.png"></image>
+            <image wx:if="{{index == 0}}" class="avatar" src="{{item.ad_image1}}"></image>
+            <image wx:else class="avatar" src="{{item.avatar}}"></image>
+          </view>
+          <view class="product-content">
+            <view class="info">
+              <text class="name">{{item.name}}</text>
+              <text class="description">{{item.description}}</text>
+            </view>
+
+            <view class="price-container">
+              <text class="origin-price">￥{{price.tos(item.price)}}</text>
+              <text class="price">{{price.int(item.vip_price)}}.<text class="sub">{{price.decimal(item.vip_price)}}</text></text>
+            </view>
+            
+            <text class="buy-btn buy-btn-01" wx:if="{{index == 0}}" catchtap="addCartAndAnimation" data-item="{{item}}">加入购物车</text>
+            <text class="buy-btn buy-btn-02" wx:else catchtap="addCartAndAnimation" data-item="{{item}}">+</text>
+
+            <!-- <image class="background-icon-001" src="/images/store_show_icon_001.png"></image> -->
+            <!-- <image class="background-icon-002" src="/images/store_show_icon_002.png"></image> -->
+            <!-- <view catchtap="addCartAndAnimation" data-item="{{item}}" class="click-area" ></view> -->
+            <!-- <text catchtap="gotoProduct" data-item="{{item}}" class="buy-now-6" wx:if="{{index == 5}}">立即购买</text> -->
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="store-products" wx:if="{{products.length > 0}}">
+      <view class="section-label">
+        <view class="dot-1"></view>
+        <view class="dot-2"></view>
+        <text>优选商品</text>
+        <view class="dot-2"></view>
+        <view class="dot-1"></view>
+      </view>
+
+      <view class="products-container">
+        <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{products}}" wx:key="index">
+          <view class="avatar-container">
+            <image class="avatar" src="{{item.avatar}}"></image>
+          </view>
+
+          <view class="info">
+            <text class="name">{{item.name}}</text>
+            <text class="description">{{item.description}}</text>
+            <view class="badges">
+              <text class="badge-item" wx:for="{{item.badges}}" wx:for-item="badge" wx:key="index">{{badge}}</text>
+            </view>
+          </view>
+
+          <view catchtap="gotoProduct" data-item="{{item}}" class="bottom-group">
+            <image class="store-icon-003" src="/images/store_show_icon_003.png"></image>
+            <view class="price-container">
+              <text class="price">{{price.int(item.vip_price)}}.</text>
+              <text class="price-float">{{price.decimal(item.vip_price)}}</text>
+            </view>
+            <text class="buy-btn">立即购买</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style="width: 750rpx; height: 100rpx; background: #f7f7f7;"></view>
+  </view>
+</scroll-view>
+
+<image src="/images/loading_002.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 90rpx;"></image>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<view catchtap="gotoCart" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view>
+
+<view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view>

@@ -1,0 +1,97 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/account/phone/validate",
+    "pages/orders/show/index",
+    "pages/orders/expresses/show",
+    "products/pages/yiyuangou/index",
+    "web/pages/haoxiuyang/store/index",
+    "agreement/pages/yiyuangou/index",
+    "orders/pages/service/index",
+    "try_product/pages/products/index/index",
+    "agreement/pages/try_product/index",
+    "try_product/pages/orders/show/index",
+    "try_product/pages/orders/index/index",
+    "try_product/pages/orders/confirm/index",
+    "try_product/pages/products/show/index",
+    "pages/orders/index/index",
+    "agreement/pages/sale_service/index",
+    "agreement/pages/yinsizhengce/index",
+    "agreement/pages/price/index",
+    "pages/orders/cart/index",
+    "pages/account/index/index",
+    "pages/special_areas/show01/index",
+    "pages/card_home/index",
+    "pages/coupons/dashboard/index",
+    "pages/products/show/index",
+    "pages/special_areas/show/index",
+    "pages/addresses/index/index",
+    "products/pages/search/index",
+    "pages/addresses/edit/index",
+    "pages/orders/confirm/index",
+    "pages/products/index/index",
+    "pages/products/buy/index",
+    "pages/coupons/protocol/index",
+    "pages/activity_rule/index",
+    "pages/coupons/list/index",
+    "pages/contact/index",
+    "pages/login/index",
+    "products/pages/index/index",
+    "products/pages/index2/index",
+    "products/pages/index3/index",
+    "products/pages/index4/index",
+    "products/pages/today/index",
+    "agreement/pages/sale_service/show"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "networkTimeout": {
+    "request": 30000
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#333333",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "商城",
+        "iconPath": "/images/home.png",
+        "selectedIconPath": "/images/home_active.png"
+      },
+      {
+        "pagePath": "pages/orders/index/index",
+        "text": "订单",
+        "iconPath": "/images/order.png",
+        "selectedIconPath": "/images/order_active.png"
+      },
+      {
+        "pagePath": "pages/orders/cart/index",
+        "text": "购物车",
+        "iconPath": "/images/cart_icon.png",
+        "selectedIconPath": "/images/cart_icon_active.png"
+      },
+      {
+        "pagePath": "pages/account/index/index",
+        "text": "我的",
+        "iconPath": "/images/user.png",
+        "selectedIconPath": "/images/user_active.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "msgToast": "./pages/components/message/index",
+    "navbar": "./pages/components/navbar/index"
+  },
+  "useExtendedLib": {
+    "weui": true
+  }
+}

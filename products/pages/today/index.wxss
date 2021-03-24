@@ -1,0 +1,146 @@
+/* products/pages/today/index.wxss */
+page {
+  background: #f7f7f7;
+}
+
+.page-container {
+  padding-bottom: 100rpx;
+}
+
+.product-item {
+  background: #ffffff;
+  width: 702rpx;
+  margin: auto;
+  margin-top: 16rpx;
+  display: flex;
+  position: relative;
+  padding: 8rpx 24rpx;
+  box-sizing: border-box;
+  border-radius: 8rpx;
+}
+
+.product-item .avatar-container {
+  background: #ffffff;
+  position: relative;
+  z-index: 4;
+  margin-right: 20rpx;
+}
+
+.product-item .avatar {
+  width: 224rpx;
+  height: 224rpx;
+  display: flex;
+}
+
+.product-item .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-item .name {
+  font-size: 28rpx;
+  line-height: 36rpx;
+  margin-top: 18rpx;
+  font-weight: 600;
+  color: #666666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  box-sizing: border-box;
+}
+
+.product-item .description {
+  font-size: 24rpx;
+  color: #D3B17D;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  box-sizing: border-box;
+}
+
+.product-item .price-and-action {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  bottom: 24rpx;
+  width: 702rpx;
+  height: 72rpx;
+  background: #FFF6E6;
+  padding-left: 270rpx;
+  box-sizing: border-box;
+}
+
+.product-item .price-container {
+  display: flex;
+  flex-direction: column;
+  height: 72rpx;
+  /* justify-content: space-between; */
+  width: 280rpx;
+  box-sizing: border-box;
+  /* padding: 12rpx 0; */
+}
+
+.product-item .origin-price {
+  font-size: 18rpx;
+  color: #D3B17D;
+  text-decoration: line-through;
+  position: relative;
+  top: 7rpx;
+}
+
+.product-item .price {
+  font-size: 40rpx;
+  color: #E76156;
+  line-height: 44rpx;
+  font-weight: 500;
+  position: relative;
+  bottom: 3rpx;
+}
+
+.product-item .price .float {
+  font-size: 20rpx;
+}
+
+.product-item .price::before {
+  content: '活动价: ';
+  font-size: 24rpx;
+  color: #8E662F;
+  position: relative;
+  bottom: 2rpx;
+}
+
+.product-item .btn-group {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.product-item .buy-btn {
+  height: 72rpx;
+  line-height: 72rpx;
+  widows: 160rpx;
+  font-size: 30rpx;
+  color: #ffffff;
+  position: relative;
+  z-index: 7;
+  display: inline-block;
+  /* margin-right: 20rpx; */
+  margin-right: 8rpx;
+}
+
+.product-item .btn-background{
+  height: 88rpx;
+  width: 192rpx;
+  position: absolute;
+  right: -10rpx;
+  top: -3rpx;
+  z-index: 6;
+}

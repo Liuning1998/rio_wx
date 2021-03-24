@@ -1,0 +1,109 @@
+<!--pages/activity_rule/index.wxml-->
+<navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="活动规则"/>
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<image mode="widthFix" class="banner" src="{{banner.images[0]}}"></image>
+<view class="rule-container">
+  <view class="rule-item-container">
+    <view class="item-content">
+      <view class="label-content">
+        <image src="/images/activity_rule_01.png"></image>
+        <text>如何参与活动</text>
+      </view>
+
+      <view class="icon-01 top-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 top-right"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-right"><image src="/images/activity_rule_02.png"></image></view>
+      
+      <view class="info-container info-01">
+        <image src="/images/activity_rule_03.png"></image>
+        <view class="info-content">
+          <text>付款方式选择</text>
+          <text>“北京农商银行卡支付”</text>
+        </view>
+      </view>
+    </view>
+
+    <image mode="widthFix" class="bottom-image" src="/images/activity_rule_04.png"></image>
+  </view>
+
+  <view class="rule-item-container">
+    <view class="item-content">
+      <view class="label-content">
+        <image src="/images/activity_rule_01.png"></image>
+        <text>活动说明</text>
+      </view>
+
+      <view class="icon-01 top-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 top-right"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-right"><image src="/images/activity_rule_02.png"></image></view>
+      
+      <view class="info-container">
+        <text>1. 活动时间： 2020年11月1日至2020年12月16日中午12:00。</text>
+        <text>2. 参与方式：金色家园·幸福生活 小程序。</text>
+        <text>3. 活动对象：北京农商银行借记卡、信用卡、养老助残卡持卡人。</text>
+        <text>4. 活动内容：北京农商银行持卡人在 金色家园·幸福生活 小程序购买电子卡、券商品，使用微信支付，选择北京农商银行借记卡、信用卡、养老助残卡付款，即可参与全场9折起优惠活动。活动名额有限，先到先得。每周三上午10点更新京东E卡电子卡库存。每周四上午10点更新滴滴快车电子卡库存。每周五上午10点更新多点电子券库存。</text>
+      </view>
+    </view>
+
+    <image mode="widthFix" class="bottom-image" src="/images/activity_rule_04.png"></image>
+  </view>
+
+  <view class="rule-item-container">
+    <view class="item-content">
+      <view class="label-content">
+        <image src="/images/activity_rule_01.png"></image>
+        <text>活动须知</text>
+      </view>
+
+      <view class="icon-01 top-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 top-right"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-right"><image src="/images/activity_rule_02.png"></image></view>
+      
+      <view class="info-container">
+        <text>1. 同一用户指同一微信账号、同一手机号、同一银行卡号、同一身份证号。</text>
+        <text>2. 养老助残卡参与活动需要开通金融功能，未开通用户请到北京农商银行网点或登录手机银行开通金融功能，并绑定微信支付，养老助残卡在微信支付显示为“北京农商行储蓄卡”。</text>
+        <text>3. 活动期间，同一用户最多购买10张卡券。</text>
+      </view>
+    </view>
+
+    <image mode="widthFix" class="bottom-image" src="/images/activity_rule_04.png"></image>
+  </view>
+
+  <view class="rule-item-container">
+    <view class="item-content">
+      <view class="label-content">
+        <image src="/images/activity_rule_01.png"></image>
+        <text>活动规则</text>
+      </view>
+
+      <view class="icon-01 top-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 top-right"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-left"><image src="/images/activity_rule_02.png"></image></view>
+      <view class="icon-01 bottom-right"><image src="/images/activity_rule_02.png"></image></view>
+      
+      <view class="info-container">
+        <text>1. 活动时间： 2020年11月1日至2020年12月16日中午12:00，名额有限，先到先得。</text>
+        <text>2. 本次活动仅限北京农商银行借记卡、信用卡、养老助残卡持卡人参加。</text>
+        <text>3. 活动期间，同一用户最多购买10张卡券；（全部卡券累计不超过10张）。同一用户指同一微信账号、同一手机号、同一银行卡号、同一身份证号，满足以上任一条件视为同一用户。</text>
+        <text>4. 卡券查看方式：金色家园小程序-我的-卡券包，不同品牌卡券的使用规则按其官方发布或说明为准。</text>
+        <text>5. 本活动优惠商品均为虚拟商品，下单后不支持退换。</text>
+        <text>6. 用户选择下单参与活动既视为理解并同意本活动规则。</text>
+        <text>7. 在法律允许范围内，北京农商银行和金色家园小程序有保留随时变更活动规则的权利，变更后的规则自公告发布之日生效。</text>
+        <text>8. 如有刷单、虚假交易等违规行为，将取消一切奖励并追究责任。</text>
+        <text>9. 如出现不可抗力或情势变更的情况（包括但不限于重大灾害事件、活动受政府机关指令需要停止举办或调整的、活动遭受严重网络攻击或因系统故障需要暂停举办的），北京农商银行有权暂停或取消本次活动，并可以根据相关法律法规的规定主张免责。</text>
+        <text>10. 如有问题请咨询客服：96198。</text>
+      </view>
+    </view>
+
+    <image mode="widthFix" class="bottom-image" src="/images/activity_rule_04.png"></image>
+  </view>
+</view>
+
+<view class="bottom-btn-group">
+  <image src="/images/activity_rule_05.png"></image>
+  <text bindtap="goBack" class="btn">确定</text>
+</view>

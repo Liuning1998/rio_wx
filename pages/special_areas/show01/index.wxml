@@ -1,0 +1,124 @@
+<!--pages/store/home/index.wxml-->
+<!-- 专区首页，不带分类 -->
+
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<wxs module="product" src="../../../utils/product.wxs"></wxs>
+
+<!-- <navbar navbarStyle="dark" appendStyle="background: {{navbarBackgroundcolor}};" title="{{pageTitle}}" /> -->
+
+<view style="background: {{navbarBackgroundcolor}};" class="navbar-container">
+  <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
+  <view class='navbar-content'>
+    <view bindtap='goback' class='return-image-container'>
+      <image class='return-image' src='../../../images/arrow_o_white_01.png'></image>
+    </view>
+    <text style="{{textStyle}}" class='navbar-title'>{{ pageTitle }}</text>
+  </view>
+</view>
+
+<!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
+
+<view class="search-container {{ searchStatus == 1 && 'hidden' }}" style="position: fixed; left: 0; top: {{pageMarginTop+44}}px; z-index: 991;">
+  <view bindtap="showSearchInput" class="search-input {{searchInputStatus && 'active'}}">
+    <!-- <input></input> -->
+    <image class="search-icon" src="../../../images/search_icon_002.png"></image>
+    <input bindconfirm="searchProducts" bindinput="inputChange" focus="{{focus}}" placeholder-style="color: rgba(255, 255, 255, 0.6); font-size: 28rpx;" placeholder="输入商品名称" confirm-type="search" data-name='searchText' value='{{ searchText }}'></input>
+    <text class="remark">搜索商品</text>
+    <view catchtap="clearSearchText" class="close">
+      <image class="close-icon" src="../../../images/close_white.png"></image>
+    </view>
+  </view>
+  <text bindtap="hideSearchInput" wx:if="{{searchInputStatus}}" class="cancel">取消</text>
+</view>
+  
+<scroll-view bindtouchstart='changeNavbar' scroll-y class='page-container'>
+  <view class="ads-background" style="padding-top: {{pageMarginTop+44}}px;">
+    <view class="background-image">
+      <image src="{{ads[0].images[0]}}"></image>
+    </view>
+  </view>
+
+  <view class="ads-container" style="padding-top: {{pageMarginTop+44}}px;">
+    <view class="ads-content">
+      <view class="search-container {{ searchStatus == 2 && 'hidden' }}">
+        <view bindtap="showSearchInput" class="search-input {{searchInputStatus && 'active'}}">
+          <!-- <input></input> -->
+          <image class="search-icon" src="../../../images/search_icon_002.png"></image>
+          <input bindconfirm="searchProducts" bindinput="inputChange" focus="{{focus}}" placeholder-style="color: rgba(255, 255, 255, 0.6); font-size: 28rpx;" placeholder="输入商品名称" confirm-type="search" data-name='searchText' value='{{ searchText }}'></input>
+          <text class="remark">搜索商品</text>
+          <view catchtap="clearSearchText" class="close">
+            <image class="close-icon" src="../../../images/close_white.png"></image>
+          </view>
+        </view>
+        <text bindtap="hideSearchInput" wx:if="{{searchInputStatus}}" class="cancel">取消</text>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="products-container">
+    <view class="section-title-container">
+      <image class="background" src="/images/store/section_background_001.png"></image>
+      <view class="section-content">
+        <image class="icon" src="/images/store/section_icon_001.png"></image>
+        <text>全部商品</text>
+      </view>
+    </view>
+    <view class="store-info" wx:if="{{mark == 'haoxiuyang'}}">
+        <view class="info-group">
+          <text bindtap="callPhone" data-item="18600934321" class="info-label">拨打预约电话</text>
+          <!-- <text class="phone" bindtap="callPhone" data-item="18600934321">18600934321</text> -->
+        </view>
+        <view class="info-group">
+          <text bindtap="gotoLink" data-url="/web/pages/haoxiuyang/store/index" class="info-label">查看门店信息</text>
+          <!-- <text class="btn" bindtap="gotoLink" data-url="/web/pages/haoxiuyang/store/index">点击查看</text> -->
+        </view>
+      </view>
+    <view class="products-list">
+      
+      <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{products}}" wx:key="index">
+        <view class="avatar-container">
+          <image src="{{item.avatar}}"></image>
+        </view>
+        <view class="product-info">
+          <view class="name_and_desc">
+            <text class="name">{{item.name}}</text>
+            <text class="desc">{{item.description}}</text>
+          </view>
+
+          <view class="price-container">
+            <text class="origin-price"  wx:if="{{item.price != null && item.price != ''}}">￥{{item.price}}</text>
+            <text class="price">{{item.vip_price}}</text>
+          </view>
+
+        </view>
+
+        <view bindtap="addCart" data-item="{{item}}" class="cart-icon">
+          <view wx:if="{{!product.canAddCart(item)}}" class="go-product">
+            <text>GO</text>
+            <image src="/images/store/go_arrow_002.png"></image>
+          </view>
+          <image wx:else src="/images/cart_icon_001.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<image src="/images/loading_002.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 90rpx;"></image>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<view catchtap="gotoCart" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view>
+
+<view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view>

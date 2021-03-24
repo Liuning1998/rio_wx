@@ -1,0 +1,79 @@
+<!--pages/address/edit/index.wxml-->
+<navbar title="{{title}}"/>
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class='container'>
+  <!-- <form bindsubmit="formSubmit"> -->
+    <view class='field-container'>
+      <view class='input-group'>
+        <view class='label text'>联系人</view>
+        <input bindinput='inputChange' data-name='real_name' placeholder='请输入联系人' placeholder-class='input-placeholder' class='real_name field' name='real_name' value='{{ address.real_name }}'></input>
+      </view>
+      
+      <view class='input-group'>
+        <view class='label text'>手机号码</view>
+        <input bindinput='inputChange' data-name='phone' type='number' placeholder='请输入手机号' placeholder-class='input-placeholder' maxlength='11' class='phone field' name='phone' value='{{ address.phone }}'></input>
+      </view>
+
+      <view class='input-group'>
+        <view class='label text'>选择地区</view>
+        <view class="{{ 'input text ' + (cityString == '' && 'placeholder') }}" bindtap='selectCity'>
+          {{ cityString == '' ? '请选择地区' : cityString }}
+        </view>
+      </view>
+
+      <view class='input-group'>
+        <view class='label text'>详细地址</view>
+        <input bindinput='inputChange' data-name='address_info' placeholder='请输入详细地址' placeholder-class='input-placeholder' class='address-info field' name='address_info' value='{{ address.address_info }}'></input>
+        <!-- <view class="textarea-container">
+          <textarea placeholder-class="textarea-placeholder" bindlinechange="changeTextareaLine" style="height: {{(textareaLine*40 + 40)}}rpx;" bindinput='inputChange' data-name='address_info' placeholder='请输入详细地址' class='field address_info' name='address_info' focus="{{true}}" value='{{ address.address_info }}'></textarea>
+        </view> -->
+      </view>
+    </view>
+
+    <view class='set-default'>
+      <view style="width: 100%; display: flex; justify-content: space-between;">
+        <text>设置默认地址</text>
+        <switch checked='{{ default_address }}' color="#D3B17D" bindchange="switchDefaultAddress"/>
+      </view>
+    </view>
+
+    <view wx:if="{{ !newObject && referrer != 'confirm_order' }}" class='delete-container'>
+      <view style="width: 100%; display: flex; justify-content: space-between;">
+      <text bindtap='deleteAddress' data-address='{{ address }}' style="font-size: 28rpx; color: #967039;">删除收货地址</text>
+      </view>
+    </view>
+
+    <view class='submit-container'><button bindtap='formSubmit' id='submitForm' class='btn btn-radius btn-xl btn-inverse submit-form {{ !ableSubmit && "disabled" }}'>
+      保存
+    </button></view>
+  <!-- </form> -->
+
+  
+</view>
+
+<view wx:if="{{ pickerShow }}" class='city-selector-container' bindtap='cancelSelectCity'>
+  <view class='city-selector' catchtap='true'>
+    <view class='action-group'>
+      <view class='item text' catchtap='cancelSelectCity'>取消</view>
+      <view class='item text text-purple' catchtap='okSelectCity'>确定</view>
+    </view>
+
+    <picker-view indicator-class="indicator" style="width: 100%; height: 250rpx;" value="{{pickerDisplayValue}}" bindchange="bindChange">
+      <picker-view-column>
+        <view wx:for="{{ provinces }}" wx:key="index" style="line-height: 64rpx;">{{item.name}}</view>
+      </picker-view-column>
+
+      <picker-view-column>
+        <view wx:for="{{ cities }}" wx:key="index" style="line-height: 64rpx;">{{item.name}}</view>
+      </picker-view-column>
+
+      <picker-view-column>
+        <view wx:for="{{ countys }}" wx:key="index" style="line-height: 64rpx;">{{item.name}}</view>
+      </picker-view-column>
+      
+    </picker-view>
+  </view>
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

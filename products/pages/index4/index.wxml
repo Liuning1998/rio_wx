@@ -1,0 +1,80 @@
+<!--products/pages/index/index.wxml-->
+<!-- 排行榜页面、热门精选 -->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<wxs module="product" src="../../../utils/product.wxs"></wxs>
+
+<!-- <navbar navbarStyle="dark" appendStyle="background: rgba(0,0,0,0);" textStyle="color: rgba(0,0,0,0)" title="{{tagName}}" /> -->
+<!-- <view style='margin-top: {{pageMarginTop+44}}px;'></view> -->
+
+<view class="navbar" style="top: 0;">
+  <!-- <image class="background-image" src="{{brand.banners[0]}}"></image> -->
+  <view wx:if="{{!scollStatus}}" class="navbar-content" style="height: {{pageMarginTop+44}}px;">
+    <view bindtap="goback" class="return-image-container">
+      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/arrow_o_black.png"></image>
+      <image wx:else class="return-image" src="/images/arrow_o_white_01.png"></image>
+    </view>
+  </view>
+
+  <view wx:else class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
+    <view bindtap="goback" class="return-image-container">
+      <image class="return-image" src="/images/arrow_o_black.png"></image>
+    </view>
+    <text class="title">{{pageTitle}}</text>
+  </view>
+</view>
+
+<scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
+  <image class="ad-image" src="{{ads[0].images[0]}}"></image>
+  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
+    <image src="../../images/products_empty_icon_001.png"></image>
+    <text>商品上架中，敬请期待</text>
+  </view>
+  <view wx:else class="products-container">
+    <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatar}}"></image>
+        <image wx:if="{{sortBadge && index <= 2}}" class="sort-badge" src="/images/sort_0{{index+1}}.png"></image>
+      </view>
+
+      <view class="item-content">
+        <view class="info">
+          <text class="name">{{item.name}}</text>
+          <text class="description">{{item.description}}</text>
+        </view>
+
+        <view wx:if="{{product.isYiyuangou(item)}}" class="stock-container">
+          <text class="stock">剩余: {{item.stock}}</text>
+        </view>
+        <view class="price-and-cart">
+          <view class="price-container">
+            <text class="price">{{price.tos(item.vip_price)}}</text>
+            <text class="origin-price">原价<text>{{price.tos(item.price)}}</text></text>
+          </view>
+          <view catchtap="addCartAndAnimation" data-item="{{item}}" class="cart-container">
+            <view wx:if="{{!product.canAddCart(item)}}" class="go-product">
+              <text>GO</text>
+              <image src="/images/store/go_arrow_002.png"></image>
+            </view>
+            <image wx:else src="/images/cart_icon_001.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<view catchtap="gotoCart" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view>
+
+<view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view>

@@ -1,0 +1,48 @@
+<!--products/pages/today/index.wxml-->
+<navbar appendStyle="background: #ffffff;" title="{{pageTitle}}" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<wxs module="product" src="../../../utils/product.wxs"></wxs>
+
+<scroll-view scroll-y class='page-container'>
+  <view class="products-container">
+    <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatar}}"></image>
+      </view>
+
+      <view class="info">
+        <text class="name">{{item.name}}</text>
+        <text class="description">{{item.description}}</text>
+      </view>
+
+      <view class="price-and-action">
+        <view class="price-container">
+          <text class="origin-price">原价: {{item.price}}</text>
+          <text class="price">{{price.int(item.vip_price)}}<text class="float">.{{price.decimal(item.vip_price)}}</text></text>
+        </view>
+        <view catchtap="addCartAndAnimation" data-item="{{item}}" class="btn-group">
+          <image class="btn-background" src="../../images/today_icon_001.png"></image>
+          <text wx:if="{{!product.canAddCart(item)}}" class="buy-btn" style="margin-right: 20rpx;">立即购买</text>
+          <text wx:else class="buy-btn">加入购物车</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<view catchtap="gotoCart" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view>
+
+<view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view>

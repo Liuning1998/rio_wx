@@ -1,0 +1,17 @@
+<!--agreement/pages/yinsizhengce/index.wxml-->
+<navbar return-able="{{true}}" title="一元购活动规则"/>
+<view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class="main-container">
+  <text class="h1">一元购活动规则</text>
+  <text class="">1．1元购活动是北京农商银行答谢客户的专属活动，需要凭换购码参加，活动期间在北京农商银行体验指定交易的受邀客户，可获得专享商品一元购买的资格，指定交易完成后由北京农商银行向客户在北京农商银行预留手机号发送“换购码”短信。客户凭借“换购码”在达标客户专享一元购专区，且须使用北京农商银行借记卡或信用卡支付，可完成一元换购。</text>
+  <text class="">2．参加1元购活动购买商品时，需要在订单结算页输入换购码，每个换购码只能购买一个商品。</text>
+  <text class="">3．参加1元购活动购买商品时，必须使用北京农商银行卡支付1元（包含借记卡、信用卡），使用零钱或其他银行卡需按原价支付。</text>
+  <text class="">4．1元购活动有效期2020年11月1日-2021年3月31日，活动结束则换购码失效，请您在有效期内合理使用。</text>
+  <text class="">5．参与1元购活动购买的商品，按照国家三包法正常退换货，如发生退货，客户支付的1元按原路退回，换购码自动失效，不可以再参与活动。</text>
+  <text class="">6．本活动其他问题请咨询北京农商银行客服96198。</text>
+
+  <view class="btn-container">
+    <text class="return-btn" bindtap="goback">确 定</text>
+  </view>
+</view>

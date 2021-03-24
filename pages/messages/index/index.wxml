@@ -1,0 +1,22 @@
+<!--pages/messages/index/index.wxml-->
+<navbar title="消息" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view class="msg-list">
+      <view wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index" class="msg-item-container">
+        <image class="icon" src="../../../images/msg.png"></image>
+        <view class="msg-item-content">
+          <view class="label">
+            <text>订单消息</text>
+            <text class="time">12:00</text>
+          </view>
+          <text class="info">您的订单198018390190已经发货，请注意查收请注意查收请注意查收请注意查收</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</scroll-view>
+

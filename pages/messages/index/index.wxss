@@ -1,0 +1,70 @@
+/* pages/messages/index/index.wxss */
+page {
+  background: #f7f7f7;
+}
+
+.page-container {
+  height: 100%;
+  /* flex: 1; */
+  overflow-y: scroll;
+}
+
+.page-content {
+  padding-bottom: 140rpx;
+}
+
+.page-content.iphone-x {
+  padding-bottom: 260rpx;
+}
+
+.msg-list {
+  background: #ffffff;
+}
+
+.msg-item-container {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  margin-top: 6rpx;
+  border-bottom: 1rpx solid #f7f7f7;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.msg-item-container .msg-item-content {
+  width: 100%;
+}
+
+.msg-item-container .label {
+  font-size: 32rpx;
+  color: #333333;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 8rpx;
+}
+
+.msg-item-container .time {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.msg-item-container .info {
+  font-size: 24rpx;
+  color: #888888;
+  /* width: 580rpx; */
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.msg-item-container .icon {
+  height: 64rpx;
+  width: 64rpx;
+  margin-right: 30rpx;
+  flex-shrink: 0;
+}

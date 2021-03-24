@@ -1,0 +1,358 @@
+/* pages/coupons/list/index.wxss */
+
+page {
+  background: #f7f7f7;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.item-container {
+  position: relative;
+}
+
+.coupons-container {
+  padding-bottom: 100rpx;
+}
+
+.coupon-container {
+  position: relative;
+  width: 630rpx;
+  margin: auto;
+  margin-top: 30rpx;
+  border-radius: 8rpx;
+  background: linear-gradient(to right bottom, #D0B37C, #BA8D53);
+  padding: 10rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 995;
+}
+
+.coupon-container .left-top-icon {
+  position: absolute;
+  z-index: 992;
+  left: -38rpx;
+  top: -38rpx;
+  height: 76rpx;
+  width: 76rpx;
+  background: linear-gradient(to right, rgb(207, 177, 122), rgb(205, 174, 119));
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  /* box-sizing: border-box; */
+  /* border-bottom: 26rpx solid transparent;
+  border-right: 26rpx solid transparent; */
+}
+
+.coupon-container .left-top-text {
+  font-size: 20rpx;
+  color: #ffffff;
+  z-index: 993;
+  position: absolute;
+  left: 0rpx;
+  top: 0rpx;
+}
+
+.coupon-container .coupon-content {
+  background: linear-gradient(to right bottom, #FFF5E7, #FEEFD1);
+  /* border-radius: 8rpx; */
+  position: relative;
+  z-index: 991;
+  box-sizing: border-box;
+}
+
+.copied {
+  position: absolute;
+  right: 10rpx;
+  top: 0;
+  width: 128rpx;
+  height: 88rpx;
+}
+
+.coupon-container .coupon-content .dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+}
+
+.coupon-container .coupon-content .dot.left {
+  bottom: -10rpx;
+  left: -10rpx;
+  background: linear-gradient(to right bottom, rgb(203, 170, 115), rgb(202, 168, 113));
+  position: absolute;
+}
+
+.coupon-container .dot.right {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  top: 76rpx;
+  right: 0rpx;
+  background: #BA8D53;
+  position: absolute;
+  z-index: 997;
+}
+
+.coupon-container .coupon-content .main-content {
+  min-height: 78rpx;
+  width: 100%;
+  position: relative;
+  border-bottom: 1rpx dashed #FDE4B9;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rpx;
+}
+
+.coupon-container .coupon-content .main-content .coupon-image {
+  width: 100%;
+  padding: 20rpx 0 12rpx 0;
+  display: flex;
+  justify-content: center;
+}
+
+.coupon-container .coupon-content .main-content .coupon-image image {
+  width: 396rpx;
+  height: 246rpx;
+}
+
+.coupon-container .coupon-content .main-content .amount-description {
+  font-size: 36rpx;
+  color: #C0780A;
+  margin-left: 40rpx;
+  display: flex;
+  align-items: center;
+}
+
+.coupon-container .coupon-content .main-content .amount-description image {
+  height: 30rpx;
+  width: 30rpx;
+  margin-right: 10rpx;
+}
+
+.coupon-container .coupon-content .main-content .expire {
+  font-size: 36rpx;
+  color: #BA8D53;
+}
+
+.coupon-container .coupon-content .sub-content {
+  min-height: 78rpx;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.coupons-container .coupon-content .time-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.coupons-container .coupon-content .time-container .time {
+  font-size: 24rpx;
+  color: #BA8D53;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  text-align: justify;
+  padding: 8rpx 20rpx;
+}
+
+.coupon-container .coupon-content .sub-content .amount-limit {
+  font-size: 24rpx;
+  color: #BA8D53;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  text-align: justify;
+}
+
+.coupon-container .coupon-content .sub-content .btn {
+  width: 170rpx;
+  height: 46rpx;
+  /* box-sizing: border-box; */
+  line-height: 46rpx;
+  border-radius: 25rpx;
+  border: 1px solid #C0780A;
+  text-align: center;
+  font-size: 28rpx;
+  color: #C0780A;
+  flex-shrink: 0;
+}
+
+/* 空白 */
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 200rpx;
+}
+
+.empty-container image {
+  width: 184rpx;
+  height: 190rpx;
+}
+
+.empty-container .title {
+  font-size: 36rpx;
+  color: #999999;
+  margin-top: 30rpx;
+}
+
+.empty-container .sub-title {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.empty-container .btn {
+  width: 212rpx;
+  height: 48rpx;
+  line-height: 46rpx;
+  border: 1px solid #999999;
+  border-radius: 24rpx;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 28rpx;
+  color: #999999;
+  margin-top: 20rpx;
+}
+/* 空白 */
+
+/* 复制信息 */
+.copy-layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.copy-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.copy-content {
+  width: 530rpx;
+  height: 432rpx;
+  position: relative;
+}
+
+.copy-container image.copy-background {
+  width: 530rpx;
+  height: 432rpx;
+  position: absolute;
+  z-index: 1003;
+  left: 0;
+  top: 0;
+}
+
+.copy-layer .main-content {
+  position: absolute;
+  height: 180rpx;
+  width: 390rpx;
+  z-index: 1005;
+  left: 78rpx;
+  top: 237rpx;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.copy-layer .close {
+  height: 60rpx;
+  width: 60rpx;
+  z-index: 1005;
+  position: relative;
+  left: 452rpx;
+  top: 26rpx;
+}
+
+.copy-layer .main-content .label {
+  font-size: 28rpx;
+  color: #666666;
+  width: 60rpx;
+  margin-right: 10rpx;
+}
+
+.copy-layer .info-text {
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.copy-layer .actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FFF0D5;
+  border-bottom-left-radius: 8rpx;
+  border-bottom-right-radius: 8rpx;
+  width: 484rpx;
+  margin-left: 30rpx;
+  padding: 40rpx 0;
+}
+
+.copy-layer .actions .btn {
+  width: 400rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 36rpx;
+  background: #BC9057;
+  color: #ffffff;
+  font-size: 36rpx;
+  text-align: center;
+}
+
+.copy-layer .actions .btn:active {
+  opacity: 0.85;
+}
+
+.copy-layer .actions .btn:nth-child(2) {
+  margin-top: 20rpx;
+}
+/* 复制信息 */
+
+.coupon-container .bg-action {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 990;
+  height: 100%;
+  box-sizing: border-box;
+  border: 10rpx solid rgba(0, 0, 0, 0);
+}
+
+.coupon-container .delete-line-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  color: #8E662F;
+  width: 122rpx;
+  justify-content: center;
+  height: 100%;
+  border-top-right-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  font-size: 20rpx;
+}
+
+.coupon-container .delete-line-item image {
+  height: 26rpx;
+  width: 30rpx;
+  margin-bottom: 8rpx;
+}
+
+.weui-slideview__btn-group_warn .weui-slideview__btn {
+  background-color: #ffffff;
+  color: #8E662F;
+  font-size: 20rpx;
+}

@@ -1,0 +1,96 @@
+<!--pages/orders/index/index.wxml-->
+<wxs module="helper" src="./helper.wxs"></wxs>
+
+<navbar returnAble="{{false}}" textStyle="font-weight: 600;" appendStyle="background: #ffffff;" title="我的订单" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class="tab-header" style='margin-top: {{pageMarginTop + 44}}px;'>
+  <view class="tab-item {{ active == 'all' && 'active' }}" bindtap="changeTab" data-state="all">
+    <text >全部</text>
+    <view class="border"></view>
+  </view>
+  <view class="tab-item {{ active == 'new' && 'active' }}" bindtap="changeTab" data-state="new">
+    <text  >待支付</text>
+    <view class="border"></view>
+  </view>
+  <view class="tab-item {{ active == 'completed' && 'active' }}" bindtap="changeTab" data-state="completed">
+    <text >已完成</text>
+    <view class="border"></view>
+  </view>
+
+  <view class="tab-item {{ active == 'saleService' && 'active' }}" bindtap="changeTab" data-state="saleService">
+    <text >售后订单</text>
+    <view class="border"></view>
+  </view>
+</view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view wx:if="{{emptyStatus || !authLoginStatus}}" class="order-empty">
+      <image src="/images/order_empty.png"></image>
+      <text class="title">这里空空如也</text>
+      <text class="goto-home" bindtap="gotoHome">去首页逛逛</text>
+    </view>
+    <view wx:else class="orders-container">
+      <block wx:for="{{ orders[active + 'Orders'] }}" wx:for-item="order" wx:key="index">
+        <view wx:if="{{ order != 'deleted' }}" class="order-item-container">
+          <view class="order-status {{ order.state }}">
+            <view class="name-container">
+              <image src="/images/order_product_name_icon.png"></image>
+              <text>{{order.store.name || ''}}</text>
+            </view>
+            <text>{{ order.state_t }}</text>
+            <!-- <image wx:else mode="heightFix" src="../../../images/order_completed.png"></image> -->
+          </view>
+
+          <view wx:if="{{order.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
+            <view  class="product-item">
+              <view style="display: flex;width: 600rpx; overflow-x: scroll;">
+                <image wx:if="{{ index < 2 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
+              </view>
+
+              <view style="display: flex; justify-content: flex-end; align-items: center;">
+                <view class="total-container">
+                  <text class="total">￥{{ order.payment_state == 'completed' ? order.pay_amount : helper.vip_total(order) }}</text>
+                  <text class="quantity">共{{order.product_total}}件</text>
+                </view>
+                <image class="go-detail" src="/images/arrow_o_black_01.png"></image>
+              </view>
+            </view>
+          </view>
+
+          <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
+            <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
+              <image class="avatar" src="{{ item.product.avatar }}"></image>
+
+              <text class="product-name">{{item.product.name}}</text>
+              <text class="price">￥{{ order.payment_state == 'completed' ? order.pay_amount : helper.vip_total(order) }}</text>
+
+              <image class="go-detail" src="/images/arrow_o_black_01.png"></image>
+            </view>
+          </view>
+
+          <!-- <view class="total-info">
+            <text>共 {{ order.product_total }} 件商品</text>
+            <text class="total">合计:<text class="price">￥{{ order.total }}</text>元</text>
+          </view> -->
+
+          <view wx:if="{{ order.state != 'new' }}" class="actions">
+            <view bindtap='deleteOrder' data-order='{{ order }}' class="btn delete-btn">删除订单</view>
+            <view bindtap='buyAgain' data-order='{{ order }}' class="btn buy-btn">再次购买</view>
+          </view>
+
+          <view wx:else class="actions">
+            <view bindtap='cancelOrder' data-order='{{ order }}' class="btn cancel-btn">取消订单</view>
+            <view bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" data-order='{{ order }}' class="btn pay-btn">立即付款</view>
+          </view>
+        </view>
+      </block>
+      
+    </view>
+  </view>
+</scroll-view>
+
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 110rpx;"></image>
+
+<msgToast msg-data="{{ _msgData }}"/>

@@ -1,0 +1,24 @@
+function empty (cart) {
+  if(cart == null) {return true}
+  if (cart.data == null || JSON.stringify(cart.data) == '{}') {return true}
+  return false
+}
+
+function canPlus(lineItem) {
+  if(lineItem.limit_number != null && lineItem.quantity >= lineItem.limit_number ) {
+    return false
+  }
+  if( lineItem.product_limit_number != null && lineItem.quantity >= lineItem.product_limit_number) {
+    return false
+  }
+
+  if( lineItem.stock != null && lineItem.quantity >= lineItem.stock) {
+    return false
+  }
+  return true
+}
+
+module.exports = {
+  empty: empty,
+  canPlus: canPlus
+}

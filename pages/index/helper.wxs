@@ -1,0 +1,78 @@
+var todayProductMap = {
+  huawei: {
+    background: "/images/store/huawei.png",
+    background01: "/images/store/huawei_01.png",
+    titleClass: "huawei",
+    cartBackground: "/images/store/huawei_cart_background.png"
+  },
+  fupin: {
+    background: "/images/store/fupin.png",
+    background01: "/images/store/fupin_01.png",
+    titleClass: "fupin",
+    cartBackground: "/images/store/fupin_background.png"
+  },
+  shounong: {
+    background: "/images/store/shounong.png",
+    background01: "/images/store/shounong_01.png",
+    titleClass: "shounong",
+    cartBackground: "/images/store/shounong_cart_background.png"
+  },
+  youxiangshenghuo: {
+    background: "/images/store/youxiangshenghuo.png",
+    background01: "/images/store/youxiangshenghuo_01.png",
+    titleClass: "youxiangshenghuo",
+    cartBackground: "/images/store/youxiangshenghuo_cart_background.png"
+  }
+}
+
+function todayProductExtend(product) {
+  if (product.special_area != null && product.special_area.mark == 'huawei') {
+    return todayProductMap.huawei
+  } else if (product.special_area != null && product.special_area.mark == 'shounong') {
+    return todayProductMap.shounong
+  } else if (product.special_area != null && product.special_area.mark == 'fuping') {
+    return todayProductMap.fuping
+  } else {
+    return todayProductMap.youxiangshenghuo
+  }
+}
+
+function todayProductBackground(product) {
+  var map = todayProductExtend(product)
+  // special_area.big_title
+  if(product.special_area == null ) {
+    return map.background01
+  }
+  var big_title = product.special_area.big_title
+  var small_title = product.special_area.small_title
+  if((big_title == null || big_title.length <= 0) && (small_title == null || small_title.length <= 0)) {
+    return map.background01
+  }
+  return map.background
+}
+
+function isFullTitle (product) {
+  if(product.special_area == null) {
+    return false
+  }
+  if (product.special_area.big_title == null || product.special_area.big_title.length <= 0) {
+    return false
+  }
+  if (product.special_area.small_title == null || product.special_area.small_title.length <= 0) {
+    return false
+  }
+
+  return true
+}
+
+function simpleTitle (product) {
+  if(product.special_area == null) { return '' }
+  return product.special_area.big_title || product.special_area.small_title
+}
+
+module.exports = {
+  todayProductExtend: todayProductExtend,
+  todayProductBackground: todayProductBackground,
+  isFullTitle: isFullTitle,
+  simpleTitle: simpleTitle
+}

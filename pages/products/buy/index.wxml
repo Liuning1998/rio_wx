@@ -1,0 +1,98 @@
+<!--pages/products/buy/index.wxml-->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+
+<navbar navbarStyle='dark' title="订单确认" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view class="page-background"></view>
+    <view class="main-container">
+      <view class="content-title"><text>商品信息</text></view>
+      <image class="split-image" src="/images/buy_page_split.png" mode="widthFix"></image>
+      <view class="products">
+        <view class="product-item">
+          <image class="avatar" src="{{product.avatar}}"></image>
+
+          <view class="product-info">
+            <view class='name-quantity'>
+              <text class="name">{{product.name}}</text>
+              <text class="quantity">X {{quantity}}</text>
+            </view>
+            <view class="variant-price">
+              <text wx:if="{{ currentVariant.show_name != '' }}" class="variant-desc">已选: {{currentVariant.show_name}}</text>  
+              <view wx:else></view>          
+              <text class="price">￥{{price.tos(currentVariant.vip_price)}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="split-container">
+        <image class="split-image" src="/images/buy_page_split.png" mode="widthFix"></image>
+      </view>
+
+      <view class="expenses">
+        <view class="product-expenses">
+          <text class="label">商品金额</text>
+          <text>￥{{price.tos(vip_total)}}</text>
+        </view>
+
+        <image class="split-image" src="/images/buy_page_split.png" mode="widthFix"></image>
+
+        <view class="amount">
+          <text class="label">合计:</text>
+          <text class="price">￥{{price.tos(vip_total)}}</text>
+        </view>
+      </view>
+
+      <view class="protocol">
+        <view bindtap="changeProtocol" class="checkbox {{ protocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
+        <view wx:if="{{protocolType == 'haoxiuyang'}}" style="flex: 1;">
+          <text bindtap="changeProtocol" class="btn">您已阅读并同意</text>
+          <text bindtap="gotoLink" data-url="/pages/coupons/protocol/index?protocol_type=haoxiuyang" class="protocol-item">《好修养电子券使用规则》</text>
+          <text>；{{"\n"}}查看 </text>
+          <text bindtap="gotoLink" data-url="/web/pages/haoxiuyang/store/index" class="protocol-item">好修养门店信息</text>
+        </view>
+        <view wx:else>
+          <text wx:if="{{ protocolType == 'duodiantongyong' }}" bindtap="changeProtocol" class="btn">多点通用型电子券每张额外收取<text class="bold">5元</text>虚拟便民权益服务费。</text>
+          <text bindtap="changeProtocol" class="btn">您已阅读并同意</text>
+          <text bindtap="gotoLink" data-url="/pages/activity_rule/index" class="protocol-item">《活动规则》</text>
+          <block wx:if="{{ protocolType == 'jd' }}">
+            <text>以及</text>
+            <text bindtap="gotoLink" data-url="/pages/coupons/protocol/index?protocol_type=jd" class="protocol-item">《京东E卡购卡章程》</text>
+          </block>
+
+          <block wx:if="{{ protocolType == 'didi' }}">
+            <text>以及</text>
+            <text bindtap="gotoLink" data-url="/pages/coupons/protocol/index?protocol_type=didi" class="protocol-item">《滴滴出行卡章程》</text>
+          </block>
+
+          <block wx:if="{{ protocolType == 'duodian' }}">
+            <text>以及</text>
+            <text bindtap="gotoLink" data-url="/pages/coupons/protocol/index?protocol_type=duodian" class="protocol-item">《多点电子券使用规则及须知》</text>
+          </block>
+
+          <block wx:if="{{ protocolType == 'duodiantongyong' }}">
+            <text>以及</text>
+            <text bindtap="gotoLink" data-url="/pages/coupons/protocol/index?protocol_type=duodiantongyong" class="protocol-item">《多点通用型电子券使用规则及须知》</text>
+          </block>
+        </view>
+      </view>
+
+      
+    </view>
+  </view>
+</scroll-view>
+
+
+
+<view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
+  <view class="time-remark">
+    <image src="/images/info_icon_01.png"></image>
+    <text>请在10分钟内完成支付</text>
+  </view>
+  <button class="btn btn-lg pay-btn {{ (!protocolStatus || submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

@@ -1,0 +1,35 @@
+<navbar title="联系我们"/>
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class='carousels'>
+  <!-- <view class='blank-bg'></view> -->
+  <!-- <view class='grey-bg'></view> -->
+  <swiper autoplay='true' indicator-dots="{{false}}" indicator-active-color='#f7f7f7' indicator-color='#ffffff' bindchange='changeSwiperCurrent' circular previous-margin='30rpx' next-margin='30rpx'>
+    <block wx:for="{{ adImages }}" wx:key="*index">
+      <swiper-item class='{{ swiperCurrent == index ? "active" : "" }}'>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class='weixin'>
+  <text class='item text-xl'>咨询客服</text>
+  <text class='item text-muted'>周一至周五：10：00~18：00</text>
+  <text class='item text-xs text-muted'>（非工作时间联系客服，将于下一工作日反馈您）</text>
+  <view class='item'>
+    <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover'>
+      客服
+    </button>
+  </view>
+</view>
+
+<!-- <view class='email'>
+  <text class='item text-xl'>联系我们</text>
+  <view class='email-group'>
+    <text decode class='item text-muted' >{{ email }}&nbsp;&nbsp;</text>
+    <view bindtap='copyEmail' class='btn btn-xxs btn-radius {{ nomal && "btn-radius-border" }}'>复制</view>
+  </view>
+</view> -->
+
+<msgToast msg-data="{{ _msgData }}"/>

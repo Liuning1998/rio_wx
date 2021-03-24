@@ -1,0 +1,32 @@
+function virtualCard (product) {
+  if (product.tags == null || product.tags.length <= 0) { return false }
+  if (product.tags.indexOf('虚拟卡券') >= 0) {
+    return true
+  } else {
+    return false
+  }
+}
+
+function canAddCart (product) {
+  if (product.tags == null || product.tags.length <= 0) { return true }
+  if (product.tags.indexOf('虚拟卡券') >= 0 || product.tags.indexOf('一元购') >= 0) {
+    return false
+  } else {
+    return true
+  }
+}
+
+function isYiyuangou (product) {
+  if (product.tags == null || product.tags.length <= 0) { return false }
+  if (product.tags.indexOf('一元购') >= 0) {
+    return true
+  } else {
+    return false
+  }
+}
+
+module.exports = {
+  virtualCard: virtualCard,
+  canAddCart: canAddCart,
+  isYiyuangou: isYiyuangou
+}

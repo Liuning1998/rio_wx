@@ -1,0 +1,72 @@
+<!--pages/address/index/index.wxml-->
+<scroll-view scroll-y='{{ canScroll }}' style="height:{{scrollHeight}}px">
+  <navbar title="地址管理" />
+  <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+  <view wx:if="{{ !loaded }}" class='loading-content'>
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  </view>
+
+  <view wx:else class='container {{ isIphoneX && "iphone-x" }}'>
+    <view wx:if='{{ addresses.length < 1 && loaded }}' class='empty-list'>
+      <image src='/images/empty_icon_001.png'></image>
+      <!-- <view class="add-address">新增收货地址+</view> -->
+    </view>
+
+    <view wx:else class='address-list'>
+      
+      <block  wx:for="{{ addresses }}" wx:key="index">
+        <view wx:if="{{ !item.deleted }}" class='item-container'>
+          <!-- <view  class='bg-action'>
+            <view class='delete-line-item' bindtap='deleteItem' data-item='{{ item }}'>
+              <image src="/images/delete_icon.png"></image>
+              <text>删除</text>
+            </view>
+          </view> -->
+
+          <mp-slideview style="flex: 1;" show="{{ deleteButtonShowId == item.id }}" bindshow="slideviewShow" buttons="{{deleteButton}}" bindbuttontap="deleteItem" data-item='{{ item }}'>
+          <view  data-item="{{ item }}" class='address'>
+            <image wx:if="{{ item.default_address }}" class="address-default-icon" src="/images/address_default_icon.png"></image>
+
+            <image class="address-icon" wx:if="{{ item.default_address }}" src="/images/address_icon_001.png"></image>
+            <image class="address-icon" wx:else src="/images/address_icon_002.png"></image>
+            <view class='info' bindtap='selectAddress' data-address='{{ item }}'>
+              <view class='user info-item'>
+                <text class='name'>{{ item.real_name || '' }}</text>
+                <text class="phone">{{ item.phone || ''}}</text>
+              </view>
+
+              <view class="info-detail">
+                <text>
+                <block wx:if="{{ item.province }}">{{ item.province || ''}}</block>
+                <block wx:if="{{ item.city }}">{{ item.city || ''}}</block>
+                <block wx:if="{{ item.district }}">{{ item.district || '' }}</block>
+                <block wx:if="{{ item.address_info }}">{{ item.address_info || '' }}</block>
+                </text>
+              </view>
+            </view>
+
+            <view class="line"></view>
+
+            <view class='action' catchtap="editAddress" data-address='{{ item }}'>
+              <image src="/images/edit_icon.png"></image>
+              <text>编辑</text>
+            </view>
+          </view>
+          </mp-slideview>
+        </view>
+      </block>
+
+    </view>
+
+    <view bindtap="newAddress" class="add-address">新增收货地址+</view>
+
+  </view>
+
+  <!-- <view class='footer  {{ isIphoneX && "iphone-x" }}'>
+    <view bindtap='newAddress' class='btn btn-lg btn-radius btn-radius-border'>+添加新地址</view>
+  </view> -->
+
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>

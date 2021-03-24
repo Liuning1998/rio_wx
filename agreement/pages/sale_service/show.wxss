@@ -1,0 +1,31 @@
+/* agreement/pages/sale_service/show.wxss */
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 750rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #333333;
+  padding: 0 40rpx 160rpx 40rpx;
+  box-sizing: border-box;
+  text-align: justify;
+}
+
+.h1 {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-top: 52rpx;
+  margin-bottom: 32rpx;
+}
+
+.s1 {
+  margin-bottom: 14rpx;
+  margin-top: 18rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}

@@ -1,0 +1,17 @@
+function vip_total (order) {
+  if(order.line_items == null || order.line_items.length <= 0) {
+    return '0'
+  }
+
+  var total = 0
+  for(var i=0; i < order.line_items.length; i++) {
+    var line = order.line_items[i]
+    total += line.vip_price*line.quantity
+  }
+
+  return total.toFixed(2)
+}
+
+module.exports = {
+  vip_total: vip_total
+}

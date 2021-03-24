@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "navbar": "../components/navbar/index",
+    "wxAuth": "../components/wx_auth/index"
+  }
+}

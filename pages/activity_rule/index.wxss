@@ -1,0 +1,191 @@
+/* pages/activity_rule/index.wxss */
+.banner {
+  width: 750rpx;
+}
+
+.rule-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rule-item-container {
+  position: relative;
+  width: 650rpx;
+  display: flex;
+  flex-direction: column;
+  margin-top: 80rpx;
+}
+
+.rule-item-container:first-child {
+  margin-top: -60rpx;
+}
+
+.rule-item-container .item-content {
+  width: 650rpx;
+  background: #FCEFDE;
+  position: relative;
+  border: 6rpx solid #BE7C4A;
+  border-radius: 8rpx;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom: 0;
+  box-sizing: border-box;
+  padding: 20rpx;
+  padding-bottom: 0;
+}
+
+.rule-item-container .item-content .info-container {
+  border: 1px solid #FCE7CB;
+  box-sizing: border-box;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.rule-item-container .item-content .info-container text {
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #BE7C4A;
+  margin-bottom: 4rpx;
+  text-align: justify;
+}
+
+.rule-item-container .item-content .info-container text:last-child {
+  margin-bottom: 0;
+}
+
+.rule-item-container .bottom-image {
+  width: 650rpx;
+}
+
+.rule-item-container .label-content {
+  width: 280rpx;
+  height: 76rpx;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  top: -40rpx;
+  left: 185rpx;
+}
+
+.rule-item-container .label-content image{
+  width: 280rpx;
+  height: 76rpx;
+  position: absolute;
+  z-index: 22;
+  left: 0;
+  top: 0;
+}
+
+.rule-item-container .label-content text {
+  position: relative;
+  z-index: 23;
+  font-size: 36rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  color: #ffffff;
+}
+
+.rule-item-container .icon-01 {
+  background: #FCEFDE;
+  width: 32rpx;
+  height: 32rpx;
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  z-index: 24;
+  position: absolute;
+}
+
+.rule-item-container .icon-01.top-right {
+  right: 20rpx;
+  justify-content: flex-end;
+}
+
+.rule-item-container .icon-01.top-right image {
+  transform: rotate(90deg);
+}
+
+.rule-item-container .icon-01.bottom-left {
+  bottom: 0;
+  align-items: flex-end;
+}
+
+.rule-item-container .icon-01.bottom-left image {
+  transform: rotate(90deg);
+}
+
+.rule-item-container .icon-01.bottom-right {
+  bottom: 0;
+  right: 20rpx;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.rule-item-container .icon-01 image{
+  height: 20rpx;
+  width: 20rpx;
+}
+
+.bottom-btn-group {
+  height: 234rpx;
+  width: 750rpx;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-btn-group image {
+  height: 234rpx;
+  width: 750rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 31;
+}
+
+.bottom-btn-group .btn {
+  background-image: linear-gradient(180deg, #D6A57C, #BB7947, #BB7846);
+  border-radius: 56rpx;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 400rpx;
+  display: block;
+  position: relative;
+  z-index: 32;
+  font-size: 36rpx;
+  color: #ffffff;
+}
+
+.rule-item-container .item-content .info-container.info-01 {
+  display: flex;
+  height: 300rpx;
+  align-items: center;
+  flex-direction: row;
+  padding: 40rpx 10rpx;
+}
+
+.rule-item-container .item-content .info-container.info-01 .info-content {
+  font-size: 24rpx;
+  color: #CF9667;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rule-item-container .item-content .info-container.info-01 image {
+  height: 226rpx;
+  width: 270rpx;
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+
+.rule-item-container .item-content .info-container.info-01 text {
+  font-size: 23rpx;
+}
+
+

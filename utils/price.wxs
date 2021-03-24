@@ -1,0 +1,27 @@
+function priceTos (price) {
+  if (price == null) {return ''}
+  price = parseFloat(price)
+  return price.toFixed(2)
+}
+
+function priceDecimal (price) {
+  if (price == null) { return '' }
+  price = parseFloat(price)
+  var priceStr = price.toFixed(2)
+  var length = priceStr.length
+  return priceStr.slice(length - 2, length)
+}
+
+function priceInt (price) {
+  if (price == null) { return '' }
+  price = parseFloat(price)
+  var priceStr = price.toFixed(2)
+  var length = priceStr.length
+  return priceStr.slice(0, length-3)
+}
+
+module.exports = {
+  tos: priceTos,
+  int: priceInt,
+  decimal: priceDecimal
+}

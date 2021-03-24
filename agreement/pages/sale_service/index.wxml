@@ -1,0 +1,19 @@
+<!--agreement/pages/sale_service/index.wxml-->
+<navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="售后协议"/>
+<view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class="actions">
+  <view data-url="/agreement/pages/sale_service/show?store=shounong" bindtap="gotoLink" class="item">
+    <view class="item-content">
+      <text>首农/扶贫售后协议</text>
+    </view>
+    <image class="arrow" src="/images/arrow.png"></image>
+  </view>
+
+  <view data-url="/agreement/pages/sale_service/show?store=huawei" bindtap="gotoLink" class="item">
+    <view class="item-content">
+      <text>华为售后协议</text>
+    </view>
+    <image class="arrow" src="/images/arrow.png"></image>
+  </view>
+</view>

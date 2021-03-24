@@ -1,0 +1,19 @@
+<!--pages/components/wx_auth/index.wxml-->
+<view class='auth-container'>
+  <view class='auth'>
+    <view class='auth-logo'>
+      <image src='/images/logo_small.png'></image>
+    </view>
+
+    <view class='msg'>
+      <text class='label text-lg'>请先登录, 登录后"金色家园 幸福生活"将获取以下权限</text>
+      <view class='remark text text-muted'>
+        <i class="fa fa-circle" aria-hidden="true"></i>获取您公开的信息（头像、昵称等）</view>
+    </view>
+    <view class='btn-group'>
+      <!-- <button class='cancel-btn' bindtap="quit_login">取消登录</button> -->
+      <!-- <button class='auth-btn' open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</button> -->
+      <button bindtap="authLogin" class="auth-btn">授权登录</button>
+    </view>
+  </view>
+</view>

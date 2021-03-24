@@ -1,0 +1,19 @@
+<!--agreement/pages/yinsizhengce/index.wxml-->
+<navbar return-able="{{true}}" title="免费试用规则"/>
+<view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class="main-container">
+  <text class="h1">【免费试用规则】</text>
+  <text class="li">同一份免费试用商品，每位用户仅限申请一次；</text>
+  <text class="li">申请成功名单将在申请结束后3个工作日内公布（特殊情况除外），您可以前往“我的”->“我的试用”查看结果。</text>
+  <text class="li">请在申请时准确填写收件人、收货地址、电话等信息，如因地址填写错误等原因导致试用商品无法收到，后果由用户自行承担。</text>
+  <text class="li">金色家园小程序将通过系统审核方式确定试用名单，系统会参照用户购买活跃度、浏览商品记录、潜在购买需求等进行综合评判自动产生。</text>
+  <text class="li">获得免费试用资格的用户，无需承担任何费用，无需填写试用报告。试用商品将以快递的形式在 10 个工作日内完成配送，配送范围仅限中国大陆地区。商品试用后无需返还。</text>
+  <text class="li">试用者在申请试用的同时既表示承担试用品质量、物流、设计缺陷等产品问题的风险，试用品非用户直接现金或通过支付行为购买所得，故试用品试用者非商品消费者，暂不享受《消费者保护法》7 天包退等未列举的义务服务。</text>
+
+
+
+  <view class="btn-container">
+    <text class="return-btn" bindtap="goback">确 定</text>
+  </view>
+</view>
