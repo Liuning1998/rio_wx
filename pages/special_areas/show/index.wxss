@@ -378,7 +378,7 @@ page {
 
 .fine-container .description {
   font-size: 20rpx;
-  color: #D3B17D;
+  color: #F64C47;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
@@ -488,7 +488,7 @@ page {
   line-height: 42rpx;
   min-width: 52rpx;
   border-radius: 26rpx;
-  background: #D7AB5C;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
   color: #ffffff;
   font-size: 22rpx;
   padding: 0 28rpx;
@@ -572,7 +572,7 @@ page {
 
 .store-products .description {
   font-size: 20rpx;
-  color: #D3B17D;
+  color: #F64C47;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
@@ -585,11 +585,11 @@ page {
 .store-products .badges .badge-item {
   height: 30rpx;
   line-height: 30rpx;
-  border: 1px solid #D3B17D;
+  border: 1px solid #F64C47;
   border-radius: 8rpx;
   box-sizing: border-box;
   padding: 0 16rpx;
-  color: #D3B17D;
+  color: #F64C47;
   font-size: 20rpx;
   margin-left: 8rpx;
 }

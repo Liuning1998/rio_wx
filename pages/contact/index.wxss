@@ -70,7 +70,7 @@ page {
   border-radius: 45rpx;
   margin-top: 12rpx;
   /* background-color: rgb(25, 200, 13); */
-  border: 1px solid #D3B27E;
+  border: 1px solid #F64C47;
 }
 
 .weixin .hover {
@@ -138,7 +138,7 @@ text.text-muted, .text-muted {
 }
 
 text.text-purple, .text-purple {
-  color: #D3B27E;
+  color: #F64C47;
 }
 
 text.text-white, .text-white {
@@ -166,7 +166,7 @@ button::after {
   padding: 0 40rpx;
   text-align: center;
   font-size: 32rpx;
-  color: #D3B27E;
+  color: #F64C47;
   display: inline-flex;
   font-weight: 400;
 }

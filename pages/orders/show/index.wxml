@@ -84,7 +84,7 @@
             <view class="variant-info">
               <text wx:if="{{ item.option_value_string != null && item.option_value_string != '' }}" class="variant-desc">已选: {{ item.option_value_string }}</text>
               <view wx:else></view>
-              <text class="price">￥{{ item.vip_price }}</text>
+              <text class="price">￥{{ item.price }}</text>
             </view>
           </view>
         </view>
@@ -93,12 +93,12 @@
       <view class="expenses">
         <view class="product-expenses">
           <text class="label">商品金额</text>
-          <text>￥{{helper.vip_total(order)}}</text>
+          <text>￥{{ order.total }}</text>
         </view>
 
         <view class="amount">
           <text class="label">合计:</text>
-          <text class="price">￥{{helper.vip_total(order)}}</text>
+          <text class="price">￥{{ order.total }}</text>
         </view>
       </view>
 

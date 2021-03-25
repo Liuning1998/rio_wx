@@ -29,9 +29,9 @@ function request(options) {
   options.header = { AccessToken: session.access_token }
 
   if (options.data != null) {
-    options.data['ua'] = 'wx_mini_program'
+    options.data['ua'] = 'wx_mini_program;jinsejiayuan'
   } else {
-    options.data = { 'ua': 'wx_mini_program' }
+    options.data = { 'ua': 'wx_mini_program;jinsejiayuan' }
   }
 
   var p = new Promise((resolve, reject) => {

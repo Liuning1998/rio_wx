@@ -38,8 +38,8 @@
 
         <view class="price-and-cart">
           <view class="price-container">
-            <text class="price">{{price.tos(item.vip_price)}}</text>
-            <text class="origin-price">原价<text>{{price.tos(item.price)}}</text></text>
+            <text class="price">{{price.tos(item.price)}}</text>
+            <text class="origin-price">原价<text>{{price.tos(item.origin_price)}}</text></text>
           </view>
           <view catchtap="addCartAndAnimation" data-item="{{item}}" class="cart-container">
             <view wx:if="{{!product.canAddCart(item)}}" class="go-product">

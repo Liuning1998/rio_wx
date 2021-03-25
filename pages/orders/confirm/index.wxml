@@ -47,8 +47,8 @@
               <text wx:if="{{ item.show_name != '' }}" class="variant-desc">已选: {{item.show_name}}</text>  
               <view wx:else></view> 
               <view class="price-container">
-                <text class="price">￥{{price.tos(item.vip_price)}}</text>
-                <text class="origin-price">￥{{price.tos(item.price)}}</text>
+                <text class="price">￥{{price.tos(item.price)}}</text>
+                <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
               </view>
             </view>
           </view>
@@ -63,8 +63,8 @@
         <view class="product-expenses">
           <text class="label">商品金额</text>
           <view class="total-container">
-            <text>￥{{price.tos(storeCart.vip_total)}}</text>
-            <text class='origin-price'>￥{{price.tos(storeCart.total)}}</text>
+            <text>￥{{price.tos(storeCart.total)}}</text>
+            <text class='origin-price'>￥{{price.tos(storeCart.origin_total)}}</text>
           </view>
         </view>
 
@@ -73,8 +73,8 @@
         <view class="amount">
           <text class="label">合计:</text>
           <view class="total-container">
-            <text class="price">￥{{price.tos(storeCart.vip_total)}}</text>
-            <text class="origin-price">￥{{price.tos(storeCart.total)}}</text>
+            <text class="price">￥{{price.tos(storeCart.total)}}</text>
+            <text class="origin-price">￥{{price.tos(storeCart.origin_total)}}</text>
           </view>
         </view>
       </view>
@@ -100,7 +100,7 @@
 
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="time-remark">
-    <image src="/images/info_icon_01.png"></image>
+    <!-- <image src="/images/info_icon_01.png"></image> -->
     <text>请在10分钟内完成支付</text>
   </view>
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>

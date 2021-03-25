@@ -22,7 +22,7 @@
             <view class="variant-price">
               <text wx:if="{{ currentVariant.show_name != '' }}" class="variant-desc">已选: {{currentVariant.show_name}}</text>  
               <view wx:else></view>          
-              <text class="price">￥{{price.tos(currentVariant.vip_price)}}</text>
+              <text class="price">￥{{price.tos(currentVariant.price)}}</text>
             </view>
           </view>
         </view>
@@ -35,14 +35,14 @@
       <view class="expenses">
         <view class="product-expenses">
           <text class="label">商品金额</text>
-          <text>￥{{price.tos(vip_total)}}</text>
+          <text>￥{{price.tos(total)}}</text>
         </view>
 
         <image class="split-image" src="/images/buy_page_split.png" mode="widthFix"></image>
 
         <view class="amount">
           <text class="label">合计:</text>
-          <text class="price">￥{{price.tos(vip_total)}}</text>
+          <text class="price">￥{{price.tos(total)}}</text>
         </view>
       </view>
 

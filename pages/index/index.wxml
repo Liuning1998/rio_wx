@@ -89,7 +89,7 @@
 
 
   <!-- 今日特惠 -->
-  <view class="today-container">
+  <!-- <view class="today-container">
     <view wx:if="{{todayProducts.products.length > 0}}" class="lable-container" style="padding-bottom: 12rpx;">
       <view class="main">
         <text class="label">{{todayProducts.title}}</text>
@@ -108,12 +108,12 @@
           <image class="avatar" src="{{item.avatar}}"></image>
         </view>
         <view class="price-container">
-          <text class="price">￥{{price.tos(item.vip_price)}}</text>
-          <text class="origin-price">￥{{price.tos(item.price)}}</text>
+          <text class="price">￥{{price.tos(item.price)}}</text>
+          <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <!-- 今日特惠 -->
 
@@ -127,8 +127,8 @@
           <image class="avatar" src="{{item.avatar}}"></image>
         </view>
         <text class="name">{{item.name}}</text>
-        <text class="price">￥{{price.tos(item.vip_price)}}</text>
-        <text class="origin-price">￥{{price.tos(item.price)}}</text>
+        <text class="price">￥{{price.tos(item.price)}}</text>
+        <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
       </view>
     </view>
   </view>
@@ -148,10 +148,10 @@
       
       <view class="bottom-btn-container">
         <view class="price-container">
-          <text class="origin-price">原价: {{price.tos(item.price)}}</text>
+          <text class="origin-price">原价: {{price.tos(item.origin_price)}}</text>
           <view class="price">
-            <text class="int">{{price.int(item.vip_price)}}</text>
-            <text class="decimal">{{price.decimal(item.vip_price)}}</text>
+            <text class="int">{{price.int(item.price)}}</text>
+            <text class="decimal">{{price.decimal(item.price)}}</text>
           </view>
         </view>
 

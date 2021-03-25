@@ -355,6 +355,7 @@ Page({
       lineItems: [lineItem],
       total: Math.round(lineItem.price * lineItem.quantity * 100) / 100.0,
       vip_total: Math.round(lineItem.vip_price * lineItem.quantity * 100) / 100.0,
+      origin_total: Math.round(lineItem.origin_price * lineItem.quantity * 100) / 100.0,
     }
     let url = `/pages/orders/confirm/index?store_id=${store_id}&buyType=now&productType=${this.data.productType}`
     this.navigateTo(url, {

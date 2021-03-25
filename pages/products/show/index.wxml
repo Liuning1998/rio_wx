@@ -50,10 +50,10 @@
       <view class='product-name'>{{ product.name || '' }}</view>
       <text class='product-description'>{{ product.description || '' }}</text>
       <view class='price-group'>
-        <text decode class='product-origin-price' style="color: #ffffff;">{{ product.price || 0 }}</text>
+        <text decode class='product-origin-price' style="color: #ffffff;">{{ product.origin_price || 0 }}</text>
 
-        <text decode class='product-price'>{{ product.vip_price || 0 }}</text>
-        <text decode class='product-origin-price'>{{ product.price || 0 }}</text>
+        <text decode class='product-price'>{{ product.price || 0 }}</text>
+        <text decode class='product-origin-price'>{{ product.origin_price || 0 }}</text>
       </view>
 
       <view wx:if="{{ph.isYiyuangou(product)}}" class="stock-group">
@@ -96,7 +96,7 @@
       <view class='product'>
         <image src="{{ product.carousels[0] }}"></image>
         <view class='info'>
-          <text class="price">{{ currentVariant.vip_price || '' }}</text>
+          <text class="price">{{ currentVariant.price || '' }}</text>
           <text class="name">{{ product.name || '' }}</text>
         </view>
       </view>

@@ -51,7 +51,7 @@
                 <text class="variant-info">{{item.show_name}}</text>
               </view>
               <view class="price-and-quantity">
-                <text class="price">￥{{item.vip_price}}<text wx:if="{{item.price != null && item.price > 0}}" class="origin-price">￥{{item.price}}</text></text>
+                <text class="price">￥{{item.price}}<text wx:if="{{item.price != null && item.price > 0}}" class="origin-price">￥{{item.origin_price}}</text></text>
                 <view class="quantity-container">
                   <text bindtap="subQuantity" data-item="{{item}}" class="sub-icon btn {{ item.quantity <= 1 && 'disabled'}}">-</text>
                   <text class="quantity">{{item.quantity}}</text>
@@ -68,7 +68,7 @@
           <view style="display: flex; align-items: flex-end; display:table-cell; vertical-align: bottom;">
             <text class="quantity">共计{{storeCart.quantity}}件</text>
             <text class="total">合计</text>
-            <text class="amount">￥{{storeCart.vip_total}}</text>
+            <text class="amount">￥{{storeCart.total}}</text>
           </view>
           <text class="goto-confirm" bindtap="gotoConfirm" data-item="{{storeCart}}">立即付款</text>
         </view>
@@ -105,8 +105,8 @@
                 <text wx:for="{{item.badges}}" wx:for-item="badge" wx:key="index">{{badge}}</text>
               </view>
               <view class="price">
-                <text class="">￥{{item.vip_price}}</text>
-                <text class="origin-price">￥{{item.price}}</text>
+                <text class="">￥{{item.price}}</text>
+                <text class="origin-price">￥{{item.origin_price}}</text>
               </view>
             </view>
             <view bindtap="addCart" data-item="{{item}}" class="cart-icon">

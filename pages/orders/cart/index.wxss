@@ -261,7 +261,7 @@ page {
 
 .cart-container .price {
   font-size: 36rpx;
-  color: #CE343C;
+  color: #F64C47;
 }
 
 .cart-container .price .origin-price {
@@ -339,18 +339,18 @@ page {
 
 .cart-container .amount {
   font-size: 48rpx;
-  color: #CE343C;
+  color: #F64C47;
   position: relative;
   bottom: -3rpx;
 }
 
 .cart-container .goto-confirm {
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
   height: 72rpx;
   width: 208rpx;
   margin-left: 24rpx;
   border-radius: 36rpx;
-  color: #8E662F;
+  color: #ffffff;
   font-size: 32rpx;
   line-height: 72rpx;
   text-align: center;
@@ -537,7 +537,7 @@ page {
 
 .product-list-container .price text {
   font-size: 28rpx;
-  color: #CE343C;
+  color: #F64C47;
 }
 
 .product-list-container text.origin-price{

@@ -27,8 +27,8 @@
         <text class="name">{{products[0].name}}</text>
         <text class="stock">库存: {{products[0].stock}}</text>
         <view wx:if="{{products[0] != null}}" class="price-container">
-          <text class="price">{{products[0].vip_price}}</text>
-          <text class="origin-price">￥{{products[0].price}}</text>
+          <text class="price">{{products[0].price}}</text>
+          <text class="origin-price">￥{{products[0].origin_price}}</text>
         </view>
       </view>
       

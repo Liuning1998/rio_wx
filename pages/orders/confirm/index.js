@@ -160,9 +160,8 @@ Page({
     var paramsData = {
       pay_params: {
         wx_pay_params: {
+          // total: '0.05',
           total: order.total,
-          // total: '0.05'
-          // cash_ids: [1]
         },
         // cash_params: {
         //   total: '0.05',

@@ -47,8 +47,8 @@
             </view>
             <view class="price-and-btn">
               <view class="price-container">
-                <text class="price">{{price.int(item.vip_price)}}.</text>
-                <text class="price-ecimal">{{price.decimal(item.vip_price)}}</text>
+                <text class="price">{{price.int(item.price)}}.</text>
+                <text class="price-ecimal">{{price.decimal(item.price)}}</text>
                 <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
               </view>
               <text wx:if="{{now < item.activity.end_at}}" class="btn go-join">去参与</text>

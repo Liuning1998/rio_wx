@@ -83,8 +83,8 @@
             </view>
 
             <view class="price-container">
-              <text class="origin-price">￥{{price.tos(item.price)}}</text>
-              <text class="price">{{price.int(item.vip_price)}}.<text class="sub">{{price.decimal(item.vip_price)}}</text></text>
+              <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
+              <text class="price">{{price.int(item.price)}}.<text class="sub">{{price.decimal(item.price)}}</text></text>
             </view>
             
             <text class="buy-btn buy-btn-01" wx:if="{{index == 0}}" catchtap="addCartAndAnimation" data-item="{{item}}">加入购物车</text>
@@ -125,8 +125,8 @@
           <view catchtap="gotoProduct" data-item="{{item}}" class="bottom-group">
             <image class="store-icon-003" src="/images/store_show_icon_003.png"></image>
             <view class="price-container">
-              <text class="price">{{price.int(item.vip_price)}}.</text>
-              <text class="price-float">{{price.decimal(item.vip_price)}}</text>
+              <text class="price">{{price.int(item.price)}}.</text>
+              <text class="price-float">{{price.decimal(item.price)}}</text>
             </view>
             <text class="buy-btn">立即购买</text>
           </view>

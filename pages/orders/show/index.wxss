@@ -444,8 +444,8 @@ page {
   height: 60rpx;
   line-height: 60rpx;
   width: 180rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
-  color: #8E662F;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  color: #ffffff;
   font-size: 28rpx;
   border-radius: 30rpx;
   box-sizing: border-box;

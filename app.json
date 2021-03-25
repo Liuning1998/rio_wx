@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/account/index/index",
     "pages/account/phone/validate",
     "pages/orders/show/index",
     "pages/orders/expresses/show",
@@ -19,7 +20,6 @@
     "agreement/pages/yinsizhengce/index",
     "agreement/pages/price/index",
     "pages/orders/cart/index",
-    "pages/account/index/index",
     "pages/special_areas/show01/index",
     "pages/card_home/index",
     "pages/coupons/dashboard/index",
@@ -56,8 +56,8 @@
     "request": 30000
   },
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#333333",
+    "color": "#B4AFAF",
+    "selectedColor": "#F64C47",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

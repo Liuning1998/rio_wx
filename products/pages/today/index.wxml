@@ -18,8 +18,8 @@
 
       <view class="price-and-action">
         <view class="price-container">
-          <text class="origin-price">原价: {{item.price}}</text>
-          <text class="price">{{price.int(item.vip_price)}}<text class="float">.{{price.decimal(item.vip_price)}}</text></text>
+          <text class="origin-price">原价: {{item.origin_price}}</text>
+          <text class="price">{{price.int(item.price)}}<text class="float">.{{price.decimal(item.price)}}</text></text>
         </view>
         <view catchtap="addCartAndAnimation" data-item="{{item}}" class="btn-group">
           <image class="btn-background" src="../../images/today_icon_001.png"></image>

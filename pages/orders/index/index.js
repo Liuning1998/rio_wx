@@ -82,7 +82,9 @@ Page({
     state = state || this.data.active
     let params = {q: { order_type_not_eq: '1' }}
     if (state == 'saleService') {
-      params.q.sale_state_blank = false
+      params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
+      params.q.order_type_eq = 2
+      delete params.q.order_type_not_in
     } else if ( state == 'completed' ) {
       params.q.sale_state_blank = true
       params.q.state_eq = state
@@ -295,7 +297,9 @@ Page({
     let params = { q: { order_type_not_eq: '1' } }
 
     if (state == 'saleService') {
-      params.q.sale_state_blank = false
+      params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
+      params.q.order_type_eq = 2
+      delete params.q.order_type_not_in
     } else if (state != 'all') {
       params.q.state_eq = state
     }
@@ -387,6 +391,17 @@ Page({
       wx.stopPullDownRefresh()
       this.setData({ showLoading: false })
     }, 500)
+  },
+
+  orderService: function (e) {
+    var order = e.currentTarget.dataset.order
+    // if(this.data.orderServiceStatus.click != 'on') {
+    //   this.errorToast('该订单不能申请售后')
+    //   return false
+    // }
+    this.navigateTo("/orders/pages/service/index",{
+      order: order
+    })
   },
 
   /**

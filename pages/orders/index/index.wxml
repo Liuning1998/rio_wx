@@ -51,7 +51,7 @@
 
               <view style="display: flex; justify-content: flex-end; align-items: center;">
                 <view class="total-container">
-                  <text class="total">￥{{ order.payment_state == 'completed' ? order.pay_amount : helper.vip_total(order) }}</text>
+                  <text class="total">￥{{ order.payment_state == 'completed' ? order.pay_amount : origin.total }}</text>
                   <text class="quantity">共{{order.product_total}}件</text>
                 </view>
                 <image class="go-detail" src="/images/arrow_o_black_01.png"></image>
@@ -64,7 +64,7 @@
               <image class="avatar" src="{{ item.product.avatar }}"></image>
 
               <text class="product-name">{{item.product.name}}</text>
-              <text class="price">￥{{ order.payment_state == 'completed' ? order.pay_amount : helper.vip_total(order) }}</text>
+              <text class="price">￥{{ order.payment_state == 'completed' ? order.pay_amount : order.total }}</text>
 
               <image class="go-detail" src="/images/arrow_o_black_01.png"></image>
             </view>
@@ -76,7 +76,13 @@
           </view> -->
 
           <view wx:if="{{ order.state != 'new' }}" class="actions">
-            <view bindtap='deleteOrder' data-order='{{ order }}' class="btn delete-btn">删除订单</view>
+            <view wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}" bindtap='deleteOrder' data-order='{{ order }}' class="btn delete-btn">删除订单</view>
+            <!-- 已支付未完成 -->
+            <block wx:else>
+              <view wx:if="{{ order.sale_state == 'new' }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">售后中</view>
+              <view wx:elif="{{ order.sale_state == 'completed' }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">售后完成</view>
+              <view wx:else bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">申请售后</view>
+            </block>
             <view bindtap='buyAgain' data-order='{{ order }}' class="btn buy-btn">再次购买</view>
           </view>
 

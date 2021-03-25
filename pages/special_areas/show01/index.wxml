@@ -87,8 +87,8 @@
           </view>
 
           <view class="price-container">
-            <text class="origin-price"  wx:if="{{item.price != null && item.price != ''}}">￥{{item.price}}</text>
-            <text class="price">{{item.vip_price}}</text>
+            <text class="origin-price"  wx:if="{{item.origin_price != null && item.origin_price != ''}}">￥{{item.origin_price}}</text>
+            <text class="price">{{item.price}}</text>
           </view>
 
         </view>

@@ -5,7 +5,7 @@
 <view class="main-container">
   <text class="h1">价格说明</text>
   <text class="">划线价格：是指品牌专柜价、商品吊牌价、正品零售价、厂商指导价或该商品曾经展示过的销售价等，并非原价，仅供参考。</text>
-  <text class="">未划线价格：是指商品使用北京农商银行卡支付的实时标价，不因表述的差异改变性质。具体成交价格以订单支付页价格为准。</text>
+  <text class="">未划线价格：是指商品的实时标价，不因表述的差异改变性质。具体成交价格以订单支付页价格为准。</text>
 
   <!-- <view class="btn-container">
     <text class="return-btn" bindtap="goback">确 定</text>

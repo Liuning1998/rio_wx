@@ -35,13 +35,16 @@ function addCart (lineItem) {
 
     _line.price = lineItem.price
     _line.vip_price = lineItem.vip_price
+    _line.origin_price = lineItem.origin_price
     _line.total = Math.round(_line.quantity*_line.price * 100)/100.0
     _line.vip_total = Math.round(_line.quantity*_line.vip_price * 100)/100.0
+    _line.origin_total = Math.round(_line.quantity*_line.origin_price * 100)/100.0
     _line.selectStatus = true
   } else {
     let _line = Object.assign({
       total: Math.round(lineItem.price * lineItem.quantity * 100)/100.0,
       vip_total: Math.round(lineItem.vip_price * lineItem.quantity * 100)/100.0,
+      origin_total: Math.round(lineItem.origin_price * lineItem.quantity * 100)/100.0,
       selectStatus: true
     }, lineItem)
     
@@ -155,6 +158,7 @@ function setCartToCache (cartData) {
     let storeCartQauntity = 0
     let storeCartTotal = 0
     let storeCartVipTotal = 0
+    let storeCartOriginTotal = 0
     let allSelectStatus = true
     for (let line in cartData[store].lineItems) {
       // 没有选中的 lineItem 不统计到 store cart 中的 quantity、total
@@ -166,8 +170,10 @@ function setCartToCache (cartData) {
       storeCartQauntity += cartData[store].lineItems[line].quantity
       cartData[store].lineItems[line].total = Math.round(cartData[store].lineItems[line].quantity * cartData[store].lineItems[line].price * 100) / 100.0
       cartData[store].lineItems[line].vip_total = Math.round(cartData[store].lineItems[line].quantity * cartData[store].lineItems[line].vip_price * 100) / 100.0
+      cartData[store].lineItems[line].origin_total = Math.round(cartData[store].lineItems[line].quantity * cartData[store].lineItems[line].origin_price * 100) / 100.0
       storeCartTotal += cartData[store].lineItems[line].total
       storeCartVipTotal += cartData[store].lineItems[line].vip_total
+      storeCartOriginTotal += cartData[store].lineItems[line].origin_total
 
       cartQuantity += cartData[store].lineItems[line].quantity
     }
@@ -175,6 +181,7 @@ function setCartToCache (cartData) {
     cartData[store].quantity = storeCartQauntity
     cartData[store].total = Math.round(storeCartTotal * 100) / 100.0
     cartData[store].vip_total = Math.round(storeCartVipTotal * 100) / 100.0
+    cartData[store].origin_total = Math.round(storeCartOriginTotal * 100) / 100.0
     cartData[store].allSelectStatus = allSelectStatus
   }
 

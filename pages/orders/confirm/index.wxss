@@ -390,9 +390,9 @@ page {
   text-align: center;
   line-height: 72rpx;
   border-radius: 36rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
-  font-size: 36rpx;
-  color: #8E662F;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  font-size: 32rpx;
+  color: #ffffff;
   padding: 0;
   position: relative;
   /* box-shadow: 0 50rpx 30rpx #F45C4330; */
@@ -455,14 +455,14 @@ page {
 
 .time-remark {
   font-size: 28rpx;
-  color: #ffffff;
+  color: #EB857C;
   position: absolute;
   z-index: 199;
   width: 750rpx;
   height: 64rpx;
   left: 0;
   top: -64rpx;
-  background: #EBD9AA;
+  background: rgba(250,225,222,0.80);
   display: flex;
   align-items: center;
   justify-content: center;

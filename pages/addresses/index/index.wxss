@@ -208,9 +208,9 @@ page {
 
 .add-address {
   font-size: 32rpx;
-  color: #967039;
+  color: #F64C47;
   height: 88rpx;
-  border: 1px solid #8E662F;
+  border: 1px solid #F64C47;
   border-radius: 8rpx;
   line-height: 88rpx;
   box-sizing: border-box;

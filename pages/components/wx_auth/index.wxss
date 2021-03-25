@@ -79,9 +79,9 @@
 .btn-group .auth-btn {
   /* width: 100%; */
   width: 630rpx;
-  font-size: 36rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
-  color: #8E662F;
+  font-size: 32rpx;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  color: #ffffff;
   padding: 0;
   height: 88rpx;
   font-weight: 400;

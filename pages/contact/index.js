@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    email: 'contact@ixiaoliu.com',
+    email: 'contact@jhqli.com',
     adImages: [],
     swiperCurrent: 0,
     nomal: true

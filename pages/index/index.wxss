@@ -213,6 +213,7 @@
   font-size: 24rpx;
   color: #333333;
   margin-top: 6rpx;
+  font-weight: 500;
 }
 
 .swiper-dots-container {
@@ -349,7 +350,7 @@
 /* 三 */
 .section-2 {
   width: 702rpx;
-  margin: 18rpx auto 0 auto;
+  margin: 36rpx auto 0 auto;
   display: flex;
   justify-content: space-between;
 }

@@ -34,7 +34,7 @@
     <view class='set-default'>
       <view style="width: 100%; display: flex; justify-content: space-between;">
         <text>设置默认地址</text>
-        <switch checked='{{ default_address }}' color="#D3B17D" bindchange="switchDefaultAddress"/>
+        <switch checked='{{ default_address }}' color="#FF524E" bindchange="switchDefaultAddress"/>
       </view>
     </view>
 

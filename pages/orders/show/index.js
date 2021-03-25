@@ -165,7 +165,6 @@ Page({
       pay_params: {
         wx_pay_params: {
           total: this.data.order.total,
-          // cash_ids: [1]
         },
         // cash_params: {
         //   total: '0.05',

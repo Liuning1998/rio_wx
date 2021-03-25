@@ -25,8 +25,8 @@ var errorMap = {
   100150: { msg: 'order total more than 1200', msg_t: "单笔订单原价总金额超过1200元" },
 }
 
-// const ENV = 'production'
-const ENV = 'development'
+const ENV = 'production'
+// const ENV = 'development'
 
 const ENV_CONFIG = {
   development: {

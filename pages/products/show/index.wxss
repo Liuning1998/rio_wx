@@ -404,8 +404,8 @@ page {
   min-width: 22rpx;
   padding: 0 4rpx;
   box-sizing: border-box;
-  border: 1px solid #8E662F;
-  color: #8E662F;
+  border: 1px solid #F64C47;
+  color: #F64C47;
   font-size: 16rpx;
   border-radius: 12rpx;
   position: absolute;
@@ -423,9 +423,10 @@ page {
   text-align: center;
   line-height: 70rpx;
   border-radius: 36rpx;
-  border: 1px solid #8E662F;
-  font-size: 36rpx;
-  color: #8E662F;
+  /* border: 1px solid #8E662F; */
+  font-size: 32rpx;
+  color: #ffffff;
+  background: linear-gradient(134deg, #FFA14F 0%, #FF542B 100%);
   padding: 0;
   position: relative;
   box-sizing: border-box;
@@ -442,9 +443,9 @@ page {
   text-align: center;
   line-height: 72rpx;
   border-radius: 36rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
-  font-size: 36rpx;
-  color: #8E662F;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  font-size: 32rpx;
+  color: #ffffff;
   padding: 0;
   position: relative;
   /* box-shadow: 0 50rpx 30rpx #F45C4330; */
@@ -458,9 +459,9 @@ page {
   text-align: center;
   line-height: 72rpx;
   border-radius: 36rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
-  font-size: 36rpx;
-  color: #8E662F;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  font-size: 32rpx;
+  color: #ffffff;
   padding: 0;
   position: relative;
   /* box-shadow: 0 50rpx 30rpx #F45C4330; */
@@ -664,7 +665,7 @@ page {
 
 .select-variant-container .price {
   font-size: 40rpx;
-  color: #7E5605 ;
+  color: #F64C47;
 }
 
 .select-variant-container .price::before {

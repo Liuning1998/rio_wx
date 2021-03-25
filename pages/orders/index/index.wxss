@@ -243,9 +243,9 @@ page {
   height: 60rpx;
   width: 180rpx;
   box-sizing: border-box;
-  border: 1rpx solid #98733D;
+  border: 1rpx solid #F64C47;
   border-radius: 30rpx;
-  color: #98733D;
+  color: #F64C47;
   text-align: center;
   line-height: 58rpx;
   font-size: 28rpx;
@@ -260,8 +260,8 @@ page {
   text-align: center;
   line-height: 60rpx;
   font-size: 28rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
-  color: #8E662F;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  color: #ffffff;
 }
 
 .delete image {
@@ -300,9 +300,9 @@ page {
   text-align: center;
   line-height: 72rpx;
   border-radius: 36rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
   font-size: 36rpx;
-  color: #8E662F;
+  color: #ffffff;
   padding: 0;
   position: relative;
   margin-top: 80rpx;

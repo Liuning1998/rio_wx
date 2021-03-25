@@ -1,17 +1,10 @@
 <!--agreement/pages/sale_service/show.wxml-->
-<navbar appendStyle="" return-able="{{true}}" title="{{pageTitle}}"/>
+<navbar appendStyle="" return-able="{{true}}" title="{{'发货/售后说明'}}"/>
 <view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
 <view class="main-container">
-  <block wx:if="{{pageType == 'huawei'}}">
-    <text class="h1">华为产品售后说明</text>
-    <text>1 华为手机，平板，穿戴产品全国联保，享受三包服务，保修期：1年</text>
-    <text>2 华为笔记本产品全国联保，享受三包服务，保修期：2年</text>
-    <text>3 如因质量问题或性能故障，凭华为客户服务中心出具的质量检测证明， 享受7日内退货，15日内换货，15日以上在保修期内可享受免费维修等三包服务备注：如出现7天无理由（机器为原封）退换货所产生的运费由客户自己承担，由于质量问题退换货产生的运费由北京智想有为通信技术有限公司承担</text>
-  </block>
-
-  <block wx:if="{{pageType == 'shounong'}}">
-    <text class="h1">首农/扶贫发货、售后说明</text>
+  <block>
+    <text class="h1">发货/售后说明</text>
     <text>发货、售后说明</text>
     <text>发货时间：周一至周四0:00-24:00订单，次工作日发货，周五至周日0:00-24:00订单，次工作日发货，国际法定节假日除外。
 </text>
