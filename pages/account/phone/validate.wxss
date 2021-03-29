@@ -123,10 +123,10 @@ page {
   height: 88rpx;
   line-height: 88rpx;
   text-align: center;
-  font-size: 36rpx;
-  color: #8E662F;
+  font-size: 32rpx;
+  color: #ffffff;
   border-radius: 8rpx;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
   padding: 0;
   border: 0;
 }

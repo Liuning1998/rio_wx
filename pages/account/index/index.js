@@ -1,4 +1,5 @@
 // pages/account/index/index.js
+var http = require('../../../utils/http.js')
 Page({
 
   /**
@@ -6,7 +7,9 @@ Page({
    */
   data: {
     authLoginStatus: false,
-    scollStatus: false
+    scollStatus: false,
+    // userBalance: 0,
+    orderQuantity: 0
   },
 
   /**
@@ -18,7 +21,9 @@ Page({
 
   onShow: function () {
     this.checkAuthLoginStatus()
-    this.resetUerInfo()
+    // this.resetUerInfo()
+    this.getUserInfo()
+    this.getOrderQauntity()
   },
 
   login: function () {
@@ -64,6 +69,24 @@ Page({
     }).exec()
   },
 
+  getUserInfo: function () {
+    http.post({
+      url: 'api/users/show_user',
+      success: res => {
+        console.log(res)
+        this.setData({ userInfo: res.data })
+      }
+    })
+  },
+
+  getOrderQauntity: function () {
+    http.get({
+      url: 'api/orders/padding_orders_count',
+      success: res => {
+        this.setData({ orderQuantity: res.data.padding_orders_count })
+      }
+    })
+  },
 
   /**
    * 用户点击右上角分享

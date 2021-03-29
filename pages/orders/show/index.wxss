@@ -34,8 +34,8 @@ page {
   align-items: center;
   justify-content: space-between;
   font-size: 48rpx;
-  color: #8E662F;
-  background: linear-gradient(to right, #EEDEB0, #D3B17D);
+  color: #ffffff;
+  background: linear-gradient(90deg, #ff524e 0%, #fb2c2a 100%)
 }
 
 .order-header image {

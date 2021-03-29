@@ -1,7 +1,7 @@
 <!--pages/orders/show/index.wxml-->
 <wxs module="helper" src="./helper.wxs"></wxs>
 
-<navbar navbarStyle="dark" title="订单详情" />
+<navbar appendStyle="background: linear-gradient(90deg, #ff524e 0%, #fb2c2a 100%)" textStyle="color: #ffffff; font-weight: 600;" title="订单详情" />
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
 <scroll-view scroll-y class='page-container'>

@@ -71,9 +71,11 @@ function httpFail (res, reject) {
     if (res.data.code == 100400) {
       wx.removeStorageSync('session')
       getApp().globalData.params['reLogin'] = true
-      wx.reLaunch({
-        url: '/pages/index/index',
-      })
+      if (currentPage != '/pages/index/index') {
+        wx.reLaunch({
+          url: '/pages/index/index',
+        })
+      }
     } else if (currentPage == "/pages/index/index") {
       res.data = res.data || {}
       reject(res)

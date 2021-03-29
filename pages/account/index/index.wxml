@@ -42,12 +42,12 @@
       
       <view class="account-info-container">
         <view class="balance-container">
-          <text class="balance">0</text>
+          <text class="balance">{{ userInfo.account_balance || 0 }}</text>
           <text class="balance-desc">账户额度(元)</text>
         </view>
         <view class="split"></view>
         <view bindtap="gotoOrders" class="coupon-container">
-          <text class="coupon-quantity">待收货 (0)</text>
+          <text class="coupon-quantity">待收货 ({{ orderQuantity || 0 }})</text>
           <text class="coupon-desc">我的订单</text>
         </view>
       </view>

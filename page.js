@@ -63,7 +63,16 @@ function beforeOnload (context) {
     }
 
     this.navigateTo = function (url, params={}) {
-      if(!app.globalData.authLoginStatus) {
+      var skipPage = [
+        "/pages/products/show/index",
+        "/pages/special_areas/show/index",
+        "/pages/special_areas/show01/index",
+        "/products/pages/index/index",
+        "/products/pages/index2/index",
+        "/products/pages/index3/index",
+        "/products/pages/index4/index",
+      ]
+      if(!app.globalData.authLoginStatus && !skipPage.includes(url.split('?')[0])) {
         wx.navigateTo({
           url: '/pages/login/index',
         })
@@ -81,7 +90,16 @@ function beforeOnload (context) {
     }
 
     this.redirectTo = function (url, params = {}) {
-      if (!app.globalData.authLoginStatus) {
+      var skipPage = [
+        "/pages/products/show/index",
+        "/pages/special_areas/show/index",
+        "/pages/special_areas/show01/index",
+        "/products/pages/index/index",
+        "/products/pages/index2/index",
+        "/products/pages/index3/index",
+        "/products/pages/index4/index",
+      ]
+      if (!app.globalData.authLoginStatus  && !skipPage.includes(url.split('?')[0])) {
         wx.navigateTo({
           url: '/pages/login/index',
         })

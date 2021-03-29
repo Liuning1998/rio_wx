@@ -20,7 +20,7 @@
         </view>
         <view class="account-info">
           <image class="balance-ico" src="/images/balance_ico.png"></image>
-          <text class="balance">账户余额(元): {{0}}</text>
+          <text class="balance">账户余额(元): {{ userInfo.account_balance || 0 }}</text>
         </view>
       </view>
     </view>

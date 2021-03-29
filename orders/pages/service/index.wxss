@@ -223,9 +223,9 @@ page {
   margin: 84rpx auto;
   border-radius: 44rpx;
   text-align: center;
-  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
-  font-size: 36rpx;
-  color: #8E662F;
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  font-size: 32rpx;
+  color: #ffffff;
 }
 
 .form-container .submit-btn.disabled {

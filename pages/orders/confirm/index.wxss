@@ -35,7 +35,7 @@ page {
   left: 0;
   top: 0;
   z-index: 1;
-  background: linear-gradient(to right, #EEDEB0, #D3B17D);
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
   width: 750rpx;
   height: 284rpx;  
 }

@@ -210,9 +210,9 @@
 }
 
 .store-item text {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #333333;
-  margin-top: 6rpx;
+  margin-top: 14rpx;
   font-weight: 500;
 }
 

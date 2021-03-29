@@ -57,6 +57,7 @@ Page({
   onShow: function () {
     this.loadCartInfo()
     this.setData({ canScroll: true })
+    this.getUserInfo()
   },
 
   getRecommendProducts: function (pageNo) {
@@ -83,7 +84,7 @@ Page({
         this.stopPDRefresh()
         if (res.data != null && res.data.constructor.name == 'Array') {
           this.setData({ products: res.data })
-          if(res.length >= getApp().globalData.perPage) {
+          if(res.data.length >= getApp().globalData.perPage) {
             this.setData({ pageNo: 2 })
           } else {
             this.setData({ pageNo: 1 })
@@ -108,8 +109,8 @@ Page({
             let item = res.data[i]
             if(item.tags.indexOf('试用商品') >= 0) {
               _tryProduct = item
-            } else if (item.tags.indexOf('今日特惠') >= 0) {
-              _todayProducts = item
+            // } else if (item.tags.indexOf('今日特惠') >= 0) {
+            //   _todayProducts = item
             } else {
               _data.push(item)
             }
@@ -204,6 +205,7 @@ Page({
     this.refreshProducts()
     // this.getTodayProduct()
     this.getHomeBrands()
+    this.getUserInfo()
   },
 
   onPullDownRefresh() {
@@ -404,6 +406,16 @@ Page({
         }
       }
     }).exec()
+  },
+
+  getUserInfo: function () {
+    http.post({
+      url: 'api/users/show_user',
+      success: res => {
+        getApp().globalData.userInfo = res.data
+        this.setData({ userInfo: res.data })
+      }
+    })
   },
   
 })

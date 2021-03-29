@@ -40,7 +40,7 @@
 
     <view wx:if="{{ !newObject && referrer != 'confirm_order' }}" class='delete-container'>
       <view style="width: 100%; display: flex; justify-content: space-between;">
-      <text bindtap='deleteAddress' data-address='{{ address }}' style="font-size: 28rpx; color: #967039;">删除收货地址</text>
+      <text bindtap='deleteAddress' data-address='{{ address }}' style="font-size: 28rpx; color: #F64C47;">删除收货地址</text>
       </view>
     </view>
 

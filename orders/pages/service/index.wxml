@@ -70,7 +70,7 @@
       </view>
       <view bindtap="gotoAgreement" class="remark">
         <text class="read">查看</text>
-        <text style="font-size: 28rpx; color: #8E662F;">《售后服务协议》</text>
+        <text style="font-size: 28rpx; color: #F64C47;">《售后服务协议》</text>
       </view>
     </view>
   </view>
