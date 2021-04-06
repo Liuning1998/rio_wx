@@ -1,71 +1,118 @@
 <!--pages/orders/show/index.wxml-->
 <wxs module="helper" src="./helper.wxs"></wxs>
+<wxs module="rhelper" src="../../../utils/helper.wxs"></wxs>
 
-<navbar appendStyle="background: linear-gradient(90deg, #ff524e 0%, #fb2c2a 100%)" textStyle="color: #ffffff; font-weight: 600;" title="订单详情" />
+<navbar appendStyle="background: #ffffff;" textStyle="color: #342F27; font-weight: 600;" title="订单详情" />
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="order-header">
-      <text wx:if="{{order.refund_at != null}}">已退款</text>
-      <text wx:else>{{order.state_t}}</text>
-      <image src="/images/order_show_01.png"></image>
+      <view class="status-container" wx:if="{{order.refund_at != null}}">
+        <view class="status-content">
+          <image class="icon" src="/images/order/canceled.png"></image>
+          <text class="">已退款</text>
+        </view>
+        <text class="desc">此订单已退款，欢迎再次购买</text>
+      </view>
+      <view wx:elif="{{ order.state == 'canceled' || order.state == 'handle_canceled' }}" class="status-container">
+        <view class="status-content">
+          <image class="icon" src="/images/order/paying.png"></image>
+          <text class="">{{order.state_t}}</text>
+        </view>
+        <text class="desc">此订单已取消，欢迎再次购买</text>
+      </view>
+      <view wx:elif="{{ order.state == 'new' }}" class="status-container">
+        <view class="status-content">
+          <image class="icon" src="/images/order/paying.png"></image>
+          <text class="">{{order.state_t}}</text>
+        </view>
+        <text class="desc">此订单尚未支付，请尽快支付</text>
+      </view>
+      <view wx:elif="{{ order.state == 'padding' }}" class="status-container">
+        <view class="status-content">
+          <image class="icon" src="/images/order/paying.png"></image>
+          <text class="">{{order.state_t}}</text>
+        </view>
+        <text class="desc">此订单已支付，正在发货</text>
+      </view>
+      <view wx:elif="{{ order.state == 'shipping' }}" class="status-container">
+        <view class="status-content">
+          <image class="icon" src="/images/order/paying.png"></image>
+          <text class="">{{order.state_t}}</text>
+        </view>
+        <text class="desc">此订单已发货，请关注物流信息</text>
+      </view>
+      <view wx:else class="status-container">
+        <view class="status-content">
+          <image class="icon" src="/images/order/paying.png"></image>
+          <text class="">{{order.state_t}}</text>
+        </view>
+        <text class="desc">谢谢惠顾</text>
+      </view>
+      <image class="background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_show_background_001.png"></image>
     </view>
 
-    <view wx:if="{{order.ship_address != null && order.ship_address.real_name != null}}" class="ship-info-container">
-      <view wx:if="{{order.expresses != null && order.expresses.length == 1}}" class="express-info" bindtap="gotoExpress" data-item="{{order.expresses[0]}}">
-        <view style="display: flex; align-items: center;">
-          <image class="icon" src="/images/express_icon.png"></image>
-          <text class="name">{{order.expresses[0].name}}</text>
-          <text class="number">{{order.expresses[0].express_number}}</text>
-          <image catchtap="copyExpress" data-item="{{order.expresses[0].express_number}}" class="copy-icon" src="/images/copy_icon.png"></image>
-        </view>
-
-        <image style="height: 20rpx; width: 10rpx;" src="/images/arrow_o_black_01.png"></image>
+    <view class="status-and-express">
+      <view wx:if="{{ order.state == 'canceled' || order.state == 'handle_canceled' }}" class="status-line">
+        <image src="/images/order/canceled_001.png" class="icon"></image>
+        <text class="desc">此订单已取消</text>
       </view>
+      <view wx:elif="{{ order.state == 'completed' && order.refund_at != null }}">
+        <image src="/images/order/canceled_001.png" class="icon"></image>
+        <text class="desc">此订单已退款, 您的退款已经受理完成，退款已原路返还。</text>
+      </view>
+      <!-- <view wx:elif="{{ order.state == 'new' }}" >
+      </view> -->
+      <view class="expresses-container" wx:elif="{{ true || order.expresses != null && order.expresses.length > 0 }}">
+        <view wx:if="{{ order.expresses.length == 1 }}" class="one">
+          <image src="/images/order/shipment.png" class="icon"></image>
+          <view class="content">
+            <text class="title">您订单已送出</text>
+            <text class="info">{{ order.expresses[0].name }} {{ orders.expresses[0].express_number }}</text>
+          </view>
 
-      <view wx:elif="{{order.expresses != null && order.expresses.length > 1}}" class="express-info col">
-        <view class="express-header">
-          <image class="icon" src="/images/express_icon.png"></image>
-          <text decode="{{true}}" class="express-desc">该订单已拆分为&nbsp;{{order.expresses.length}}&nbsp;个包裹</text>
-          <image bindtap="changeExpressExtend" class="arrow {{expressExtend && 'extend'}}" src="/images/arrow_o_black.png"></image>
+          <image style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
         </view>
 
-        <view wx:if="{{expressExtend}}" class="express-list">
-          <view class="express-item" wx:for="{{order.expresses}}" bindtap="gotoExpress" data-item="{{item}}">
-            <view style="display: flex; align-items: center;">
-              <text class="index">{{index + 1}}</text>
-              <text class="name">{{item.name}}</text>
-              <text class="number">{{item.express_number}}</text>
-              <image catchtap="copyExpress" data-item="{{item.express_number}}" class="copy-icon" src="/images/copy_icon.png"></image>
-            </view>
+        <view wx:elif="{{order.expresses.length > 1}}" class="more" bindtap="changeExpressExtend">
+          <image src="/images/order/shipment.png" class="icon"></image>
+          <view class="content">
+            <text class="title">您订单已送出</text>
+            <text class="info">共 {{order.product-expenses.length}} 个包裹</text>
+          </view>
+          <image class="arrow-down {{expressExtend && 'extend'}}" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
+        </view>
 
-            <image style="height: 20rpx; width: 10rpx;" src="/images/arrow_o_black_01.png"></image>
+        <view wx:if="{{ expressExtend }}" class="expresses-list">
+          <view class="item" wx:for="12" wx:key="index">
+          <!-- <view class="item" wx:for="{{ order.expresses }}" wx:key="index"> -->
+            <view class="info">
+              <text class="name">{{ item.name }}</text>
+              <text class="no">{{ item.express_number }}</text>
+              <image class="" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
+            </view>
           </view>
         </view>
       </view>
-      
-      <view wx:else class="express-info" style="justify-content: flex-start;">
-        <image class="icon" src="/images/express_icon.png"></image>
-        <text wx:if="{{ order.state == 'canceled' || order.state == 'handle_canceled' }}" class="name">已取消</text>
-        <text wx:elif="{{ order.state == 'new' }}" class="name">未支付</text>
-        <text wx:elif="{{ order.state == 'completed' && order.refund_at != null }}" class="name">已完成</text>
-        <text wx:else class="name">正在发货中</text>
-      </view>
+    </view>
 
-      <view class="address">
-        <image class="icon" src="/images/location_icon_002.png"></image>
+    <view wx:if="{{ order.ship_address != null && !(order.state == 'canceled' || order.state == 'handle_canceled') }}" class="select-address-container">
+        <image class="address-icon" src="/images/address_icon_003.png"></image>
+        
         <view class="address-content">
           <view class="user-info">
-            <text class="name">{{order.ship_address.real_name}}</text>
-            <text class="phone">{{order.ship_address.phone}}</text>
+            <text class="user-name">{{order.ship_address.real_name || ''}}</text>
+            <text class="phone">{{rhelper.hidePhone(order.ship_address.phone) || ''}}</text>
           </view>
           <view class="address-info">
+            <text wx:if="{{shipAddress.default_address}}" class="address-label">地址: </text>
             <text>{{order.ship_address.province || ''}}{{order.ship_address.city || ''}}{{order.ship_address.district || ''}}{{order.ship_address.address_info || ''}}</text>
           </view>
         </view>
+
+        <!-- <image class="arrow" src="/images/arrow_o_black.png"></image> -->
       </view>
-    </view>
 
     <view class="order-item-container">
       <view class="products">
@@ -78,46 +125,47 @@
           <view class="product-info">
             <view class="name-quantity">
               <text class="name">{{ item.product.name }}</text>
-              <text class="quantity">X {{ item.quantity }}</text>
+              <text wx:if="{{ item.option_value_string != null && item.option_value_string != '' }}" class="variant-desc">已选: {{ item.option_value_string }}</text>
             </view>
 
             <view class="variant-info">
-              <text wx:if="{{ item.option_value_string != null && item.option_value_string != '' }}" class="variant-desc">已选: {{ item.option_value_string }}</text>
-              <view wx:else></view>
               <text class="price">￥{{ item.price }}</text>
+              <text class="quantity">x {{ item.quantity }}</text>
             </view>
           </view>
         </view>
       </view>
+    </view>
 
-      <view class="expenses">
-        <view class="product-expenses">
-          <text class="label">商品金额</text>
-          <text>￥{{ order.total }}</text>
+    <view class="product-expenses">
+      <view class="content">
+        <text class="label">商品金额</text>
+        <text>￥{{ order.total }}</text>
         </view>
+    </view>
 
-        <view class="amount">
-          <text class="label">合计:</text>
-          <text class="price">￥{{ order.total }}</text>
-        </view>
+    <view class="shipment-expenses">
+      <view class="content">
+        <text class="label">运费(快递)：</text>
+        <text>包邮</text>
       </view>
+    </view>
 
-      <!-- <view class="total-info">
-        <text>共 {{ order.product_total }} 件商品</text>
-        <text class="total">合计:<text class="price">￥{{ order.total }}</text>元</text>
-      </view> -->
-
-      <!-- <view class="actions">
-        <view bindtap="buyAgain" class="btn buy-btn">再次购买</view>
-      </view> -->
+    <view class="quantity-and-total">
+      <view class="content">
+        <text class="quantity">共 {{order.product_total}} 件商品</text>
+        <text class="total-label">总计: </text>
+        <text class="total">￥{{ order.total }}</text>
+      </view>
     </view>
 
     <view class="order-info">
-      <view class="label">订单信息</view>
+      <!-- <view class="label">订单信息</view> -->
       <view class="info">
         <view class="item">
           <text class="item-label">订单号码:</text>
           <text class="text">{{ order.number }}</text>
+          <text class="copy-btn" bindtap="copyNumber">复制</text>
         </view>
         <view class="item">
           <text class="item-label">下单时间:</text>
@@ -142,12 +190,11 @@
           <text bindtap="gotoLink" style="color: #333333;" data-url="/web/pages/haoxiuyang/store/index" class="text">点击查看</text>
         </view>
 
-        <view wx:if="{{helper.canService(order) && helper.productType(order) == 2}}" class="item">
-        <!-- <view class="item"> -->
+        <!-- <view wx:if="{{helper.canService(order) && helper.productType(order) == 2}}" class="item">
           <text class="item-label">售后服务:</text>
           <text wx:if="{{orderServiceStatus.click == 'on'}}" bindtap="orderService" style="color: #333333;" class="text">查看</text>
           <text wx:else bindtap="orderService" style="color: #CCCCCC;" class="text">查看</text>
-        </view>
+        </view> -->
       </view>
     </view>
   </view>
@@ -161,6 +208,10 @@
 
   <view wx:else class="btn-content">
     <text bindtap="deleteOrder" class="btn delete" >删除订单</text>
+    <block wx:if="{{helper.canService(order)}}">
+      <text class="btn cancel" wx:if="{{orderServiceStatus.click == 'on'}}" bindtap="orderService" >申请售后</text>
+      <!-- <text class="btn cancel" wx:else bindtap="orderService">查看售后</text> -->
+    </block>
     <text bindtap="buyAgain" class="btn buy">再次购买</text>
   </view>
 </view>

@@ -2,6 +2,9 @@ function canService(order) {
   if (order == null || order.state == null) {
     return false
   }
+
+  console.log('---------')
+  console.log(order.state)
   var cannotStatus = ['new', 'canceled', 'handle_canceled', 'deleted']
   if (cannotStatus.indexOf(order.state) >= 0) {
     return false

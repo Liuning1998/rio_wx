@@ -27,7 +27,8 @@ Page({
     },
     emptyStatus: false,
     secondLoad: false,
-    showLoading: false
+    showLoading: false,
+    nowTime: Math.ceil((new Date).getTime()/1000)
   },
 
   /**
@@ -46,6 +47,7 @@ Page({
     }
     this.setData({ secondLoad: true })
     this.resetUerInfo()
+    this.setNowTime()
   },
 
   fetchOrders: function (state) {
@@ -403,6 +405,12 @@ Page({
       order: order
     })
   },
+
+  setNowTime: function () {
+    this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
+    setTimeout( res => 
+      this.setNowTime(), 1000)
+  }
 
   /**
    * 用户点击右上角分享

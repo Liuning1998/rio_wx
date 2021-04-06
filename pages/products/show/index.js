@@ -31,7 +31,7 @@ Page({
     getApp().commonBeforeOnLoad(this)
 
     this.getProductDetail(options.id)
-    // this.getProductDetail(30)
+    // this.getProductDetail('wkm3')
 
     this.setData({ isIphoneX: getApp().isIphoneX() })
   },
@@ -316,11 +316,12 @@ Page({
 
   confirmOrder: function () {
     if (this.data.btnSelectState == 'buyNow') {
-      if(this.data.productType == 1) {
-        this.buyCard()
-      } else {
-        this.buyNow()
-      }
+      // if(this.data.productType == 1) {
+      //   this.buyCard()
+      // } else {
+      //   this.buyNow()
+      // }
+      this.buyNow()
     } else if (this.data.btnSelectState == 'addCart') {
       this.addCart()
     }
@@ -395,6 +396,13 @@ Page({
     wx.switchTab({
       url: '/pages/orders/cart/index'
     })
+  },
+
+  onlyShowSelectLayer: function () {
+    if (!this.data.available) { return false }
+    this.setData({ showSelectContainer: true, btnSelectState: null })
+
+    this.setOptionsStatus(this.data.currentVariant)
   },
 
   /**

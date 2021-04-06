@@ -1,0 +1,79 @@
+function hidePhone (phone=null) {
+  if(phone == null) {
+    return ''
+  }
+  phone = '' + phone
+  if (phone.length < 11) {
+    return phone;
+  }
+  var _phone = phone.slice(0, 3) + '****' + phone.slice(7, 11)
+  return _phone
+}
+
+function getD (seconds){
+  var ds = 24*60*60
+  if (seconds < ds) {
+    return '00'
+  }
+
+  var result = Math.floor(seconds/ds)
+  if(result <= 9) {
+    result =  '0' + result
+  }
+
+  return result
+}
+
+function getH (seconds) {
+  var hs = 60*60
+
+  if (seconds < hs) {
+    return '00'
+  }
+
+  var result = Math.floor(seconds/hs)%24
+
+  if (result <= 9) {
+    result = '0' + result
+  }
+
+  return result
+}
+
+function getM (seconds) {
+  var ms = 60
+
+  if (seconds < ms) {
+    return '00'
+  }
+
+  var result = Math.floor(seconds/ms)%60
+
+  if (result <= 9) {
+    result = '0' + result
+  }
+
+  return result
+}
+
+function getS (seconds) {
+  if (seconds <= 0) {
+    return '00'
+  }
+
+  var result = seconds%60
+
+  if (result <= 9) {
+    result = '0' + result
+  }
+
+  return result
+}
+
+module.exports = {
+  hidePhone: hidePhone,
+  getD: getD,
+  getM: getM,
+  getH: getH,
+  getS: getS,
+}

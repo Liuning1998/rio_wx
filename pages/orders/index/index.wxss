@@ -74,9 +74,9 @@ page {
 .order-item-container {
   background: #ffffff;
   width: 702rpx;
-  margin: 10rpx 24rpx 0 24rpx;
+  margin: 16rpx 24rpx 0 24rpx;
   box-sizing: border-box;
-  padding: 30rpx 30rpx;
+  padding: 20rpx 30rpx;
   border-radius: 8rpx;
 }
 
@@ -140,21 +140,16 @@ page {
   margin-right: 10rpx;
 }
 
-.products .product-item .total-container {
+.products .product-item .quantity-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
 }
 
-.products .product-item .total-container .total {
-  font-size: 32rpx;
-  color: #333333;
-}
-
-.products .product-item .total-container .quantity {
-  font-size: 24rpx;
-  color: #999999;
+.products .product-item .quantity-container .quantity {
+  font-size: 20rpx;
+  color: #2B2424;
 }
 
 /* .products .product-item .name {
@@ -201,28 +196,51 @@ page {
   flex-shrink: 0;
 }
 
-.total-info {
+.total-container {
+  width: 100%;
   display: flex;
   justify-content: flex-end;
-  color: #666666;
+  align-items: center;
+  padding-bottom: 24rpx;
+}
+
+.total-container .label {
   font-size: 24rpx;
-  margin-top: 10rpx;
+  color: #2B2424;
+  margin-right: 16rpx;
 }
 
-.total-info .total {
-  margin-left: 8rpx;
+.total-container .price-int {
+  font-size: 28rpx;
+  color: #2B2424;
+  font-weight: 500;
+  margin-right: 2rpx;
 }
 
-.total-info .price {
-  color: #e23c42;
-  margin: 0 2rpx;
+.total-container .price-int::before {
+  content: '￥';
+  font-size: 20rpx;
+  color: #2B2424;
+}
+
+.total-container .price-decimal {
+  font-size: 20rpx;
+  color: #2B2424;
+  font-weight: 400;
+  position: relative;
+  top: 3rpx;
+}
+
+.total-container .price-decimal::before {
+  content: '.';
 }
 
 .actions {
-  margin-top: 20rpx;
+  padding-top: 20rpx;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  border-top: 1rpx solid #f7f7f7;
   /* padding: 20rpx 0; */
 }
 
@@ -236,7 +254,7 @@ page {
   text-align: center;
   line-height: 58rpx;
   font-size: 28rpx;
-  margin-right: 20rpx;
+  margin-right: 8rpx;
 }
 
 .buy-btn {
@@ -317,6 +335,23 @@ page {
   left: 310rpx;
   margin-top: 20rpx;
 }
+
+/* 支付时间 */
+.pay-time-container {
+  flex: 1;
+}
+
+.pay-time-container .label {
+  color: #B4AFAF;
+  font-size: 24rpx;
+  margin-right: 8rpx;
+}
+
+.pay-time-container .time {
+  font-size: 24rpx;
+  color: #F64C47;
+}
+/* 支付时间 */
 
 .hidden {
   display: none;

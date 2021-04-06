@@ -26,7 +26,23 @@ function origin_total (order) {
   return total.toFixed(2)
 }
 
+function payLeftTime (order, now) {
+  if(order.state != 'new') { return -1 }
+  
+  // ios 真机 wxs 文件中不能识别时间字符串中的 '-'
+  var created_at = order.created_at_t.replace('-','/').replace('-','/')
+
+  var orderTime = getDate(created_at)/1000;
+  var leftTime = now - orderTime
+  if(leftTime > order.pay_order_expire) {
+    return -1
+  } else {
+    return (order.pay_order_expire - leftTime)
+  }
+}
+
 module.exports = {
   vip_total: vip_total,
-  origin_total: origin_total
+  origin_total: origin_total,
+  payLeftTime: payLeftTime
 }

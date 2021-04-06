@@ -2,6 +2,7 @@
 <!-- <navbar title="商品详情" /> -->
 <wxs module="helper" src="../helper.wxs"></wxs>
 <wxs module="ph" src="../../../utils/product.wxs"></wxs>
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
 
 <view style='height: {{pageMarginTop}}px;' class="status-bar"></view>
 <view style='margin-top: {{pageMarginTop}}px;'></view>
@@ -43,37 +44,84 @@
           </swiper-item>
         </block>
       </swiper>
-      <view class='number'>{{ swiperCurrent + 1 }}/{{ product.carousels.length || 0 }}</view>
+      <view class='number'>
+        <text class="current">{{ swiperCurrent + 1 }}</text>
+        <text class="total">/{{ product.carousels.length || 0 }}</text>
+      </view>
     </view>
 
     <view class='product-info'>
-      <view class='product-name'>{{ product.name || '' }}</view>
-      <text class='product-description'>{{ product.description || '' }}</text>
-      <view class='price-group'>
-        <text decode class='product-origin-price' style="color: #ffffff;">{{ product.origin_price || 0 }}</text>
+      <view class="price-container">
+        <view class="price-content">
+          <text class="price-int">{{price.int(currentVariant.price)}}</text>
+          <text class="price-decimal">{{price.decimal(currentVariant.price)}}</text>
+          <view class="badges">
+            <text class="li">包邮</text>
+            <!-- <text class="li">赠品</text> -->
+          </view>
+        </view>
 
-        <text decode class='product-price'>{{ product.price || 0 }}</text>
-        <text decode class='product-origin-price'>{{ product.origin_price || 0 }}</text>
+        <view class="origin-price-container">
+          <text class="desc">市场价:</text>
+          <text class="origin-price">￥{{ price.tos(currentVariant.origin_price) }}</text>
+        </view>
       </view>
 
-      <view wx:if="{{ph.isYiyuangou(product)}}" class="stock-group">
-        <!-- <text class="sold">已售: {{product.saled_num}}件</text> -->
-        <text class="stock">剩余: {{product.stock}}件</text>
+      <view class="name-and-desc">
+        <text class="name">{{ product.name }}</text>
+        <text class="desc">{{ product.description }}</text>
       </view>
+
+      <!-- <view class="coupon-container">
+        <view class="coupon-border">
+          <view class="coupon-content">
+            <text class="label">优惠券</text>  
+            <view class="lis">
+              <view class="li">
+                <image class="left" src="/images/coupon_border.png"></image>
+                <text>满100减10</text>
+                <image class="right" src="/images/coupon_border.png"></image>
+              </view>
+            </view>
+          </view>
+
+          <view class="ellipsis">
+            <view class="li"></view>
+            <view class="li"></view>
+            <view class="li"></view>
+          </view>
+        </view>
+      </view> -->
+
+      <view wx:if="{{ currentVariant.show_name != null && currentVariant.show_name.length > 0 }}" class="variant-info" bindtap="onlyShowSelectLayer">
+        <view class="main-info">
+          <text class="label">规格</text>
+          <text class="desc">{{ currentVariant.show_name }}</text>
+        </view>
+
+        <view class="ellipsis">
+          <view class="li"></view>
+          <view class="li"></view>
+          <view class="li"></view>
+        </view>
+      </view>
+
+      <!-- <view class="shipment-and-gift">
+        <view class="gift">
+          <text class="label">赠品</text>
+          <text class="desc">儿童防水手表50米防水 高清双摄 双频111234沙发斯蒂芬</text>
+        </view>
+
+        <view class="shipment">
+          <text class="label">包邮</text>
+          <text class="desc">满90元包邮</text>
+        </view>
+      </view> -->
+
     </view>
 
-    <!-- <block>
-      <view class='selected-desc' bindtap='showSelectContainer'>
-        <text class="">已选: {{quantity}} 件 {{ currentVariant.show_name }}</text>
-        <image class='arrow' src='/images/arrow.png'></image>
-      </view>
-    </block> -->
-
     <view class='pop-detail' id="pop-detail">
-      <!-- <view class='line'></view> -->
-      <image src="/images/product_description.png" class="desc-image"></image>
       <text decode class='text-muted'>商品详情</text>
-      <!-- <view class='line'></view> -->
     </view>
 
     <view class='product-detail-desc dimages'>
@@ -113,8 +161,8 @@
       <view class='quantity-container'>
         <text class='label'>数量</text>
         <view class='control-quantity'>
-          <view wx:if="{{ quantity == 1 }}" class='sub disable' data-variant-id="{{ currentVariant.id }}">-</view>
-          <view wx:else class='sub ' bindtap='subQuantity' data-variant-id="{{ currentVariant.id }}">-</view>
+          <view wx:if="{{ quantity == 1 }}" class='sub disable' data-variant-id="{{ currentVariant.id }}">ㄧ</view>
+          <view wx:else class='sub ' bindtap='subQuantity' data-variant-id="{{ currentVariant.id }}">ㄧ</view>
           <text class='quantity'>{{ quantity || 1 }}</text>
           <view wx:if="{{ quantity >= product.limit_number || quantity >= currentVariant.limit_number || quantity >= currentVariant.stock || productType == 3 }}" class='plus disable'  data-variant-id="{{ currentVariant.id }}">+</view>
           <view wx:else class='plus' bindtap='plusQuantity' data-variant-id="{{ currentVariant.id }}">+</view>
@@ -125,7 +173,16 @@
   </view>
 
   <view class='submit-action'>
-    <view class="btn-container">
+    <view wx:if="{{ btnSelectState == null }}" class="btn-container" >
+      <view bindtap="gotoCart" class="cart-container">
+        <image src="/images/cart_icon_006.png"></image>
+        <text>购物车</text>
+        <text wx:if="{{cartData != null && cartData.quantity > 0}}" class="quantity">{{cartData.quantity}}</text>
+      </view>
+      <button bindtap='addCart' class="btn btn-lg add-cart-btn {{ (available == true && currentVariant.stock > 0) ? ' ' : 'disabled'  }}" data-state='addCart'>加入购物车</button>
+      <button class="btn btn-lg buy-btn {{ available == true ? ' ' : 'disabled'  }}" bindtap='buyNow' data-state='buyNow'>立即购买</button>
+    </view>
+    <view wx:else class="btn-container">
       <button bindtap='confirmOrder' class="{{ currentVariant.stock <= 0 && 'disabled' }} btn btn-lg confirm-btn">确定</button>
     </view>
   </view>

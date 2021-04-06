@@ -40,7 +40,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.15.0",
+  "libVersion": "2.16.0",
   "appid": "wx45ddcf8d9ade8e9f",
   "projectname": "rio_wxs",
   "debugOptions": {

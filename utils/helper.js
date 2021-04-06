@@ -32,8 +32,19 @@ function cacheShipAddress(address) {
   storage.setSyncWithExpire('ship_address', address, 360*24*60*60)
 }
 
+function hidePhone (phone=null) {
+  phone = '' + phone
+  if (phone.length < 11) {
+    return phone
+  }
+  var reg = /^(\d{3})\d{4}(\d{4})$/
+  var _phone = phone.replace(reg, '$1****$2')
+  return _phone
+}
+
 module.exports = {
   getShipAddress: getShipAddress,
-  cacheShipAddress: cacheShipAddress
+  cacheShipAddress: cacheShipAddress,
+  hidePhone: hidePhone
   
 }

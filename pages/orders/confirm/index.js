@@ -16,7 +16,8 @@ Page({
     store_id: '',
     shipAddress: {},
     secretText: '',
-    avatars: {}
+    avatars: {},
+    showVariantLayer: false
   },
 
   /**
@@ -25,6 +26,7 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
     var store_id = options.store_id || 0
+    // var store_id = 1
 
     if (options.buyType == 'now') {
       var storeCart = this.params.cart
@@ -33,6 +35,8 @@ Page({
       var cart = cartApi.getCartCache()
       var storeCart = cart.data['store_' + store_id]
     }
+
+    this.setCartLength(storeCart)
 
     let avatars = this.params.avatars
     if (avatars != null && Object.keys(avatars).length > 0) {
@@ -295,4 +299,18 @@ Page({
     options[e.currentTarget.dataset.name] = e.detail.value
     this.setData(options)
   },
+
+  setCartLength: function (cart) {
+    let result = 0
+    for(var i in cart.lineItems) {
+      if(cart.lineItems[i].selectStatus) {
+        result = result + 1
+      }
+    }
+    this.setData({ lineItemsLength: result })
+  },
+
+  triggerVariantLayer: function () {
+    this.setData({ showVariantLayer: !this.data.showVariantLayer })
+  }
 })

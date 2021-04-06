@@ -1,5 +1,7 @@
 <!--pages/orders/index/index.wxml-->
 <wxs module="helper" src="./helper.wxs"></wxs>
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<wxs module="utilsHelper" src="../../../utils/helper.wxs"></wxs>
 
 <navbar returnAble="{{false}}" textStyle="font-weight: 600;" appendStyle="background: #ffffff;" title="我的订单" />
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
@@ -45,14 +47,14 @@
 
           <view wx:if="{{order.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
             <view  class="product-item">
-              <view style="display: flex;width: 600rpx; overflow-x: scroll;">
+              <view style="display: flex;width: 480rpx; overflow-x: scroll;">
                 <image wx:if="{{ index < 2 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
               </view>
 
               <view style="display: flex; justify-content: flex-end; align-items: center;">
-                <view class="total-container">
-                  <text class="total">￥{{ order.payment_state == 'completed' ? order.pay_amount : origin.total }}</text>
-                  <text class="quantity">共{{order.product_total}}件</text>
+                <view class="quantity-container">
+                  <!-- <text class="total">￥{{ order.payment_state == 'completed' ? order.pay_amount : order.total }}</text> -->
+                  <text class="quantity">共 {{order.product_total}} 件</text>
                 </view>
                 <image class="go-detail" src="/images/arrow_o_black_01.png"></image>
               </view>
@@ -64,16 +66,19 @@
               <image class="avatar" src="{{ item.product.avatar }}"></image>
 
               <text class="product-name">{{item.product.name}}</text>
-              <text class="price">￥{{ order.payment_state == 'completed' ? order.pay_amount : order.total }}</text>
+              <view class="quantity-container">
+                  <text class="quantity">共 {{order.product_total}} 件</text>
+                </view>
 
               <image class="go-detail" src="/images/arrow_o_black_01.png"></image>
             </view>
           </view>
 
-          <!-- <view class="total-info">
-            <text>共 {{ order.product_total }} 件商品</text>
-            <text class="total">合计:<text class="price">￥{{ order.total }}</text>元</text>
-          </view> -->
+          <view class="total-container">
+            <text class="label">订单金额:</text>
+            <text class="price-int">{{ price.int(order.total) }}</text>
+            <text class="price-decimal">{{ price.decimal(order.total) }}</text>
+          </view>
 
           <view wx:if="{{ order.state != 'new' }}" class="actions">
             <view wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}" bindtap='deleteOrder' data-order='{{ order }}' class="btn delete-btn">删除订单</view>
@@ -87,6 +92,10 @@
           </view>
 
           <view wx:else class="actions">
+            <view wx:if="{{ helper.payLeftTime(order, nowTime) > 0 }}" class="pay-time-container">
+              <text class="label">支付剩余:</text>
+              <text class="time">{{ utilsHelper.getH(helper.payLeftTime(order, nowTime)) }}:{{ utilsHelper.getM(helper.payLeftTime(order, nowTime)) }}:{{ utilsHelper.getS(helper.payLeftTime(order, nowTime)) }}</text>
+            </view>
             <view bindtap='cancelOrder' data-order='{{ order }}' class="btn cancel-btn">取消订单</view>
             <view bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" data-order='{{ order }}' class="btn pay-btn">立即付款</view>
           </view>

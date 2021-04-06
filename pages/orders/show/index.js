@@ -21,7 +21,7 @@ Page({
     getApp().commonBeforeOnLoad(this)
 
     let number = options.id
-    // let number = "52458266670949159508"
+    // let number = "J2551071170524272762"
     http.get({
       url: 'api/orders/'+number,
       success: res => {
@@ -286,10 +286,10 @@ Page({
   },
 
   orderService: function (e) {
-    if(this.data.orderServiceStatus.click != 'on') {
-      this.errorToast('该订单不能申请售后')
-      return false
-    }
+    // if(this.data.orderServiceStatus.click != 'on') {
+    //   this.errorToast('该订单不能申请售后')
+    //   return false
+    // }
     this.navigateTo("/orders/pages/service/index",{
       order: this.data.order
     })
@@ -299,6 +299,12 @@ Page({
     var item = e.currentTarget.dataset.item
     wx.setClipboardData({
       data: item,
+    })
+  },
+
+  copyNumber: function () {
+    wx.setClipboardData({
+      data: this.data.order.number,
     })
   },
 

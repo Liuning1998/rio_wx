@@ -54,10 +54,11 @@
   font-size: 36rpx;
   height: 44px;
   line-height: 44px;
+  font-weight: 500;
 }
 
 .navbar-content .navbar-title {
-  color: #333333;
+  color: #342F27;
 }
 
 .navbar-content .navbar-title.text-white {
