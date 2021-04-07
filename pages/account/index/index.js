@@ -9,7 +9,7 @@ Page({
     authLoginStatus: false,
     scollStatus: false,
     // userBalance: 0,
-    orderQuantity: 0
+    orderQuantity: {}
   },
 
   /**
@@ -83,8 +83,22 @@ Page({
     http.get({
       url: 'api/orders/padding_orders_count',
       success: res => {
-        this.setData({ orderQuantity: res.data.padding_orders_count })
+        this.setData({ orderQuantity: res.data })
       }
+    })
+  },
+
+  gotoPhone: function () {
+    wx.navigateTo({
+      url: '/pages/account/phone/validate',
+    })
+  },
+
+  gotoOrder: function (e) {
+    let status = e.currentTarget.dataset.state
+    console.log('ass')
+    wx.reLaunch({
+      url: `/pages/orders/index/index?state=${status}`,
     })
   },
 

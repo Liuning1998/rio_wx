@@ -1,0 +1,12 @@
+<!--pages/card/index/index.wxml-->
+<navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="我的卡券"/>
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class="empty-container">
+    <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_coupon_icon.png"></image>
+    <text>暂无卡券~</text>
+  </view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>

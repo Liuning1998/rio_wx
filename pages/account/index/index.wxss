@@ -1,7 +1,7 @@
 /* pages/account/index/index.wxss */
 
 page {
-  background: #f7f7f7;
+  background: #ffffff;
 }
 
 .navbar {
@@ -49,7 +49,7 @@ page {
 
 .page-header {
   width: 750rpx;
-  height: 464rpx;
+  height: 360rpx;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -61,13 +61,13 @@ page {
 }
 
 .page-header .header-background-container image {
-  height: 352rpx;
+  height: 360rpx;
   width: 750rpx;
   display: flex;
 }
 
 .page-header .header-content {
-  height: 464rpx;
+  height: 360rpx;
   position: absolute;
   z-index: 3;
   top: 0;
@@ -75,31 +75,27 @@ page {
   width: 750rpx;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
 }
 
 .user-container {
   width: 750rpx;
-  padding: 0 24rpx;
-  padding-bottom: 36rpx;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex: 1;
 }
 
 .user-content {
   width: 100%;
-  height: 100%;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
+  padding: 0 40rpx;
+  box-sizing: border-box;
 }
 
 .user-content .welcome-info .user-name{
   color: #ffffff;
-  font-size: 36rpx;
+  font-size: 28rpx;
   display: flex;
   font-weight: 500;
 }
@@ -117,8 +113,15 @@ page {
 }
 
 .user-content .welcome-info .mark {
-  font-size: 24rpx;
+  font-size: 20rpx;
   color: #ffffff;
+  height: 32rpx;
+  line-height: 30rpx;
+  padding: 0rpx 12rpx;
+  display: inline-block;
+  border-radius: 16rpx;
+  border: 2rpx solid #ffffff;
+  box-sizing: border-box;
 }
 
 .no-login {
@@ -126,6 +129,8 @@ page {
   height: 100%;
   display: flex;
   align-items: center;
+  padding: 0 30rpx;
+  box-sizing: border-box;
 }
 
 .no-login .default-avatar {
@@ -136,8 +141,8 @@ page {
 }
 
 .no-login .default-avatar image {
-  width: 122rpx;
-  height: 122rpx;
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 50%;
   background: #ffffff;
 }
@@ -148,92 +153,29 @@ page {
 }
 
 .no-login .item-label {
-  font-size: 44rpx;
+  font-size: 36rpx;
   color: #ffffff;
+  font-weight: 500;
 }
 
 .no-login .sub-item-label {
-  font-size: 24rpx;
+  font-size: 20rpx;
   color: #ffffff;
 }
 
 .user-content .avatar-container {
-  height: 112rpx;
-  width: 112rpx;
+  height: 100rpx;
+  width: 100rpx;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid #ffffff;
+  /* border: 1px solid #ffffff; */
   flex-shrink: 0;
   margin-right: 24rpx;
 }
 
 .user-content .avatar-container .avatar-image {
-  height: 112rpx;
-  width: 112rpx;
-}
-
-.page-header .account-info-container {
-  flex-shrink: 0;
-  width: 750rpx;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  background: #ffffff;
-  width: 702rpx;
-  margin-left: 24rpx;
-  height: 176rpx;
-  border-radius: 4px;
-  align-items: center;
-}
-
-.page-header .account-info-container .split {
-  width: 2rpx;
-  height: 48rpx;
-  background: #d8d8d8;
-}
-
-.page-header .account-info-container .balance-container {
-  width: 350rpx;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.page-header .balance {
-  font-size: 36rpx;
-  font-weight: 500;
-  color: #342F27;
-}
-
-.page-header .balance-desc {
-  font-size: 28rpx;
-  font-weight: 400;
-  color: #5B5454;
-  margin-top: 10rpx;
-}
-
-.page-header .account-info-container .coupon-container {
-  width: 350rpx;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.page-header .coupon {
-  font-size: 36rpx;
-  font-weight: 500;
-  color: #342F27;
-}
-
-.page-header .coupon-desc {
-  font-size: 28rpx;
-  font-weight: 400;
-  color: #5B5454;
-  margin-top: 10rpx;
+  height: 100rpx;
+  width: 100rpx;
 }
 
 .action-container .icon-01{
@@ -281,3 +223,95 @@ page {
   font-size: 24rpx;
   color: #5B5454;
 }
+
+/* 订单 */
+.order-btn-container .btn-icon, .account-info .main-btn .btn-icon {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  margin-bottom: 8rpx;
+}
+
+.order-btn-container {
+  display: flex;
+  height: 160rpx;
+  width: 750rpx;
+}
+
+.order-btn-container .btn-group {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+}
+
+.order-btn-container .btn-item, .account-info .main-btn .btn-item {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.order-btn-container .label, .account-info .main-btn .label {
+  font-size: 24rpx;
+  color: #5B5454;
+}
+
+.order-btn-container .split-icon, .account-info .split-icon {
+  height: 160rpx;
+  width: 16rpx;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.order-btn-container .main-btn, .account-info .main-btn {
+  width: 184rpx;
+  flex-shrink: 0;
+}
+
+.order-btn-container .btn-badge {
+  position: absolute;
+  right: 6rpx;
+  top: 30rpx;
+  background: #F64C47;
+  color: #ffffff;
+  font-size: 16rpx;
+  display: inline-block;
+  height: 22rpx;
+  line-height: 22rpx;
+  border-radius: 11rpx;
+  padding: 0 6rpx;
+}
+
+.account-info {
+  height: 160rpx;
+  width: 750rpx;
+  display: flex;
+}
+
+.account-info .account-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+}
+
+.account-info .info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-info .info-item .label {
+  font-size: 24rpx;
+  color: #5B5454;
+}
+
+.account-info .info-item .desc {
+  font-size: 36rpx;
+  color: #2B2424;
+  font-weight: 500;
+  line-height: 48rpx;
+}
+/* 订单 */

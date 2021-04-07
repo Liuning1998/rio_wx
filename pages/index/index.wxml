@@ -7,11 +7,21 @@
 <navbar returnAble="{{false}}" appendStyle="background: {{ scollStatus ? '#ffffff' : '#ffffff00;'}}" textStyle="color: {{scollStatus ? '#333333' : '#ffffff'}}; font-weight: 600;" title="金色家园 幸福生活" />
 <!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
 
+
+<view class="navbar-background" style="height: {{pageMarginTop+44}}px;">
+  <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_001.png"></image>    
+</view>
+
 <scroll-view scroll-y='{{canScroll}}' class='page-container' style="height: 100%; overflow-y: scroll; " bindtouchstart='changeNavbar'>
-  <view class="ads-container">
-    <view class="user-container">
-      <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px; width: 750rpx;'></view>
-      <view class="user-content">
+  <view class="swiper-and-user" style="margin-top: {{pageMarginTop+44}}px;">
+    <image class="su-background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_001.png" style="top: {{-pageMarginTop-44}}px"></image>
+    <view class="su-container" >
+      <view wx:if="{{!authLoginStatus}}" class="defualt-user">
+        <image class="default-avatar" src="/images/default_avatar.png"></image>
+        <text>Hi~欢迎来到金色家园小程序</text>
+      </view>
+
+      <view wx:else class="user-info">
         <view class="avatar-and-name">
           <view class="avatar-container" >
             <open-data class='avatar-image' type="userAvatarUrl"></open-data>
@@ -19,159 +29,127 @@
           <open-data class="name" type="userNickName"></open-data>
         </view>
         <view class="account-info">
-          <image class="balance-ico" src="/images/balance_ico.png"></image>
           <text class="balance">账户余额(元): {{ userInfo.account_balance || 0 }}</text>
         </view>
       </view>
-    </view>
-    <view class="ad-mask-layer"><view class="background"></view></view>
-    <swiper bindchange='changeSwiperCurrent' class="ad-swiper" circular autoplay="true"
-      indicator-dots="{{false}}" indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#DCC08E"
-    >
-      <block wx:for="{{ ads }}" wx:key="index">
-        <swiper-item wx:for="{{ item.images }}" wx:key="aindex" wx:for-item="image">
-          <image bindtap="gotoUrl" data-url="{{item.miniprogram_url}}" src="{{image}}" class="slide-image" />
-        </swiper-item>
-      </block>
-    </swiper>
 
-    <view class="swiper-dots-container">
-      <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < ads.length }}" class="dot {{ index == swiperCurrent && 'active' }}"></view>
+      <view class="swiper-container">
+        <view class="swiper-content">
+          <swiper bindchange='changeSwiperCurrent' class="ad-swiper" circular autoplay="true"
+            indicator-dots="{{false}}" 
+          >
+            <block wx:for="{{ ads }}" wx:key="index">
+              <swiper-item wx:for="{{ item.images }}" wx:key="aindex" wx:for-item="image">
+                <view class="slide-image-container">
+                  <image bindtap="gotoUrl" data-url="{{item.miniprogram_url}}" src="{{image}}" class="slide-image" />
+                </view>
+              </swiper-item>
+            </block>
+          </swiper>
+
+          <view class="swiper-dots-container">
+            <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < ads.length }}" class="dot {{ index == swiperCurrent && 'active' }}"></view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 
   <view class="store-container">
-    <view bindtap="gotoShow" data-item="{{item}}" class="store-item" wx:for="{{specialAreas}}" wx:key="index">
-      <view class="logo-container"><image src="{{item.logo}}"></image></view>
-      <text>{{item.name}}</text>
-    </view>
+    <swiper indicator-dots="{{false}}" circular="{{false}}" class="{{ specialAreas[0].length >= 8 ? 'tow-row' : '' }}">
+      <swiper-item wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
+        <view bindtap="gotoShow" data-item="{{item}}" class="store-item" wx:for="{{ group }}" wx:for-item="item">
+          <view class="logo-container"><image src="{{item.logo}}"></image></view>
+          <text>{{item.name}}</text>
+        </view>
+      </swiper-item>
+    </swiper>
+    
   </view>
 
-  <!-- 试用商品 -->
-  <view class="try-product" wx:if="{{ tryProduct != null }}" bindtap="gotoTryProduct">
-    <image src="{{tryProduct.background_image}}" class=""></image>
-  </view>
-  <!-- 试用商品 -->
 
   <!-- 三 -->
   <view class="section-2" wx:if="{{ homeBrands != null && homeBrands.length > 0 }}">
-    <view wx:if="{{homeBrands[0] != null}}" class="card" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">
-      <image class="background" src="{{homeBrands[0].background_image}}"></image>
-      <view class="content">
-        <!-- <text class="title">{{homeBrands[0].title}}</text>
-        <text class="sub-title">{{homeBrands[0].subtitle}}</text> -->
+    <view class="first-container">
+      <view wx:if="{{homeBrands[0] != null}}" class="card" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">
+        <image class="background" src="{{homeBrands[0].background_image}}"></image>
+        <view class="content">
+          <!-- <text class="title">{{homeBrands[0].title}}</text>
+          <text class="sub-title">{{homeBrands[0].subtitle}}</text> -->
+        </view>
+      </view>
+
+      <view class="left-container">
+        <view wx:if="{{homeBrands[1] != null}}" class="hot-container" bindtap="gotoBrand" data-item="{{homeBrands[1]}}">
+          <image class="background" src="{{homeBrands[1].background_image}}"></image>
+          <!-- <view class="content">
+            <view class="title-container">
+              <text class="title">{{homeBrands[1].title}}</text>
+            </view>
+            <text class="sub-title">{{homeBrands[1].subtitle}}</text>
+          </view> -->
+        </view>
+
+        <view wx:if="{{homeBrands[2] != null}}" class="sort-container" bindtap="gotoBrand" data-item="{{homeBrands[2]}}">
+          <image class="background" src="{{homeBrands[2].background_image}}"></image>
+          <!-- <view class="content">
+            <view class="title-container">
+              <text class="title">{{homeBrands[2].title}}</text>
+            </view>
+            <text class="sub-title">{{homeBrands[2].subtitle}}</text>
+          </view> -->
+        </view>
       </view>
     </view>
 
-    <view class="left-container">
-      <view wx:if="{{homeBrands[1] != null}}" class="hot-container" bindtap="gotoBrand" data-item="{{homeBrands[1]}}">
-        <image class="background" src="{{homeBrands[1].background_image}}"></image>
-        <!-- <view class="content">
-          <view class="title-container">
-            <text class="title">{{homeBrands[1].title}}</text>
-          </view>
-          <text class="sub-title">{{homeBrands[1].subtitle}}</text>
-        </view> -->
-      </view>
-
-      <view wx:if="{{homeBrands[2] != null}}" class="sort-container" bindtap="gotoBrand" data-item="{{homeBrands[2]}}">
-        <image class="background" src="{{homeBrands[2].background_image}}"></image>
-        <!-- <view class="content">
-          <view class="title-container">
-            <text class="title">{{homeBrands[2].title}}</text>
-          </view>
-          <text class="sub-title">{{homeBrands[2].subtitle}}</text>
-        </view> -->
+    <view class="second-container">
+      <view bindtap="gotoBrand" data-item="{{homeBrand}}" wx:for="{{homeBrands}}" wx:for-index="hindex" wx:key="key" wx:for-item="homeBrand" class="home-brand-item" wx:if="{{ hindex >= 3 }}">
+        <text class="title">{{homeBrand.title}}</text>
+        <text class="sub-title">{{homeBrand.subtitle}}</text>
+        <image class="icon" src="{{homeBrand.background_image}}"></image>
       </view>
     </view>
   </view>
   <!-- 三 -->
 
-
-  <!-- 今日特惠 -->
-  <!-- <view class="today-container">
-    <view wx:if="{{todayProducts.products.length > 0}}" class="lable-container" style="padding-bottom: 12rpx;">
-      <view class="main">
-        <text class="label">{{todayProducts.title}}</text>
-        <view class="remark"><text>{{todayProducts.subtitle}}</text></view>
-      </view>
-
-      <view class="more" bindtap="gotoBrand" data-item="{{todayProducts}}">
-        <text class="">更多</text>
-        <image src="/images/arrow_o_black_01.png"></image>
-      </view>
-    </view>
-
-    <view class="today-products">
-      <view wx:if="{{index <= 3}}" class="product-item" wx:for="{{todayProducts.products}}" wx:key="index" bindtap="gotoProduct" data-item="{{item}}"  >
-        <view class="avatar-container">
-          <image class="avatar" src="{{item.avatar}}"></image>
-        </view>
-        <view class="price-container">
-          <text class="price">￥{{price.tos(item.price)}}</text>
-          <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
-        </view>
-      </view>
-    </view>
-  </view> -->
-
-  <!-- 今日特惠 -->
-
-  <view wx:for="{{homeBrands}}" wx:for-index="hindex" wx:key="key" wx:for-item="homeBrand" class="section-3" wx:if="{{ hindex >= 3 }}">
-    <view class="click-area" bindtap="gotoBrand" data-item="{{homeBrands[hindex]}}"></view>
-    <image class="background" src="{{homeBrand.background_image}}"></image>
-    
-    <view class="products-container">
-      <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{homeBrand.products}}" wx:key="key" wx:for-index="index" wx:if="{{index <= 2}}">
-        <view class="avatar-container">
-          <image class="avatar" src="{{item.avatar}}"></image>
-        </view>
-        <text class="name">{{item.name}}</text>
-        <text class="price">￥{{price.tos(item.price)}}</text>
-        <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
-      </view>
-    </view>
+  <!-- 商品列表 -->
+  <view wx:if="{{products.length > 0}}" class="products-label">
+    <image src="/images/home_split_001.png"></image>
+    <text  class="products-title">为你推荐</text>
+    <image class="right" src="/images/home_split_001.png"></image>
   </view>
-
-  <view class="split-02-container">
-    <image class="split-02" src="/images/home_split_02.png"></image>
-  </view>
-
-  <view wx:if="{{products.length > 0}}" class="youxuan-products">
-    <view bindtap="gotoProduct" data-item="{{item}}" class="product-container" wx:for="{{products}}" wx:key="index">
-      <view class="avatar-container">
-        <image wx:if="{{index == 0}}" src="{{item.ad_image1}}"></image>
-        <image wx:else src="{{item.avatar}}"></image>
-      </view>
-      <text class="name">{{item.name}}</text>
-      <text wx:if="{{ item.short_desc != null && item.short_desc.length > 0 }}" class="description">{{item.show_desc}}</text>
-      
-      <view class="bottom-btn-container">
-        <view class="price-container">
-          <text class="origin-price">原价: {{price.tos(item.origin_price)}}</text>
-          <view class="price">
-            <text class="int">{{price.int(item.price)}}</text>
-            <text class="decimal">{{price.decimal(item.price)}}</text>
-          </view>
+  <view wx:if="{{products.length > 0}}" class="products-container">
+    <view class="product-item-contaier" bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index">
+      <image src="{{item.avatar}}" class="avatar"></image>
+      <view class="product-content">
+        <view class="name-container">
+          <text class="name"><text class="hot-badge">热销</text>{{item.name}}</text>
         </view>
-
-        <view class="cart-icon" catchtap="addCartAndAnimation" data-item="{{item}}">
-          <view class="arrow"></view>
-          <view class="go-product" wx:if="{{!product.canAddCart(item)}}">
-            <text>GO</text>
-            <image src="/images/store/go_arrow.png"></image>
-          </view>
-          <image wx:else src="/images/cart_icon_002.png"></image>
+        <view class="price-and-btn">
+          <vew class="price-container">
+            <view class="price">
+              <text class="price-int">{{price.int(item.price)}}</text>
+              <text class="price-decimal">{{price.decimal(item.price)}}</text>
+            </view>
+            <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
+          </vew>
+          
+          <text class="add-cart" catchtap="addCartAndAnimation" data-item="{{item}}">+</text>
         </view>
       </view>
     </view>
   </view>
-  <!-- 优选商品 -->
+  <!-- 商品列表 -->
 
-  <view style="width: 750rpx; height: 100rpx; background: #ffffff;"></view>
+  <view class="page-bottom" wx:if="{{pageBottom}}">
+    <image src="/images/bottom_icon_001.png"></image>
+    <text>已经到底啦</text>
+    <image src="/images/bottom_icon_001.png" class="right"></image>
+  </view>
 </scroll-view>
 
-<image wx:if="{{noticeText == null || noticeText.length <= 0}}" src="/images/loading_002.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 14rpx;"></image>
+
+<image wx:if="{{noticeText == null || noticeText.length <= 0}}" src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 14rpx;"></image>
 <image wx:else src="/images/loading_002.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
 
 <msgToast msg-data="{{ _msgData }}"/>

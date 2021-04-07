@@ -20,7 +20,8 @@ Page({
     homeBrands: null,
     tryProduct: null,
     noticeText: null,
-    swiperCurrent: 0
+    swiperCurrent: 0,
+    pageBottom: false
   },
 
   /**
@@ -85,9 +86,9 @@ Page({
         if (res.data != null && res.data.constructor.name == 'Array') {
           this.setData({ products: res.data })
           if(res.data.length >= getApp().globalData.perPage) {
-            this.setData({ pageNo: 2 })
+            this.setData({ pageNo: 2, pageBottom: false })
           } else {
-            this.setData({ pageNo: 1 })
+            this.setData({ pageNo: 1, pageBottom: true })
           }
         }
       },
@@ -158,7 +159,9 @@ Page({
     })
 
     if (data.length >= getApp().globalData.perPage) {
-      this.setData({ pageNo: this.data.pageNo + 1 })
+      this.setData({ pageNo: this.data.pageNo + 1, pageBottom: false })
+    } else {
+      this.setData({ pageBottom: true })
     }
 
     // this.stopPDRefresh()
@@ -169,7 +172,13 @@ Page({
       url: 'api/special_areas/recommend',
       success: res => {
         if (res.data != null && res.data.constructor.name == 'Array') {
-          this.setData({ specialAreas: res.data })
+          var result = []
+          for(let i in res.data){
+            let j = Math.floor(i/8)
+            if(result[j] == null) { result[j] = [] }
+            result[j].push(res.data[i])
+          }
+          this.setData({ specialAreas: result })
         }
       }
     })

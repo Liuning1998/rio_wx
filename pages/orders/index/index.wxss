@@ -301,14 +301,14 @@ page {
 }
 
 .order-empty image {
-  width: 262rpx;
-  height: 172rpx;
+  width: 480rpx;
+  height: 244rpx;
 }
 
 .order-empty .title {
   font-size: 28rpx;
-  color: #333333;
-  margin-top: 136rpx;
+  color: #2B2424;
+  margin-top: 44rpx;
   text-align: center;
 }
 

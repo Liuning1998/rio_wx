@@ -218,7 +218,7 @@ page {
 
 .price-container .price-int {
   font-size: 56rpx;
-  color: #342F27;
+  color: #EB433E;
   font-weight: 500;
 }
 
@@ -229,9 +229,9 @@ page {
 
 .price-container .price-decimal {
   font-size: 24rpx;
-  color: #342F27;
+  color: #EB433E;
   font-weight: 500;
-  margin-top: 18rpx;
+  margin-top: 20rpx;
 }
 
 .price-container .price-decimal::before {
