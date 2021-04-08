@@ -53,88 +53,92 @@
   </view>
 
   <view wx:if="{{ categories.length > 0 }}" class="category-container">
-    <view bindtap="gotoCategory" data-item="{{item}}" class="category-item" wx:for="{{categories}}" wx:key="index">
-      <view class="icon-container"><image src="{{item.icon}}"></image></view>
-      <text class="name">{{item.name}}</text>
+    <view class="badges">
+      <view class="badge-item">
+        <image src="/images/special_areas/icon_001.png"></image>
+        <text>严选好物</text>
+      </view>
+      <view class="badge-item">
+        <image src="/images/special_areas/icon_002.png"></image>
+        <text>正品货源</text>
+      </view>
+      <view class="badge-item">
+        <image src="/images/special_areas/icon_003.png"></image>
+        <text>专属价格</text>
+      </view>
+    </view>
+    <view class="category-content">
+      <view bindtap="gotoCategory" data-item="{{item}}" class="category-item" wx:for="{{categories}}" wx:key="index">
+        <view class="icon-container"><image src="{{item.icon}}"></image></view>
+        <text class="name">{{item.name}}</text>
+      </view>
     </view>
   </view>
 
-  <view class="page-main-container {{ categories.length <= 0 && 'container-01' }}">
-    <view class="fine-container" wx:if="{{fineProducts.length > 0}}">
-      <view class="section-label" style="margin-top: {{ categories.length > 0 ? -18 : 18}}rpx;">
-        <view class="dot-1"></view>
-        <view class="dot-2"></view>
-        <text>专区精选</text>
-        <view class="dot-2"></view>
-        <view class="dot-1"></view>
+  <view class="hot-sale" wx:if="{{ fineProducts.length > 0 }}">
+  <!-- <view class="hot-sale" wx:if="{{ products.length > 0 }}"> -->
+    <text class="label">热销商品</text>
+    <view class="products-container">
+      <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{fineProducts}}" wx:key="index">
+        <image class="avatar" src="{{item.avatar}}"></image>
+        <view class="product-content">
+          <text class="name">{{item.name || ''}}</text>
+          <view class="price-and-cart">
+            <view class="price-container">
+              <text class="price-int">{{ price.int(item.price) }}</text>
+              <text class="price-decimal">{{ price.decimal(item.price) }}</text>
+            </view>
+            <view class="cart-container" catchtap="addCartAndAnimation" data-item="{{item}}">
+              <image src="/images/cart_icon_007.png"></image>
+            </view>
+          </view>
+        </view>
       </view>
 
-      <view class="products-container">
-        <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{fineProducts}}" wx:key="index">
-          <view class="avatar-container">
-            <image class="top-badge" src="../../../images/special_area_top0{{ index + 1 }}.png"></image>
-            <image wx:if="{{index == 0}}" class="avatar" src="{{item.ad_image1}}"></image>
-            <image wx:else class="avatar" src="{{item.avatar}}"></image>
-          </view>
+      <view style="height: 100rpx; width: 12rpx; flex-shrink: 0;"></view>
+    </view>
+  </view>
+
+  <view class="all-products">
+    <text class="label">全部商品</text>
+    <view class="products-container">
+      <block wx:for="{{products}}" wx:key="index">
+        <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" >
+          <image class="avatar" src="{{item.avatar}}"></image>
           <view class="product-content">
-            <view class="info">
-              <text class="name">{{item.name}}</text>
-              <text class="description">{{item.description}}</text>
+            <view class="name-and-badges">
+              <text class="name">{{ item.name || '' }}</text>
+              <view class="badges">
+                <text class="li">热销</text>
+              </view>
             </view>
 
-            <view class="price-container">
-              <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
-              <text class="price">{{price.int(item.price)}}.<text class="sub">{{price.decimal(item.price)}}</text></text>
+            <view class="price-and-cart">
+              <view class="price-container">
+                <view class="price">
+                  <text class="price-int">{{ price.int(item.price) }}</text>
+                  <text class="price-decimal">{{ price.decimal(item.price) }}</text>
+                </view>
+                <view wx:if="{{ item.origin_price != null && item.origin_price != 0 }}" class="origin-price">{{ price.tos(item.origin_price) }}</view>
+              </view>
+              <view class="cart-container" catchtap="addCartAndAnimation" data-item="{{item}}">
+                <image src="/images/cart_icon_007.png"></image>
+              </view>
             </view>
-            
-            <text class="buy-btn buy-btn-01" wx:if="{{index == 0}}" catchtap="addCartAndAnimation" data-item="{{item}}">加入购物车</text>
-            <text class="buy-btn buy-btn-02" wx:else catchtap="addCartAndAnimation" data-item="{{item}}">+</text>
-
-            <!-- <image class="background-icon-001" src="/images/store_show_icon_001.png"></image> -->
-            <!-- <image class="background-icon-002" src="/images/store_show_icon_002.png"></image> -->
-            <!-- <view catchtap="addCartAndAnimation" data-item="{{item}}" class="click-area" ></view> -->
-            <!-- <text catchtap="gotoProduct" data-item="{{item}}" class="buy-now-6" wx:if="{{index == 5}}">立即购买</text> -->
           </view>
         </view>
-      </view>
-    </view>
 
-    <view class="store-products" wx:if="{{products.length > 0}}">
-      <view class="section-label">
-        <view class="dot-1"></view>
-        <view class="dot-2"></view>
-        <text>优选商品</text>
-        <view class="dot-2"></view>
-        <view class="dot-1"></view>
-      </view>
-
-      <view class="products-container">
-        <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{products}}" wx:key="index">
-          <view class="avatar-container">
-            <image class="avatar" src="{{item.avatar}}"></image>
-          </view>
-
-          <view class="info">
-            <text class="name">{{item.name}}</text>
-            <text class="description">{{item.description}}</text>
-            <view class="badges">
-              <text class="badge-item" wx:for="{{item.badges}}" wx:for-item="badge" wx:key="index">{{badge}}</text>
-            </view>
-          </view>
-
-          <view catchtap="gotoProduct" data-item="{{item}}" class="bottom-group">
-            <image class="store-icon-003" src="/images/store_show_icon_003.png"></image>
-            <view class="price-container">
-              <text class="price">{{price.int(item.price)}}.</text>
-              <text class="price-float">{{price.decimal(item.price)}}</text>
-            </view>
-            <text class="buy-btn">立即购买</text>
-          </view>
+        <view class="split">
+          <view class="line"></view>
         </view>
-      </view>
+      </block>
     </view>
+  </view>
 
-    <view style="width: 750rpx; height: 100rpx; background: #f7f7f7;"></view>
+  <view class="page-bottom" wx:if="{{pageBottom}}">
+    <image src="/images/bottom_icon_001.png"></image>
+    <text>已经到底啦</text>
+    <image src="/images/bottom_icon_001.png" class="right"></image>
   </view>
 </scroll-view>
 

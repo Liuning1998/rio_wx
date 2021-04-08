@@ -17,7 +17,8 @@ Page({
     pageTitle: '',
     pageNo: 1,
     currentStore: {},
-    searchStyle: ""
+    searchStyle: "",
+    pageBottom: false
   },
 
   /**
@@ -26,7 +27,7 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
     let item_id = options.item_id
-    // item_id = 7
+    // let item_id = 3
 
     this.getCategories(item_id)
     this.getProducts(item_id)
@@ -103,7 +104,9 @@ Page({
     })
     
     if (data.length >= getApp().globalData.perPage) {
-      this.setData({ pageNo: this.data.pageNo + 1 })
+      this.setData({ pageNo: this.data.pageNo + 1, pageBottom: false })
+    } else {
+      this.setData({ pageBottom: true })
     }
 
     this.stopPDRefresh()

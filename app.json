@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/special_areas/show/index",
     "pages/account/index/index",
     "pages/coupons/dashboard/index",
     "pages/orders/index/index",
@@ -21,7 +22,6 @@
     "pages/orders/cart/index",
     "pages/special_areas/show01/index",
     "pages/card_home/index",
-    "pages/special_areas/show/index",
     "pages/addresses/index/index",
     "products/pages/search/index",
     "pages/addresses/edit/index",
