@@ -20,7 +20,7 @@ Page({
     userId: null,
     rucaptchaId: null,
     gotCode: false,
-    ableSubmit: true
+    ableSubmit: false
   },
 
   /**
@@ -45,6 +45,7 @@ Page({
     var options = {}
     options[e.currentTarget.dataset.name] = e.detail.value
     this.setData(options)
+    this.checkAbleSubmit()
   },
 
   getCode: function () {
@@ -216,6 +217,14 @@ Page({
       case 'getCode':
         this.getCode(e)
         break
+    }
+  },
+
+  checkAbleSubmit: function () {
+    if (this.data.phone.length == 11 && this.data.verification_code.length == 6) {
+      this.setData({ ableSubmit: true })
+    } else {
+      this.setData({ ableSubmit: false })
     }
   },
 

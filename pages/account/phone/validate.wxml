@@ -1,40 +1,49 @@
 <!--pages/account/phone/validate.wxml-->
-<navbar return-able="{{true}}" title="手机验证"/>
+<navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="手机验证"/>
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
-<view class="page-container">
-  <view class="background"><view class="bottom"></view></view>
-  <view class="page-content">
-    <text class="label">请先验证手机</text>
-    <view class="form">
-      <view class="field-group">
-        <view class="input-group">
-          <image src="/images/phone_icon.png"></image>
-          <input type="number" placeholder='请输入手机号' placeholder-class='placeholder' maxlength='11' type='number' value='{{ phone }}' bindinput='inputChange' data-name='phone' name='phone' class='phone'></input>
+<view class="form-container">
+  <view class="form-header">
+    <view class="header-container">
+      <text class="main">您好，</text>
+      <text class="sub">欢迎使用金色家园平台</text>
+    </view>
+    <image class="default-avatar" src="/images/default_avatar_002.png"></image>
+  </view>
+
+  <view class="form-body">
+    <view class="field-group">
+      <view class="input-group">
+        <view class="icon-container">
+          <image style="width: 24rpx; height: 32rpx;" src="/images/phone/phone.png"></image>
         </view>
+        <input maxlength='11' type='number' value='{{ phone }}' bindinput='inputChange' data-name='phone' name='phone' class="input" placeholder-style="input-placeholder" placeholder="请输入手机号"/>
       </view>
+    </view>
 
-      <view class="field-group">
-        <view class="input-group">
-          <image src="/images/phone_icon.png"></image>
-          <input placeholder='请输入图形验证码' placeholder-class='placeholder' maxlength='8'  bindinput='inputChange' data-name='_rucaptcha' name='_rucaptcha' class='rucaptcha'></input>
+    <view class="field-group">
+      <view class="input-group">
+        <view class="icon-container">
+          <image style="width: 24rpx; height: 30rpx;" src="/images/phone/code.png"></image>
         </view>
-        <image class='rucaptcha-img' bindtap='changeRucaptcha' src='{{ rucaptcha_img }}'></image>
+        <input maxlength='8'  bindinput='inputChange' data-name='_rucaptcha' name='_rucaptcha'  class="input" placeholder-style="input-placeholder" placeholder="请输入图形码"/>
       </view>
+      <image bindtap='changeRucaptcha' style="width: 140rpx; height: 47rpx;" class="rucaptcha-image" src="{{ rucaptcha_img }}"></image>
+    </view>
 
-      <view class="field-group">
-        <view class="input-group">
-          <image src="/images/password_icon.png"></image>
-          <input maxlength='6' type='number' value='{{ verification_code }}' bindinput='inputChange' data-name='verification_code' name='verification_code' class='verification_code' placeholder-class='placeholder' placeholder='请输入短信验证码'></input>
+    <view class="field-group">
+      <view class="input-group">
+        <view class="icon-container">
+          <image style="width: 22rpx; height: 32rpx;" src="/images/phone/password.png"></image>
         </view>
-
-        <text wx:if="{{ waitTime > 0 }}" class='waiting'>{{ waitTime }} 秒后重新获取</text>
-        <text wx:else bindtap="getCode" class="code-btn">获取短信验证码</text>
+        <input maxlength='6' type='number' value='{{ verification_code }}' bindinput='inputChange' data-name='verification_code' name='verification_code' class="input" placeholder-style="input-placeholder" placeholder="请输入短信验证码"/>
       </view>
-
-      <button bindtap='formSubmit' id='bindPhone' class='submit btn {{ !ableSubmit && "disabled" }}'>验证</button>
+      <text wx:if="{{waitTime > 0}}" class="code-btn disabled">重新获取({{ waitTime }}S)</text>
+      <text wx:else class="code-btn" bindtap="getCode">获取验证码</text>
     </view>
   </view>
+
+  <text bindtap='formSubmit' id='bindPhone' class="form-btn {{ !ableSubmit && 'disabled' }}">验证</text>
 </view>
 
 <msgToast msg-data="{{ _msgData }}"/>

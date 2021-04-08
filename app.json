@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/addresses/index/index",
+    "pages/account/phone/validate",
     "pages/special_areas/show/index",
     "pages/account/index/index",
     "pages/coupons/dashboard/index",
@@ -9,7 +11,6 @@
     "pages/contact/index",
     "pages/orders/show/index",
     "pages/orders/confirm/index",
-    "pages/account/phone/validate",
     "pages/orders/expresses/show",
     "products/pages/yiyuangou/index",
     "web/pages/haoxiuyang/store/index",
@@ -22,7 +23,6 @@
     "pages/orders/cart/index",
     "pages/special_areas/show01/index",
     "pages/card_home/index",
-    "pages/addresses/index/index",
     "products/pages/search/index",
     "pages/addresses/edit/index",
     "pages/products/index/index",

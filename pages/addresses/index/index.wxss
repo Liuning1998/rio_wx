@@ -21,7 +21,7 @@ page {
 }
 
 .empty-list {
-  margin-top: 290rpx;
+  margin-top: 226rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,9 +31,9 @@ page {
 }
 
 .empty-list image {
-  width: 250rpx;
-  height: 250rpx;
-  margin-bottom: 400rpx;
+  width: 480rpx;
+  height: 264rpx;
+  margin-bottom: 44rpx;
 }
 
 /* .empty-list .add-address {
@@ -49,201 +49,163 @@ page {
   margin-bottom: 160rpx;
 } */
 
-.item-container {
-  width: 690rpx;
-  border-radius: 8rpx;
-  overflow: hidden;
-  margin-bottom: 16rpx;
-  display: flex;
-  flex-shrink: 0;
-  position: relative;
-}
 
-.item-container:first-child {
-  margin-top: 20rpx;
-}
-
-.item-container .bg-action {
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 990;
-  height: 100%;
-}
-
-.item-container .delete-line-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #FFF6E6;
-  color: #8E662F;
-  width: 122rpx;
-  justify-content: center;
-  height: 100%;
-  border-top-right-radius: 10rpx;
-  border-bottom-right-radius: 10rpx;
-  font-size: 20rpx;
-}
-
-.weui-slideview__btn-group_warn .weui-slideview__btn {
-  background-color: #FFF6E6;
-  color: #8E662F;
-  font-size: 20rpx;
-}
-
-.item-container .delete-line-item image {
-  height: 26rpx;
-  width: 30rpx;
-  margin-bottom: 8rpx;
-}
-
-.address {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  z-index: 992;
-  padding: 30rpx 0;
-  background: #ffffff;
-  border-radius: 8rpx;
-  position: relative;
-}
-
-.address .address-icon {
-  width: 66rpx;
-  height: 62rpx;
-  margin: 0 22rpx;
-  flex-shrink: 0;
-}
-
-.address .line {
-  height: 80rpx;
-  width: 1px;
-  background: #f5f5f5;
-  flex-shrink: 0;
-  margin-left: 28rpx;
-}
-
-.address .address-default-icon {
-  width: 72rpx;
-  height: 70rpx;
-  position: absolute;
-  right: -2rpx;
-  top: 0;
-}
-
-.address .info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.address .info .info-detail {
-  flex: 1;
-  font-size: 24rpx;
-  color: #333333;
-  margin-top: 12rpx;
-}
-
-.address .default-address-icon {
-  margin-left: 30rpx;
-  width: 84rpx;
-  height: 40rpx;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.address .default-address-icon text{
-  background: #FC750026;
-  height: 34rpx;
-  line-height: 34rpx;
-  width: 84rpx;
-  border-radius: 17rpx;
-  font-size: 24rpx;
-  color: #FC7500;
-  text-align: center;
-}
-
-.address .info .user {
-  display: flex;
-  /* justify-content: space-between; */
-  line-height: 32rpx;
-  flex-grow: 1;
-}
-
-.address .info .user .name {
-  font-size: 32rpx;
-  color: #000000;
-  margin-right: 20rpx;
-  text-overflow:ellipsis; white-space:nowrap; max-width: 260rpx; overflow:hidden;
-}
-
-.address .info .user .phone {
-  font-size: 28rpx;
-  color: #999999;
-}
-
-.address .info .addr {
-  font-size: 24rpx;
-  color: #333333;
-  text-align: justify;
-  margin-top: 14rpx;
-  box-sizing: border-box;
-}
-
-.address .action {
-  display: flex;
-  flex-shrink: 0;
-  flex-direction: column;
-  align-items: center;
-  font-size: 20rpx;
-  color: #999999;
-  width: 88rpx;
-}
-
-.address .action image {
-  height: 26rpx;
-  width: 26rpx;
-  margin-bottom: 8rpx;
-}
 
 .add-address {
   font-size: 32rpx;
-  color: #F64C47;
+  color: #ffffff;
   height: 88rpx;
-  border: 1px solid #F64C47;
-  border-radius: 8rpx;
+  background-image: linear-gradient(135deg, #FF524E 0%, #FB2C2A 100%);
+  border-radius: 44rpx;
   line-height: 88rpx;
   box-sizing: border-box;
   width: 690rpx;
   text-align: center;
   margin-bottom: 160rpx;
-  margin-top: 32rpx;
+  margin-top: 96rpx;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
-  background-color: #ffffff;
-  width: 100%;
+.empty-list .add-address {
+  font-size: 32rpx;
+  color: #ffffff;
+  height: 88rpx;
+  border-radius: 44rpx;
+  line-height: 88rpx;
+  width: 456rpx;
+  text-align: center;
+  margin-top: 82rpx;
+  background-image: linear-gradient(135deg, #FF524E 0%, #FB2C2A 100%);
+}
+
+
+/* 地址列表 */
+.address-list .edit image, .address-list .delete image {
+  width: 23rpx;
+  height: 23rpx;
+}
+
+.address-item-container {
+  width: 702rpx;
+  background: #ffffff;
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+  margin-top: 24rpx;
+}
+
+.address-item-container .item-content {
+  display: flex;
+  flex-direction: column;
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid #f7f7f7;
+}
+
+.address-item-container .name-and-phone {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100rpx;
-  padding: 0 30rpx;
+}
+
+.address-item-container .name {
+  margin-right: 32rpx;
+  font-size: 28rpx;
+  color: #2B2424;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  max-width: 320rpx;
+}
+
+.address-item-container .phone {
+  font-size: 28rpx;
+  color: #2B2424;
+  font-weight: 500;
+  margin-right: 16rpx;
+}
+
+.address-item-container .default-badge {
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  padding: 0 8rpx;
+  color: #F64C47;
+  font-size: 20rpx;
+  font-weight: 500;
+  display: inline-block;
+  background: #F7D7D9;
   box-sizing: border-box;
-  z-index: 999;
+  border-radius: 4rpx;
 }
 
-.footer.iphone-x {
-  padding-bottom: 68rpx;
-  height: 168rpx;
+.address-item-container .address-info {
+  font-size: 24rpx;
+  color: #5B5454;
+  margin-top: 12rpx;
 }
 
-.footer .btn {
-  width: 374rpx;
+.address-item-container .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 88rpx;
+  padding-left: 24rpx;
+  padding-right: 40rpx;
+}
+
+.edit-and-delete {
+  display: flex;
+  color: #5B5454;
+  font-size: 24rpx;
+}
+
+.edit-and-delete .edit, .edit-and-delete .delete {
+  display: flex;
+  align-items: center;
+}
+
+.edit-and-delete .edit {
+  margin-right: 32rpx;
+}
+
+.edit-and-delete image {
+  margin-right: 12rpx;
+  margin-top: -2rpx;
+}
+
+.actions .select {
+  font-size: 24rpx;
+  color: #5B5454;
+  display: flex;
+  align-items: center;
+}
+
+.actions .select .checkbox {
+  display: flex;
   justify-content: center;
-  height: 70rpx;
-  line-height: 70rpx;
-  border-color: #FA5151;
-  color: #FC7500;
+  align-items: center;
+  height: 28rpx;
+  width: 28rpx;
+  border: 1px solid #B4AFAF;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  overflow: hidden;
 }
+
+.actions .select .checkbox image {
+  display: none;
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.actions .select .checkbox.selected {
+  background: #F64C47;
+  border-color: #F64C47;
+}
+
+.actions .select .checkbox.selected image {
+  display: flex;
+}
+/* 地址列表 */
