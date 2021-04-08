@@ -28,7 +28,7 @@
         </view>
         <input maxlength='8'  bindinput='inputChange' data-name='_rucaptcha' name='_rucaptcha'  class="input" placeholder-style="input-placeholder" placeholder="请输入图形码"/>
       </view>
-      <image bindtap='changeRucaptcha' style="width: 140rpx; height: 47rpx;" class="rucaptcha-image" src="{{ rucaptcha_img }}"></image>
+      <image bindtap='changeRucaptcha' style="width: 280rpx; height: 96rpx;" class="rucaptcha-image" src="{{ rucaptcha_img }}"></image>
     </view>
 
     <view class="field-group">

@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/addresses/index/index",
     "pages/account/phone/validate",
+    "pages/addresses/index/index",
     "pages/special_areas/show/index",
     "pages/account/index/index",
     "pages/coupons/dashboard/index",
