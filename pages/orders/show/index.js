@@ -340,7 +340,7 @@ Page({
       return
     }
 
-    this.navigateTo(`/pages/orders/expresses/show?id=${item.express_number}`)
+    this.navigateTo(`/pages/orders/expresses/show?id=${item.express_number}&order_number=${this.data.order.number}`)
   }
 
   /**

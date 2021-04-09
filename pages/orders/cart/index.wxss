@@ -132,8 +132,8 @@ page {
   height: 28rpx;
   width: 28rpx;
   margin: 22rpx;
-  border-color: #E8D4A9;
-  background: #E8D4A9;
+  border-color: #F64C47;
+  background: #F64C47;
 }
 
 .cart-container .select.selected image {
@@ -141,8 +141,8 @@ page {
 }
 
 .cart-container .select image {
-  height: 10rpx;
-  width: 14rpx;
+  height: 28rpx;
+  width: 28rpx;
   display: none;
 }
 
@@ -198,8 +198,8 @@ page {
 }
 
 .weui-slideview__btn-group_warn .weui-slideview__btn {
-  background-color: #FFF6E6;
-  color: #8E662F;
+  background-color: #FF524E;
+  color: #ffffff;
   font-size: 20rpx;
 }
 

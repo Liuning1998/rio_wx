@@ -13,7 +13,8 @@ Page({
     pageNo: 1,
     loaded: false,
     tagName: null,
-    tagID: null
+    tagID: null,
+    navbarBackgroundcolor: 'rgba(0,0,0,0)',
   },
 
   /**
@@ -24,13 +25,19 @@ Page({
 
     let brand = this.params.brand
     if (brand == null) {
+      // this.getBrand(2)
       this.getBrand(options.id)
     } else {
       this.setData({ brand: brand })
     }
 
-    this.setData({ tagName: options.tag_name, tagID: options.tag_id })
+    this.setData({ 
+      tagName: options.tag_name,
+      tagID: options.tag_id,
+      statusBarHeight: wx.getSystemInfoSync().statusBarHeight 
+    })
     this.getProducts(options.tag_name, 1, null)
+    // this.getProducts('休闲零食', 1, null)
   },
 
   /**
@@ -169,4 +176,52 @@ Page({
       }
     }).exec()
   },
+
+  changeNavbar: function () {
+    wx.createSelectorQuery().select('.position-location').boundingClientRect(res => {
+      if (res != null) {
+        if(res.top < (this.data.pageMarginTop + 44)) {
+          this.setData({ menuStatus: 'fixed' })
+        } else {
+          this.setData({ menuStatus: 'initial' })
+        }
+      }
+    }).exec()
+
+    this.checkNavbar()
+    setTimeout(res => {
+      this.changeNavbar()
+    }, 500)
+  },
+
+  checkNavbar: function () {
+    wx.createSelectorQuery().select('.page-container').boundingClientRect(res => {
+      if (res != null) {
+        if (res.top < -50) {
+          if (!this.data.navbarOpacity) {
+            this.setData({ 
+              navbarOpacity: true, navbarBackgroundcolor: '#666666',
+              searchStatus: 1
+            })
+          }
+        } else {
+          this.setData({ 
+            navbarOpacity: false, navbarBackgroundcolor: 'rgba(0,0,0,0)',
+            searchStatus: 2
+          })
+        }
+      }
+    }).exec()
+  },
+
+  goback: function () {
+    if (getCurrentPages().length > 1) {
+      wx.navigateBack({})
+    } else {
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+    }
+
+  }
 })

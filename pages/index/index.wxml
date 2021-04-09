@@ -58,7 +58,7 @@
   <view class="store-container">
     <swiper indicator-dots="{{false}}" circular="{{false}}" class="{{ specialAreas[0].length >= 8 ? 'tow-row' : '' }}">
       <swiper-item wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
-        <view bindtap="gotoShow" data-item="{{item}}" class="store-item" wx:for="{{ group }}" wx:for-item="item">
+        <view bindtap="gotoShow" data-item="{{item}}" class="store-item" wx:for="{{ group }}" wx:for-item="item" wx:key="index">
           <view class="logo-container"><image src="{{item.logo}}"></image></view>
           <text>{{item.name}}</text>
         </view>

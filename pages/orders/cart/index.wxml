@@ -25,7 +25,7 @@
       <view wx:for="{{ cartData.data }}" wx:for-item="storeCart" wx:key="sindex"  class="store-cart-container">
         <view class="store-header">
           <view style="display: flex; align-items: center;">
-            <view bindtap="allSelected" data-item="{{storeCart}}" class="select {{ storeCart.allSelectStatus && 'selected' }}"><image src="/images/selected_icon_001.png"></image></view>
+            <view bindtap="allSelected" data-item="{{storeCart}}" class="select {{ storeCart.allSelectStatus && 'selected' }}"><image src="/images/selected_icon_003.png"></image></view>
             <image class="store-icon" src="/images/store_icon_001.png"></image>
             <text class="name">{{storeCart.store_name}}</text>
             <!-- <image style="height: 14rpx; width: 7rpx; margin-left: 10rpx; margin-top: 2rpx;" src="/images/arrow_o_black_01.png"></image> -->
@@ -43,7 +43,7 @@
           <view class="weui-slidecells">
           <mp-slideview show="{{ deleteButtonShowId == item.variant_id }}" bindshow="slideviewShow" buttons="{{deleteButton}}" bindbuttontap="deleteItem" data-item='{{ item }}'>
           <view  data-item="{{ item }}" class="weui-slidecell line-item-content">
-            <view bindtap="changeSelectStatus" data-item="{{item}}" class="select {{ item.selectStatus && 'selected' }}"><image src="/images/selected_icon_001.png"></image></view>
+            <view bindtap="changeSelectStatus" data-item="{{item}}" class="select {{ item.selectStatus && 'selected' }}"><image src="/images/selected_icon_003.png"></image></view>
             <image bindtap="gotoProduct" data-item="{{item.product}}" class="avatar" src="{{ avatars[item.product.id] || item.product.avatar}}"></image>
             <view class="line-item-info">
               <view bindtap="gotoProduct" data-item="{{item.product}}" style="display: flex; flex-direction: column; flex: 1;">

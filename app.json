@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/orders/cart/index",
+    "products/pages/index2/index",
+    "live/pages/index/index",
     "pages/account/phone/validate",
     "pages/addresses/index/index",
     "pages/special_areas/show/index",
@@ -20,7 +23,6 @@
     "agreement/pages/sale_service/index",
     "agreement/pages/yinsizhengce/index",
     "agreement/pages/price/index",
-    "pages/orders/cart/index",
     "pages/special_areas/show01/index",
     "pages/card_home/index",
     "products/pages/search/index",
@@ -32,7 +34,6 @@
     "pages/coupons/list/index",
     "pages/login/index",
     "products/pages/index/index",
-    "products/pages/index2/index",
     "products/pages/index3/index",
     "products/pages/index4/index",
     "products/pages/today/index",

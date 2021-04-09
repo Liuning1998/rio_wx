@@ -3,10 +3,20 @@
 <wxs module="price" src="../../../utils/price.wxs"></wxs>
 <wxs module="product" src="../../../utils/product.wxs"></wxs>
 
-<navbar appendStyle="background: #ffffff;" title="{{tagName}}" />
-<view style='margin-top: {{pageMarginTop+44}}px;'></view>
+<!-- <navbar appendStyle="background: {{navbarBackgroundcolor}};" title="{{tagName}}" /> -->
+<view style="background: {{navbarBackgroundcolor}};" class="navbar-container">
+  <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
+  <view class='navbar-content'>
+    <view bindtap='goback' class='return-image-container'>
+      <image class='return-image' src='../../../images/arrow_o_white_01.png'></image>
+    </view>
+    <text style="{{textStyle}}" class='navbar-title'>{{ tagName || '' }}</text>
+  </view>
+</view>
+<!-- <view style='margin-top: {{pageMarginTop+44}}px;'></view> -->
+<view class="page-header-mask {{ searchStatus == 1 && 'hide' }}" style="padding-top: {{pageMarginTop+44}}px; top: 0;"></view>
 
-<scroll-view scroll-y class='page-container' bindscroll='pageScroll'>
+<scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
   <image src="{{brand.banners[0]}}" style="width: 750rpx; height: 750rpx;"></image>
   <view class="position-location"></view>
   <view style="width: 750rpx; height: 88rpx;">
