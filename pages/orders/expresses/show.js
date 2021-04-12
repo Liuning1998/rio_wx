@@ -20,11 +20,11 @@ Page({
     // let number = "52458266670949159508"
     // let number = "547950549556"
 
-    this.getExpress(number)
+    this.getExpress(number, options.order_number)
     this.setData({ number: number, order_number: options.order_number })
   },
 
-  getExpress: function (number) {
+  getExpress: function (number, order_number) {
     http.get({
       url: `/api/expresses/${number}/search_express`,
       data: { order_number: order_number },

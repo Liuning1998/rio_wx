@@ -67,7 +67,7 @@
       <view class="expresses-container" wx:elif="{{ true || order.expresses != null && order.expresses.length > 0 }}">
         <view wx:if="{{ order.expresses.length == 1 }}" class="one">
           <image src="/images/order/shipment.png" class="icon"></image>
-          <view class="content">
+          <view class="content" bindtap="gotoExpress" data-item="{{order.expresses[0]}}">
             <text class="title">您订单已送出</text>
             <text class="info">{{ order.expresses[0].name }} {{ orders.expresses[0].express_number }}</text>
           </view>
@@ -87,7 +87,7 @@
         <view wx:if="{{ expressExtend }}" class="expresses-list">
           <view class="item" wx:for="12" wx:key="index">
           <!-- <view class="item" wx:for="{{ order.expresses }}" wx:key="index"> -->
-            <view class="info">
+            <view class="info" bindtap="gotoExpress" data-item="{{item}}">
               <text class="name">{{ item.name }}</text>
               <text class="no">{{ item.express_number }}</text>
               <image class="" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
