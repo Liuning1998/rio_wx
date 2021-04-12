@@ -1,0 +1,530 @@
+/* pages/orders/show/index.wxss */
+page {
+  background: #f7f7f7;
+}
+
+.page-container {
+  height: 100%;
+  /* flex: 1; */
+  overflow-y: scroll;
+}
+
+.page-content {
+  padding-bottom: 240rpx;
+}
+
+.page-content.iphone-x {
+  padding-bottom: 360rpx;
+}
+
+.order-item-container {
+  background: #ffffff;
+  width: 670rpx;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+  overflow: hidden;
+  border-radius: 8rpx;
+  min-height: 356rpx;
+}
+
+.order-header {
+  width: 750rpx;
+  padding: 30rpx 60rpx 0 60rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 48rpx;
+  color: #8E662F;
+  background: linear-gradient(to right, #EEDEB0, #D3B17D);
+}
+
+.order-header .state-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-header .state-container .time {
+  font-size: 20rpx;
+  color: #8E662F;
+}
+
+.order-header image {
+  height: 180rpx;
+  width: 128rpx;
+}
+
+.info-container {
+  position: relative;
+  top: -20rpx;
+}
+
+.products {
+  width: 100%;
+  border-top-left-radius: 8rpx;
+  border-top-right-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.products .product-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 24rpx;
+  border-bottom: 1px solid #f3f3f3;
+  margin-bottom: 24rpx;
+}
+
+.products .product-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.products .product-item .avatar-container {
+  position: relative;
+}
+
+.products .product-item .avatar-container .sale-service-status {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 160rpx;
+  height: 32rpx;
+  background: #EAD9A9;
+  color: #ffffff;
+  font-size: 20rpx;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.products .product-item .avatar {
+  height: 160rpx;
+  width: 160rpx;
+  flex-shrink: 0;
+  margin-right: 10rpx;
+}
+
+.products .product-item .product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 160rpx;
+  justify-content: space-between;
+}
+
+.products .product-item .product-info .name-quantity {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.products .product-item .product-info .name {
+  font-size: 28rpx;
+  color: #333333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  max-height: 80rpx;
+  width: 260rpx;
+
+  display: -webkit-box;
+	white-space: normal !important;
+	-webkit-line-clamp: 2;
+  line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.products .product-item .product-info .variant-info {
+  font-size: 24rpx;
+  color: #666666;
+  margin-top: 10rpx;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.products .product-item .product-info .price-quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.products .product-item .product-info  .price {
+  font-size: 32rpx;
+  color: #CF3840 ;
+}
+
+.products .product-item .product-info .quantity {
+  font-size: 24rpx;
+  color: #888888;
+}
+
+.expenses {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+}
+
+.expenses .product-expenses {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.expenses .amount{
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expenses .amount .price {
+  font-size: 32rpx;
+  color: #CF3840;
+}
+
+.total-info {
+  display: flex;
+  justify-content: flex-end;
+  color: #666666;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+
+.total-info .total {
+  margin-left: 8rpx;
+}
+
+.total-info .price {
+  color: #e23c42;
+  margin: 0 2rpx;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+
+.buy-btn {
+  height: 44rpx;
+  width: 136rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #e23c42;
+  border-radius: 22rpx;
+  color: #e23c42;
+  text-align: center;
+  line-height: 42rpx;
+  font-size: 24rpx;
+}
+
+/* 快递信息 */
+.ship-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 670rpx;
+  border-radius: 8rpx;
+  background: #ffffff;
+  margin: 0 auto;
+  position: relative;
+  top: -20rpx;
+}
+
+.express-info {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.express-info.col {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.express-info .express-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.express-info .express-header .arrow {
+  height: 20rpx;
+  width: 10rpx;
+  transform: rotate(-90deg);
+  padding: 10rpx;
+}
+
+.express-info .express-header .arrow.extend {
+  transform: rotate(90deg);
+}
+
+.express-info .express-header .express-desc {
+  font-size: 24rpx;
+  color: #333333;
+  flex: 1;
+}
+
+.express-info.col .express-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rpx;
+}
+
+.express-info.col .express-list .express-item {
+  display: flex;
+  align-items: center;
+  margin-top: 14rpx;
+}
+
+.express-info.col .express-list .express-item .index {
+  margin-left: 20rpx;
+  margin-right: 40rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  text-align: center;
+  width: 34rpx;
+  border-radius: 50%;
+  background: #F3F3F3;
+  font-size: 18rpx;
+  color: #999999;
+}
+
+.express-info.col .express-list .express-item .copy-icon {
+  padding: 7rpx 0 7rpx 12rpx;
+  margin: 0;
+}
+
+.express-info .name {
+  font-size: 24rpx;
+  color: #333333;
+  margin-right: 8rpx;
+}
+
+.express-info .number {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.express-info .copy-icon{
+  height: 26rpx;
+  width: 26rpx;
+  margin: 30rpx;
+  margin-left: 8rpx;
+}
+
+.ship-info-container .icon {
+  height: 72rpx;
+  width: 72rpx;
+  border-radius: 36rpx;
+  box-shadow: 0 14rpx 36rpx -12rpx rgba(159,105,22,0.50);
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.ship-info-container .address {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  overflow: hidden;
+}
+
+.ship-info-container .address-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ship-info-container .address-content .user-info {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.ship-info-container .address-content .user-info .name {
+  font-size: 24rpx;
+  color: #333333;
+  max-width: 280rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.ship-info-container .address-content .user-info .phone {
+  font-size: 24rpx;
+  color: #999999;
+  margin-left: 8rpx;
+}
+
+.ship-info-container .address-content .address-info {
+  font-size: 24rpx;
+  color: #999999;
+  text-align: justify;
+  margin-top: 8rpx;
+}
+/* 快递信息 */
+
+/* 订单信息 */
+.order-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #ffffff;
+  width: 670rpx;
+  margin: auto;
+  padding: 20rpx 20rpx;
+  box-sizing: border-box;
+  margin-top: 8rpx;
+  border-radius: 8rpx;
+}
+.order-info .label {
+  font-size: 28rpx;
+  color: #333333;
+  position: relative;
+  /* padding-left: 14rpx; */
+  margin-bottom: 8rpx;
+}
+/* .order-info .label::before {
+  position: absolute;
+  top: 6rpx;
+  left: 0;
+  height: 30rpx;
+  width: 4rpx;
+  background: #e23c42;
+  content: "";
+  display: inline-block;
+} */
+.order-info .info .item {
+  font-size: 24rpx;
+  color: #999999;
+  display: flex;
+  align-items: center;
+}
+.order-info .info .item .item-label {
+  width: 120rpx;
+  margin-right: 20rpx;
+  text-align: left;
+  display: inline-block;
+  margin: 10rpx 0;
+}
+
+.order-info .copy-icon{
+  height: 26rpx;
+  width: 26rpx;
+  margin: 0 30rpx;
+  margin-left: 12rpx;
+}
+/* 订单信息 */
+
+.bottom-btn-group {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #ffffff;
+  z-index: 9;
+  box-shadow: 0 9px 28px -8px rgba(0,0,0,0.50);
+}
+.bottom-btn-group.iphone-x {
+  padding-bottom: 68rpx;
+}
+.bottom-btn-group .btn-content {
+  height: 100rpx;
+  width: 750rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+.bottom-btn-group .delete {
+  height: 28rpx;
+  width: auto;
+}
+.bottom-btn-group .btn.buy, .bottom-btn-group .btn.pay{
+  display: inline-block;
+  text-align: center;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 180rpx;
+  background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
+  color: #8E662F;
+  font-size: 28rpx;
+  border-radius: 30rpx;
+  box-sizing: border-box;
+  margin-left: 20rpx;
+}
+
+.bottom-btn-group .btn.cancel, .bottom-btn-group .btn.delete{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 60rpx;
+  line-height: 58rpx;
+  width: 208rpx;
+  /* background: #e23c42; */
+  color: #666666;
+  font-size: 28rpx;
+  border-radius: 30rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #666666;
+}
+
+.bottom-btn-group .btn.cancel {
+  margin-left: 20rpx;
+}
+
+.bottom-btn-group .btn:active {
+  opacity: 0.75;
+}
+
+.goto-coupons {
+  height: 38rpx;
+  line-height: 34rpx;
+  border-radius: 19rpx;
+  width: 136rpx;
+  text-align: center;
+  display: inline-block;
+  color: #C0780A;
+  border: 2rpx solid #C0780A;
+  box-sizing: border-box;
+}
+
+.address-info {
+  border-top: 1px solid #f7f7f7;
+  padding-top: 24rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.address-info .user-info {
+  font-size: 24rpx;
+  color: #333333;
+}
+
+.address-info .user-phone {
+  color: #999999;
+  margin-left: 8rpx;
+}
+
+.address-info .address-text {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 8rpx;
+}

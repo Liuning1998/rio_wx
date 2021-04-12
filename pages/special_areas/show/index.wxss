@@ -348,10 +348,6 @@ page {
   box-sizing: border-box;
 }
 
-.hot-sale .products-container::-webkit-scrollbar { 
-  width: 0 !important 
-}
-
 .hot-sale .product-item {
   display: flex;
   flex-direction: column;
@@ -374,7 +370,7 @@ page {
 }
 
 .hot-sale .product-item .name {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #2B2424;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -493,7 +489,7 @@ page {
 }
 
 .all-products .name {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #2B2424;
   overflow: hidden;
   text-overflow: ellipsis;

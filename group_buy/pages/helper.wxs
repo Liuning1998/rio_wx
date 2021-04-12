@@ -1,0 +1,97 @@
+function getD (seconds){
+  var ds = 24*60*60
+  if (seconds < ds) {
+    return '00'
+  }
+
+  var result = Math.floor(seconds/ds)
+  if(result <= 9) {
+    result =  '0' + result
+  }
+
+  return result
+}
+
+function getH (seconds) {
+  var hs = 60*60
+
+  if (seconds < hs) {
+    return '00'
+  }
+
+  var result = Math.floor(seconds/hs)%24
+
+  if (result <= 9) {
+    result = '0' + result
+  }
+
+  return result
+}
+
+function getM (seconds) {
+  var ms = 60
+
+  if (seconds < ms) {
+    return '00'
+  }
+
+  var result = Math.floor(seconds/ms)%60
+
+  if (result <= 9) {
+    result = '0' + result
+  }
+
+  return result
+}
+
+function getS (seconds) {
+  if (seconds <= 0) {
+    return '00'
+  }
+
+  var result = seconds%60
+
+  if (result <= 9) {
+    result = '0' + result
+  }
+
+  return result
+}
+
+function memberQuantity (activity) {
+  if (activity == null) {
+    return 0
+  }
+
+  if (activity.last_group == null || activity.last_group.members == null || activity.last_group.state == 'completed' || activity.last_group.state == 'closed') {
+    return activity.member_num_limit
+  }
+
+  return (activity.member_num_limit - activity.last_group.members.length)
+}
+
+function joined (group, umd5) {
+  if (group == null || group.members == null || umd5 == null) {
+    return false
+  }
+
+  var result = false
+  for(var i=0; i < group.members.length; i++) {
+    var item = group.members[i]
+    if (item.md5 == umd5) {
+      result = true
+      break
+    }
+  }
+
+  return result
+}
+
+module.exports = {
+  'getD': getD,
+  'getM': getM,
+  'getH': getH,
+  'getS': getS,
+  'memberQuantity': memberQuantity,
+  'joined': joined
+}

@@ -23,7 +23,7 @@ page {
 }
 
 .page-content {
-  padding-bottom: 100rpx;
+  /* padding-bottom: 100rpx; */
 }
 
 .top-actions {
@@ -272,7 +272,7 @@ page {
   margin-left: 8rpx;
 }
 
-.cart-container .quantity-container {
+/* .cart-container .quantity-container {
   display: flex;
   align-items: center;
 }
@@ -293,7 +293,6 @@ page {
 }
 
 .cart-container .price-and-quantity .btn.disabled {
-  /* color: #999999; */
   background: #ffffff;
 }
 
@@ -314,7 +313,65 @@ page {
   font-size: 20rpx;
   color: #666666;
   margin: 0 2rpx;
-  /* margin: 0 1px; */
+} */
+
+.control-quantity {
+  display: flex;
+  /* justify-content: left; */
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.control-quantity .quantity {
+  text-align: center;
+  font-size: 28rpx;
+  color: #2B2424 ;
+  height: 50rpx;
+  line-height: 50rpx;
+  min-width: 60rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  /* background: #eeeeee; */
+  margin: 0 2rpx;
+}
+
+.control-quantity .sub, .control-quantity .plus {
+  background: #F64C47;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 48rpx;
+  font-size: 44rpx;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+  box-sizing: border-box;
+  padding-bottom: 8rpx;
+  box-sizing: border-box;
+  border: 1px solid #F64C47;
+}
+
+.control-quantity .sub {
+  font-size: 32rpx;
+  padding-top: 8rpx;
+}
+
+/* .control-quantity .sub {
+  margin-right: 20rpx;
+}
+
+.control-quantity .plus {
+  margin-left: 20rpx;
+} */
+
+.control-quantity .disable {
+  background: #ffffff;
+  color: #DDD8D8;
+  border: 1px solid #DDD8D8;
 }
 
 .cart-container .store-bottom-info {
@@ -366,21 +423,23 @@ page {
 
 .split-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  margin: 44rpx 0;
 }
 
 .split-container .line {
   height: 1px;
-  width: 200rpx;
-  background: #DCDCDC;
+  width: 96rpx;
+  background: #2B2424;
 }
 
 .split-container .label {
   display: flex;
   align-items: center;
   font-size: 28rpx;
-  color: #979797;
+  color: #2B2424;
+  margin: 0 28rpx;
 }
 
 .split-container .label image {
@@ -499,8 +558,8 @@ page {
 }
 
 .product-list-container .cart-icon {
-  height: 56rpx;
-  width: 56rpx;
+  height: 48rpx;
+  width: 48rpx;
   border-radius: 28rpx;
   background: rgba(216, 216, 216, 0.4);
   display: flex;
@@ -526,7 +585,7 @@ page {
 
 .product-list-container .cart-icon image {
   display: flex;
-  width: 26rpx;
+  width: 22rpx;
   height: 22rpx;
 }
 

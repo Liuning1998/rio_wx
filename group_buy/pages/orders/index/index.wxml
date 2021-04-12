@@ -1,12 +1,53 @@
-<!--group_buy/pages/orders/index/index.wxml-->
-<navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="我的卡券"/>
+<!--pages/orders/index/index.wxml-->
+<navbar appendStyle="background: #ffffff;" title="我的团购" />
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
 <scroll-view scroll-y class='page-container'>
-  <view class="empty-container">
-    <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_order_icon.png"></image>
-    <text>暂无团购~</text>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view wx:if="{{emptyStatus || !authLoginStatus}}" class="empty-container">
+      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_order_icon.png"></image>
+      <text>暂无团购~</text>
+    </view>
+    <view wx:else class="orders-container">
+      <block wx:for="{{ orders }}" wx:for-item="order" wx:key="index">
+        <view wx:if="{{ order != 'deleted' }}" class="order-item-container">
+          <view class="order-status">
+            <view class="name-container">
+              <image src="/images/order_product_name_icon.png"></image>
+              <text>{{order.store.name}}</text>
+            </view>
+            <text>{{ order.group_buy_state_t }}</text>
+            <!-- <image wx:else mode="heightFix" src="../../../images/order_completed.png"></image> -->
+          </view>
+
+          <view class="products" bindtap="gotoLink" data-url="/group_buy/pages/orders/show/index?id={{order.number}}">
+            <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
+              <image class="avatar" src="{{ item.product.avatar }}"></image>
+
+              <text class="product-name">{{item.product.name}}</text>
+              <text class="price">￥{{ order.total }}</text>
+
+              <image class="go-detail" src="/images/arrow_o_black_01.png"></image>
+            </view>
+          </view>
+          <view wx:if="{{order.group_buy_state && order.group_buy_end_time_t.length > 0}}" class="time-container">
+            <text>成团时间 {{order.group_buy_end_time_t}}</text>
+          </view>
+
+          <view class="actions">
+            <view bindtap='deleteOrder' data-order='{{ order }}' class="btn delete-btn">删除订单</view>
+            <!-- <view bindtap='buyAgain' data-order='{{ order }}' class="btn waiting-btn">申请中</view> -->
+            <!-- <view wx:if="{{ order.record_state == '未中奖' }}" bindtap='buyAgain' data-order='{{ order }}' class="btn status-btn fail">未中奖</view> -->
+            <view wx:if="{{order.state == 'new' && order.payment_state == 'new'}}" bindtap="gotoLink" data-url="/group_buy/pages/orders/show/index?id={{order.number}}" data-order='{{ order }}' class="btn pay-btn">立即付款</view>
+          </view>
+
+        </view>
+      </block>
+      
+    </view>
   </view>
 </scroll-view>
+
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 110rpx;"></image>
 
 <msgToast msg-data="{{ _msgData }}"/>

@@ -208,13 +208,13 @@ Page({
       // specialAreas: []
     })
 
+    this.getUserInfo()
     this.getAds()
     this.getspecialAreas()
     // this.getRecommendProducts(1)
     this.refreshProducts()
     // this.getTodayProduct()
     this.getHomeBrands()
-    this.getUserInfo()
   },
 
   onPullDownRefresh() {

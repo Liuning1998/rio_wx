@@ -1,0 +1,81 @@
+<!--group_buy/pages/products/index/index.wxml-->
+<wxs module="price" src="../../../../utils/price.wxs"></wxs>
+<wxs module="product" src="../../../../utils/product.wxs"></wxs>
+<wxs module="sh" src="../../helper.wxs"></wxs>
+
+<view class="navbar" style="top: 0;">
+  <!-- <image class="background-image" src="{{brand.banners[0]}}"></image> -->
+  <view wx:if="{{!scollStatus}}" class="navbar-content" style="height: {{pageMarginTop+44}}px;">
+    <view bindtap="goback" class="return-image-container">
+      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/arrow_o_black.png"></image>
+      <image wx:else class="return-image" src="/images/arrow_o_white_01.png"></image>
+    </view>
+  </view>
+
+  <view wx:else class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
+    <view bindtap="goback" class="return-image-container">
+      <image class="return-image" src="/images/arrow_o_black.png"></image>
+    </view>
+    <text class="title">{{brand.title || tagName}}</text>
+  </view>
+</view>
+
+<scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
+  <image class="ad-image" src="{{brand.banners[0]}}"></image>
+  
+  <view class="products-container">
+    <view class="empty-container" wx:if="{{ apiLoad && products.length <= 0 }}">
+      <image src="/images/empty_icon_001.png"></image>
+      <text>暂无活动</text>
+    </view>
+    <view class="product-item" wx:for="{{products}}" wx:key="item">
+      <view class="badge-container">
+        <image class="background" src="../../../images/badge_001.png" ></image>
+        <text class="content">{{item.member_num_limit}}人团</text>
+      </view>
+
+      <view class="avatar-container" bindtap="gotoProduct" data-item="{{item}}">
+        <image class="avatar" src="{{item.product.avatar}}"></image>
+      </view>
+
+      <view class="info-container">
+        <view class="name-and-desc" bindtap="gotoProduct" data-item="{{item}}">
+          <text class="name">{{item.product.name}}</text>
+        </view>
+        <view class="price-and-actions">
+          <view class="price-container">
+            <view class="member-container">
+              <text>还差 {{ sh.memberQuantity(item) || 0 }} 人成团</text>
+            </view>
+            <view class="group-price-container">
+              <text class="label">团购价:</text>
+              <text class="group-price">{{price.int(item.product.vip_price)}}</text>
+              <text class="group-price-decimal">{{price.decimal(item.product.vip_price)}}</text>
+            </view>
+            <view class="origin-price-container">
+              <text class="label">原价:</text>
+              <text class="origin-price">{{price.tos(item.product.price)}}</text>
+            </view>
+          </view>
+
+          <view wx:if="{{item.state == 'completed'}}" class="btn disable">
+            <text>已结束</text>
+          </view>
+          <view wx:else class="btn" bindtap="gotoProduct" data-item="{{item}}">
+            <text>立即参团</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="rule-container">
+    <image class="title" src="../../../images/ico_001.png" ></image>
+    <view class="rule-content">
+      <text class="li">1、本活动仅限北京农商银行持卡人参加，使用微信支付，选择北京农商银行借记卡、信用卡、养老助残卡付款。</text>
+      <text class="li">2、拼团自开团时间起在规定团购时间内成团有效，且需要满足成团人数，如不足成团人数则当次拼团失效，订单自动取消，付款金额原路退回。</text>
+      <text class="li">3、拼团商品不定期更新，具体商品以当次拼团为准，如非质量问题不接受无理由退换货。</text>
+      <text class="li">4、小程序的《隐私政策》及《用户协议》适用于本活动。</text>
+    </view>
+  </view>
+</scroll-view>

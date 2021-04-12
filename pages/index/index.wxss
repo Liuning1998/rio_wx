@@ -105,6 +105,7 @@ page {
   line-height: 80rpx;
   flex: 1;
   padding: 0 16rpx;
+  font-weight: 500;
 }
 
 .swiper-and-user .user-info .avatar-container {
@@ -130,6 +131,7 @@ page {
 .swiper-and-user .user-info .name {
   font-size: 28rpx;
   color: #ffffff;
+  font-weight: 500;
 }
 
 .swiper-and-user .defualt-user {
@@ -556,7 +558,7 @@ page {
 
 .products-container .price-container {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .products-container .price {
@@ -588,6 +590,7 @@ page {
   font-size: 20rpx;
   color: #B4AFAF;
   text-decoration: line-through;
+  margin-top: 4rpx;
 }
 
 .products-container .add-cart {
@@ -599,7 +602,7 @@ page {
   color: #ffffff;
   line-height: 40rpx;
   text-align: center;
-  font-size: 40rpx;
+  font-size: 42rpx;
 }
 /* 商品列表 */
 

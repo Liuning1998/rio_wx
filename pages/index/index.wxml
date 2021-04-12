@@ -4,11 +4,11 @@
 <wxs module="product" src="../../utils/product.wxs"></wxs>
 <wxs module="helper" src="./helper.wxs"></wxs>
 
-<navbar returnAble="{{false}}" appendStyle="background: {{ scollStatus ? '#ffffff' : '#ffffff00;'}}" textStyle="color: {{scollStatus ? '#333333' : '#ffffff'}}; font-weight: 600;" title="金色家园 幸福生活" />
+<navbar returnAble="{{false}}" appendStyle="background: {{ scollStatus ? '#ffffff' : '#ffffff00;'}}" textStyle="color: {{scollStatus ? '#333333' : '#ffffff'}}; font-weight: 600;" title="金色家园" />
 <!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
 
 
-<view class="navbar-background" style="height: {{pageMarginTop+44}}px;">
+<view class="navbar-background" style="height: {{pageMarginTop+45}}px;">
   <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_001.png"></image>    
 </view>
 

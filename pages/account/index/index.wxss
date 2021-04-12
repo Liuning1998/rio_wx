@@ -93,6 +93,11 @@ page {
   box-sizing: border-box;
 }
 
+.user-content .welcome-info {
+  display: flex;
+  align-items: center;
+}
+
 .user-content .welcome-info .user-name{
   color: #ffffff;
   font-size: 28rpx;
@@ -109,11 +114,11 @@ page {
   -webkit-line-clamp: 1;
   display: -webkit-box;
   box-sizing: border-box;
-  /* margin-left: 20rpx; */
+  margin-right: 50rpx;
 }
 
 .user-content .welcome-info .mark {
-  font-size: 20rpx;
+  font-size: 28rpx;
   color: #ffffff;
   height: 32rpx;
   line-height: 30rpx;
@@ -282,6 +287,9 @@ page {
   line-height: 22rpx;
   border-radius: 11rpx;
   padding: 0 6rpx;
+  min-width: 22rpx;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .account-info {

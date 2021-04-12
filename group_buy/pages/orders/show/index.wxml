@@ -1,0 +1,102 @@
+<!--pages/orders/show/index.wxml-->
+<wxs module="helper" src="./helper.wxs"></wxs>
+
+<navbar navbarStyle="dark" title="订单详情" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view class="order-header">
+      <view class="state-container">
+        <text>{{order.group_buy_state_t}}</text>
+      </view>
+      <image src="/images/order_show_01.png"></image>
+    </view>
+
+    <view class="info-container">
+      <view class="order-item-container">
+        <view class="products">
+          <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item" bindtap="" data-url="group_buy/pages/products/show/index?id={{ item.product.id }}">
+            <view class="avatar-container">
+              <image class="avatar" src="{{ item.product.avatar }}"></image>
+              <text wx:if="{{orderServiceStatus['item_' + item.variant_id].state != null && orderServiceStatus['item_' + item.variant_id].state.length > 0 }}" class="sale-service-status">{{orderServiceStatus['item_' + item.variant_id].state}}</text>
+            </view>
+
+            <view class="product-info">
+              <view class="name-quantity">
+                <text class="name">{{ item.product.name }}</text>
+              </view>
+
+              <view class="variant-info">
+                <text wx:if="{{ item.option_value_string != null && item.option_value_string != '' }}" class="variant-desc">已选: {{ item.option_value_string }}</text>
+                <view wx:else></view>
+                <text class="price">￥{{ item.price }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view wx:if="{{ order.ship_address != null }}" class="address-info">
+          <text class="user-info">{{order.ship_address.real_name}}<text class="user-phone">{{order.ship_address.phone}}</text></text>
+          <text class="address-text">{{order.ship_address.province || ''}}{{order.ship_address.city || ''}}{{order.ship_address.district || ''}}{{order.ship_address.address_info || ''}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{ order.expresses.length > 0 }}" class="order-info">
+        <view class="info">
+          <view class="item">
+            <text class="item-label">物流信息:</text>
+            <text bindtap="gotoExpress" data-item="{{order.expresses[0]}}" class="text">{{ order.expresses[0].name }}</text>
+            <text bindtap="gotoExpress" data-item="{{order.expresses[0]}}" class="text" style="margin-left: 8rpx;">{{ order.expresses[0].express_number }}</text>
+            <image bindtap="copyExpress" data-item="{{order.expresses[0].express_number}}" class="copy-icon" src="/images/copy_icon.png"></image>
+          </view>
+
+          <view class="item">
+            <text class="item-label">订单号码:</text>
+            <text class="text">{{ order.number }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="order-info">
+      <view class="label">订单信息</view>
+      <view class="info">
+        <view class="item">
+          <text class="item-label">订单号码:</text>
+          <text class="text">{{ order.number }}</text>
+        </view>
+        <view class="item">
+          <text class="item-label">下单时间:</text>
+          <text class="text">{{ order.created_at_t }}</text>
+        </view>
+        <view class="item">
+          <text class="item-label">支付时间:</text>
+          <text wx:if="{{ order.paid_at_t != null }}" class="text">{{ order.paid_at_t }}</text>
+        </view>
+        <view class="item">
+          <text class="item-label">支付金额:</text>
+          <text wx:if="{{ order.pay_amount != null }}" class="text">¥ {{ order.pay_amount }}</text>
+        </view>
+
+        <!-- <view wx:if="{{helper.canService(order) && helper.productType(order) == 2}}" class="item">
+          <text class="item-label">售后服务:</text>
+          <text wx:if="{{orderServiceStatus.click == 'on'}}" bindtap="orderService" style="color: #333333;" class="text">查看</text>
+          <text wx:else bindtap="orderService" style="color: #CCCCCC;" class="text">查看</text>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class='bottom-btn-group  {{ isIphoneX && "iphone-x" }}'>
+  <view wx:if="{{ order.state == 'new' }}" class="btn-content">
+    <text wx:if="{{ order.payment_state == 'new' }}"  bindtap="payOrder" class="btn pay" >立即支付</text>
+  </view>
+
+  <!-- <view wx:else class="btn-content">
+    <text bindtap="deleteOrder" class="btn delete" >删除订单</text>
+  </view> -->
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

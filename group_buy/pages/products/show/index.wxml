@@ -1,0 +1,204 @@
+<!--pages/products/show/index.wxml-->
+<!-- <navbar title="商品详情" /> -->
+<wxs module="helper" src="../helper.wxs"></wxs>
+<wxs module="ph" src="../../../../utils/product.wxs"></wxs>
+<wxs module="price" src="../../../../utils/price.wxs"></wxs>
+<wxs module="sh" src="../../helper.wxs"></wxs>
+
+<view style='height: {{pageMarginTop}}px;' class="status-bar"></view>
+<view style='margin-top: {{pageMarginTop}}px;'></view>
+
+<view class="navbar {{!navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
+  <view class="return simple" bindtap="goback">
+    <image mode="heightFix" src="/images/arrow_o_white_01.png"></image>
+  </view>
+</view>
+
+<view class="navbar block {{navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
+  <image bindtap="goback" mode="heightFix" class="return" src="/images/arrow_o_black.png"></image>
+  <!-- <view class="actions">
+    <view class="item {{ navbarActive == 1 && 'active' }}">
+      <text class="">商品</text>
+      <view class="border"></view>
+    </view>
+    <view class="item {{ navbarActive == 2 && 'active' }}">
+      <text class="">详情</text>
+      <view class="border"></view>
+    </view>
+  </view> -->
+  <view style="width: 20rpx; height: 20rpx; margin-left: 30rpx;"> </view>
+</view>
+
+<scroll-view bindscroll='changeNavbar' scroll-y class='product-detail-container'>
+  <view class='product-detail {{ isIphoneX && "iphone-x" }}'>
+    <view class='carousels'>
+      <view wx:if="{{currentVariant.stock <= 0}}" class="sold-out-container">
+        <view class="sold-out-content">
+          <text class="main">抢光了</text>
+          <text class="sub">SOLD OUT</text>
+        </view>
+      </view>
+      <swiper bindchange='changeSwiperCurrent' circular autoplay="true">
+        <block wx:for="{{ product.carousels }}" wx:key="index">
+          <swiper-item>
+            <image src="{{item}}" class="slide-image" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class='number'>{{ swiperCurrent + 1 }}/{{ product.carousels.length || 0 }}</view>
+    </view>
+
+    <view class="prcie-container">
+      <image src="../../../images/ico_002.png" class="background"></image>
+      <view class="price-content">
+        <view class="price-detail">
+          <view class="group-price-container">
+            <text class="group-price">{{price.int(currentVariant.vip_price)}}</text>
+            <text class="group-price-decimal">{{price.decimal(currentVariant.vip_price)}}</text>
+          </view>
+          <text class="origin-price">{{price.tos(currentVariant.price)}}</text>
+        </view>
+
+        <view class="group-member-number">
+          <text class="m-quantity">{{activity.member_num_limit}}</text>
+          <text class="m-desc">人团</text>
+        </view>
+      </view>
+    </view>
+
+    <view class='product-info'>
+      <view class='product-name'>{{ product.name || '' }}</view>
+      <text class='product-description'>{{ product.description || '' }}</text>
+    </view>
+
+    <view class="group-info">
+      <view class="member-container">
+        <view class="avatar-container">
+          <image wx:if="{{ activity.last_group.state != 'completed' && activity.last_group.state != 'closed' }}" wx:for="{{activity.last_group.members}}" wx:key="item" class="avatar item" src="{{item.avatar}}"></image>
+          <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < sh.memberQuantity(activity) }}" class="empty-avatar item">?</text>
+          <!-- <text class="empty-avatar item">?</text> -->
+        </view>
+        <view wx:if="{{activity.state == 'completed' || activity.state == 'closed'}}" class="member-desc">
+          <view>
+            <text>该拼团活动已结束</text>
+          </view>
+        </view>
+        <block wx:else>
+          <view wx:if="{{activity.last_group.state == 'closed' || activity.last_group.state == 'completed'}}" class="member-desc">
+            <view>
+              <text>距离开团还剩 </text>
+              <text>{{sh.getH(activity.next_group_time - now) || '00'}}: </text>
+              <text>{{sh.getM(activity.next_group_time - now) || '00'}}: </text>
+              <text>{{sh.getS(activity.next_group_time - now) || '00'}} </text>
+            </view>
+          </view>
+          <view wx:else class="member-desc">
+            <text>还差 <text class="m-quantity">{{ sh.memberQuantity(activity) || 0 }}</text> 人，</text>
+            <view>
+              <text>剩余</text>
+              <text>{{sh.getH(activity.last_group.end_time - now) || '00'}}: </text>
+              <text>{{sh.getM(activity.last_group.end_time - now) || '00'}}: </text>
+              <text>{{sh.getS(activity.last_group.end_time - now) || '00'}} </text>
+              <text>结束</text>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view wx:if="{{activity.completed_groups.length > 0}}" class="groups-container">
+        <view bindtap="gotoJoinWithId" wx:key="index" data-item="{{item}}" class="group-item" wx:for="{{ activity.completed_groups }}">
+          <view class="item-info">
+            <view class="avatars-container">
+              <image wx:if="{{ idx < 3 }}" wx:key="index" wx:for="{{ item.members }}" wx:for-item="member" wx:for-index="idx" src="{{member.avatar}}"></image>
+            </view>
+            <text>成团时间: {{item.end_time_t}}</text>
+          </view>
+          <image class="arrow" src="../../../../images/arrow_o_black_01.png"></image>
+        </view>
+      </view>
+
+      <view class="rule-link-container" bindtap="gotoLink" data-url="/agreement/pages/group_buy/index">
+        <text class="main-info">团购须知</text>
+        <view class="desc">
+          <text>人满成团</text>
+          <view class="line"></view>
+          <text>人不满自动退款</text>
+          <image src="../../../../images/arrow_o_black_01.png"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class='pop-detail' id="pop-detail">
+      <!-- <view class='line'></view> -->
+      <image src="/images/product_description.png" class="desc-image"></image>
+      <text decode class='text-muted'>商品详情</text>
+      <!-- <view class='line'></view> -->
+    </view>
+
+    <view class='product-detail-desc dimages'>
+      <block class='desc-image' wx:for="{{ product.images }}" wx:key="index">
+        <image mode="widthFix" src='{{ item }}'></image>
+      </block>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- 选择型号蒙层 -->
+<view wx:if="{{ showSelectContainer }}" class="select-variant-layer {{ isIphoneX && 'iphone-x' }}" catchtouchmove="disMove">
+  <view bindtap='hideSelectContainer' class='top-mark'></view>
+  <view class='select-variant-container'>
+    <view bindtap='hideSelectContainer' class='close'>
+      <i class="fa fa-close"></i>
+    </view>
+    <scroll-view scroll-y class='variant-scroll'>
+      <view bindtap='hideSelectContainer' class="close"><image src="/images/close_white.png"></image></view>
+      <view class='product'>
+        <image src="{{ product.carousels[0] }}"></image>
+        <view class='info'>
+          <text class="price">{{ currentVariant.vip_price || '' }}</text>
+          <text class="name">{{ product.name || '' }}</text>
+        </view>
+      </view>
+
+      <view class='option-container'>
+        <view class="option-item-container" wx:for="{{ optionTypes }}" wx:key="index" wx:for-item="optionType">
+          <view class='option-label'><text>{{ optionType.label || '' }}</text></view>
+          <view class='option-value-container'>
+            <view wx:for="{{ optionType.option_value }}" wx:key="vaIndex" wx:for-item="optionValue" class='btn btn-xs btn-radius {{ optionValue.status }} option-value-item' bindtap='changeOptionValues' data-option-type='{{ optionType }}' data-option-value='{{ optionValue }}' wx:if="{{helper.optionValidate(optionIds, optionValue)}}">{{ optionValue.label || '' }}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class='quantity-container'>
+        <text class='label'>数量</text>
+        <view class='control-quantity'>
+          <view wx:if="{{ quantity == 1 }}" class='sub disable' data-variant-id="{{ currentVariant.id }}">-</view>
+          <view wx:else class='sub ' bindtap='subQuantity' data-variant-id="{{ currentVariant.id }}">-</view>
+          <text class='quantity'>{{ quantity || 1 }}</text>
+          <view wx:if="{{ quantity >= product.limit_number || quantity >= currentVariant.limit_number || quantity >= currentVariant.stock }}" class='plus disable'  data-variant-id="{{ currentVariant.id }}">+</view>
+          <view wx:else class='plus' bindtap='plusQuantity' data-variant-id="{{ currentVariant.id }}">+</view>
+        </view>
+      </view>
+
+    </scroll-view>
+  </view>
+
+  <view class='submit-action'>
+    <view class="btn-container">
+      <button bindtap='gotoJoin' class="{{ currentVariant.stock <= 0 && 'disabled' }} btn btn-lg confirm-btn">确定</button>
+    </view>
+  </view>
+</view>
+<!-- 选择型号蒙层 -->
+
+
+<view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
+  <!-- <view class='disabled-mark' wx:if='{{ !available }}'>该商品已下架</view> -->
+  <view class="btn-container">
+    <!-- <button class="btn btn-lg buy-btn {{ available == true ? ' ' : 'disabled'  }}" bindtap='showSelectContainer' style="width: 400rpx;" data-state='buyNow'>立即参团</button> -->
+    <button wx:if="{{activity.state == 'completed' || activity.state == 'closed'}}" class="btn btn-lg buy-btn disabled" bindtap='gotoJoin' style="width: 400rpx;" data-state='buyNow'>已结束</button>
+    <button wx:else class="btn btn-lg buy-btn {{ available == true ? ' ' : 'disabled'  }}" bindtap='gotoJoin' style="width: 400rpx;" data-state='buyNow'>立即参团</button>
+  </view>
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

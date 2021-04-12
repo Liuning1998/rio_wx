@@ -52,11 +52,20 @@
               </view>
               <view class="price-and-quantity">
                 <text class="price">￥{{item.price}}<text wx:if="{{item.price != null && item.price > 0}}" class="origin-price">￥{{item.origin_price}}</text></text>
-                <view class="quantity-container">
+                
+                
+                <view class='control-quantity'>
+                  <view wx:if="{{ item.quantity <= 1 }}" class='sub disable' bindtap="subQuantity" data-item="{{item}}">ㄧ</view>
+                  <view wx:else class='sub ' bindtap="subQuantity" data-item="{{item}}">ㄧ</view>
+                  <text class='quantity'>{{ item.quantity }}</text>
+                  <view wx:if="{{!helper.canPlus(item)}}" class='plus disable'  bindtap="plusQuantity" data-item="{{item}}">+</view>
+                  <view wx:else class='plus' bindtap="plusQuantity" data-item="{{item}}">+</view>
+                </view>
+                <!-- <view class="quantity-container">
                   <text bindtap="subQuantity" data-item="{{item}}" class="sub-icon btn {{ item.quantity <= 1 && 'disabled'}}">-</text>
                   <text class="quantity">{{item.quantity}}</text>
                   <text bindtap="plusQuantity" data-item="{{item}}" class="plus-icon btn {{!helper.canPlus(item) && 'disabled'}}">+</text>
-                </view>
+                </view> -->
               </view>
             </view>
           </view>
@@ -80,9 +89,9 @@
       <view class="split-container">
         <view class="line"></view>
         <view class="label">
-          <image src="/images/cart_split_001.png"></image>
-          <text>为你推荐</text>
-          <image src="/images/cart_split_001.png"></image>
+          <!-- <image src="/images/cart_split_001.png"></image> -->
+          <text>/// 为你推荐 ///</text>
+          <!-- <image src="/images/cart_split_001.png"></image> -->
         </view>
         <view class="line"></view>
       </view>
@@ -114,11 +123,16 @@
                 <text>GO</text>
                 <image src="/images/store/go_arrow_002.png"></image>
               </view>
-              <image wx:else src="/images/cart_icon_001.png"></image>
+              <image wx:else src="/images/cart_icon_007.png"></image>
             </view>
           </view>
         </view>
       </view>
+    </view>
+    <view class="page-bottom">
+      <image src="/images/bottom_icon_001.png"></image>
+      <text>已经到底啦</text>
+      <image src="/images/bottom_icon_001.png" class="right"></image>
     </view>
   </view>
 </scroll-view>

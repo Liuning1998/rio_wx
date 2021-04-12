@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "group_buy/pages/products/index/index",
     "pages/orders/cart/index",
     "products/pages/index2/index",
     "live/pages/index/index",
