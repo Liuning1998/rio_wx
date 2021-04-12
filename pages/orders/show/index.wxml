@@ -79,13 +79,13 @@
           <image src="/images/order/shipment.png" class="icon"></image>
           <view class="content">
             <text class="title">您订单已送出</text>
-            <text class="info">共 {{order.product-expenses.length}} 个包裹</text>
+            <text class="info">共 {{order.expresses.length}} 个包裹</text>
           </view>
           <image class="arrow-down {{expressExtend && 'extend'}}" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
         </view>
 
         <view wx:if="{{ expressExtend }}" class="expresses-list">
-          <view class="item" wx:for="12" wx:key="index">
+          <view class="item" wx:for="{{order.expresses}}" wx:key="index">
           <!-- <view class="item" wx:for="{{ order.expresses }}" wx:key="index"> -->
             <view class="info" bindtap="gotoExpress" data-item="{{item}}">
               <text class="name">{{ item.name }}</text>

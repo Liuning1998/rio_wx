@@ -120,13 +120,14 @@ page {
 .user-content .welcome-info .mark {
   font-size: 28rpx;
   color: #ffffff;
-  height: 32rpx;
+  height: 30rpx;
   line-height: 30rpx;
   padding: 0rpx 12rpx;
   display: inline-block;
   border-radius: 16rpx;
   border: 2rpx solid #ffffff;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
+  font-weight: 500;
 }
 
 .no-login {
