@@ -14,7 +14,7 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
-    this.setData({ title: options.title || '直播' })
+    this.setData({ title: options.title || '更多' })
   },
 
   /**
