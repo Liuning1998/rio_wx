@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    title: ''
   },
 
   /**
@@ -13,6 +13,8 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+
+    this.setData({ title: options.title || '直播' })
   },
 
   /**
