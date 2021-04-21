@@ -284,6 +284,7 @@ page {
   display: -webkit-box;
   width: 100%;
   padding-top: 22rpx;
+  padding-bottom: 22rpx;
   border-top: 1px solid #f7f7f7;
 }
 
@@ -469,6 +470,16 @@ page {
   background: #ffffff;
   height: 112rpx;
   margin-top: 16rpx;
+}
+
+.description {
+  font-size: 12px;
+  color: #5B5454;
+  background: #fff;
+  display: inline-block;
+  padding: 24rpx;
+  padding-top: 0;
+  text-align: justify;
 }
 
 .product-detail-desc {
