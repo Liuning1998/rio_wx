@@ -6,7 +6,7 @@ page {
 }
 
 .page-container {
-  background: #77BDF7;
+  background: #FFE9E0;
   padding-bottom: 160rpx;
 }
 
@@ -227,8 +227,7 @@ page {
   font-size: 36rpx;
   font-weight: 600;
   color: #ffffff;
-  background: linear-gradient(129deg, #FF8E01 0%, #FD3935 100%);
-  box-shadow: 0 2px 9px -2px rgba(253,59,52,0.50);
+  background-image: linear-gradient(135deg, #FF524E 0%, #FB2C2A 100%);
   width: 240rpx;
   height: 66rpx;
   border-radius: 35rpx;
@@ -268,11 +267,32 @@ page {
   flex-direction: column;
 }
 
-.rule-container .title {
-  width: 344rpx;
-  height: 42rpx;
+.header-container {
+  display: flex;
+  align-items: center;
+  width: 750rpx;
+  justify-content: center;
   margin: 60rpx 0;
 }
+
+.header-container image {
+  width: 60rpx;
+  height: 36rpx;
+  display: flex;
+}
+
+.header-container image.right {
+  transform: rotateY(180deg);
+}
+
+.header-container text {
+  color: #F5774A;
+  font-size: 40rpx;
+  font-weight: 500;
+  margin: 0 36rpx;
+}
+
+.header-container
 
 .rule-container .rule-content {
   display: flex;
@@ -282,7 +302,7 @@ page {
 .rule-container .rule-content .li{
   font-size: 24rpx;
   line-height: 38rpx;
-  color: #ffffff;
+  color: #F5774A;
   text-align: justify;
   margin-bottom: 10rpx;
 }

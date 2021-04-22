@@ -40,7 +40,12 @@
     "products/pages/today/index",
     "agreement/pages/sale_service/show",
     "pages/card/index/index",
-    "group_buy/pages/orders/index/index"
+    "group_buy/pages/orders/join/index",
+    "group_buy/pages/products/show/index",
+    "group_buy/pages/orders/index/index",
+    "agreement/pages/group_buy/index",
+    "group_buy/pages/orders/confirm/index"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

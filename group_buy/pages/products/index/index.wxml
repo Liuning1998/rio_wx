@@ -21,8 +21,14 @@
 </view>
 
 <scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
-  <image class="ad-image" src="{{brand.banners[0]}}"></image>
+  <image class="ad-image" src="{{ brand.banners[0] }}"></image>
   
+  <view class="header-container">
+    <image src="../../../images/ico_001.png"></image>
+    <text>正在抢购</text>
+    <image class="right" src="../../../images/ico_001.png" ></image>
+  </view>
+
   <view class="products-container">
     <view class="empty-container" wx:if="{{ apiLoad && products.length <= 0 }}">
       <image src="/images/empty_icon_001.png"></image>
@@ -70,7 +76,12 @@
   </view>
 
   <view class="rule-container">
-    <image class="title" src="../../../images/ico_001.png" ></image>
+    <view class="header-container">
+      <image src="../../../images/ico_001.png"></image>
+      <text>活动规则</text>
+      <image class="right" src="../../../images/ico_001.png" ></image>
+    </view>
+    <!-- <image class="title" src="../../../images/ico_001.png" ></image> -->
     <view class="rule-content">
       <text class="li">1、本活动仅限北京农商银行持卡人参加，使用微信支付，选择北京农商银行借记卡、信用卡、养老助残卡付款。</text>
       <text class="li">2、拼团自开团时间起在规定团购时间内成团有效，且需要满足成团人数，如不足成团人数则当次拼团失效，订单自动取消，付款金额原路退回。</text>

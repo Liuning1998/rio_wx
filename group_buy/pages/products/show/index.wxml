@@ -130,7 +130,7 @@
 
     <view class='pop-detail' id="pop-detail">
       <!-- <view class='line'></view> -->
-      <image src="/images/product_description.png" class="desc-image"></image>
+      <!-- <image src="/images/product_description.png" class="desc-image"></image> -->
       <text decode class='text-muted'>商品详情</text>
       <!-- <view class='line'></view> -->
     </view>

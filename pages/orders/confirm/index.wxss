@@ -590,3 +590,141 @@ page {
   font-weight: 500;
 }
 /* 商品列表层 */
+
+/* 支付提示 notice */
+.pay-notice-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 199980;
+  height: 100%;
+  width: 750rpx;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-notice-content {
+  width: 630rpx;
+  background: #ffffff;
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+  min-height: 400rpx;
+}
+
+.pay-notice-content .pn-header {
+  border-bottom: 1px solid #eeeeee;
+  height: 88rpx;
+  width: 630rpx;
+  position: relative;
+}
+
+.pay-notice-content .pn-header .close {
+  /* width: 24rpx;
+  height: 20rpx; */
+  position: absolute;
+  right: 4rpx;
+  top: 12rpx;
+  font-size: 40rpx;
+  color: #666666;
+  padding: 0rpx 30rpx;
+}
+
+.pay-notice-content .pn-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pay-notice-content .pn-content .pn-text {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  color: #333333;
+}
+
+.pay-notice-content .pn-content .protocol {
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.pay-notice-content .btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.pay-notice-content .btn-group {
+  padding: 0 60rpx;
+  box-sizing: border-box;
+}
+
+.pay-notice-content .btn-group .btn {
+  height: 60rpx;
+  padding: 0 60rpx;
+  border: 1px solid #eeeeee;
+  border-radius: 8rpx;
+  color: #333333;
+  line-height: 56rpx;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 40rpx 0;
+  font-size: 28rpx;
+}
+
+.pay-notice-content .btn-group .btn.confirm {
+  background-image: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  color: #ffffff;
+}
+
+.protocol {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666666;
+  position: relative;
+  display: flex;
+  line-height: 44rpx;
+  flex-shrink: 0;
+}
+
+.protocol-item {
+  color: #2B2424;
+  font-weight: 500;
+}
+
+.protocol .checkbox {
+  height: 34rpx;
+  width: 34rpx;
+  background: #e0e0e0;
+  border-radius: 8rpx;
+  margin-top: 4rpx;
+  margin-left: 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20rpx;
+  border: 1rpx solid #E0E0E0;
+  flex-shrink: 0;
+}
+
+.protocol .checkbox image {
+  display: none;
+}
+
+.protocol .checkbox.active {
+  border: 1rpx solid #E0E0E0;
+  background: #ffffff;
+}
+
+.protocol .checkbox.active image {
+  display: inline-block;
+  width: 24rpx;
+  height: 20rpx;
+}
+/* 支付提示 notice */

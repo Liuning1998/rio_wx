@@ -106,12 +106,15 @@ Page({
           let _tryProduct = null
           let _todayProducts = null
           let _data = []
+          let _groupProducts = null
           for(let i=0; i < res.data.length; i++) {
             let item = res.data[i]
             if(item.tags.indexOf('试用商品') >= 0) {
               _tryProduct = item
             // } else if (item.tags.indexOf('今日特惠') >= 0) {
             //   _todayProducts = item
+            } else if (item.tags.indexOf('团购商品') >= 0) {
+              _groupProducts = item
             } else {
               _data.push(item)
             }
@@ -119,7 +122,8 @@ Page({
           this.setData({
             homeBrands: _data,
             tryProduct: _tryProduct,
-            todayProducts: _todayProducts
+            todayProducts: _todayProducts,
+            groupProducts: _groupProducts
           })
         }
       }
@@ -423,8 +427,20 @@ Page({
       success: res => {
         getApp().globalData.userInfo = res.data
         this.setData({ userInfo: res.data })
+      },
+      fail: res => {
+        // 100400 错误 pages/index/index 页面做特例处理，其他页面不执行 fail
+        if(res.data.code == 100400) {
+          this.reLogin()
+        }
       }
     })
+  },
+
+  gotoGroupProduct: function (e) {
+    let item = e.currentTarget.dataset.item
+
+    wx.navigateTo({ url: '/group_buy/pages/products/index/index?id=' + item.id })
   },
   
 })

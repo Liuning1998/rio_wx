@@ -2,6 +2,7 @@
 var http = require('../../../../utils/http.js')
 var cartApi = require('../../../../utils/cart.js')
 var helper = require('../../../../utils/helper.js')
+var storage = require('../../../../utils/storage.js')
 
 var submitStatus = false
 Page({
@@ -112,7 +113,7 @@ Page({
         // $this.setData({ submitStatus: submitStatus })
         $this.hideCreateLoading()
         // $this.redirectTo('/try_product/pages/orders/index/index')
-        $this.getPayInfo(res.data)
+        $this.checkPayNotice(res.data)
       },
       fail: function (res) {
         $this.hideCreateLoading()
@@ -203,12 +204,26 @@ Page({
   },
 
   getPayInfo: function (order) {
+    var paramsData = {
+      pay_params: {
+        wx_pay_params: {
+          // total: '0.05',
+          total: order.total,
+        },
+        // cash_params: {
+        //   total: '0.05',
+        //   cash_ids: [1]
+        // }
+      }
+    }
+
     var $this = this
     try {
       var data = { }
       http.post({
         url: `api/orders/${order.number}/pay`,
-        data: { pay_score_total: Math.round($this.data.total * 100) },
+        // data: { pay_score_total: Math.round($this.data.total * 100) },
+        data: paramsData,
         success: function (res) {
           $this.hideCreateLoading()
 
@@ -269,7 +284,7 @@ Page({
         submitStatus = false
         // this.setData({ submitStatus: submitStatus })
 
-        this.redirectTo("/group_buy/pages/orders/show/index?id=" + order.number)
+        this.redirectTo("/pages/orders/show/index?id=" + order.number)
       },
     })
   },
@@ -338,6 +353,56 @@ Page({
         })
       }
     })
+  },
+
+  // 检查支付前是否需要弹框提示
+  checkPayNotice: function (order) {
+    var notice_flag = storage.getSync('pay_notice_flag')
+    if (notice_flag) {
+      this.getPayInfo(order)
+    } else {
+      http.get({
+        url: `api/orders/${order.number}/pay_notice`,
+        success: res => {
+          if (res.data.alert == 'on' && res.data.notice != null && res.data.notice.length > 0) {
+            this.hideCreateLoading()
+            this.setData({
+              payNotice: res.data.notice,
+              showPayNotice: true,
+              payOrder: order
+            })
+          } else {
+            this.getPayInfo(order)
+          }
+        },
+        fail: res => {
+          this.getPayInfo(order)
+        }
+      })
+    }
+  },
+
+  payNoticeCancelBtn: function () {
+    this.closePayNoticeToast()
+  },
+
+  payNoticeConfirmBtn: function () {
+    if (this.data.payNoticeProtocolStatus) {
+      storage.setSync('pay_notice_flag', true)
+    }
+
+    this.closePayNoticeToast()
+  },
+
+  changePayNoticeProtocol: function () {
+    this.setData({ payNoticeProtocolStatus: !this.data.payNoticeProtocolStatus })
+  },
+
+  closePayNoticeToast: function () {
+    this.setData({ showPayNotice: false })
+
+    var order = this.data.payOrder
+    this.getPayInfo(order)
   },
 
   /**

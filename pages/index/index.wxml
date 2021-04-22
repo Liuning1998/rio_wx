@@ -67,6 +67,11 @@
     
   </view>
 
+    <!-- 团购商品 -->
+    <view class="group-product" wx:if="{{ groupProducts != null }}" bindtap="gotoGroupProduct" data-item="{{groupProducts}}">
+      <image src="{{groupProducts.background_image}}" class=""></image>
+    </view>
+    <!-- 团购商品 -->
 
   <!-- 三 -->
   <view class="section-2" wx:if="{{ homeBrands != null && homeBrands.length > 0 }}">

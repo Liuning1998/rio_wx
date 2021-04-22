@@ -122,7 +122,7 @@
 </scroll-view>
 
 <!-- 选择型号蒙层 -->
-<view wx:if="{{ showSelectContainer }}" class="select-variant-layer {{ isIphoneX && 'iphone-x' }}" catchtouchmove="disMove">
+<!-- <view wx:if="{{ showSelectContainer }}" class="select-variant-layer {{ isIphoneX && 'iphone-x' }}" catchtouchmove="disMove">
   <view bindtap='hideSelectContainer' class='top-mark'></view>
   <view class='select-variant-container'>
     <view bindtap='hideSelectContainer' class='close'>
@@ -154,6 +154,54 @@
           <view wx:else class='sub ' bindtap='subQuantity' data-variant-id="{{ currentVariant.id }}">-</view>
           <text class='quantity'>{{ quantity || 1 }}</text>
           <view wx:if="{{ quantity >= product.limit_number || quantity >= currentVariant.limit_number || quantity >= currentVariant.stock || (activity.quantity_limit > 0 && quantity >= activity.quantity_limit) }}" class='plus disable'  data-variant-id="{{ currentVariant.id }}">+</view>
+          <view wx:else class='plus' bindtap='plusQuantity' data-variant-id="{{ currentVariant.id }}">+</view>
+        </view>
+      </view>
+
+    </scroll-view>
+  </view>
+
+  <view class='submit-action'>
+    <view class="btn-container">
+      <button bindtap='gotoConfirm' class="{{ currentVariant.stock <= 0 && 'disabled' }} btn btn-lg confirm-btn">确定</button>
+    </view>
+  </view>
+</view> -->
+<!-- 选择型号蒙层 -->
+
+<!-- 选择型号蒙层 -->
+<view wx:if="{{ showSelectContainer }}" class="select-variant-layer {{ isIphoneX && 'iphone-x' }}" catchtouchmove="disMove">
+  <view bindtap='hideSelectContainer' class='top-mark'></view>
+  <view class='select-variant-container'>
+    <view bindtap='hideSelectContainer' class='close'>
+      <i class="fa fa-close"></i>
+    </view>
+    <scroll-view scroll-y class='variant-scroll'>
+      <view bindtap='hideSelectContainer' class="close"><image src="/images/close_white.png"></image></view>
+      <view class='product'>
+        <image src="{{ product.carousels[0] }}"></image>
+        <view class='info'>
+          <text class="price">{{ currentVariant.price || '' }}</text>
+          <text class="name">{{ product.name || '' }}</text>
+        </view>
+      </view>
+
+      <view class='option-container'>
+        <view class="option-item-container" wx:for="{{ optionTypes }}" wx:key="index" wx:for-item="optionType">
+          <view class='option-label'><text>{{ optionType.label || '' }}</text></view>
+          <view class='option-value-container'>
+            <view wx:for="{{ optionType.option_value }}" wx:key="vaIndex" wx:for-item="optionValue" class='btn btn-xs btn-radius {{ optionValue.status }} option-value-item' bindtap='changeOptionValues' data-option-type='{{ optionType }}' data-option-value='{{ optionValue }}' wx:if="{{helper.optionValidate(optionIds, optionValue)}}">{{ optionValue.label || '' }}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class='quantity-container'>
+        <text class='label'>数量</text>
+        <view class='control-quantity'>
+          <view wx:if="{{ quantity == 1 }}" class='sub disable' data-variant-id="{{ currentVariant.id }}">ㄧ</view>
+          <view wx:else class='sub ' bindtap='subQuantity' data-variant-id="{{ currentVariant.id }}">ㄧ</view>
+          <text class='quantity'>{{ quantity || 1 }}</text>
+          <view wx:if="{{ quantity >= product.limit_number || quantity >= currentVariant.limit_number || quantity >= currentVariant.stock || productType == 3 }}" class='plus disable'  data-variant-id="{{ currentVariant.id }}">+</view>
           <view wx:else class='plus' bindtap='plusQuantity' data-variant-id="{{ currentVariant.id }}">+</view>
         </view>
       </view>

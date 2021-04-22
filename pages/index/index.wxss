@@ -694,3 +694,19 @@ page {
   margin: 0 20rpx;
 }
 /* 到底提示 */
+
+/* 团购商品 */
+.group-product {
+  height: 176rpx;
+  width: 702rpx;
+  /* padding-top: 32rpx; */
+  /* padding-bottom: 24rpx; */
+  margin: auto;
+  margin-top: 36rpx;
+}
+
+.group-product image {
+  height: 176rpx;
+  width: 702rpx;
+}
+/* 团购商品 */
