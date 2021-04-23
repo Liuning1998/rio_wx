@@ -422,7 +422,7 @@ Page({
       url: 'api/users/show_user',
       success: res => {
         getApp().globalData.userInfo = res.data
-        this.setData({ userInfo: res.data })
+        this.setData({ userInfo: res.data, authLoginStatus: res.data.check_wx_auth })
       }
     })
   },

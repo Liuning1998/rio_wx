@@ -310,7 +310,7 @@ function beforeOnload (context) {
       // }
       var authLoginStatus = storage.getSync('authLoginStatus')
       app.globalData.authLoginStatus = !!authLoginStatus
-      this.setData({ authLoginStatus: true })
+      this.setData({ authLoginStatus: !!authLoginStatus })
     }
 
     // 从 global data 中重新获取 userInfo
