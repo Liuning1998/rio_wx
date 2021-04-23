@@ -131,7 +131,8 @@ Page({
         if($this.data.buyType != 'now') {
           cartApi.removeStoreLineOfSelect($this.data.storeCart)
         }
-        $this.getPayInfo(res.data)
+        // $this.getPayInfo(res.data)
+        $this.checkPayNotice(res.data)
       },
       fail: function (res) {
         $this.hideCreateLoading()
@@ -312,5 +313,55 @@ Page({
 
   triggerVariantLayer: function () {
     this.setData({ showVariantLayer: !this.data.showVariantLayer })
-  }
+  },
+
+  // 检查支付前是否需要弹框提示
+  checkPayNotice: function (order) {
+    var notice_flag = storage.getSync('pay_notice_flag')
+    if (notice_flag) {
+      this.getPayInfo(order)
+    } else {
+      http.get({
+        url: `api/orders/${order.number}/pay_notice`,
+        success: res => {
+          if (res.data.alert == 'on' && res.data.notice != null && res.data.notice.length > 0) {
+            this.hideCreateLoading()
+            this.setData({
+              payNotice: res.data.notice,
+              showPayNotice: true,
+              payOrder: order
+            })
+          } else {
+            this.getPayInfo(order)
+          }
+        },
+        fail: res => {
+          this.getPayInfo(order)
+        }
+      })
+    }
+  },
+
+  payNoticeCancelBtn: function () {
+    this.closePayNoticeToast()
+  },
+
+  payNoticeConfirmBtn: function () {
+    if (this.data.payNoticeProtocolStatus) {
+      storage.setSync('pay_notice_flag', true)
+    }
+
+    this.closePayNoticeToast()
+  },
+
+  changePayNoticeProtocol: function () {
+    this.setData({ payNoticeProtocolStatus: !this.data.payNoticeProtocolStatus })
+  },
+
+  closePayNoticeToast: function () {
+    this.setData({ showPayNotice: false })
+
+    var order = this.data.payOrder
+    this.getPayInfo(order)
+  },
 })
