@@ -41,7 +41,8 @@
               <image src="/images/order_product_name_icon.png"></image>
               <text>{{order.store.name || ''}}</text>
             </view>
-            <text>{{ order.state_t }}</text>
+            <text wx:if="{{order.refund_state != null}}">{{order.refund_state}}</text>
+            <text wx:else>{{ order.state_t }}</text>
             <!-- <image wx:else mode="heightFix" src="../../../images/order_completed.png"></image> -->
           </view>
 

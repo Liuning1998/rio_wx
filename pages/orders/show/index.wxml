@@ -8,10 +8,10 @@
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="order-header">
-      <view class="status-container" wx:if="{{order.refund_at != null}}">
+      <view class="status-container" wx:if="{{order.refund_state != null}}">
         <view class="status-content">
           <image class="icon" src="/images/order/canceled.png"></image>
-          <text class="">已退款</text>
+          <text class="">{{order.refund_state}}</text>
         </view>
         <text class="desc">此订单已退款，欢迎再次购买</text>
       </view>
