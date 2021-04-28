@@ -182,4 +182,31 @@
   </view>
 </view>
 
+<view wx:if="{{showPayNotice}}" class="pay-notice-container">
+  <view class="pay-notice-content">
+    <view class="pn-header">
+      <!-- <image class="close" src="/images/close_white.png"></image> -->
+      <text bindtap="payNoticeCancelBtn" class="close">x</text>
+    </view>
+
+    <view class="pn-content">
+      <text class="pn-text" decode="{{true}}">
+        &nbsp;&nbsp;&nbsp;&nbsp;在微信支付确认弹框中选择支付方式为：<text style="color: #f00;">{{payNotice}}</text>
+      </text>
+      <view class="protocol">
+        <view bindtap="changePayNoticeProtocol" class="checkbox {{ payNoticeProtocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
+        <view>
+          <text bindtap="changePayNoticeProtocol" class="btn">下次不再提醒</text>
+          <!-- <text bindtap="gotoLink" data-url="/agreement/pages/try_product/index" class="protocol-item">《试用规则》</text> -->
+        </view>
+      </view>
+
+      <view class="btn-group">
+        <text bindtap="payNoticeCancelBtn" class="btn cancel">取消</text>
+        <text bindtap="payNoticeConfirmBtn" class="btn confirm">确认</text>
+      </view>
+    </view>
+  </view>
+</view>
+
 <msgToast msg-data="{{ _msgData }}"/>

@@ -50,6 +50,10 @@ Page({
       }
     })
     this.getHomeBrands()
+
+    if (typeof(options.sources) != 'undefined') {
+      this.yanglaoApi(options)
+    }
   },
 
   /**
@@ -423,6 +427,21 @@ Page({
       success: res => {
         getApp().globalData.userInfo = res.data
         this.setData({ userInfo: res.data, authLoginStatus: res.data.check_wx_auth })
+      }
+    })
+  },
+
+  // ?decrypted_string="xxxxxxxxxxxxxxxxxxx"&app_id='xxxxxxxxxx'&sources='xxxxx'
+  yanglaoApi: function (options) {
+    http.post({
+      url: 'api/api_users/valid_api_user',
+      data: {
+        decrypted_string: options.decrypted_string,
+        app_id: options.app_id,
+        sources: options.sources
+      },
+      success: res => {
+        console.log(res)
       }
     })
   },
