@@ -18,7 +18,8 @@ Page({
     secretText: '',
     avatars: {},
     showVariantLayer: false,
-    userInfo: {}
+    userInfo: {},
+    lineItems: []
   },
 
   /**
@@ -52,6 +53,8 @@ Page({
       store_id: store_id,
       storeCart: storeCart
     })
+
+    this.setLineItems(storeCart)
     // this.setData({
     //   product: this.params.product,
     //   quantity: this.params.quantity,
@@ -375,7 +378,24 @@ Page({
       url: 'api/users/select_user_to_kzx',
       success: res => {
         console.log(res)
+        var data = res.data
+        if (data != null && data.phone != null) {
+          this.setData({ userInfo: data })
+          getApp().globalData.userInfo = data
+          storage.setSyncWithExpire('userInfo', data)
+        }
       }
     })
+  },
+
+  setLineItems: function (storeCart) {
+    var lineItems = []
+    for(var i in storeCart.lineItems) {
+      if (storeCart.lineItems[i].selectStatus) {
+        lineItems.push(storeCart.lineItems[i])
+      }
+    }
+
+    this.setData({ lineItems: lineItems })
   },
 })

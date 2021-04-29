@@ -152,10 +152,14 @@
     </view>
 
     <view class="quantity-and-total">
+      <view class="remark">
+        <!-- <image src="/images/info_icon.png"></image>
+        <text>养老用户享受优惠</text> -->
+      </view>
       <view class="content">
         <text class="quantity">共 {{order.product_total}} 件商品</text>
         <text class="total-label">总计: </text>
-        <text class="total">￥{{ order.total }}</text>
+        <text class="total">￥{{ order.discount_total }}</text>
       </view>
     </view>
 

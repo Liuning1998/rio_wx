@@ -77,8 +77,8 @@
 
           <view class="total-container">
             <text class="label">订单金额:</text>
-            <text class="price-int">{{ price.int(order.total) }}</text>
-            <text class="price-decimal">{{ price.decimal(order.total) }}</text>
+            <text class="price-int">{{ price.int(order.discount_total) }}</text>
+            <text class="price-decimal">{{ price.decimal(order.discount_total) }}</text>
           </view>
 
           <view wx:if="{{ order.state != 'new' }}" class="actions">

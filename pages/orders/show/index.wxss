@@ -217,18 +217,35 @@ page {
   box-sizing: border-box;
   padding: 0 24rpx;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   background: #ffffff;
 }
 
+.quantity-and-total .remark image {
+  height: 24rpx;
+  width: 24rpx;
+  display: flex;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.quantity-and-total .remark {
+  display: flex;
+  align-items: center;
+  color: #B4AFAF;
+  font-size: 24rpx;
+  flex-shrink: 0;
+}
+
 .quantity-and-total .content {
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   border-top: 1rpx solid #f7f7ff;
+  flex: 1;
 }
 
 .quantity-and-total .quantity {

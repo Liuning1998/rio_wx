@@ -20,8 +20,27 @@ function priceInt (price) {
   return priceStr.slice(0, length-3)
 }
 
+function discountTotal (storeCart, lineItems, user=null) {
+  if (user == null) { return storeCart.total }
+  if (user.kzx_user_identification == 1 && user.discount != null) {
+    var result = 0
+    for(var i=0; i < lineItems.length; i++) {
+      var item = lineItems[i]
+      var item_total = item.price * item.quantity * user.discount
+      item_total = Math.round(item_total * 100)/100
+
+      result = result + item_total
+    }
+
+    return Math.round(result * 100)/100
+  } else {
+    return storeCart.total
+  }
+}
+
 module.exports = {
   tos: priceTos,
   int: priceInt,
-  decimal: priceDecimal
+  decimal: priceDecimal,
+  discountTotal: discountTotal
 }
