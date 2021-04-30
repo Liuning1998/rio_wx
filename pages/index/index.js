@@ -50,6 +50,10 @@ Page({
       }
     })
     this.getHomeBrands()
+
+    if (typeof(options.sources) != 'undefined') {
+      this.yanglaoApi(options)
+    }
   },
 
   /**
@@ -426,13 +430,28 @@ Page({
       url: 'api/users/show_user',
       success: res => {
         getApp().globalData.userInfo = res.data
-        this.setData({ userInfo: res.data })
+        this.setData({ userInfo: res.data, authLoginStatus: res.data.check_wx_auth })
       },
       fail: res => {
         // 100400 错误 pages/index/index 页面做特例处理，其他页面不执行 fail
         if(res.data.code == 100400) {
           this.reLogin()
         }
+      }
+    })
+  },
+
+  // ?decrypted_string="xxxxxxxxxxxxxxxxxxx"&app_id='xxxxxxxxxx'&sources='xxxxx'
+  yanglaoApi: function (options) {
+    http.post({
+      url: 'api/api_users/valid_api_user',
+      data: {
+        decrypted_string: options.decrypted_string,
+        app_id: options.app_id,
+        sources: options.sources
+      },
+      success: res => {
+        console.log(res)
       }
     })
   },

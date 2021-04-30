@@ -69,7 +69,7 @@
 
       <view class="name-and-desc">
         <text class="name">{{ product.name }}</text>
-        <text class="desc">{{ product.description }}</text>
+        <!-- <text class="desc">{{ product.description }}</text> -->
       </view>
 
       <!-- <view class="coupon-container">
@@ -123,6 +123,8 @@
     <view class='pop-detail' id="pop-detail">
       <text decode class='text-muted'>商品详情</text>
     </view>
+
+    <text wx:if="{{ product.description.length > 0 }}" class="description">{{ product.description }}</text>
 
     <view class='product-detail-desc dimages'>
       <block class='desc-image' wx:for="{{ product.images }}" wx:key="index">

@@ -17,7 +17,9 @@ Page({
     shipAddress: {},
     secretText: '',
     avatars: {},
-    showVariantLayer: false
+    showVariantLayer: false,
+    userInfo: {},
+    lineItems: []
   },
 
   /**
@@ -51,6 +53,8 @@ Page({
       store_id: store_id,
       storeCart: storeCart
     })
+
+    this.setLineItems(storeCart)
     // this.setData({
     //   product: this.params.product,
     //   quantity: this.params.quantity,
@@ -59,6 +63,10 @@ Page({
     //   coupons: this.params.coupons,
     //   protocolType: _protocolType
     // })
+
+    if (typeof(this.data.userInfo.kzx_user_identification) == 'undefined' || this.data.userInfo.kzx_user_identification.length == 0) {
+      this.yanglaoTouch()
+    }
   },
 
   onShow: function () {
@@ -165,11 +173,11 @@ Page({
     var paramsData = {
       pay_params: {
         wx_pay_params: {
-          // total: '0.05',
+          // total: '1',
           total: order.total,
         },
         // cash_params: {
-        //   total: '0.05',
+        //   total: '1',
         //   cash_ids: [1]
         // }
       }
@@ -363,5 +371,31 @@ Page({
 
     var order = this.data.payOrder
     this.getPayInfo(order)
+  },
+
+  yanglaoTouch: function () {
+    http.post({
+      url: 'api/users/select_user_to_kzx',
+      success: res => {
+        console.log(res)
+        var data = res.data
+        if (data != null && data.phone != null) {
+          this.setData({ userInfo: data })
+          getApp().globalData.userInfo = data
+          storage.setSyncWithExpire('userInfo', data)
+        }
+      }
+    })
+  },
+
+  setLineItems: function (storeCart) {
+    var lineItems = []
+    for(var i in storeCart.lineItems) {
+      if (storeCart.lineItems[i].selectStatus) {
+        lineItems.push(storeCart.lineItems[i])
+      }
+    }
+
+    this.setData({ lineItems: lineItems })
   },
 })

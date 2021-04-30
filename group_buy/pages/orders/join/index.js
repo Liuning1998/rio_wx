@@ -105,8 +105,6 @@ Page({
 
   onHide: function () {
     if (this.data.socketTask != null) {
-      console.log('---------hide close')
-      console.log(this.data.socketTask)
       this.data.socketTask.close()
     }
     // wx.closeSocket()
@@ -119,8 +117,6 @@ Page({
 
   onUnload: function () {
     if (this.data.socketTask != null) {
-      console.log('---------unload close')
-      console.log(this.data.socketTask)
       this.data.socketTask.close()
     }
     // wx.closeSocket()

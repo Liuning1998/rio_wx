@@ -1,7 +1,6 @@
 <!--agreement/pages/sale_service/show.wxml-->
 <navbar appendStyle="" return-able="{{true}}" title="{{'发货/售后说明'}}"/>
 <view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
-
 <view class="main-container">
   <block>
     <text class="h1">发货/售后说明</text>

@@ -8,10 +8,10 @@
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="order-header">
-      <view class="status-container" wx:if="{{order.refund_at != null}}">
+      <view class="status-container" wx:if="{{order.refund_state != null}}">
         <view class="status-content">
           <image class="icon" src="/images/order/canceled.png"></image>
-          <text class="">已退款</text>
+          <text class="">{{order.refund_state}}</text>
         </view>
         <text class="desc">此订单已退款，欢迎再次购买</text>
       </view>
@@ -152,10 +152,14 @@
     </view>
 
     <view class="quantity-and-total">
+      <view class="remark">
+        <!-- <image src="/images/info_icon.png"></image>
+        <text>养老用户享受优惠</text> -->
+      </view>
       <view class="content">
         <text class="quantity">共 {{order.product_total}} 件商品</text>
         <text class="total-label">总计: </text>
-        <text class="total">￥{{ order.total }}</text>
+        <text class="total">￥{{ order.discount_total }}</text>
       </view>
     </view>
 
@@ -203,7 +207,7 @@
 <view class='bottom-btn-group  {{ isIphoneX && "iphone-x" }}'>
   <view wx:if="{{ order.state == 'new' }}" class="btn-content">
     <text bindtap="cancelOrder" class="btn cancel" >取消订单</text>
-    <text  bindtap="payOrder" class="btn pay" >立即支付</text>
+    <text  bindtap="checkPayNotice" class="btn pay" >立即支付</text>
   </view>
 
   <view wx:else class="btn-content">
@@ -216,5 +220,31 @@
   </view>
 </view>
 
+<view wx:if="{{showPayNotice}}" class="pay-notice-container">
+  <view class="pay-notice-content">
+    <view class="pn-header">
+      <!-- <image class="close" src="/images/close_white.png"></image> -->
+      <text bindtap="payNoticeCancelBtn" class="close">x</text>
+    </view>
+
+    <view class="pn-content">
+      <text class="pn-text" decode="{{true}}">
+        &nbsp;&nbsp;&nbsp;&nbsp;在微信支付确认弹框中选择支付方式为：<text style="color: #f00;">{{payNotice}}</text>
+      </text>
+      <view class="protocol">
+        <view bindtap="changePayNoticeProtocol" class="checkbox {{ payNoticeProtocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
+        <view>
+          <text bindtap="changePayNoticeProtocol" class="btn">下次不再提醒</text>
+          <!-- <text bindtap="gotoLink" data-url="/agreement/pages/try_product/index" class="protocol-item">《试用规则》</text> -->
+        </view>
+      </view>
+
+      <view class="btn-group">
+        <text bindtap="payNoticeCancelBtn" class="btn cancel">取消</text>
+        <text bindtap="payNoticeConfirmBtn" class="btn confirm">确认</text>
+      </view>
+    </view>
+  </view>
+</view>
 
 <msgToast msg-data="{{ _msgData }}"/>

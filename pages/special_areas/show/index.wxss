@@ -190,6 +190,12 @@ page {
   flex-shrink: 0;
 }
 
+.content-container {
+  position: relative;
+  z-index: 8;
+  top: -36rpx;
+}
+
 .category-container {
   display: flex;
   width: 702rpx;
@@ -197,13 +203,11 @@ page {
   margin: auto;
   background: #ffffff;
   border-radius: 16rpx;
-  position: relative;
-  z-index: 8;
-  top: -36rpx;
   padding-top: 24rpx;
   padding-bottom: 4rpx;
   box-sizing: border-box;
   justify-content: space-around;
+  margin-bottom: 16rpx;
 }
 
 .category-container .badges image {
@@ -323,6 +327,7 @@ page {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  margin-bottom: 16rpx;
 }
 
 .hot-sale .label {
@@ -450,7 +455,7 @@ page {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  margin-top: 16rpx;
+  /* margin-top: 16rpx; */
   min-height: 360rpx;
 }
 

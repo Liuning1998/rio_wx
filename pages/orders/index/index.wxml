@@ -41,7 +41,8 @@
               <image src="/images/order_product_name_icon.png"></image>
               <text>{{order.store.name || ''}}</text>
             </view>
-            <text>{{ order.state_t }}</text>
+            <text wx:if="{{order.refund_state != null}}">{{order.refund_state}}</text>
+            <text wx:else>{{ order.state_t }}</text>
             <!-- <image wx:else mode="heightFix" src="../../../images/order_completed.png"></image> -->
           </view>
 
@@ -76,8 +77,8 @@
 
           <view class="total-container">
             <text class="label">订单金额:</text>
-            <text class="price-int">{{ price.int(order.total) }}</text>
-            <text class="price-decimal">{{ price.decimal(order.total) }}</text>
+            <text class="price-int">{{ price.int(order.discount_total) }}</text>
+            <text class="price-decimal">{{ price.decimal(order.discount_total) }}</text>
           </view>
 
           <view wx:if="{{ order.state != 'new' }}" class="actions">

@@ -99,16 +99,16 @@
         </view> -->
       </view>
 
-      <!-- <view class="amount">
+      <view class="amount">
         <view class="remark">
-          <image src="/images/info_icon.png"></image>
-          <text>购物满90元，减8元基础运输费</text>
+          <!-- <image src="/images/info_icon.png"></image>
+          <text>养老用户享受优惠</text> -->
         </view>
         <view class="total-container">
           <text class="label">合计:</text>
-          <text class="price">￥{{price.tos(storeCart.total)}}</text>
+          <text class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
         </view>
-      </view> -->
+      </view>
 
       <!-- <view class="balance-container">
         <view class="balance-info">
@@ -146,7 +146,7 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="total">
     <text class="total-desc">应付款: </text>
-    <text class="price">￥{{price.tos(storeCart.total)}}</text>
+    <text class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
   </view>
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>
 </view>

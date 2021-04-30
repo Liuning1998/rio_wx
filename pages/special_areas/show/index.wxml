@@ -52,74 +52,42 @@
     </view>
   </view>
 
-  <view wx:if="{{ categories.length > 0 }}" class="category-container">
-    <view class="badges">
-      <view class="badge-item">
-        <image src="/images/special_areas/icon_001.png"></image>
-        <text>严选好物</text>
-      </view>
-      <view class="badge-item">
-        <image src="/images/special_areas/icon_002.png"></image>
-        <text>正品货源</text>
-      </view>
-      <view class="badge-item">
-        <image src="/images/special_areas/icon_003.png"></image>
-        <text>专属价格</text>
-      </view>
-    </view>
-    <view class="category-content">
-      <view bindtap="gotoCategory" data-item="{{item}}" class="category-item" wx:for="{{categories}}" wx:key="index">
-        <view class="icon-container"><image src="{{item.icon}}"></image></view>
-        <text class="name">{{item.name}}</text>
-      </view>
-    </view>
-  </view>
-
-  <view class="hot-sale" wx:if="{{ fineProducts.length > 0 }}">
-  <!-- <view class="hot-sale" wx:if="{{ products.length > 0 }}"> -->
-    <text class="label">热销商品</text>
-    <view class="products-container">
-      <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{fineProducts}}" wx:key="index">
-        <image class="avatar" src="{{item.avatar}}"></image>
-        <view class="product-content">
-          <text class="name">{{item.name || ''}}</text>
-          <view class="price-and-cart">
-            <view class="price-container">
-              <text class="price-int">{{ price.int(item.price) }}</text>
-              <text class="price-decimal">{{ price.decimal(item.price) }}</text>
-            </view>
-            <view class="cart-container" catchtap="addCartAndAnimation" data-item="{{item}}">
-              <image src="/images/cart_icon_007.png"></image>
-            </view>
-          </view>
+  <view class="content-container">
+    <view wx:if="{{ categories.length > 0 }}" class="category-container">
+      <view class="badges">
+        <view class="badge-item">
+          <image src="/images/special_areas/icon_001.png"></image>
+          <text>严选好物</text>
+        </view>
+        <view class="badge-item">
+          <image src="/images/special_areas/icon_002.png"></image>
+          <text>正品货源</text>
+        </view>
+        <view class="badge-item">
+          <image src="/images/special_areas/icon_003.png"></image>
+          <text>专属价格</text>
         </view>
       </view>
-
-      <view style="height: 100rpx; width: 12rpx; flex-shrink: 0;"></view>
+      <view class="category-content">
+        <view bindtap="gotoCategory" data-item="{{item}}" class="category-item" wx:for="{{categories}}" wx:key="index">
+          <view class="icon-container"><image src="{{item.icon}}"></image></view>
+          <text class="name">{{item.name}}</text>
+        </view>
+      </view>
     </view>
-  </view>
 
-  <view class="all-products">
-    <text class="label">全部商品</text>
-    <view class="products-container">
-      <block wx:for="{{products}}" wx:key="index">
-        <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" >
+    <view class="hot-sale" wx:if="{{ fineProducts.length > 0 }}">
+    <!-- <view class="hot-sale" wx:if="{{ products.length > 0 }}"> -->
+      <text class="label">热销商品</text>
+      <view class="products-container">
+        <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{fineProducts}}" wx:key="index">
           <image class="avatar" src="{{item.avatar}}"></image>
           <view class="product-content">
-            <view class="name-and-badges">
-              <text class="name">{{ item.name || '' }}</text>
-              <view class="badges">
-                <text class="li">热销</text>
-              </view>
-            </view>
-
+            <text class="name">{{item.name || ''}}</text>
             <view class="price-and-cart">
               <view class="price-container">
-                <view class="price">
-                  <text class="price-int">{{ price.int(item.price) }}</text>
-                  <text class="price-decimal">{{ price.decimal(item.price) }}</text>
-                </view>
-                <view wx:if="{{ item.origin_price != null && item.origin_price != 0 }}" class="origin-price">{{ price.tos(item.origin_price) }}</view>
+                <text class="price-int">{{ price.int(item.price) }}</text>
+                <text class="price-decimal">{{ price.decimal(item.price) }}</text>
               </view>
               <view class="cart-container" catchtap="addCartAndAnimation" data-item="{{item}}">
                 <image src="/images/cart_icon_007.png"></image>
@@ -128,17 +96,51 @@
           </view>
         </view>
 
-        <view class="split">
-          <view class="line"></view>
-        </view>
-      </block>
+        <view style="height: 100rpx; width: 12rpx; flex-shrink: 0;"></view>
+      </view>
     </view>
-  </view>
 
-  <view class="page-bottom" wx:if="{{pageBottom}}">
-    <image src="/images/bottom_icon_001.png"></image>
-    <text>已经到底啦</text>
-    <image src="/images/bottom_icon_001.png" class="right"></image>
+    <view class="all-products">
+      <text class="label">全部商品</text>
+      <view class="products-container">
+        <block wx:for="{{products}}" wx:key="index">
+          <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" >
+            <image class="avatar" src="{{item.avatar}}"></image>
+            <view class="product-content">
+              <view class="name-and-badges">
+                <text class="name">{{ item.name || '' }}</text>
+                <view class="badges">
+                  <text class="li">热销</text>
+                </view>
+              </view>
+
+              <view class="price-and-cart">
+                <view class="price-container">
+                  <view class="price">
+                    <text class="price-int">{{ price.int(item.price) }}</text>
+                    <text class="price-decimal">{{ price.decimal(item.price) }}</text>
+                  </view>
+                  <view wx:if="{{ item.origin_price != null && item.origin_price != 0 }}" class="origin-price">{{ price.tos(item.origin_price) }}</view>
+                </view>
+                <view class="cart-container" catchtap="addCartAndAnimation" data-item="{{item}}">
+                  <image src="/images/cart_icon_007.png"></image>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class="split">
+            <view class="line"></view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="page-bottom" wx:if="{{pageBottom}}">
+      <image src="/images/bottom_icon_001.png"></image>
+      <text>已经到底啦</text>
+      <image src="/images/bottom_icon_001.png" class="right"></image>
+    </view>
   </view>
 </scroll-view>
 
