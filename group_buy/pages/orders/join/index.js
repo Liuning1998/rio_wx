@@ -36,22 +36,23 @@ Page({
     console.log(options)
 
     getApp().commonBeforeOnLoad(this)
+    this.getProductDetail(options.id)
 
-    var params = this.params
-    if (params.localParams != null) {
-      this.setData({
-        activity: params.activity,
-        product: params.product,
-        currentVariant: params.currentVariant,
-        optionTypes: params.optionTypes,
-        optionIds: params.optionIds,
-        // group: params.activity.last_group
-        group: params.group
-      })
-    } else {
-      // this.getGroupBuyActivity(options.id)
-      this.getBuyGroup(options.id)
-    }
+    // var params = this.params
+    // if (params.localParams != null) {
+    //   this.setData({
+    //     activity: params.activity,
+    //     product: params.product,
+    //     currentVariant: params.currentVariant,
+    //     optionTypes: params.optionTypes,
+    //     optionIds: params.optionIds,
+    //     // group: params.activity.last_group
+    //     group: params.group
+    //   })
+    // } else {
+    //   // this.getGroupBuyActivity(options.id)
+    //   this.getBuyGroup(options.id)
+    // }
 
     this.setData({ isIphoneX: getApp().isIphoneX() })
 
@@ -75,7 +76,7 @@ Page({
       path = path + '?' + parmsArray.join('&')
 
       return {
-        title: '金色时光·悠享生活',
+        title: '金色家园 幸福生活',
         path: path,
         // imageUrl: 'https://score-admin.ixiaoliu.com/wx_share.jpg'
       }
@@ -83,7 +84,10 @@ Page({
   },
 
   onShow: function () {
-    this.subscription()
+    // this.subscription()
+    if (typeof(this.data.activity) != 'undefined') {
+      this.subscription()
+    }
 
     if (this.data.group != null && this.data.group.id != null) {
       this.setData({ showSelectContainer: false })
@@ -321,35 +325,6 @@ Page({
     this.setData({ showSelectContainer: false, btnSelectState: null })
   },
 
-  plusQuantity: function () {
-    if (this.data.product.limit_number <= this.data.quantity) {
-      
-      return false
-    }
-
-    if (this.data.activity.quantity_limit > 0 && this.data.activity.quantity_limit <= this.data.quantity) {
-      
-      return false
-    }
-
-    if (this.data.currentVariant.limit_number <= this.data.quantity) {
-
-      return false
-    }
-
-    if (this.data.currentVariant.stock <= this.data.quantity) {
-
-      return false
-    }
-
-    this.setData({ quantity: this.data.quantity + 1 })
-  },
-
-  subQuantity: function () {
-    if (this.data.quantity <= 1) { return false }
-    this.setData({ quantity: this.data.quantity - 1 })
-  },
-
   goback: function () {
     if (getCurrentPages().length > 1) {
       wx.navigateBack({})
@@ -361,28 +336,6 @@ Page({
 
   },
 
-  changeNavbar: function () {
-    wx.createSelectorQuery().select('.carousels').boundingClientRect(res => {
-      if (res != null) {
-        if(res.top > 0) {
-          this.setData({ navbarStatus: true })
-        } else {
-          this.setData({ navbarStatus: false })
-        }
-      }
-    }).exec()
-
-    wx.createSelectorQuery().select('.product-info').boundingClientRect(res => {
-      if (res != null) {
-        if (res.top > 20) {
-          this.setData({ navbarActive: 1 })
-        } else {
-          this.setData({ navbarActive: 2 })
-        }
-      }
-    }).exec()
-  },
-
   gotoConfirm: function () {
     this.checAuthAndPhone()
     
@@ -392,6 +345,11 @@ Page({
     }
 
     if (this.data.activity.state == 'completed' || this.data.activity.state == 'closed') {
+      this.errorToast('该拼团活动已结束')
+      return false
+    }
+
+    if (this.data.group.end_time < this.data.now) {
       this.errorToast('该拼团活动已结束')
       return false
     }
@@ -443,12 +401,25 @@ Page({
     timer = setTimeout(this.setNow, 1000)
   },
 
+  // subscription: function () {
+  //   if (this.data.group == null) { 
+  //     console.log("no group, don't subscribe websocket")
+  //     return false
+  //   }
+  //   var socketTask = websocket.subscription('BuyGroupChannel', this.data.group.id, 0, (data) => {
+  //     if (data.type == 'confirm_subscription') {
+  //       this.setData({ wsConnected: true })
+  //     } else {
+  //       if (data != null) {
+  //         this.checkWxMessage(data)
+  //       }
+  //     }
+  //   })
+  //   this.setData({ socketTask: socketTask })
+  // },
+
   subscription: function () {
-    if (this.data.group == null) { 
-      console.log("no group, don't subscribe websocket")
-      return false
-    }
-    var socketTask = websocket.subscription('BuyGroupChannel', this.data.group.id, 0, (data) => {
+    var socketTask = websocket.subscription('GroupBuyActivityChannel', this.data.activity.id, 0, (data) => {
       if (data.type == 'confirm_subscription') {
         this.setData({ wsConnected: true })
       } else {
@@ -463,8 +434,9 @@ Page({
   checkWxMessage: function (msg) {
 
     var data = msg.message
-    if(data != null && data.group != null) {
-        this.setData({ activity: data.activity, group: data.group, product: data.activity.product })
+    if(data != null && data.activity != null) {
+      var activity = data.activity
+      this.setData({ activity: activity, group: activity.last_group, product: activity.product })
     }
   },
 
@@ -486,5 +458,64 @@ Page({
     }
 
     return true
+  },
+
+  getProductDetail: function (id) {
+    http.get({
+      url: "api/group_buy_activities/" + id,
+      success: (res) => {
+        var _product = res.data.product
+        let _currentVariant
+        let optionIds = []
+        if (this.data.currentVariant != null) {
+          // 从其他页面返回时已经存在 currentVariant
+          _currentVariant = _product.variants.filter(item => item.id == this.data.currentVariant.id)[0]
+          console.log(_currentVariant)
+        }
+        
+        for(var i=0; i < _product.variants.length; i++) {
+          if (_currentVariant == null && _product.variants[i].is_master) {
+            _currentVariant = _product.variants[i]
+          }
+          _product.variants[i].option_values.forEach(item => optionIds.push(item.id))
+        }
+        
+        if (_currentVariant == null) {
+          _currentVariant = _product.variants[0]
+        }
+        // this.checkProductType(_product)
+        this.setData({ activity: res.data, group: res.data.last_group })
+        this.setData({ product: _product, currentVariant: _currentVariant, optionTypes: _product.options, optionIds: optionIds })
+        
+        if (!this.data.wsConnected) {
+          this.subscription()
+        }
+
+        if (this.data.showSelectContainer && this.data.currentVariant != null) {
+          this.setOptionsStatus(this.data.currentVariant)
+        }
+
+        // this.variantToOption()
+
+        if (_product.available_on == null || _product.available_on == 0) {
+          this.setData({ available: false })
+        }
+      },
+      fail: (res) => {
+        if (res.statusCode == '404') {
+          this.errorToast('找不到商品')
+          setTimeout(wx.navigateBack, 1000)
+        } else {
+          // wx.navigateBack({
+          //   delta: 1
+          // })
+        }
+      }
+    })
+  },
+
+  gotoPay: function (e) {
+    var number = e.currentTarget.dataset.number
+    this.navigateTo(`/pages/orders/show/index?id=${number}`)
   },
 })

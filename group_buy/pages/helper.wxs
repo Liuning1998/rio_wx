@@ -72,14 +72,14 @@ function memberQuantity (activity) {
 
 function joined (group, umd5) {
   if (group == null || group.members == null || umd5 == null) {
-    return false
+    return null
   }
 
-  var result = false
+  var result = null
   for(var i=0; i < group.members.length; i++) {
     var item = group.members[i]
     if (item.md5 == umd5) {
-      result = true
+      result = item
       break
     }
   }

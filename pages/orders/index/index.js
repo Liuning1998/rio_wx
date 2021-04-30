@@ -82,7 +82,7 @@ Page({
 
   queryParams: function (state) {
     state = state || this.data.active
-    let params = {q: { order_type_not_eq: '1' }}
+    let params = {q: { order_type_not_in:[ '1', '4', '5'] }}
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
       params.q.order_type_eq = 2
@@ -296,7 +296,7 @@ Page({
   refreshData: function () {
     let state = this.data.active
 
-    let params = { q: { order_type_not_eq: '1' } }
+    let params = { q: { order_type_not_in: ['1', '4', '5'] } }
 
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']

@@ -40,12 +40,12 @@
         <text class="content">{{item.member_num_limit}}人团</text>
       </view>
 
-      <view class="avatar-container" bindtap="gotoProduct" data-item="{{item}}">
+      <view class="avatar-container" bindtap="gotoJoinWithId" data-item="{{item}}">
         <image class="avatar" src="{{item.product.avatar}}"></image>
       </view>
 
       <view class="info-container">
-        <view class="name-and-desc" bindtap="gotoProduct" data-item="{{item}}">
+        <view class="name-and-desc" bindtap="gotoJoinWithId" data-item="{{item}}">
           <text class="name">{{item.product.name}}</text>
         </view>
         <view class="price-and-actions">
@@ -67,7 +67,7 @@
           <view wx:if="{{item.state == 'completed'}}" class="btn disable">
             <text>已结束</text>
           </view>
-          <view wx:else class="btn" bindtap="gotoProduct" data-item="{{item}}">
+          <view wx:else class="btn" bindtap="gotoJoinWithId" data-item="{{item}}">
             <text>立即参团</text>
           </view>
         </view>
@@ -83,13 +83,13 @@
     </view>
     <!-- <image class="title" src="../../../images/ico_001.png" ></image> -->
     <view class="rule-content">
-      <text class="li">1、本活动仅限：①北京农商银行养老助残卡绑定微信支付且使用此卡支付；②“北京通养老助残卡服务中心”公众号认证的养老用户。享受团购优惠价格。</text>
-      <text class="li">2、养老助残卡参与活动需要开通金融功能，未开通用户请到北京农商银行网点或登录手机银行开通金融功能，并绑定微信支付，养老助残卡在微信支付显示为“北京农商行储蓄卡”</text>
-      <text class="li">3、同一用户每期活动只限购买一次团购商品，同一用户指同一微信账号、同一手机号、同一银行卡号，满足以上任一条件视为同一用户。</text>
-      <text class="li">4、拼团自开团时间起在规定团购时间内成团有效，且需要满足成团人数，如不足成团人数则当次拼团失效，订单自动取消，付款金额原路退回。</text>
-      <text class="li">5、拼团商品不定期更新，具体商品以当次拼团为准，如非质量问题不接受无理由退换货。</text>
-      <text class="li">6、拼团商品在成团价格基础上不享受其他折扣优惠活动。</text>
-      <text class="li">7、小程序的《隐私政策》及《用户协议》适用于本活动。</text>
+      <text class="li">1、本活动用户仅限：①北京农商银行养老助残卡绑定微信支付且使用此卡支付；②“北京通养老助残卡服务中心”公众号审核通过的养老助残卡用户。享受团购优惠价格。</text>
+      <text class="li">2、不符合条件的用户参团，会做退款处理。</text>
+      <text class="li">3、养老助残卡参与活动需要开通金融功能，未开通用户请到北京农商银行网点或登录手机银行开通金融功能，并绑定微信支付，养老助残卡在微信支付显示为“北京农商行储蓄卡”</text>
+      <text class="li">4、同一用户每期活动只限购买一次团购商品，同一用户指同一微信账号、同一手机号、同一银行卡号，满足以上任一条件视为同一用户。</text>
+      <text class="li">5、团购自开团时间起在规定团购时间内成团有效，且需要满足成团人数，如不足成团人数则当次拼团失效，订单自动取消，付款金额原路退回。</text>
+      <text class="li">6、团购商品不定期更新，具体商品以当次拼团为准，如非质量问题不接受无理由退换货。</text>
+      <text class="li">7、团购商品在成团价格基础上不再享受其他折扣优惠活动。</text>
     </view>
   </view>
 </scroll-view>

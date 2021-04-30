@@ -107,32 +107,17 @@
         <text>支付方式:</text>
         <text class="content">在线支付</text>
       </view>
-      
-
-      <!-- <view class="secret-container" wx:if="{{ productType == 3 }}">
-        <text>换购码</text>
-        <input bindinput='inputChange' data-name='secretText'  class="input" placeholder-class="input-placeholder" placeholder="请输入换购码"></input>
-      </view>
-
-      <view class="protocol" wx:if="{{ productType == 3 }}">
-        <view bindtap="changeProtocol" class="checkbox {{ protocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
-        <view>
-          <text bindtap="changeProtocol" class="btn">您已阅读并同意</text>
-          <text bindtap="gotoLink" data-url="/agreement/pages/yiyuangou/index" class="protocol-item">《一元购活动规则》</text>
-        </view>
-      </view> -->
 
       <view class="protocol">
         <view bindtap="changeProtocol" class="checkbox {{ protocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
         <view>
           <text bindtap="changeProtocol" class="btn">您已阅读并同意</text>
-          <text bindtap="gotoLink" data-url="/agreement/pages/group_buy/index" class="protocol-item">《拼团特惠活动规则》</text>
+          <text bindtap="gotoLink" data-url="/agreement/pages/group_buy/index" class="protocol-item">《“金色家园”团购活动规则》</text>
         </view>
       </view>
 
       <view class="special-tips">
         <text class="label">温馨提示</text>
-        <!-- <text class="desc">【团购商品】本商品为团购商品。</text> -->
         <text class="desc">1. 在我的-我的拼团，可以查看自己的拼团；</text>
         <text class="desc">2. 在团有效时间内，不允许取消拼团订单;</text>
         <text class="desc">3. 如遇质量问题，可以联系商家客服补发或退款；</text>

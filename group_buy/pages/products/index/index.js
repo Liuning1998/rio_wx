@@ -118,6 +118,11 @@ Page({
     this.navigateTo('/group_buy/pages/products/show/index?id=' + item.id)
   },
 
+  gotoJoinWithId: function (e) {
+    let item = e.currentTarget.dataset.item
+    this.navigateTo(`/group_buy/pages/orders/join/index?id=${item.id}`)
+  },
+
   setNow: function () {
     let now = new Date
     now = Math.floor(now.getTime()/1000)

@@ -24,7 +24,8 @@ Page({
     submitType: null,
     optionIds: [],
     now: Math.floor((new Date).getTime()/1000),
-    wsConnected: false
+    wsConnected: false,
+    canGroup: true
   },
 
   /**
@@ -349,6 +350,11 @@ Page({
       return false
     }
 
+    if (!this.data.canGroup) {
+      this.errorToast('现在还未开团')
+      return false
+    }
+
     var url = `/group_buy/pages/orders/join/index`
     url = url + `?activityId=${this.data.activity.id}&id=${this.data.activity.last_group.id}&quantity=${this.data.quantity}&currentVariantId=${this.data.currentVariant.id}`
 
@@ -394,10 +400,43 @@ Page({
 
   setNow: function () {
     let now = new Date
+
+    // if (now > this.data.activity.next_group_time && now > this.data.activity.last_group.end_time && now%5 == 0) {
+    //   // this.getProductDetail(this.data.activityId)
+    // }
+
     now = Math.floor(now.getTime()/1000)
     this.setData({ now: now })
 
     timer = setTimeout(this.setNow, 1000)
+    this.checkGroupState()
+  },
+
+  checkGroupState: function () {
+    if (this.data.activity != null && (this.data.activity.state == 'closed' || this.data.activity.state == 'completed')) {
+      this.setData({ canGroup: false })
+      return false
+    }
+
+    if (this.data.activity != null && this.data.activity.last_group != null && this.data.activity.last_group.state == 'closed') {
+      this.setData({ canGroup: false })
+      return false
+    }
+
+    if (this.data.activity == null || this.data.activity.last_group == null || this.data.activity.last_group.state != 'new') {
+      this.setData({ canGroup: false })
+      return false
+    }
+
+    // if (this.data.now > this.data.activity.next_group_time && this.data.now > this.data.activity.last_group.end_time ) {
+    if (this.data.now > this.data.activity.last_group.end_time ) {
+      this.setData({ canGroup: true })
+      return false
+    }
+
+    if (!this.data.canGroup) {
+      this.setData({ canGroup: true })
+    }
   },
 
   subscription: function () {

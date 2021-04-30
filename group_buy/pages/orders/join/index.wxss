@@ -5,7 +5,7 @@ page {
 }
 
 .page-container {
-  padding-bottom: 160rpx;
+  /* padding-bottom: 160rpx; */
 }
 
 .product-container {
@@ -592,3 +592,131 @@ page {
   color: #ffffff;
 }
 /* 选择型号 */
+
+/* 商品详情 */
+.pop-detail {
+  width: 100%;
+  font-size: 28rpx;
+  color: #2B2424;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  height: 112rpx;
+  margin-top: 30rpx;
+}
+
+.product-detail-desc {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 400rpx;
+  background-color: white;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.product-detail-desc.dimages {
+  padding: 0rpx;
+}
+
+.product-detail-desc .product-desc-logo {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.product-detail-desc .product-desc-logo .desc-logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-detail-desc .product-desc-logo text {
+  text-align: right;
+}
+
+.product-detail-desc .product-desc-logo .en {
+  /* font-weight: 500; */
+  letter-spacing: 2rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+}
+
+.product-detail-desc .product-desc-logo .cn {
+  height: 24prx;
+  line-height: 24rpx;
+}
+
+.product-detail-desc image{
+  display: flex;
+  width: 100%;
+}
+
+.product-detail-desc .text-desc {
+  text-align: center;
+  line-height: 36rpx;
+}
+/* 商品详情 */
+
+/* 成团记录 */
+.groups-container {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  margin-top: 1px;
+  width: 750rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  margin-top: 30rpx;
+}
+
+.groups-container .arrow {
+  width: 10rpx;
+  height: 20rpx;
+  display: inline-block;
+  margin-left: 10rpx;
+  flex-shrink: 0;
+}
+
+.groups-container .avatars-container {
+  display: flex;
+  align-items: center;
+}
+
+.groups-container .avatars-container image {
+  border-radius: 50%;
+  height: 70rpx;
+  width: 70rpx;
+  display: flex;
+  margin-right: 4rpx;
+  border: 1px solid #dddddd;
+}
+
+.groups-container .item-info text {
+  color: #666666;
+  font-size: 24rpx;
+  margin-left: 20rpx;
+}
+
+.groups-container .group-item {
+  display: flex;
+  width: 100%;
+  padding: 8rpx 0;
+  align-items: center;
+}
+
+.groups-container .item-info {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+/* 成团记录 */
+
+.next-tiem-container {
+  width: 750rpx;
+  margin-top: 30rpx;
+  font-size: 24rpx;
+  color: #333333;
+  display: flex;
+  justify-content: center;
+}

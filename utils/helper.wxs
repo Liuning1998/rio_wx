@@ -70,10 +70,44 @@ function getS (seconds) {
   return result
 }
 
+function formatTime (date) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+function simpleFormatTime (date) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':')
+}
+
+function formatTimeForInt (timestamp) {
+  var date = getDate(timestamp * 1000)
+  return simpleFormatTime(date)
+}
+
+function formatNumber (n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
 module.exports = {
   hidePhone: hidePhone,
   getD: getD,
   getM: getM,
   getH: getH,
   getS: getS,
+  formatTime: formatTime,
+  formatTimeForInt: formatTimeForInt,
 }
