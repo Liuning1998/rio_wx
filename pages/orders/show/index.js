@@ -236,7 +236,14 @@ Page({
           if(res.status != null && typeof(res.status) != 'undefined') {
             if(res.status == 'ok') {
               this.successToast('支付成功', 1000)
-              this.reflashOrder()
+              if (this.data.order.order_type == 4 || this.data.order.order_type == 5) {
+                this.checkSubscribeMessage([
+                  "ngVUuKgv3tiZJ_kF8aiG7aB2IlfbQfU4Z1VBO5XKCEE",
+                  "A1DVqixDkDDWNdsYct0rKH81ii_FpJoWHChrVXZFdjU"
+                ])
+              } else {
+                this.reflashOrder()
+              }
               submitStatus = false
             } else {
               this.errorToast("支付失败, 请稍后再试")
@@ -283,7 +290,14 @@ Page({
       'paySign': pay_sign,
       'success': (res) => {
         this.successToast('支付成功', 1000)
-        this.reflashOrder()
+        if (this.data.order.order_type == 4 || this.data.order.order_type == 5) {
+          this.checkSubscribeMessage([
+            "ngVUuKgv3tiZJ_kF8aiG7aB2IlfbQfU4Z1VBO5XKCEE",
+            "A1DVqixDkDDWNdsYct0rKH81ii_FpJoWHChrVXZFdjU"
+          ])
+        } else {
+          this.reflashOrder()
+        }
         submitStatus = false
       },
       'fail': (res) => {
@@ -394,7 +408,80 @@ Page({
     }
 
     this.navigateTo(`/pages/orders/expresses/show?id=${item.express_number}&order_number=${this.data.order.number}`)
-  }
+  },
+  
+  gotoBuyGroup: function () {
+    if (this.data.order.order_type != 4 && this.data.order.order_type != 5) {
+      return false
+    }
+
+    if (this.data.order.group_buy_activity_id == null) {
+      return false
+    }
+
+    let pages = getCurrentPages(); //页面对象
+    let lastPage = pages[pages.length - 2]; //上一个页面对象
+    let path = lastPage.route;
+
+    if (path != null && path == 'group_buy/pages/orders/join/index') {
+      wx.navigateBack({})
+    } else {
+      this.navigateTo(`/group_buy/pages/orders/join/index?id=${this.data.order.group_buy_activity_id}`)
+    }
+  },
+
+  checkSubscribeMessage: function (templateIds = []) {
+    wx.getSetting({
+      withSubscriptions: true,
+      success: res => {
+        if (res.subscriptionsSetting == null || res.subscriptionsSetting.itemSettings == null) {
+          // console.error('订阅消息失败')
+          this.subscribeMessage(templateIds)
+          return false
+        }
+        
+        for ( let key in templateIds ) {
+          let item = templateIds[key]
+          if (res.subscriptionsSetting.itemSettings[item] == 'reject') {
+            setTimeout(res => {
+              this.gotoBuyGroup()
+            }, 1000)
+            return false
+          }
+          if (res.subscriptionsSetting.itemSettings[item] != 'accept') {
+            break
+          }
+        }
+
+        this.subscribeMessage(templateIds)
+      },
+      fail: res => {
+        // console.error('订阅消息失败')
+        this.subscribeMessage(templateIds)
+      }
+    })
+  },
+
+  subscribeMessage: function (templateIds) {
+    wx.requestSubscribeMessage({
+      tmplIds: templateIds,
+      success: res => {
+        console.log('订阅消息成功')
+        console.log(res)
+        setTimeout(res => {
+          this.gotoBuyGroup()
+        }, 1000)
+      },
+      fail: res => {
+        console.error('订阅消息失败')
+        console.error(res)
+        
+        setTimeout(res => {
+         this.gotoBuyGroup()
+        }, 1000)
+      }
+    })
+  },
 
   /**
    * 用户点击右上角分享

@@ -14,7 +14,8 @@ var checkPhonePage = [
   "/try_product/pages/products/show/index",
   "/live/pages/index/index",
   "/pages/coupons/dashboard/index",
-  "/try_product/pages/orders/index/index"
+  "/try_product/pages/orders/index/index",
+  "/group_buy/pages/orders/join/index"
   // "/pages/contact/index"
 ]
 

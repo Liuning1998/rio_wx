@@ -15,13 +15,13 @@
       <text class="name">{{product.name}}</text>
       <view class="variant-and-price">
         <text wx:if="{{currentVariant.show_name != null && currentVariant.show_name.length > 0}}" class="variant-info">已选: {{currentVariant.show_name}}</text>
-        <text class="price">{{currentVariant.price || 0}}</text>
+        <text class="price">{{currentVariant.vip_price || 0}}</text>
       </view>
     </view>
   </view>
 
   <view wx:if="{{ group.state != 'completed' }}" class="group-container">
-    <view wx:if="{{ group.end_time <= now || sh.memberQuantity(activity) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="time-container">
+    <view wx:if="{{ group.end_time <= now || sh.memberQuantity(activity) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="time-container disabled">
       <text class="desc">剩余参团时间</text>
       <text class="time">00</text>
       <text class="split">:</text>
@@ -41,13 +41,13 @@
 
     <view class="avatar-container">
       <image wx:for="{{group.members}}" wx:key="item" class="avatar item" src="{{item.avatar}}"></image>
-      <block wx:if="{{group.state != 'closed' && group.state != 'completed'}}">
+      <block>
         <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < sh.memberQuantity(activity) }}" class="empty-avatar item">?</text>
       </block>
     </view>
 
     <view class="member-desc">
-      <text>共<text class="m-quantity">{{group.members.length || 0}}</text>人参团，{{activity.one_duration_h || 0}}小时内人数不足自动退款</text>
+      <text>共<text class="m-quantity">{{group.members.length || 0}}</text>人参团，{{activity.one_duration_h * 60 || 0}}分钟内人数不足自动退款</text>
     </view>
 
     <view class="group-step">
@@ -56,7 +56,7 @@
           <view class="dot"></view><view class="shadow"></view>
         </view>
 
-        <block wx:if="{{sh.joined(group, umd5)}}">
+        <block wx:if="{{ sh.joined(group, umd5) != null && sh.joined(group, umd5).order_state != 'new'  }}">
           <view class="line did"></view>
           <view class="dot-container did">
             <view class="dot"></view><view class="shadow"></view>
@@ -101,9 +101,18 @@
 
   <view class="next-tiem-container">
     <text style="margin-right: 20rpx;">距离下一次开团还剩</text>
-    <text>{{sh.getH(activity.next_group_time - now) || '00'}}: </text>
-    <text>{{sh.getM(activity.next_group_time - now) || '00'}}: </text>
-    <text>{{sh.getS(activity.next_group_time - now) || '00'}} </text>
+    <block wx:if="{{ helper.needWaitGroup(group, now) }}">
+      <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+      <text class="split">:</text>
+      <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+      <text class="split">:</text>
+      <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+    </block>
+    <block wx:else>
+      <text>{{sh.getH(activity.next_group_time - now) || '00'}}: </text>
+      <text>{{sh.getM(activity.next_group_time - now) || '00'}}: </text>
+      <text>{{sh.getS(activity.next_group_time - now) || '00'}} </text>
+    </block>
     <!-- <text>下一次开团时间：</text>
     <text>{{ rh.formatTimeForInt(activity.next_group_time) }}</text> -->
   </view>
@@ -112,13 +121,13 @@
     <block wx:if="{{activity != null}}">
       <!-- <text wx:if="{{ group == null || group.end_time <= now || sh.memberQuantity(activity) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="btn btn-fill disabled">已结束</text> -->
       <text wx:if="{{ activity.end_time < now || activity.state == 'completed' || activity.state == 'aborted' }}" class="btn btn-fill disabled">已结束</text>
-      <text wx:elif="{{ group.state == 'completed' }}" class="btn btn-fill disabled">等待开团</text>
-      <text wx:elif="{{ group == null || group.state == null || group.state == 'closed' || product.available_on <= 0 }}" class="btn btn-fill disabled">等待开团</text>
+      <!-- <text wx:elif="{{ group.state == 'completed' }}" class="btn btn-fill disabled">等待开团</text>
+      <text wx:elif="{{ group == null || group.state == null || group.state == 'closed' }}" class="btn btn-fill disabled">等待开团</text> -->
+      <text wx:elif="{{ helper.needWaitGroup(group, now) }}" class="btn btn-fill disabled">等待开团</text>
       <block wx:elif="{{ sh.joined(group, umd5) != null }}">
-        <text bindtap="gotoPay" data-number="{{ sh.joined(group, umd5).order_number }}" wx:if="{{ sh.joined(group, umd5).order_state == 'new' }}" class="btn btn-fill">立即支付</text>
+        <text bindtap="gotoPay" data-number="{{ sh.joined(group, umd5).order_number }}" wx:if="{{ sh.joined(group, umd5).order_state == 'new' }}" class="btn btn-fill">去支付</text>
         <button wx:else class="btn btn-fill" open-type="share">邀请好友参团</button>
       </block>
-      <text wx:elif="{{ group.end_time < now }}" class="btn btn-fill disabled">等待开团</text>
       <text wx:else bindtap="gotoConfirm" class="btn btn-fill">立即参团</text>
     </block>
     
@@ -137,18 +146,33 @@
     </view>
   </view>
 
-  <!-- <view class="rule-container">
-    <text class="title">拼团规则</text>
-    <view class="rule-content">
-      <text class="li">1、本活动仅限：①北京农商银行养老助残卡绑定微信支付且使用此卡支付；②“北京通养老助残卡服务中心”公众号认证的养老用户。享受团购优惠价格。</text>
-      <text class="li">2、养老助残卡参与活动需要开通金融功能，未开通用户请到北京农商银行网点或登录手机银行开通金融功能，并绑定微信支付，养老助残卡在微信支付显示为“北京农商行储蓄卡”</text>
-      <text class="li">3、同一用户每期活动只限购买一次团购商品，同一用户指同一微信账号、同一手机号、同一银行卡号，满足以上任一条件视为同一用户。</text>
-      <text class="li">4、拼团自开团时间起在规定团购时间内成团有效，且需要满足成团人数，如不足成团人数则当次拼团失效，订单自动取消，付款金额原路退回。</text>
-      <text class="li">5、拼团商品不定期更新，具体商品以当次拼团为准，如非质量问题不接受无理由退换货。</text>
-      <text class="li">6、拼团商品在成团价格基础上不享受其他折扣优惠活动。</text>
-      <text class="li">7、小程序的《隐私政策》及《用户协议》适用于本活动。</text>
+   <!-- 推荐商品 -->
+  <view wx:if="{{ specialProducts.length > 0 }}" class="today-container">
+    <view class="lable-container" >
+      <view class="main">
+        <text class="label">伊利专区</text>
+        <!-- <view class="remark"><text>品质好物</text></view> -->
+      </view>
+
+      <view class="more" bindtap="gotoSpecialArea">
+        <text class="">更多</text>
+        <image src="/images/arrow_o_black_01.png"></image>
+      </view>
     </view>
-  </view> -->
+
+    <view class="today-products">
+      <view wx:if="{{index <= 3}}" class="product-item" wx:for="{{specialProducts}}" wx:key="index" bindtap="gotoProduct" data-item="{{item}}"  >
+        <view class="avatar-container">
+          <image class="avatar" src="{{item.avatar}}"></image>
+        </view>
+        <view class="price-container">
+          <text class="price">￥{{item.price}}</text>
+          <text class="origin-price">￥{{item.origin_price}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 推荐商品 -->
 
   <view class='pop-detail' id="pop-detail">
     <text decode class='text-muted'>商品详情</text>
@@ -161,50 +185,28 @@
   </view>
 </scroll-view>
 
-<!-- 选择型号蒙层 -->
-<!-- <view wx:if="{{ showSelectContainer }}" class="select-variant-layer {{ isIphoneX && 'iphone-x' }}" catchtouchmove="disMove">
-  <view bindtap='hideSelectContainer' class='top-mark'></view>
-  <view class='select-variant-container'>
-    <view bindtap='hideSelectContainer' class='close'>
-      <i class="fa fa-close"></i>
+<view wx:if="{{showPayNotice}}" class="pay-notice-container">
+  <view class="pay-notice-content">
+    <view class="pn-header">
+      <!-- <image class="close" src="/images/close_white.png"></image> -->
+      <text bindtap="payNoticeCancelBtn" class="close">x</text>
     </view>
-    <scroll-view scroll-y class='variant-scroll'>
-      <view bindtap='hideSelectContainer' class="close"><image src="/images/close_white.png"></image></view>
-      <view class='product'>
-        <image src="{{ product.carousels[0] }}"></image>
-        <view class='info'>
-          <text class="price">{{ currentVariant.price || '' }}</text>
-          <text class="name">{{ product.name || '' }}</text>
+
+    <view class="pn-content">
+      <text class="pn-text header" decode="{{true}}">{{payNotice.header}}</text>
+      <text class="pn-text body" decode="{{true}}">{{payNotice.body}}</text>
+      <text class="pn-text footer" decode="{{true}}">{{payNotice.footer}}</text>
+      <!-- <view class="protocol">
+        <view bindtap="changePayNoticeProtocol" class="checkbox {{ payNoticeProtocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
+        <view>
+          <text bindtap="changePayNoticeProtocol" class="btn">下次不再提醒</text>
         </view>
+      </view> -->
+
+      <view class="btn-group">
+        <!-- <text bindtap="payNoticeCancelBtn" class="btn cancel">取消</text> -->
+        <text bindtap="payNoticeConfirmBtn" class="btn confirm">已知悉</text>
       </view>
-
-      <view class='option-container'>
-        <view class="option-item-container" wx:for="{{ optionTypes }}" wx:key="index" wx:for-item="optionType">
-          <view class='option-label'><text>{{ optionType.label || '' }}</text></view>
-          <view class='option-value-container'>
-            <view wx:for="{{ optionType.option_value }}" wx:key="vaIndex" wx:for-item="optionValue" class='btn btn-xs btn-radius {{ optionValue.status }} option-value-item' bindtap='changeOptionValues' data-option-type='{{ optionType }}' data-option-value='{{ optionValue }}' wx:if="{{helper.optionValidate(optionIds, optionValue)}}">{{ optionValue.label || '' }}</view>
-          </view>
-        </view>
-      </view>
-
-      <view class='quantity-container'>
-        <text class='label'>数量</text>
-        <view class='control-quantity'>
-          <view wx:if="{{ quantity == 1 }}" class='sub disable' data-variant-id="{{ currentVariant.id }}">ㄧ</view>
-          <view wx:else class='sub ' bindtap='subQuantity' data-variant-id="{{ currentVariant.id }}">ㄧ</view>
-          <text class='quantity'>{{ quantity || 1 }}</text>
-          <view wx:if="{{ quantity >= product.limit_number || quantity >= currentVariant.limit_number || quantity >= currentVariant.stock || productType == 3 }}" class='plus disable'  data-variant-id="{{ currentVariant.id }}">+</view>
-          <view wx:else class='plus' bindtap='plusQuantity' data-variant-id="{{ currentVariant.id }}">+</view>
-        </view>
-      </view>
-
-    </scroll-view>
-  </view>
-
-  <view class='submit-action'>
-    <view class="btn-container">
-      <button bindtap='gotoConfirm' class="{{ currentVariant.stock <= 0 && 'disabled' }} btn btn-lg confirm-btn">确定</button>
     </view>
   </view>
-</view> -->
-<!-- 选择型号蒙层 -->
+</view>

@@ -300,9 +300,9 @@ page {
 }
 
 .rule-container .rule-content .li{
-  font-size: 24rpx;
-  line-height: 38rpx;
-  color: #F5774A;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #5B5454;
   text-align: justify;
   margin-bottom: 10rpx;
   display: inline-block;

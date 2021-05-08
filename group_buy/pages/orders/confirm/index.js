@@ -273,8 +273,8 @@ Page({
         // })
 
         this.checkSubscribeMessage([
-          "sHoXF8cfrJWTXyVvgYSYKwgD-PLlwafgF-D0Ov3hYnE",
-          "hkTZvNW2Od3I8d4vliFjjMDzGonsFkOQxKK5QBgNLVE"
+          "ngVUuKgv3tiZJ_kF8aiG7aB2IlfbQfU4Z1VBO5XKCEE",
+          "A1DVqixDkDDWNdsYct0rKH81ii_FpJoWHChrVXZFdjU"
           // "l0Hpae-AViUtw3lzwio14dAc1JvFP1AGwBIFSuXuuGg"
         ])
 
@@ -306,9 +306,12 @@ Page({
         for ( let key in templateIds ) {
           let item = templateIds[key]
           if (res.subscriptionsSetting.itemSettings[item] == 'reject') {
-            wx.redirectTo({
-              url: '/group_buy/pages/orders/index/index',
-            })
+            // wx.redirectTo({
+            //   url: '/group_buy/pages/orders/index/index',
+            // })
+            setTimeout(res => {
+              wx.navigateBack({})
+            }, 1000)
             return false
           }
           if (res.subscriptionsSetting.itemSettings[item] != 'accept') {
@@ -340,17 +343,22 @@ Page({
       success: res => {
         console.log('订阅消息成功')
         console.log(res)
-        wx.redirectTo({
-          url: '/group_buy/pages/orders/index/index',
-        })
-
+        // wx.redirectTo({
+        //   url: '/group_buy/pages/orders/index/index',
+        // })
+        setTimeout(res => {
+          wx.navigateBack({})
+        }, 1000)
       },
       fail: res => {
         console.error('订阅消息失败')
         console.error(res)
-        wx.redirectTo({
-          url: '/group_buy/pages/orders/index/index',
-        })
+        // wx.redirectTo({
+        //   url: '/group_buy/pages/orders/index/index',
+        // })
+        setTimeout(res => {
+          wx.navigateBack({})
+        }, 1000)
       }
     })
   },

@@ -29,13 +29,22 @@
         </view>
         <text class="desc">此订单尚未支付，请尽快支付</text>
       </view>
-      <view wx:elif="{{ order.state == 'padding' }}" class="status-container">
-        <view class="status-content">
-          <image class="icon" src="/images/order/paying.png"></image>
-          <text class="">{{order.state_t}}</text>
+      <block wx:elif="{{ order.state == 'padding' }}">
+        <view wx:if="{{ order.order_type == 4 || order.order_type == 5 }}" class="status-container">
+          <view class="status-content">
+            <image class="icon" src="/images/order/paying.png"></image>
+            <text class="">{{order.group_buy_state_t}}</text>
+          </view>
+          <text class="desc">此订单 {{order.group_buy_state_t}}</text>
         </view>
-        <text class="desc">此订单已支付，正在发货</text>
-      </view>
+        <view wx:else class="status-container">
+          <view class="status-content">
+            <image class="icon" src="/images/order/paying.png"></image>
+            <text class="">{{order.state_t}}</text>
+          </view>
+          <text class="desc">此订单已支付，正在发货</text>
+        </view>
+      </block>
       <view wx:elif="{{ order.state == 'shipping' }}" class="status-container">
         <view class="status-content">
           <image class="icon" src="/images/order/paying.png"></image>

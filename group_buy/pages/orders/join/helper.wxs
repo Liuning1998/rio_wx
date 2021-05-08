@@ -19,7 +19,20 @@ function optionValidate(allOptionIds, option) {
   }
 }
 
+function needWaitGroup (lastGroup, now) {
+  if (lastGroup == null || lastGroup.state == null || lastGroup.state == 'closed' || lastGroup.state == 'completed') {
+    return true
+  }
+
+  if (lastGroup.end_time < now ) {
+    return true
+  }
+
+  return false
+}
+
 module.exports = {
   variantInfo: variantInfo,
-  optionValidate: optionValidate
+  optionValidate: optionValidate,
+  needWaitGroup: needWaitGroup
 }

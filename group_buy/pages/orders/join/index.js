@@ -2,6 +2,7 @@
 var http = require('../../../../utils/http.js')
 var websocket = require('../../../../utils/websocket.js')
 var md5 = require('../../../../utils/md5.js')
+var storage = require('../../../../utils/storage.js')
 
 let timer
 
@@ -26,7 +27,8 @@ Page({
     productType: null, // 1 虚拟卡券, 2 实物, 3 一元购商品
     optionIds: [],
     now: Math.floor((new Date).getTime()/1000),
-    umd5: ''
+    umd5: '',
+    payNotice: ''
   },
 
   /**
@@ -56,6 +58,12 @@ Page({
 
     this.setData({ isIphoneX: getApp().isIphoneX() })
 
+    this.getSpecialInfo()
+
+    if (this.data.userInfo != null && this.data.userInfo.kzx_user_identification != 1) {
+      this.checkPayNotice()
+    }
+
     /**
     * 用户点击右上角分享
     */
@@ -78,7 +86,7 @@ Page({
       return {
         title: '金色家园 幸福生活',
         path: path,
-        // imageUrl: 'https://score-admin.ixiaoliu.com/wx_share.jpg'
+        // imageUrl: ''
       }
     }
   },
@@ -89,9 +97,9 @@ Page({
       this.subscription()
     }
 
-    if (this.data.group != null && this.data.group.id != null) {
+    if (this.data.activity != null && this.data.activity.id != null) {
       this.setData({ showSelectContainer: false })
-      this.getBuyGroup(this.data.group.id)
+      this.getProductDetail(this.data.activity.id)
     }
 
     if (timer == null) {
@@ -513,5 +521,75 @@ Page({
   gotoPay: function (e) {
     var number = e.currentTarget.dataset.number
     this.navigateTo(`/pages/orders/show/index?id=${number}`)
+  },
+
+  // 检查支付前是否需要弹框提示
+  checkPayNotice: function (order) {
+    var notice_flag = storage.getSync('group_buy_notice_flag')
+    if (notice_flag != true) {
+      http.get({
+        url: `api/buy_groups/buy_notice`,
+        success: res => {
+          if (res.data.alert == 'on' && res.data.body != null && res.data.body.length > 0) {
+            this.setData({
+              payNotice: res.data,
+              showPayNotice: true,
+            })
+          }
+        }
+      })
+    }
+  },
+
+  payNoticeCancelBtn: function () {
+    this.closePayNoticeToast()
+  },
+
+  payNoticeConfirmBtn: function () {
+    if (this.data.payNoticeProtocolStatus) {
+      storage.setSync('group_buy_notice_flag', true)
+    }
+
+    this.closePayNoticeToast()
+  },
+
+  changePayNoticeProtocol: function () {
+    this.setData({ payNoticeProtocolStatus: !this.data.payNoticeProtocolStatus })
+  },
+
+  closePayNoticeToast: function () {
+    this.setData({ showPayNotice: false })
+  },
+
+  // 获取商品推荐数据
+  // id 7 伊利专区，临时代码
+  getSpecialInfo: function () {
+    // var id = 7
+    var id = 3
+    http.get({
+      url: `api/special_areas/${id}/fine_products`,
+      success: res => {
+        if (res.data.length > 0) {
+          this.setData({
+            specialProducts: res.data
+          })
+        }
+      }
+    })
+  },
+
+  gotoProduct: function (e) {
+    var item = e.currentTarget.dataset.item
+    if (item.id == null) {
+      return
+    }
+
+    this.navigateTo("/pages/products/show/index?id=" + item.id)
+  },
+
+  gotoSpecialArea: function () {
+    // var id = 7
+    var id = 3
+    this.navigateTo(`/pages/special_areas/show/index?item_id=${id}&name=${'伊利专区'}`)
   },
 })

@@ -23,6 +23,9 @@ var errorMap = {
   100145: { msg: 'too more operate', msg_t: "操作太频繁，请稍后再试" },
   100149: { msg: 'order total more than 2000', msg_t: "单笔订单原价总金额超过2000元" },
   100150: { msg: 'order total more than 1200', msg_t: "单笔订单原价总金额超过1200元" },
+  100157: { msg: 'member_limit_expend', msg_t: '团已满, 请等下一个团' },
+  100158: { msg: 'group_not_exists_or_close', msg_t: '抱歉，团不存在或已经关闭' },
+  100159: { msg: 'already_join_buy_group', msg_t: '抱歉，您已参团' },
 }
 
 // const ENV = 'production'
