@@ -74,12 +74,18 @@ Page({
             url: 'api/orders/' + this.data.order.number,
             success: res => {
               this.successToast('删除订单成功')
-              setTimeout(res => {
-                // wx.navigateBack({})
-                wx.reLaunch({
-                  url: '/pages/orders/index/index',
-                })
-              }, 2000)
+              if (this.data.order.order_type == 4 || this.data.order.order_type == 5) {
+                setTimeout(res => {
+                  wx.navigateBack({})
+                }, 2000)
+              } else {
+                setTimeout(res => {
+                  // wx.navigateBack({})
+                  wx.reLaunch({
+                    url: '/pages/orders/index/index',
+                  })
+                }, 2000)
+              }
             },
             fail: res => {
               this.errorToast('删除失败, 请稍后再试')
@@ -91,6 +97,13 @@ Page({
   },
 
   buyAgain: function (e) {
+    if (this.data.order.order_type == 4 || this.data.order.order_type == 5) {
+      // this.navigateTo('/group_buy/pages/products/index/index')
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+      return true
+    }
     if (Object.keys(this.data.order).length <= 0) {
       return false
     }
@@ -337,11 +350,17 @@ Page({
             url: 'api/orders/' + this.data.order.number + '/cancel_order',
             success: res => {
               this.successToast('取消订单成功')
-              setTimeout( ()=>{
-                wx.reLaunch({
-                  url: '/pages/orders/index/index',
-                })
-              }, 500) 
+              if (this.data.order.order_type == 4 || this.data.order.order_type) {
+                setTimeout(res => {
+                  wx.navigateBack({})
+                }, 500)
+              } else {
+                setTimeout( ()=>{
+                  wx.reLaunch({
+                    url: '/pages/orders/index/index',
+                  })
+                }, 500)
+              }
             },
             fail: res => {
               this.errorToast('取消失败, 请稍后再试')

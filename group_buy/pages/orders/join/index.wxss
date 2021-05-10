@@ -34,8 +34,10 @@ page {
 .product-container .product-content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   flex: 1;
+  /* padding: 32rpx 0;
+  box-sizing: border-box; */
 }
 
 .product-container .name {
@@ -726,7 +728,7 @@ page {
 .next-tiem-container {
   width: 750rpx;
   margin-top: 30rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #333333;
   display: flex;
   justify-content: center;
@@ -796,6 +798,7 @@ page {
   color: #333333;
   text-align: justify;
   margin-bottom: 8rpx;
+  margin-top: 12rpx;
 }
 
 .pay-notice-content .pn-content .pn-text.header {
@@ -909,8 +912,8 @@ page {
   display: flex;
   align-items: center;
   color: #999999;
-  font-size: 20rpx;
-  margin: 24rpx;
+  font-size: 28rpx;
+  margin: 20rpx;
   margin-right: 0;
 }
 
@@ -926,7 +929,7 @@ page {
 }
 
 .today-container .lable-container .label {
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #333333;
   font-weight: 600;
 }
@@ -961,7 +964,7 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 10rpx;
+  margin-right: 15rpx;
 }
 
 .today-container .product-item:last-child {
@@ -969,8 +972,8 @@ page {
 }
 
 .today-container .product-item .avatar {
-  width: 156rpx;
-  height: 156rpx;
+  width: 224rpx;
+  height: 224rpx;
   display: flex;
 }
 

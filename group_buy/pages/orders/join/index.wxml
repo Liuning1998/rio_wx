@@ -20,29 +20,49 @@
     </view>
   </view>
 
-  <view wx:if="{{ group.state != 'completed' }}" class="group-container">
-    <view wx:if="{{ group.end_time <= now || sh.memberQuantity(activity) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="time-container disabled">
-      <text class="desc">剩余参团时间</text>
-      <text class="time">00</text>
-      <text class="split">:</text>
-      <text class="time">00</text>
-      <text class="split">:</text>
-      <text class="time">00</text>
+  <view wx:if="{{ group.state != 'completed' || sh.joined(group, umd5) == null }}" class="group-container">
+    <block wx:if="{{ activity.activity_notice.content != null && activity.activity_notice.content.length > 0 }}">
+      <view class="time-container">
+        <text class="desc">{{ activity.activity_notice.content }}</text>
+      </view>
+    </block>
+
+    <block wx:elif="{{ activity.time_notice.content != null && activity.time_notice.content.length > 0 }}">
+      <view class="time-container">
+        <text class="desc">{{ activity.time_notice.content }}</text>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view wx:if="{{ group.end_time <= now || sh.memberQuantity(activity, group) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="time-container disabled">
+        <text class="desc">剩余参团时间</text>
+        <text class="time">00</text>
+        <text class="split">:</text>
+        <text class="time">00</text>
+        <text class="split">:</text>
+        <text class="time">00</text>
+      </view>
+
+      <view wx:else class="time-container">
+        <text class="desc">剩余参团时间</text>
+        <text class="time">{{sh.getH(group.end_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getM(group.end_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getS(group.end_time - now) || '00'}}</text>
+      </view>
+    </block>
+
+    <view wx:if="{{ group.state == 'completed' && sh.joined(group, umd5) == null }}"  class="avatar-container">
+      <block>
+        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < activity.member_num_limit }}" class="empty-avatar item">?</text>
+      </block>
     </view>
 
-    <view wx:else class="time-container">
-      <text class="desc">剩余参团时间</text>
-      <text class="time">{{sh.getH(group.end_time - now) || '00'}}</text>
-      <text class="split">:</text>
-      <text class="time">{{sh.getM(group.end_time - now) || '00'}}</text>
-      <text class="split">:</text>
-      <text class="time">{{sh.getS(group.end_time - now) || '00'}}</text>
-    </view>
-
-    <view class="avatar-container">
+    <view wx:else class="avatar-container">
       <image wx:for="{{group.members}}" wx:key="item" class="avatar item" src="{{item.avatar}}"></image>
       <block>
-        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < sh.memberQuantity(activity) }}" class="empty-avatar item">?</text>
+        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < sh.memberQuantity(activity, group) }}" class="empty-avatar item">?</text>
       </block>
     </view>
 
@@ -99,8 +119,8 @@
     </view>
   </view>
 
-  <view class="next-tiem-container">
-    <text style="margin-right: 20rpx;">距离下一次开团还剩</text>
+  <view class="next-tiem-container" wx:if="{{ (activity.activity_notice.content == null || activity.activity_notice.content.length <= 0) && (activity.time_notice.content == null || activity.time_notice.content.length <= 0) }}">
+    <text style="margin-right: 20rpx;">距离下一次开团最长等待时间</text>
     <block wx:if="{{ helper.needWaitGroup(group, now) }}">
       <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
       <text class="split">:</text>
@@ -109,9 +129,11 @@
       <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
     </block>
     <block wx:else>
-      <text>{{sh.getH(activity.next_group_time - now) || '00'}}: </text>
-      <text>{{sh.getM(activity.next_group_time - now) || '00'}}: </text>
-      <text>{{sh.getS(activity.next_group_time - now) || '00'}} </text>
+      <text style="width: 44rpx; text-align: center;">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+      <text style="margin-top: -4rpx;">:</text>
+      <text style="width: 44rpx; text-align: center;">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+      <text style="margin-top: -4rpx;">:</text>
+      <text style="width: 44rpx; text-align: center;">{{sh.getS(activity.next_group_time - now) || '00'}} </text>
     </block>
     <!-- <text>下一次开团时间：</text>
     <text>{{ rh.formatTimeForInt(activity.next_group_time) }}</text> -->
@@ -119,10 +141,8 @@
 
   <view class="actions">
     <block wx:if="{{activity != null}}">
-      <!-- <text wx:if="{{ group == null || group.end_time <= now || sh.memberQuantity(activity) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="btn btn-fill disabled">已结束</text> -->
       <text wx:if="{{ activity.end_time < now || activity.state == 'completed' || activity.state == 'aborted' }}" class="btn btn-fill disabled">已结束</text>
-      <!-- <text wx:elif="{{ group.state == 'completed' }}" class="btn btn-fill disabled">等待开团</text>
-      <text wx:elif="{{ group == null || group.state == null || group.state == 'closed' }}" class="btn btn-fill disabled">等待开团</text> -->
+      <text wx:elif="{{ user_completed_quantity != null && user_completed_quantity != -1 && user_completed_quantity >= activity.member_num_limit }}" class="btn btn-fill disabled">您已参加过该活动</text>
       <text wx:elif="{{ helper.needWaitGroup(group, now) }}" class="btn btn-fill disabled">等待开团</text>
       <block wx:elif="{{ sh.joined(group, umd5) != null }}">
         <text bindtap="gotoPay" data-number="{{ sh.joined(group, umd5).order_number }}" wx:if="{{ sh.joined(group, umd5).order_state == 'new' }}" class="btn btn-fill">去支付</text>
@@ -161,7 +181,7 @@
     </view>
 
     <view class="today-products">
-      <view wx:if="{{index <= 3}}" class="product-item" wx:for="{{specialProducts}}" wx:key="index" bindtap="gotoProduct" data-item="{{item}}"  >
+      <view wx:if="{{index <= 2}}" class="product-item" wx:for="{{specialProducts}}" wx:key="index" bindtap="gotoProduct" data-item="{{item}}"  >
         <view class="avatar-container">
           <image class="avatar" src="{{item.avatar}}"></image>
         </view>

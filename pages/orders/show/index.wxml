@@ -225,7 +225,7 @@
       <text class="btn cancel" wx:if="{{orderServiceStatus.click == 'on'}}" bindtap="orderService" >申请售后</text>
       <!-- <text class="btn cancel" wx:else bindtap="orderService">查看售后</text> -->
     </block>
-    <text bindtap="buyAgain" class="btn buy">再次购买</text>
+    <text wx:if="{{ order.order_type != 4 && order.order_type != 5 }}" bindtap="buyAgain" class="btn buy">再次购买</text>
   </view>
 </view>
 

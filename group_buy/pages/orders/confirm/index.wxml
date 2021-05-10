@@ -118,9 +118,9 @@
 
       <view class="special-tips">
         <text class="label">温馨提示</text>
-        <text class="desc">1. 在我的-我的拼团，可以查看自己的拼团；</text>
-        <text class="desc">2. 在团有效时间内，不允许取消拼团订单;</text>
-        <text class="desc">3. 如遇质量问题，可以联系商家客服补发或退款；</text>
+        <text class="desc">1、查看我的拼团，“我的-我的拼团”；</text>
+        <text class="desc">2、如非质量问题，拼团订单不接受无理由退换货；</text>
+        <text class="desc">3、如遇质量问题，请至“我的-联系我们”。</text>
       </view>
 
     </view>

@@ -1,5 +1,5 @@
 function canService(order) {
-  if (order == null || order.state == null) {
+  if (order == null || order.state == null || order.order_type == 4 || order.order_type == 5) {
     return false
   }
 

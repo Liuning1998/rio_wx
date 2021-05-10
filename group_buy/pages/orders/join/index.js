@@ -28,7 +28,10 @@ Page({
     optionIds: [],
     now: Math.floor((new Date).getTime()/1000),
     umd5: '',
-    payNotice: ''
+    payNotice: '',
+    timeNotice: '',
+    activityNotice: '',
+    user_completed_quantity: -1
   },
 
   /**
@@ -60,8 +63,10 @@ Page({
 
     this.getSpecialInfo()
 
+    
     if (this.data.userInfo != null && this.data.userInfo.kzx_user_identification != 1) {
       this.checkPayNotice()
+      this.yanglaoTouch()
     }
 
     /**
@@ -69,9 +74,9 @@ Page({
     */
     this.onShareAppMessage = function () {
       let params = {
-        from: 'share_group_buy',
-        activity_id: this.data.activity.id,
-        id: this.data.group.id,
+        // from: 'share_group_buy',
+        // activity_id: this.data.activity.id,
+        id: this.data.activity.id,
         // from_user_id: this.data.userInfo
       }
       let parmsArray = []
@@ -488,7 +493,7 @@ Page({
           _currentVariant = _product.variants[0]
         }
         // this.checkProductType(_product)
-        this.setData({ activity: res.data, group: res.data.last_group })
+        this.setData({ activity: res.data, group: res.data.last_group, user_completed_quantity: res.data.user_completed_quantity })
         this.setData({ product: _product, currentVariant: _currentVariant, optionTypes: _product.options, optionIds: optionIds })
         
         if (!this.data.wsConnected) {
@@ -591,5 +596,20 @@ Page({
     // var id = 7
     var id = 3
     this.navigateTo(`/pages/special_areas/show/index?item_id=${id}&name=${'伊利专区'}`)
+  },
+
+  yanglaoTouch: function () {
+    http.post({
+      url: 'api/users/select_user_to_kzx',
+      success: res => {
+        console.log(res)
+        var data = res.data
+        if (data != null && data.phone != null) {
+          this.setData({ userInfo: data })
+          getApp().globalData.userInfo = data
+          storage.setSyncWithExpire('userInfo', data)
+        }
+      }
+    })
   },
 })

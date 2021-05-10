@@ -96,6 +96,11 @@
   <view class="my-activity action-container">
     <text class="label">我的活动</text>
     <view class="action-content">
+      <view data-url="/group_buy/pages/orders/index/index" bindtap="gotoLink" class="action-item">
+        <image class="icon-01" src="/images/account/group_buy_icon.png"/>
+        <text class="item-label">我的拼团</text>
+      </view>
+      
       <view bindtap="gotoLink" data-url="/pages/coupons/dashboard/index" class="action-item">
         <image class="icon-01" src="/images/account/coupon_icon.png"/>
         <text class="item-label">领券中心</text>
@@ -104,11 +109,6 @@
       <view bindtap="gotoLink" data-url="/pages/card/index/index" class="action-item">
         <image class="icon-01" src="/images/account/my_coupon_icon.png"/>
         <text class="item-label">我的卡券</text>
-      </view>
-
-      <view data-url="/group_buy/pages/orders/index/index" bindtap="gotoLink" class="action-item">
-        <image class="icon-01" src="/images/account/group_buy_icon.png"/>
-        <text class="item-label">我的拼团</text>
       </view>
 
       <view bindtap="gotoOrders" class="action-item">

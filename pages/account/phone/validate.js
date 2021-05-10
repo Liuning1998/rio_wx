@@ -29,6 +29,9 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
+    if (this.data.userInfo.tmp_user_phone != null && this.data.userInfo.tmp_user_phone.length > 0) {
+      this.setData({ phone: this.data.userInfo.tmp_user_phone })
+    }
   },
 
   onShow: function () {

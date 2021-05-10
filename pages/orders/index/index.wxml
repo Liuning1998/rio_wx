@@ -85,11 +85,14 @@
             <view wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}" bindtap='deleteOrder' data-order='{{ order }}' class="btn delete-btn">删除订单</view>
             <!-- 已支付未完成 -->
             <block wx:else>
-              <view wx:if="{{ order.sale_state == 'new' }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">售后中</view>
-              <view wx:elif="{{ order.sale_state == 'completed' }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">售后完成</view>
-              <view wx:else bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">申请售后</view>
+              <block wx:if="{{ order.order_type != 4 && order.order_type != 5 }}">
+                <view wx:if="{{ order.sale_state == 'new' }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">售后中</view>
+                <view wx:elif="{{ order.sale_state == 'completed' }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">售后完成</view>
+                <view wx:else bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">申请售后</view>
+              </block>
             </block>
-            <view bindtap='buyAgain' data-order='{{ order }}' class="btn buy-btn">再次购买</view>
+            <view wx:if="{{ order.order_type != 4 && order.order_type != 5 }}" bindtap='buyAgain' data-order='{{ order }}' class="btn buy-btn">再次购买</view>
+            <view wx:if="{{ order.order_type == 4 || order.order_type == 5 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn buy-btn">查看详情</view>
           </view>
 
           <view wx:else class="actions">

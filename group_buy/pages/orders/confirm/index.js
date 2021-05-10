@@ -56,7 +56,7 @@ Page({
     }
 
     if (!this.data.protocolStatus) {
-      this.errorToast('请先阅读并同意《拼团特惠活动规则》')
+      this.errorToast('请先阅读并同意《“金色家园”团购活动规则》')
       return false
     }
 
@@ -124,6 +124,11 @@ Page({
         $this.errorToast(msg)
         submitStatus = false
         $this.setData({ submitStatus: submitStatus })
+        if (res.data.code.indexOf([100157, 100158, 100159]) >= 0 ) {
+          setTimeout(res => {
+            wx.navigateBack({})
+          }, 1000)
+        }
       }
     });
   },
