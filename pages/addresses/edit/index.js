@@ -153,7 +153,7 @@ Page({
       return false
     }
 
-    if (data.province == null || data.province.length <= 0) {
+    if (data.province_id == null || data.province_id.length <= 0) {
       this.errorToast('请选择地区')
       return false
     }

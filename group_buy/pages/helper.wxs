@@ -58,14 +58,18 @@ function getS (seconds) {
   return result
 }
 
-function memberQuantity (activity, group) {
+function memberQuantity (activity, group=null) {
   if (activity == null) {
     return 0
   }
 
-  if (group == null || group.members == null || group.state == 'completed' || group.state == 'closed') {
+  if (group == null || group.members == null || group.members.length <= 0) {
     return activity.member_num_limit
   }
+
+  // if (group == null || group.members == null || group.state == 'completed' || group.state == 'closed') {
+  //   return activity.member_num_limit
+  // }
 
   return (activity.member_num_limit - group.members.length)
 }

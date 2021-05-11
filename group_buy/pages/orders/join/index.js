@@ -31,7 +31,8 @@ Page({
     payNotice: '',
     timeNotice: '',
     activityNotice: '',
-    user_completed_quantity: -1
+    user_completed_quantity: -1,
+    home_brand_id: null
   },
 
   /**
@@ -42,6 +43,7 @@ Page({
 
     getApp().commonBeforeOnLoad(this)
     this.getProductDetail(options.id)
+    
 
     // var params = this.params
     // if (params.localParams != null) {
@@ -59,7 +61,7 @@ Page({
     //   this.getBuyGroup(options.id)
     // }
 
-    this.setData({ isIphoneX: getApp().isIphoneX() })
+    this.setData({ isIphoneX: getApp().isIphoneX(), home_brand_id: options.home_brand_id })
 
     this.getSpecialInfo()
 
@@ -76,11 +78,16 @@ Page({
       let params = {
         // from: 'share_group_buy',
         // activity_id: this.data.activity.id,
-        id: this.data.activity.id,
-        // from_user_id: this.data.userInfo
+        // id: this.data.activity.id,
+        // from_user_id: this.data.userInfo,
+        id: this.data.home_brand_id
       }
       let parmsArray = []
-      let path = "/group_buy/pages/orders/join/index"
+      if (this.data.home_brand_id == null) {
+        var path = "/pages/index/index"
+      } else {
+        var path = "/group_buy/pages/products/index/index"
+      }
 
       for (let key in params) {
         parmsArray.push(`${key}=${params[key]}`)
@@ -346,7 +353,9 @@ Page({
   },
 
   gotoConfirm: function () {
-    this.checAuthAndPhone()
+    if (!this.checAuthAndPhone()) {
+      return false
+    }
     
     if (this.data.currentVariant.stock <= 0) {
       this.errorToast('该商品已售罄')

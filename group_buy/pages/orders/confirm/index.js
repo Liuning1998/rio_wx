@@ -124,7 +124,8 @@ Page({
         $this.errorToast(msg)
         submitStatus = false
         $this.setData({ submitStatus: submitStatus })
-        if (res.data.code.indexOf([100157, 100158, 100159]) >= 0 ) {
+        var resCode = '' + res.data.code
+        if (['100157', '100158', '100159'].indexOf(resCode) >= 0 ) {
           setTimeout(res => {
             wx.navigateBack({})
           }, 1000)

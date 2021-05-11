@@ -90,10 +90,15 @@ page {
 
 .product-item {
   display: flex;
+  flex-direction: column;
   position: relative;
   margin-bottom: 30rpx;
   border-bottom: 1px solid #eeeeee;
   padding-bottom: 30rpx;
+}
+
+.product-item .product-item-container {
+  display: flex;
 }
 
 .product-item:last-child {
@@ -325,3 +330,38 @@ page {
   margin-top: 40rpx;
 }
 /* 商品列表 */
+
+/* 活动已结束 */
+.close-layer {
+  position: absolute;
+  z-index: 990;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-layer .close-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 248rpx;
+  height: 248rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 40rpx;
+  color: #ffffff;
+  margin-top: -32rpx;
+}
+
+.end-notice {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666666;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+/* 活动已结束 */

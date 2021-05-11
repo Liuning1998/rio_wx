@@ -125,7 +125,7 @@
 
     <view class="order-item-container">
       <view class="products">
-        <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item" bindtap="gotoLink" data-url="/pages/products/show/index?id={{ item.product.id }}">
+        <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item" bindtap="gotoProduct" data-url="/pages/products/show/index?id={{ item.product.id }}">
           <view class="avatar-container">
             <image class="avatar" src="{{ item.product.avatar }}"></image>
             <text wx:if="{{orderServiceStatus['item_' + item.variant_id].state != null && orderServiceStatus['item_' + item.variant_id].state.length > 0 }}" class="sale-service-status">{{orderServiceStatus['item_' + item.variant_id].state}}</text>

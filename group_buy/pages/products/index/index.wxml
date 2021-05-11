@@ -35,43 +35,56 @@
       <text>暂无活动</text>
     </view>
     <view class="product-item" wx:for="{{products}}" wx:key="item">
-      <view class="badge-container">
-        <image class="background" src="../../../images/badge_001.png" ></image>
-        <text class="content">{{item.member_num_limit}}人团</text>
-      </view>
-
-      <view class="avatar-container" bindtap="gotoJoinWithId" data-item="{{item}}">
-        <image class="avatar" src="{{item.product.avatar}}"></image>
-      </view>
-
-      <view class="info-container">
-        <view class="name-and-desc" bindtap="gotoJoinWithId" data-item="{{item}}">
-          <text class="name">{{item.product.name}}</text>
-        </view>
-        <view class="price-and-actions">
-          <view class="price-container">
-            <view class="member-container">
-              <text>还差 {{ sh.memberQuantity(item) || 0 }} 人成团</text>
-            </view>
-            <view class="group-price-container">
-              <text class="label">团购价:</text>
-              <text class="group-price">{{price.int(item.product.vip_price)}}</text>
-              <text class="group-price-decimal">{{price.decimal(item.product.vip_price)}}</text>
-            </view>
-            <view class="origin-price-container">
-              <text class="label">原价:</text>
-              <text class="origin-price">{{price.tos(item.product.price)}}</text>
-            </view>
-          </view>
-
-          <view wx:if="{{item.state == 'completed'}}" class="btn disable">
+      <view class="product-item-container">
+        <view wx:if="{{ item.end_notice != null && item.end_notice.length > 0 }}" class="close-layer">
+          <view class="close-container">
+            <text>活动</text>
             <text>已结束</text>
           </view>
-          <view wx:else class="btn" bindtap="gotoJoinWithId" data-item="{{item}}">
-            <text>立即参团</text>
+        </view>
+        <view class="badge-container">
+          <image class="background" src="../../../images/badge_001.png" ></image>
+          <text class="content">{{item.member_num_limit}}人团</text>
+        </view>
+
+        <view class="avatar-container" bindtap="gotoJoinWithId" data-item="{{item}}">
+          <image class="avatar" src="{{item.product.avatar}}"></image>
+        </view>
+
+        <view class="info-container">
+          <view class="name-and-desc" bindtap="gotoJoinWithId" data-item="{{item}}">
+            <text class="name">{{item.product.name}}</text>
+          </view>
+          <view class="price-and-actions">
+            <view class="price-container">
+              <view class="member-container">
+                <!-- <text>还差 {{ sh.memberQuantity(item) || 0 }} 人成团</text> -->
+                <text>还差 {{ item.member_num_limit }} 人成团</text>
+              </view>
+              <view class="group-price-container">
+                <text class="label">团购价:</text>
+                <text class="group-price">{{price.int(item.product.vip_price)}}</text>
+                <text class="group-price-decimal">{{price.decimal(item.product.vip_price)}}</text>
+              </view>
+              <view class="origin-price-container">
+                <text class="label">原价:</text>
+                <text class="origin-price">{{price.tos(item.product.price)}}</text>
+              </view>
+            </view>
+
+            <block wx:if="{{ item.end_notice == null || item.end_notice.length <= 0 }}">
+              <view wx:if="{{item.state == 'completed'}}" class="btn disable">
+                <text>已结束</text>
+              </view>
+              <view wx:else class="btn" bindtap="gotoJoinWithId" data-item="{{item}}">
+                <text>立即参团</text>
+              </view>
+            </block>
           </view>
         </view>
       </view>
+
+      <text class="end-notice" wx:if="{{ item.end_notice != null && item.end_notice.length > 0 }}">{{item.end_notice}}</text>
     </view>
   </view>
 

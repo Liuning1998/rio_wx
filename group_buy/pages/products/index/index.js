@@ -120,7 +120,8 @@ Page({
 
   gotoJoinWithId: function (e) {
     let item = e.currentTarget.dataset.item
-    this.navigateTo(`/group_buy/pages/orders/join/index?id=${item.id}`)
+    var home_brand_id = this.data.brand.id
+    this.navigateTo(`/group_buy/pages/orders/join/index?id=${item.id}&home_brand_id=${home_brand_id}`)
   },
 
   setNow: function () {

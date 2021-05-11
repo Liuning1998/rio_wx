@@ -502,6 +502,14 @@ Page({
     })
   },
 
+  gotoProduct: function (e) {
+    if(this.data.order.order_type == 4 || this.data.order.order_type == 5) {
+      return false
+    }
+    var url = e.currentTarget.dataset.url
+    this.navigateTo(url)
+  },
+
   /**
    * 用户点击右上角分享
    */

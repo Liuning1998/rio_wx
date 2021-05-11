@@ -20,7 +20,7 @@
     </view>
   </view>
 
-  <view wx:if="{{ group.state != 'completed' || sh.joined(group, umd5) == null }}" class="group-container">
+  <view wx:if="{{ group.state != 'completed' || sh.joined(group, umd5) == null || (activity.activity_notice.content != null && activity.activity_notice.content.length > 0) ||  (activity.time_notice.content != null && activity.time_notice.content.length > 0) }}" class="group-container">
     <block wx:if="{{ activity.activity_notice.content != null && activity.activity_notice.content.length > 0 }}">
       <view class="time-container">
         <text class="desc">{{ activity.activity_notice.content }}</text>
@@ -53,7 +53,7 @@
       </view>
     </block>
 
-    <view wx:if="{{ group.state == 'completed' && sh.joined(group, umd5) == null }}"  class="avatar-container">
+    <view wx:if="{{ (group.state == 'completed' && sh.joined(group, umd5) == null) || (activity.activity_notice.content != null && activity.activity_notice.content.length > 0) || (activity.time_notice.content != null && activity.time_notice.content.length > 0) }}"  class="avatar-container">
       <block>
         <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < activity.member_num_limit }}" class="empty-avatar item">?</text>
       </block>
@@ -89,7 +89,7 @@
           </view>
         </block>
 
-        <block wx:if="{{group.state == 'completed'}}">
+        <block wx:if="{{ sh.joined(group, umd5) != null && group.state == 'completed'}}">
           <view class="line did"></view>
           <view class="dot-container did">
             <view class="dot"></view><view class="shadow"></view>
@@ -142,7 +142,10 @@
   <view class="actions">
     <block wx:if="{{activity != null}}">
       <text wx:if="{{ activity.end_time < now || activity.state == 'completed' || activity.state == 'aborted' }}" class="btn btn-fill disabled">已结束</text>
-      <text wx:elif="{{ user_completed_quantity != null && user_completed_quantity != -1 && user_completed_quantity >= activity.member_num_limit }}" class="btn btn-fill disabled">您已参加过该活动</text>
+      <block wx:elif="{{ user_completed_quantity != null && user_completed_quantity != -1 && user_completed_quantity >= activity.total_quanity_limit }}">
+        <text class="btn btn-fill disabled">您已参加过该活动</text>
+        <button class="btn btn-fill" open-type="share">分享给好友</button>
+      </block>
       <text wx:elif="{{ helper.needWaitGroup(group, now) }}" class="btn btn-fill disabled">等待开团</text>
       <block wx:elif="{{ sh.joined(group, umd5) != null }}">
         <text bindtap="gotoPay" data-number="{{ sh.joined(group, umd5).order_number }}" wx:if="{{ sh.joined(group, umd5).order_state == 'new' }}" class="btn btn-fill">去支付</text>
