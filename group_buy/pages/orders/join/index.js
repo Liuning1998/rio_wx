@@ -450,10 +450,19 @@ Page({
   },
 
   checkWxMessage: function (msg) {
+    var last_group = this.data.group
 
-    var data = msg.message
-    if(data != null && data.activity != null) {
-      var activity = data.activity
+    var resData = msg.message
+    for(var i in last_group.members) {
+      var m = last_group.members[i].md5
+      if (m == this.data.umd5 && resData.activity.last_group.state == 'completed') {
+        this.getProductDetail(this.data.activity.id)
+        return true
+      }
+    }
+
+    if(resData != null && resData.activity != null) {
+      var activity = resData.activity
       this.setData({ activity: activity, group: activity.last_group, product: activity.product })
     }
   },

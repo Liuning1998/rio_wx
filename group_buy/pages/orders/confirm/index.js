@@ -279,8 +279,8 @@ Page({
         // })
 
         this.checkSubscribeMessage([
-          "ngVUuKgv3tiZJ_kF8aiG7aB2IlfbQfU4Z1VBO5XKCEE",
-          "A1DVqixDkDDWNdsYct0rKH81ii_FpJoWHChrVXZFdjU"
+          "9i0Har0JOSN0fw2ZP8KD6chW_ySnKPVpk_leD8sNAWI",
+          "00m2x7rgBj45ghkRCSNMREsGoakf0KX3-gaXRzl-lQ8"
           // "l0Hpae-AViUtw3lzwio14dAc1JvFP1AGwBIFSuXuuGg"
         ])
 
@@ -289,8 +289,11 @@ Page({
         this.errorToast('支付失败', 1000)
         submitStatus = false
         // this.setData({ submitStatus: submitStatus })
-
-        this.redirectTo("/pages/orders/show/index?id=" + order.number)
+        // if ( res.errMsg == "requestPayment:fail cancel" ) {
+        wx.navigateBack({})
+        // } else {
+          // this.redirectTo("/pages/orders/show/index?id=" + order.number)
+        // }
       },
     })
   },

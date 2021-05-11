@@ -35,7 +35,7 @@
             <image class="icon" src="/images/order/paying.png"></image>
             <text class="">{{order.group_buy_state_t}}</text>
           </view>
-          <text class="desc">此订单 {{order.group_buy_state_t}}</text>
+          <text class="desc">此订单 {{order.group_buy_state_t}}, 待发货</text>
         </view>
         <view wx:else class="status-container">
           <view class="status-content">

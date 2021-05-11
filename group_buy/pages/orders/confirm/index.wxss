@@ -593,13 +593,14 @@ page {
 
 
 .protocol {
-  margin-top: 20rpx;
+  /* margin-top: 20rpx; */
   font-size: 28rpx;
   color: #666666;
   position: relative;
   display: flex;
   line-height: 44rpx;
   flex-shrink: 0;
+  align-items: center;
 }
 
 .protocol-item {
@@ -607,18 +608,20 @@ page {
   font-weight: 500;
 }
 
+.protocol-selector-container {
+  padding: 20rpx;
+  /* padding-left: 20rpx; */
+}
+
 .protocol .checkbox {
   height: 34rpx;
   width: 34rpx;
   background: #e0e0e0;
   border-radius: 8rpx;
-  margin-top: 4rpx;
-  margin-left: 20rpx;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20rpx;
   border: 1rpx solid #E0E0E0;
   flex-shrink: 0;
 }

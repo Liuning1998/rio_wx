@@ -251,8 +251,8 @@ Page({
               this.successToast('支付成功', 1000)
               if (this.data.order.order_type == 4 || this.data.order.order_type == 5) {
                 this.checkSubscribeMessage([
-                  "ngVUuKgv3tiZJ_kF8aiG7aB2IlfbQfU4Z1VBO5XKCEE",
-                  "A1DVqixDkDDWNdsYct0rKH81ii_FpJoWHChrVXZFdjU"
+                  "9i0Har0JOSN0fw2ZP8KD6chW_ySnKPVpk_leD8sNAWI",
+                  "00m2x7rgBj45ghkRCSNMREsGoakf0KX3-gaXRzl-lQ8"
                 ])
               } else {
                 this.reflashOrder()
@@ -305,8 +305,8 @@ Page({
         this.successToast('支付成功', 1000)
         if (this.data.order.order_type == 4 || this.data.order.order_type == 5) {
           this.checkSubscribeMessage([
-            "ngVUuKgv3tiZJ_kF8aiG7aB2IlfbQfU4Z1VBO5XKCEE",
-            "A1DVqixDkDDWNdsYct0rKH81ii_FpJoWHChrVXZFdjU"
+            "9i0Har0JOSN0fw2ZP8KD6chW_ySnKPVpk_leD8sNAWI",
+            "00m2x7rgBj45ghkRCSNMREsGoakf0KX3-gaXRzl-lQ8"
           ])
         } else {
           this.reflashOrder()

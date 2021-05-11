@@ -109,7 +109,10 @@
       </view>
 
       <view class="protocol">
-        <view bindtap="changeProtocol" class="checkbox {{ protocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
+        <view bindtap="changeProtocol" class="protocol-selector-container">
+          <view class="checkbox {{ protocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
+        </view>
+        
         <view>
           <text bindtap="changeProtocol" class="btn">您已阅读并同意</text>
           <text bindtap="gotoLink" data-url="/agreement/pages/group_buy/index" class="protocol-item">《“金色家园”团购活动规则》</text>
