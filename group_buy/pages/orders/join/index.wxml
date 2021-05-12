@@ -25,11 +25,29 @@
       <view class="time-container">
         <text class="desc">{{ activity.activity_notice.content }}</text>
       </view>
+
+      <view class="next-time-container" wx:if="{{ activity.activity_notice.show_countdown == true }}">
+        <text style="margin-right: 20rpx;">团购开始倒计时</text>
+        <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+      </view>
     </block>
 
     <block wx:elif="{{ activity.time_notice.content != null && activity.time_notice.content.length > 0 }}">
       <view class="time-container">
         <text class="desc">{{ activity.time_notice.content }}</text>
+      </view>
+
+      <view class="next-time-container" wx:if="{{ activity.time_notice.show_countdown == true }}">
+        <text style="margin-right: 20rpx;">团购开始倒计时</text>
+        <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
       </view>
     </block>
 
@@ -60,7 +78,12 @@
     </view>
 
     <view wx:else class="avatar-container">
-      <image wx:for="{{group.members}}" wx:key="item" class="avatar item" src="{{item.avatar}}"></image>
+      <view wx:for="{{group.members}}" wx:key="item" class="user-avatar-container">
+        <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
+          <text>{{item.state_remark}}</text>
+        </view>
+        <image class="avatar item" src="{{item.avatar}}"></image>
+      </view>
       <block>
         <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < sh.memberQuantity(activity, group) }}" class="empty-avatar item">?</text>
       </block>
@@ -115,11 +138,16 @@
   <view wx:else class="success-container">
     <image src="../../../images/success_group.png" style="width: 396rpx; height: 224rpx"></image>
     <view class="avatar-container">
-      <image wx:for="{{group.members}}" wx:key="item" class="avatar item" src="{{item.avatar}}"></image>
+      <view wx:for="{{group.members}}" wx:key="item" class="user-avatar-container">
+        <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
+          <text>{{item.state_remark}}</text>
+        </view>
+        <image class="avatar item" src="{{item.avatar}}"></image>
+      </view>
     </view>
   </view>
 
-  <view class="next-tiem-container" wx:if="{{ (activity.activity_notice.content == null || activity.activity_notice.content.length <= 0) && (activity.time_notice.content == null || activity.time_notice.content.length <= 0) }}">
+  <view class="next-time-container" wx:if="{{ (activity.activity_notice.content == null || activity.activity_notice.content.length <= 0) && (activity.time_notice.content == null || activity.time_notice.content.length <= 0) }}">
     <text style="margin-right: 20rpx;">距离下一次开团最长等待时间</text>
     <block wx:if="{{ helper.needWaitGroup(group, now) }}">
       <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
@@ -173,7 +201,7 @@
   <view wx:if="{{ specialProducts.length > 0 }}" class="today-container">
     <view class="lable-container" >
       <view class="main">
-        <text class="label">伊利专区</text>
+        <text class="label">{{specialAreaName}}</text>
         <!-- <view class="remark"><text>品质好物</text></view> -->
       </view>
 
@@ -212,12 +240,13 @@
   <view class="pay-notice-content">
     <view class="pn-header">
       <!-- <image class="close" src="/images/close_white.png"></image> -->
+      <text class="pn-text header" decode="{{true}}">{{payNotice.header}}</text>
       <text bindtap="payNoticeCancelBtn" class="close">x</text>
     </view>
 
     <view class="pn-content">
-      <text class="pn-text header" decode="{{true}}">{{payNotice.header}}</text>
-      <text class="pn-text body" decode="{{true}}">{{payNotice.body}}</text>
+      <!-- <text class="pn-text header" decode="{{true}}">{{payNotice.header}}</text> -->
+      <text wx:for="{{ payNotice.body }}" wx:key="item" class="pn-text body" decode="{{true}}">{{item}}</text>
       <text class="pn-text footer" decode="{{true}}">{{payNotice.footer}}</text>
       <!-- <view class="protocol">
         <view bindtap="changePayNoticeProtocol" class="checkbox {{ payNoticeProtocolStatus && 'active' }}"><image src="/images/select.png"></image></view>

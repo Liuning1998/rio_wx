@@ -5,6 +5,9 @@ var md5 = require('../../../../utils/md5.js')
 var storage = require('../../../../utils/storage.js')
 
 let timer
+let specialAreaId = 7
+// let specialAreaId = 3
+let specialAreaName = '伊利专区'
 
 Page({
 
@@ -32,7 +35,8 @@ Page({
     timeNotice: '',
     activityNotice: '',
     user_completed_quantity: -1,
-    home_brand_id: null
+    home_brand_id: null,
+    specialAreaName: specialAreaName
   },
 
   /**
@@ -587,10 +591,8 @@ Page({
   // 获取商品推荐数据
   // id 7 伊利专区，临时代码
   getSpecialInfo: function () {
-    // var id = 7
-    var id = 3
     http.get({
-      url: `api/special_areas/${id}/fine_products`,
+      url: `api/special_areas/${specialAreaId}/fine_products`,
       success: res => {
         if (res.data.length > 0) {
           this.setData({
@@ -611,9 +613,7 @@ Page({
   },
 
   gotoSpecialArea: function () {
-    // var id = 7
-    var id = 3
-    this.navigateTo(`/pages/special_areas/show/index?item_id=${id}&name=${'伊利专区'}`)
+    this.navigateTo(`/pages/special_areas/show/index?item_id=${specialAreaId}&name=${specialAreaName}`)
   },
 
   yanglaoTouch: function () {

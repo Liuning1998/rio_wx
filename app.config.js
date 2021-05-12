@@ -28,9 +28,9 @@ var errorMap = {
   100159: { msg: 'already_join_buy_group', msg_t: '您已参加过该活动' },
 }
 
-// 修改团购中专区跳转id
-// const ENV = 'production'
-const ENV = 'development'
+// 修改团购中专区跳转id, /group_buy/pages/join/index.js
+const ENV = 'production'
+// const ENV = 'development'
 
 const ENV_CONFIG = {
   development: {

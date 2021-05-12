@@ -101,7 +101,7 @@ page {
   margin-right: 16rpx;
 }
 
-.group-container .time-container .time, .next-tiem-container .time {
+.group-container .time-container .time, .next-time-container .time {
   width: 40rpx;
   height: 40rpx;
   line-height: 40rpx;
@@ -124,10 +124,34 @@ page {
   margin: unset;
 }
 
-.group-container .time-container .split, .next-tiem-container .split {
+.group-container .time-container .split, .next-time-container .split {
   font-size: 28rpx;
   color: #D7AB5C;
   margin: 0 4rpx;
+}
+
+.user-avatar-container {
+  display: flex;
+  position: relative;
+}
+
+.user-avatar-container .remark {
+  position: absolute;
+  top: -20rpx;
+  width: 116rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.user-avatar-container .remark text {
+  display: inline-block;
+  height: 32rpx;
+  background: #f00;
+  border-radius: 16rpx;
+  padding: 0 10rpx;
+  color: #ffffff;
+  font-size: 20rpx;
+  max-width: 100rpx;
 }
 
 .group-container .avatar-container {
@@ -725,7 +749,7 @@ page {
 }
 /* 成团记录 */
 
-.next-tiem-container {
+.next-time-container {
   width: 750rpx;
   margin-top: 30rpx;
   font-size: 28rpx;
@@ -735,7 +759,7 @@ page {
   align-items: center;
 }
 
-.next-tiem-container .red {
+.next-time-container .red {
   color: #FF524E;
   font-size: 32rpx;
   margin-top: -4rpx;
@@ -770,6 +794,9 @@ page {
   height: 88rpx;
   width: 640rpx;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pay-notice-content .pn-header .close {
@@ -789,19 +816,24 @@ page {
   flex: 1;
   justify-content: space-between;
   align-items: center;
+  padding-top: 32rpx;
 }
 
 .pay-notice-content .pn-content .pn-text {
-  padding: 0 30rpx;
+  padding: 0 50rpx;
   box-sizing: border-box;
   font-size: 28rpx;
   color: #333333;
   text-align: justify;
-  margin-bottom: 8rpx;
-  margin-top: 12rpx;
+  margin-bottom: 14rpx;
+  /* margin-top: 12rpx; */
 }
 
-.pay-notice-content .pn-content .pn-text.header {
+.pay-notice-content .pn-content .footer {
+  margin-top: 30rpx;
+}
+
+.pay-notice-content .pn-content .pn-text.header, .pn-header .pn-text.header {
   margin-top: 20rpx;
   margin-bottom: 16rpx;
   font-size: 32rpx;
