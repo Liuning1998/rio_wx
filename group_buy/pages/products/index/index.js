@@ -1,5 +1,6 @@
 // group_buy/pages/products/index/index.js
 var http = require('../../../../utils/http.js')
+var storage = require('../../../../utils/storage.js')
 
 var timer = null;
 
@@ -11,7 +12,8 @@ Page({
   data: {
     products: [],
     now: Math.floor((new Date).getTime()/1000),
-    apiLoad: false
+    apiLoad: false,
+    payNotice: '',
   },
 
   /**
@@ -40,6 +42,10 @@ Page({
     this.setData({ tagName: options.tag_name, tagID: options.tag_id, sortBadge: options.sort_badge })
 
     this.getProducts()
+
+    // if (this.data.userInfo == null || this.data.userInfo.kzx_user_identification != 1) {
+    //   this.checkPayNotice()
+    // }
   },
 
   onShow: function () {
@@ -119,8 +125,18 @@ Page({
   },
 
   gotoJoinWithId: function (e) {
+    if( !this.checkAuthLoginStatusAndPhone({back: true}) ) {
+      return false
+    }
     let item = e.currentTarget.dataset.item
     var home_brand_id = this.data.brand.id
+
+    if (this.data.userInfo == null || this.data.userInfo.kzx_user_identification != 1) {
+      this.setData({ currentItem: item })
+      this.checkPayNotice()
+      return false
+    }
+    
     this.navigateTo(`/group_buy/pages/orders/join/index?id=${item.id}&home_brand_id=${home_brand_id}`)
   },
 
@@ -195,4 +211,43 @@ Page({
     }
 
   },
+
+  // 检查支付前是否需要弹框提示
+  checkPayNotice: function () {
+    var notice_flag = storage.getSync('group_buy_notice_flag')
+    if (notice_flag != true) {
+      http.get({
+        url: `api/buy_groups/buy_notice`,
+        success: res => {
+          if (res.data.alert == 'on' && res.data.body != null && res.data.body.length > 0) {
+            this.setData({
+              payNotice: res.data,
+              showPayNotice: true,
+            })
+          }
+        }
+      })
+    }
+  },
+
+  payNoticeCancelBtn: function () {
+    this.closePayNoticeToast()
+  },
+
+  payNoticeConfirmBtn: function () {
+    // if (this.data.payNoticeProtocolStatus) {
+    //   storage.setSync('group_buy_notice_flag', true)
+    // }
+
+    this.closePayNoticeToast()
+  },
+
+  closePayNoticeToast: function () {
+    this.setData({ showPayNotice: false })
+    var item = this.data.currentItem
+    var home_brand_id = this.data.brand.id
+
+    this.navigateTo(`/group_buy/pages/orders/join/index?id=${item.id}&home_brand_id=${home_brand_id}`)
+  },
+
 })

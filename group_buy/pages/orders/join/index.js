@@ -9,6 +9,16 @@ let specialAreaId = 7
 // let specialAreaId = 3
 let specialAreaName = '伊利专区'
 
+let payTime = 2*60*1000
+let successTime =  5*1000
+
+var faTimer = null
+var faTimerTime = 3*1000
+
+// 限制数据刷新请求速度
+var speedLimit = true
+var speedLimitTime = 2*1000
+
 Page({
 
   /**
@@ -36,7 +46,9 @@ Page({
     activityNotice: '',
     user_completed_quantity: -1,
     home_brand_id: null,
-    specialAreaName: specialAreaName
+    specialAreaName: specialAreaName,
+    showSuccessPay: false,
+    group: null
   },
 
   /**
@@ -71,7 +83,7 @@ Page({
 
     
     if (this.data.userInfo != null && this.data.userInfo.kzx_user_identification != 1) {
-      this.checkPayNotice()
+      // this.checkPayNotice()
       this.yanglaoTouch()
     }
 
@@ -108,12 +120,14 @@ Page({
   },
 
   onShow: function () {
+    speedLimit = true
     // this.subscription()
+    this.backParams = this.getBackParamsFromGlobal('params') || {}
     if (typeof(this.data.activity) != 'undefined') {
       this.subscription()
     }
 
-    if (this.data.activity != null && this.data.activity.id != null) {
+    if (this.data.activity != null && this.data.activity.id != null && this.backParams.successPay != true) {
       this.setData({ showSelectContainer: false })
       this.getProductDetail(this.data.activity.id)
     }
@@ -125,11 +139,15 @@ Page({
     this.loadCartInfo()
 
     this.setData({ umd5: md5(getApp().globalData.userInfo.phone || '')})
+    this.dealBackParams()
+    // if (faTimer == null) { this.fetchActivTimer() }
   },
 
   onHide: function () {
     if (this.data.socketTask != null) {
-      this.data.socketTask.close()
+      var socketTask = this.data.socketTask
+      this.setData({ socketTask: null })
+      socketTask.close()
     }
     // wx.closeSocket()
 
@@ -137,11 +155,15 @@ Page({
       clearTimeout(timer)
       timer = null
     }
+
+    this.clearFaTimer()
   },
 
   onUnload: function () {
     if (this.data.socketTask != null) {
-      this.data.socketTask.close()
+      var socketTask = this.data.socketTask
+      this.setData({ socketTask: null })
+      socketTask.close()
     }
     // wx.closeSocket()
 
@@ -161,7 +183,6 @@ Page({
         if (this.data.currentVariant != null) {
           // 从其他页面返回时已经存在 currentVariant
           _currentVariant = _product.variants.filter(item => item.id == this.data.currentVariant.id)[0]
-          console.log(_currentVariant)
         }
         
         for(var i=0; i < _product.variants.length; i++) {
@@ -454,21 +475,36 @@ Page({
   },
 
   checkWxMessage: function (msg) {
-    var last_group = this.data.group
+    // var last_group = this.data.group
 
-    var resData = msg.message
-    for(var i in last_group.members) {
-      var m = last_group.members[i].md5
-      if (m == this.data.umd5 && resData.activity.last_group.state == 'completed') {
-        this.getProductDetail(this.data.activity.id)
-        return true
-      }
+    // var resData = msg.message
+    if (msg.type == 'welcome' || msg.type == 'ping') { return false }
+
+    if (speedLimit) {
+      this.getProductDetail(this.data.activity.id)
+      speedLimit = false
+      setTimeout(res => {
+        speedLimit = true
+      }, speedLimitTime)
+    } else {
+      setTimeout(res => {
+        this.checkWxMessage(msg)
+      }, speedLimitTime )
     }
 
-    if(resData != null && resData.activity != null) {
-      var activity = resData.activity
-      this.setData({ activity: activity, group: activity.last_group, product: activity.product })
-    }
+    // for(var i in last_group.members) {
+    //   var m = last_group.members[i].md5
+    //   if (m == this.data.umd5 && resData.activity.last_group.state == 'completed') {
+    //     this.getProductDetail(this.data.activity.id)
+    //     return true
+    //   }
+    // }
+
+    // if(resData != null && resData.activity != null) {
+    //   var activity = resData.activity
+    //   // this.setData({ activity: activity, group: activity.last_group, product: activity.product })
+    //   this.setData({ activity: activity, product: activity.product })
+    // }
   },
 
   checAuthAndPhone: function () {
@@ -501,7 +537,6 @@ Page({
         if (this.data.currentVariant != null) {
           // 从其他页面返回时已经存在 currentVariant
           _currentVariant = _product.variants.filter(item => item.id == this.data.currentVariant.id)[0]
-          console.log(_currentVariant)
         }
         
         for(var i=0; i < _product.variants.length; i++) {
@@ -629,5 +664,35 @@ Page({
         }
       }
     })
+  },
+
+  dealBackParams: function () {
+    // this.setData({showSuccessPay: true})
+
+    if (this.backParams.successPay == true) {
+      setTimeout(res => {
+        this.getProductDetail(this.data.activity.id)
+        this.setData({ showSuccessPay: false })
+      }, successTime)
+    }
+
+    if (this.backParams.waitPay == true) {
+      setTimeout( res => {
+        this.getProductDetail(this.data.activity.id)
+      }, payTime)
+    }
+  },
+
+  fetchActivTimer: function () {
+    faTimer = setTimeout(res => {
+      this.getProductDetail(this.data.activity.id)
+      this.fetchActivTimer()
+    }, faTimerTime)
+  },
+
+  clearFaTimer: function () {
+    if (faTimer != null) {
+      clearTimeout(faTimer)
+    }
   },
 })

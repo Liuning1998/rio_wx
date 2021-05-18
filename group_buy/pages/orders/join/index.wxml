@@ -20,78 +20,112 @@
     </view>
   </view>
 
-  <view wx:if="{{ group.state != 'completed' || sh.joined(group, umd5) == null || (activity.activity_notice.content != null && activity.activity_notice.content.length > 0) ||  (activity.time_notice.content != null && activity.time_notice.content.length > 0) }}" class="group-container">
+  <!-- <view wx:if="{{ (user_completed_quantity == null || user_completed_quantity == -1 ||user_completed_quantity < activity.total_quanity_limit) || helper.noticeExist(activity) }}" class="group-container"> -->
+  <view class="group-container">
     <block wx:if="{{ activity.activity_notice.content != null && activity.activity_notice.content.length > 0 }}">
-      <view class="time-container">
-        <text class="desc">{{ activity.activity_notice.content }}</text>
-      </view>
+      <view class="group-container">
+        <view class="time-container">
+          <text class="desc" style="color: #f00;">{{ activity.activity_notice.content }}</text>
+        </view>
 
-      <view class="next-time-container" wx:if="{{ activity.activity_notice.show_countdown == true }}">
-        <text style="margin-right: 20rpx;">团购开始倒计时</text>
-        <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
-        <text class="split">:</text>
-        <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
-        <text class="split">:</text>
-        <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
-      </view>
-    </block>
-
-    <block wx:elif="{{ activity.time_notice.content != null && activity.time_notice.content.length > 0 }}">
-      <view class="time-container">
-        <text class="desc">{{ activity.time_notice.content }}</text>
-      </view>
-
-      <view class="next-time-container" wx:if="{{ activity.time_notice.show_countdown == true }}">
-        <text style="margin-right: 20rpx;">团购开始倒计时</text>
-        <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
-        <text class="split">:</text>
-        <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
-        <text class="split">:</text>
-        <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+        <view class="next-time-container" wx:if="{{ activity.activity_notice.show_countdown == true }}">
+          <text style="margin-right: 20rpx;">团购开始倒计时</text>
+          <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+          <text class="split">:</text>
+          <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+          <text class="split">:</text>
+          <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+        </view>
       </view>
     </block>
-
+    
     <block wx:else>
-      <view wx:if="{{ group.end_time <= now || sh.memberQuantity(activity, group) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="time-container disabled">
-        <text class="desc">剩余参团时间</text>
-        <text class="time">00</text>
-        <text class="split">:</text>
-        <text class="time">00</text>
-        <text class="split">:</text>
-        <text class="time">00</text>
-      </view>
+      <!-- <view wx:if="{{ group.end_time <= now || sh.memberQuantity(activity, group) <= 0 || group.state == 'closed' || group.state == 'completed' }}" class="time-container disabled"> -->
+      <block wx:if="{{ (helper.formatGroup(group, umd5, showSuccessPay).state == 'completed' && helper.formatGroup(group, umd5, showSuccessPay).completeMembers.length >= 3) || group.end_time <= now}}">
+        <block wx:if="{{ activity.time_notice.content != null && activity.time_notice.content.length > 0 }}">
+          <view class="group-container">
+            <view class="time-container">
+              <text class="desc" style="color: #f00;">{{ activity.time_notice.content }}</text>
+            </view>
 
-      <view wx:else class="time-container">
-        <text class="desc">剩余参团时间</text>
-        <text class="time">{{sh.getH(group.end_time - now) || '00'}}</text>
-        <text class="split">:</text>
-        <text class="time">{{sh.getM(group.end_time - now) || '00'}}</text>
-        <text class="split">:</text>
-        <text class="time">{{sh.getS(group.end_time - now) || '00'}}</text>
+            <view class="next-time-container" wx:if="{{ activity.time_notice.show_countdown == true }}">
+              <text style="margin-right: 20rpx;">团购开始倒计时</text>
+              <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+              <text class="split">:</text>
+              <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+              <text class="split">:</text>
+              <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+            </view>
+          </view>
+        </block>
+      </block>
+      <block wx:else>
+        <block wx:if="{{ group != null }}">
+          <view class="time-container">
+            <text class="desc">剩余参团时间</text>
+            <text class="time">{{sh.getH(group.end_time - now) || '00'}}</text>
+            <text class="split">:</text>
+            <text class="time">{{sh.getM(group.end_time - now) || '00'}}</text>
+            <text class="split">:</text>
+            <text class="time">{{sh.getS(group.end_time - now) || '00'}}</text>
+          </view>
+        </block>
+      </block>
+    </block>
+
+    <!-- 当有提示要显示时头像为空 -->
+    <!-- <view wx:if="{{ helper.noticeExist(activity)}}"  class="avatar-container">
+      <block>
+        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < 3 }}" class="empty-avatar item">?</text>
+      </block>
+    </view> -->
+
+    <!-- 当前用户已支付且支付人数3 -->
+    <block wx:if="{{ (helper.formatGroup(group, umd5, showSuccessPay).state == 'completed' && helper.formatGroup(group, umd5, showSuccessPay).completeMembers.length >= 3) }}">
+      <view class="success-container">
+        <image src="../../../images/success_group.png" style="width: 396rpx; height: 224rpx"></image>
       </view>
     </block>
 
-    <view wx:if="{{ (group.state == 'completed' && sh.joined(group, umd5) == null) || (activity.activity_notice.content != null && activity.activity_notice.content.length > 0) || (activity.time_notice.content != null && activity.time_notice.content.length > 0) }}"  class="avatar-container">
-      <block>
-        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < activity.member_num_limit }}" class="empty-avatar item">?</text>
-      </block>
-    </view>
+    <!-- 当用户不在lastgroup时显示未支付头像 -->
+    <block wx:elif="{{  helper.formatGroup(group, umd5, showSuccessPay).state == null }}">
+      <view class="avatar-container">
+        <view wx:if="{{index < 2}}" wx:for="{{helper.formatGroup(group, umd5, showSuccessPay).showMembers}}" wx:key="item" class="user-avatar-container">
+          <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
+            <text>{{item.state_remark}}</text>
+          </view>
+          <image class="avatar item" src="{{item.avatar}}"></image>
+        </view>
+        <block wx:if="{{ helper.formatGroup(group, umd5, showSuccessPay).showMembers.length < 3 }}">
+          <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < (3 - helper.formatGroup(group, umd5, showSuccessPay).showMembers.length)}}" class="empty-avatar item">?</text>
+        </block>
+      </view>
+    </block>
 
     <view wx:else class="avatar-container">
-      <view wx:for="{{group.members}}" wx:key="item" class="user-avatar-container">
+      <view wx:if="{{index < 2}}" wx:for="{{helper.formatGroup(group, umd5, showSuccessPay).showMembers}}" wx:key="item" class="user-avatar-container">
         <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
           <text>{{item.state_remark}}</text>
         </view>
         <image class="avatar item" src="{{item.avatar}}"></image>
       </view>
-      <block>
-        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < sh.memberQuantity(activity, group) }}" class="empty-avatar item">?</text>
+
+      <view class="user-avatar-container">
+        <view wx:if="{{ helper.formatGroup(group, umd5, showSuccessPay).currentMember.state_remark != null && helper.formatGroup(group, umd5, showSuccessPay).currentMember.state_remark.length > 0 }}" class="remark">
+          <text>{{helper.formatGroup(group, umd5, showSuccessPay).currentMember.state_remark}}</text>
+        </view>
+        <image class="avatar item" src="{{helper.formatGroup(group, umd5, showSuccessPay).currentMember.avatar}}"></image>
+      </view>
+
+      <block wx:if="{{ helper.formatGroup(group, umd5, showSuccessPay).showMembers.length < 2 }}">
+        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < (2 - helper.formatGroup(group, umd5, showSuccessPay).showMembers.length)}}" class="empty-avatar item">?</text>
       </block>
     </view>
 
-    <view class="member-desc">
+    <!-- <view class="member-desc"  wx:if="{{ !(helper.formatGroup(group, umd5, showSuccessPay).state == 'completed' && helper.formatGroup(group, umd5, showSuccessPay).completeMembers.length >= 3) }}">
       <text>共<text class="m-quantity">{{group.members.length || 0}}</text>人参团，{{activity.one_duration_h * 60 || 0}}分钟内人数不足自动退款</text>
-    </view>
+      <text>{{activity.one_duration_h * 60 || 0}}分钟内人数不足自动退款</text>
+    </view> -->
 
     <view class="group-step">
       <view class="dot-line">
@@ -135,37 +169,64 @@
 
   </view>
 
-  <view wx:else class="success-container">
-    <image src="../../../images/success_group.png" style="width: 396rpx; height: 224rpx"></image>
-    <view class="avatar-container">
-      <view wx:for="{{group.members}}" wx:key="item" class="user-avatar-container">
-        <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
-          <text>{{item.state_remark}}</text>
+  <!-- <block wx:else>
+    <view class="success-container">
+      <image src="../../../images/success_group.png" style="width: 396rpx; height: 224rpx"></image>
+    </view>
+  </block> -->
+
+  <!-- <block wx:else>
+    <view wx:if="{{ showSuccessPay }}" class="success-container">
+      <image src="../../../images/success_group.png" style="width: 396rpx; height: 224rpx"></image>
+      <view class="avatar-container">
+        <view wx:for="{{helper.formatGroup(group, umd5, showSuccessPay).completeMembers}}" wx:key="item" class="user-avatar-container">
+          <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
+            <text>{{item.state_remark}}</text>
+          </view>
+          <image class="avatar item" src="{{item.avatar}}"></image>
         </view>
-        <image class="avatar item" src="{{item.avatar}}"></image>
       </view>
     </view>
-  </view>
+  </block> -->
+  <block wx:if="{{( activity.activity_notice.content == null || activity.activity_notice.content.length <= 0) && !(helper.formatGroup(group, umd5, showSuccessPay).state == 'completed' && helper.formatGroup(group, umd5, showSuccessPay).completeMembers.length >= 3) && group.end_time > now }}">
+    <block wx:if="{{ activity.time_notice.content != null && activity.time_notice.content.length > 0 }}">
+      <view class="group-container">
+        <view class="time-container">
+          <text class="desc">{{ activity.time_notice.content }}</text>
+        </view>
 
-  <view class="next-time-container" wx:if="{{ (activity.activity_notice.content == null || activity.activity_notice.content.length <= 0) && (activity.time_notice.content == null || activity.time_notice.content.length <= 0) }}">
-    <text style="margin-right: 20rpx;">距离下一次开团最长等待时间</text>
-    <block wx:if="{{ helper.needWaitGroup(group, now) }}">
-      <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
-      <text class="split">:</text>
-      <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
-      <text class="split">:</text>
-      <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+        <view class="next-time-container" wx:if="{{ activity.time_notice.show_countdown == true }}">
+          <text style="margin-right: 20rpx;">团购开始倒计时</text>
+          <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+          <text class="split">:</text>
+          <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+          <text class="split">:</text>
+          <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+        </view>
+      </view>
     </block>
-    <block wx:else>
-      <text style="width: 44rpx; text-align: center;">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
-      <text style="margin-top: -4rpx;">:</text>
-      <text style="width: 44rpx; text-align: center;">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
-      <text style="margin-top: -4rpx;">:</text>
-      <text style="width: 44rpx; text-align: center;">{{sh.getS(activity.next_group_time - now) || '00'}} </text>
-    </block>
-    <!-- <text>下一次开团时间：</text>
-    <text>{{ rh.formatTimeForInt(activity.next_group_time) }}</text> -->
-  </view>
+
+    <!-- <view class="next-time-container" wx:if="{{ (activity.activity_notice.content == null || activity.activity_notice.content.length <= 0) && (activity.time_notice.content == null || activity.time_notice.content.length <= 0) }}"> -->
+    <view wx:else class="next-time-container">
+      <text style="margin-right: 20rpx;">距离下一次开团最长等待时间</text>
+      <block wx:if="{{ helper.needWaitGroup(group, now) }}">
+        <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+        <text class="split">:</text>
+        <text class="time">{{sh.getS(activity.next_group_time - now) || '00'}}</text>
+      </block>
+      <block wx:else>
+        <text style="width: 44rpx; text-align: center;">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
+        <text style="margin-top: -4rpx;">:</text>
+        <text style="width: 44rpx; text-align: center;">{{sh.getM(activity.next_group_time - now) || '00'}}</text>
+        <text style="margin-top: -4rpx;">:</text>
+        <text style="width: 44rpx; text-align: center;">{{sh.getS(activity.next_group_time - now) || '00'}} </text>
+      </block>
+      <!-- <text>下一次开团时间：</text>
+      <text>{{ rh.formatTimeForInt(activity.next_group_time) }}</text> -->
+    </view>
+  </block>
 
   <view class="actions">
     <block wx:if="{{activity != null}}">
@@ -179,7 +240,10 @@
         <text bindtap="gotoPay" data-number="{{ sh.joined(group, umd5).order_number }}" wx:if="{{ sh.joined(group, umd5).order_state == 'new' }}" class="btn btn-fill">去支付</text>
         <button wx:else class="btn btn-fill" open-type="share">邀请好友参团</button>
       </block>
-      <text wx:else bindtap="gotoConfirm" class="btn btn-fill">立即参团</text>
+      <block wx:else>
+        <text wx:if="{{userInfo.kzx_user_identification == 1}}" bindtap="gotoConfirm" class="btn btn-fill">立即参团</text>
+        <text wx:else class="btn btn-fill disabled">立即参团</text>
+      </block>
     </block>
     
     <!-- <text class="btn" bindtap="goback">返回</text> -->
@@ -246,8 +310,12 @@
 
     <view class="pn-content">
       <!-- <text class="pn-text header" decode="{{true}}">{{payNotice.header}}</text> -->
-      <text wx:for="{{ payNotice.body }}" wx:key="item" class="pn-text body" decode="{{true}}">{{item}}</text>
-      <text class="pn-text footer" decode="{{true}}">{{payNotice.footer}}</text>
+      <view class="pn-content-body">
+        <view class="pn-content-body-main">
+          <text wx:for="{{ payNotice.body }}" wx:key="item" class="pn-text body" decode="{{true}}">{{item}}</text>
+        </view>
+        <text class="pn-text footer" decode="{{true}}">{{payNotice.footer}}</text>
+      </view>
       <!-- <view class="protocol">
         <view bindtap="changePayNoticeProtocol" class="checkbox {{ payNoticeProtocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
         <view>

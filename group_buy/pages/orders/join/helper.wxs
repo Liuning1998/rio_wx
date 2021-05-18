@@ -31,8 +31,96 @@ function needWaitGroup (lastGroup, now) {
   return false
 }
 
+function formatGroup (lastGroup, currentMd5, showSuccessPay) {
+  var completeMembers = []
+  var newMembers = []
+  var currentState = null
+  var currentMember = {}
+  var noCurrent = []
+  var showMembers = []
+
+  if (lastGroup != null && lastGroup.members != null) {
+    for(var i=0; i<lastGroup.members.length; i++) {
+      var item = lastGroup.members[i]
+
+      if(item.state == 'new') {
+        if (item.md5 != currentMd5) {
+          newMembers.push(item)
+        }
+      } else {
+        completeMembers.push(item)
+      }
+
+      if (item.md5 == currentMd5) {
+        currentState = item.state
+        currentMember = item
+      } else {
+        noCurrent.push(item)
+      }
+    }
+
+    if (showSuccessPay && completeMembers.length >= 3 && currentState == 'completed') {
+      showSuccessPay = true
+    } else {
+      showSuccessPay = false
+    }
+
+    // if (newMembers.length < 2 )
+
+    var firstIndex = null
+    if (noCurrent.length > 2) {
+      for(var i=0; i < 2; i ++) {
+        var tempIndex = null
+        for(;;) {
+          tempIndex = Math.floor(Math.random() * 100)%noCurrent.length
+          if (firstIndex == null) {
+            firstIndex = tempIndex
+            break
+          } else {
+            if (firstIndex != tempIndex) {
+              break
+            }
+          }
+        }
+
+        showMembers.push(noCurrent[tempIndex])
+      }
+    } else {
+      showMembers = noCurrent
+    }
+    
+  }
+
+  showMembers.sort(function(x, y) {
+    if(x.id < y.id) {
+      return -1
+    } else {
+      return 1
+    }
+  })
+
+  return({
+    state: currentState,
+    newMembers: newMembers,
+    completeMembers: completeMembers,
+    showSuccess: showSuccessPay,
+    currentMember: currentMember,
+    noCurrent: noCurrent,
+    showMembers: showMembers
+  })
+}
+
+function noticeExist(activity={}) {
+  if (activity == null || activity.activity_notice == null || activity.time_notice == null) {
+    return false
+  }
+  return ((activity.activity_notice.content != null && activity.activity_notice.content.length > 0) ||  (activity.time_notice.content != null && activity.time_notice.content.length > 0))
+}
+
 module.exports = {
   variantInfo: variantInfo,
   optionValidate: optionValidate,
-  needWaitGroup: needWaitGroup
+  needWaitGroup: needWaitGroup,
+  formatGroup: formatGroup,
+  noticeExist: noticeExist
 }

@@ -8,14 +8,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    popAuth: false
+    popAuth: false,
+    back: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (options.back) {
+      this.setData({ back: options.back })
+    }
   },
 
   /**

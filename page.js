@@ -54,12 +54,31 @@ function beforeOnload (context) {
       return obj
     }
 
+    this.getBackParamsFromGlobal = function (objId) {
+      var obj = getApp().globalData.backParams[objId]
+
+      if (obj != null) {
+        delete getApp().globalData.backParams[objId]
+      }
+
+      return obj
+    }
+
     this.setParamsToGlobal = function (objId, param) {
       if (objId == null) {
         return false
       }
 
       getApp().globalData.params[objId] = param
+      return true
+    }
+
+    this.setBackParamsToGlobal = function (objId, param) {
+      if (objId == null) {
+        return false
+      }
+
+      getApp().globalData.backParams[objId] = param
       return true
     }
 
@@ -117,6 +136,11 @@ function beforeOnload (context) {
       })
     }
 
+    this.navigateBack = function (params) {
+      this.setBackParamsToGlobal('params', params)
+      wx.navigateBack({})
+    }
+
     this.checkPhone = function (url) {
       var phoneReg = getApp().globalData.phoneReg
 
@@ -124,7 +148,7 @@ function beforeOnload (context) {
         return true
       }
 
-      if (this.data.userInfo == null || !phoneReg.test(this.data.userInfo.phone)) {
+      if (getApp().globalData.userInfo == null || !phoneReg.test(getApp().globalData.userInfo.phone)) {
         wx.redirectTo({
           url: "/pages/account/phone/validate",
         })
@@ -132,6 +156,33 @@ function beforeOnload (context) {
       } else {
         return true
       }
+    }
+
+    this.checkAuthLoginStatusAndPhone = function (options) {
+      if (!app.globalData.authLoginStatus) {
+        var url = '/pages/login/index'
+        if (options.back) {
+          url = `${url}?back=${options.back}`
+        }
+        wx.navigateTo({
+          url: url,
+        })
+        return false
+      }
+
+      var phoneReg = getApp().globalData.phoneReg
+      var url =  "/pages/account/phone/validate"
+      if (options.back) {
+        url = `${url}?back=${options.back}`
+      }
+      if (getApp().globalData.userInfo == null || !phoneReg.test(getApp().globalData.userInfo.phone)) {
+        wx.redirectTo({
+          url: url,
+        })
+        return false
+      }
+
+      return true
     }
 
     this.gotoLink = function (e) {
@@ -325,6 +376,7 @@ function beforeOnload (context) {
     ; (function () {
       // 获取上一个页面传递的参数
       this.params = this.getParamsFromGlobal('params') || {}
+      // this.backParams = this.getBackParamsFromGlobal('backParams') || {}
 
       // 分享
       wx.showShareMenu({ withShareTicket: true })

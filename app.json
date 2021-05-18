@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "web/pages/common/index",
     "group_buy/pages/products/index/index",
     "pages/orders/cart/index",
     "products/pages/index2/index",
@@ -17,7 +18,6 @@
     "pages/orders/confirm/index",
     "pages/orders/expresses/show",
     "products/pages/yiyuangou/index",
-    "web/pages/haoxiuyang/store/index",
     "agreement/pages/yiyuangou/index",
     "orders/pages/service/index",
     "agreement/pages/try_product/index",
@@ -44,8 +44,8 @@
     "group_buy/pages/products/show/index",
     "group_buy/pages/orders/index/index",
     "agreement/pages/group_buy/index",
-    "group_buy/pages/orders/confirm/index"
-
+    "group_buy/pages/orders/confirm/index",
+    "web/pages/yanglaohuodong/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

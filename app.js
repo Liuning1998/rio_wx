@@ -14,6 +14,7 @@ App({
     userInfo: null,
     isIphoneX: null,
     params: {},
+    backParams: {},
     authLoginStatus: false,
   }),
 

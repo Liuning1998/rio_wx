@@ -2,7 +2,7 @@
 <navbar return-able="{{true}}" title="授权登录"/>
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
-<wxAuth />
+<wxAuth back="{{back}}"/>
 
 <!-- <view wx:else class='loading'>
   <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>

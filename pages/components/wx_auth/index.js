@@ -8,14 +8,16 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    back: {
+      type: Boolean
+    },
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-
+    
   },
 
   /**
@@ -46,13 +48,19 @@ Component({
         var phoneReg = getApp().globalData.phoneReg
 
         if (userInfo == null || !phoneReg.test(userInfo.phone)) {
+          var url = "/pages/account/phone/validate"
+          url = url + "?back=" + this.data.back
           wx.redirectTo({
-            url: "/pages/account/phone/validate",
+            url: url,
           })
         } else {
-          wx.reLaunch({
-            url: '/pages/index/index',
-          })
+          if (this.data.back) {
+            wx.navigateBack({})
+          } else {
+            wx.reLaunch({
+              url: '/pages/index/index',
+            })
+          }
         }
       } else {
         console.log('没有授权获取微信用户信息')
@@ -92,13 +100,20 @@ Component({
           var phoneReg = globalData.phoneReg
   
           if (userInfo == null || !phoneReg.test(userInfo.phone)) {
+            var url = "/pages/account/phone/validate"
+            url = url + "?back=" + this.data.back
             wx.redirectTo({
-              url: "/pages/account/phone/validate",
+              // url: "/pages/account/phone/validate",
+              url: url,
             })
           } else {
-            wx.reLaunch({
-              url: '/pages/index/index',
-            })
+            if (this.data.back) {
+              wx.navigateBack({})
+            } else {
+              wx.reLaunch({
+                url: '/pages/index/index',
+              })
+            }
           }
 
         }

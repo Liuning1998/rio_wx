@@ -443,7 +443,7 @@ Page({
     let path = lastPage.route;
 
     if (path != null && path == 'group_buy/pages/orders/join/index') {
-      wx.navigateBack({})
+      this.navigateBack({ showSuccessPay: true })
     } else {
       this.navigateTo(`/group_buy/pages/orders/join/index?id=${this.data.order.group_buy_activity_id}`)
     }

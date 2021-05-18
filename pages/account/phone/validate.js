@@ -29,6 +29,8 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
+    this.setData({ back: options.back })
+
     if (this.data.userInfo.tmp_user_phone != null && this.data.userInfo.tmp_user_phone.length > 0) {
       this.setData({ phone: this.data.userInfo.tmp_user_phone })
     }
@@ -145,9 +147,13 @@ Page({
         storage.setSyncWithExpire('userInfo', res.data)
         this.setRucaptcha()
         setTimeout(() => {
-          wx.reLaunch({
-            url: '/pages/index/index',
-          })
+          if (this.data.back) {
+            wx.navigateBack({})
+          } else {
+            wx.reLaunch({
+              url: '/pages/index/index',
+            })
+          }
         }, 1200)
       },
       fail: (res) => {
@@ -175,9 +181,13 @@ Page({
           storage.setSyncWithExpire('userInfo', res.data)
           this.setRucaptcha()
           setTimeout(() => {
-            wx.reLaunch({
-              url: '/pages/index/index',
-            })
+            if(this.data.back) {
+              wx.navigateBack({})
+            } else {
+              wx.reLaunch({
+                url: '/pages/index/index',
+              })
+            }
           }, 1200)
         } else {
           var msg = '网络繁忙，请稍后再试'

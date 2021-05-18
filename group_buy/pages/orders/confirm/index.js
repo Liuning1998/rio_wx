@@ -290,7 +290,7 @@ Page({
         submitStatus = false
         // this.setData({ submitStatus: submitStatus })
         // if ( res.errMsg == "requestPayment:fail cancel" ) {
-        wx.navigateBack({})
+        this.cancelPayBack()
         // } else {
           // this.redirectTo("/pages/orders/show/index?id=" + order.number)
         // }
@@ -321,7 +321,7 @@ Page({
             // setTimeout(res => {
             //   wx.navigateBack({})
             // }, 10)
-            wx.navigateBack({})
+            this.successPayBack()
             return false
           }
           if (res.subscriptionsSetting.itemSettings[item] != 'accept') {
@@ -333,7 +333,7 @@ Page({
         if (!flag) {
           this.subscribeMessage(templateIds)
         } else {
-          wx.navigateBack({})
+          this.successPayBack()
         }
 
         // if (!flag) {
@@ -363,7 +363,7 @@ Page({
         // setTimeout(res => {
         //   wx.navigateBack({})
         // }, 10)
-        wx.navigateBack({})
+        this.successPayBack()
       },
       fail: res => {
         console.error('订阅消息失败')
@@ -374,7 +374,7 @@ Page({
         // setTimeout(res => {
         //   wx.navigateBack({})
         // }, 1000)
-        wx.navigateBack({})
+        this.successPayBack()
       }
     })
   },
@@ -428,6 +428,18 @@ Page({
     var order = this.data.payOrder
     this.getPayInfo(order)
   },
+
+  successPayBack: function () {
+    this.navigateBack({
+      showSuccessPay: true
+    })
+  },
+
+  cancelPayBack: function () {
+    this.navigateBack({
+      waitPay: true
+    })
+  }
 
   /**
    * 用户点击右上角分享
