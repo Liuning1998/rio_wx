@@ -474,7 +474,7 @@ page {
 
 .description {
   font-size: 26rpx;
-  text-align: center;
+  /* text-align: center; */
   justify-content: center;
   color: #f00;
   background: #fff;
@@ -482,7 +482,8 @@ page {
   padding: 24rpx;
   padding-top: 0;
   width: 100%;
-  padding-bottom: 10rpx;
+  /* padding-bottom: 20rpx; */
+  box-sizing: border-box;
 }
 
 .product-detail-desc {
