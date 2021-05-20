@@ -350,7 +350,7 @@ Page({
             url: 'api/orders/' + this.data.order.number + '/cancel_order',
             success: res => {
               this.successToast('取消订单成功')
-              if (this.data.order.order_type == 4 || this.data.order.order_type) {
+              if (this.data.order.order_type == 4 || this.data.order.order_type == 5) {
                 setTimeout(res => {
                   wx.navigateBack({})
                 }, 500)

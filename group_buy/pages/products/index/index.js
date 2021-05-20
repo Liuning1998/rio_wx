@@ -46,6 +46,10 @@ Page({
     // if (this.data.userInfo == null || this.data.userInfo.kzx_user_identification != 1) {
     //   this.checkPayNotice()
     // }
+
+    // if (typeof(options.sources) != 'undefined') {
+    //   this.yanglaoApi(options)
+    // }
   },
 
   onShow: function () {
@@ -249,5 +253,20 @@ Page({
 
     this.navigateTo(`/group_buy/pages/orders/join/index?id=${item.id}&home_brand_id=${home_brand_id}`)
   },
+
+  // ?decrypted_string="xxxxxxxxxxxxxxxxxxx"&app_id='xxxxxxxxxx'&sources='xxxxx'
+  // yanglaoApi: function (options) {
+  //   http.post({
+  //     url: 'api/api_users/valid_api_user',
+  //     data: {
+  //       decrypted_string: options.decrypted_string,
+  //       app_id: options.app_id,
+  //       sources: options.sources
+  //     },
+  //     success: res => {
+  //       console.log(res)
+  //     }
+  //   })
+  // },
 
 })
