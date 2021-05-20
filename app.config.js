@@ -29,8 +29,8 @@ var errorMap = {
 }
 
 // 修改团购中专区跳转id, /group_buy/pages/join/index.js
-// const ENV = 'production'
-const ENV = 'development'
+const ENV = 'production'
+// const ENV = 'development'
 
 const ENV_CONFIG = {
   development: {
@@ -58,7 +58,7 @@ function config(options) {
     websocketServer: "wss://" + serverDomain + "/cable",
     cacheTime: 60,
     perPage: 10,
-    phoneReg: /^[1][3,4,5,7,8][0-9]{9}$/,
+    phoneReg: /^[1][3456789][0-9]{9}$/,
     env: ENV
   })
 }
