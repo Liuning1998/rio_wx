@@ -182,7 +182,7 @@ Page({
 
               var cacheAddress = storage.getSync('ship_address')
               if (cacheAddress.id == item.id) {
-                wx.removeStorageSync('ship_address')
+                storage.delSync('ship_address')
               }
             },
             fail: (res) => {

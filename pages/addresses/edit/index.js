@@ -325,7 +325,7 @@ Page({
 
               var cacheAddress = storage.getSync('ship_address')
               if(cacheAddress.id == address.id) {
-                wx.removeStorageSync('ship_address')
+                storage.delSync('ship_address')
               }
 
               // wx.redirectTo ({

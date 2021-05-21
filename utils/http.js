@@ -70,7 +70,7 @@ function httpFail (res, reject) {
 
     if (res.data.code == 100400) {
       // 100400 错误 pages/index/index 页面做特例处理，其他页面不执行 fail
-      wx.removeStorageSync('session')
+      storage.delSync('session')
       getApp().globalData.params['reLogin'] = true
       if (currentPage != '/pages/index/index') {
         wx.reLaunch({

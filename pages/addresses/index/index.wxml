@@ -17,7 +17,7 @@
 
     <view wx:else class='address-list'>
       <block  wx:for="{{ addresses }}" wx:key="index">
-        <view class="address-item-container">
+        <view wx:if="{{ item.deleted != true }}" class="address-item-container">
           <view class="item-content" bindtap='selectAddress' data-address='{{ item }}'>
             <view class="name-and-phone">
               <text class="name">{{ item.real_name }}</text>
