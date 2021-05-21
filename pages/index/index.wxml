@@ -28,9 +28,9 @@
           </view>
           <open-data class="name" type="userNickName"></open-data>
         </view>
-        <view class="account-info">
+        <!-- <view class="account-info">
           <text class="balance">平台余额(元): {{ userInfo.account_balance || 0 }}</text>
-        </view>
+        </view> -->
       </view>
 
       <view class="swiper-container">

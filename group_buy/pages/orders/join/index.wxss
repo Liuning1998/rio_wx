@@ -1042,3 +1042,11 @@ page {
 }
 
 /* 推荐商品 */
+
+.quantity-limit-notice {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FF0000;
+  text-align: center;
+  margin-top: 20rpx;
+}

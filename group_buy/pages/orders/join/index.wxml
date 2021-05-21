@@ -73,6 +73,8 @@
       </block>
     </block>
 
+    <text class="quantity-limit-notice">数量有限，售完即止！</text>
+
     <!-- 当有提示要显示时头像为空 -->
     <!-- <view wx:if="{{ helper.noticeExist(activity)}}"  class="avatar-container">
       <block>
