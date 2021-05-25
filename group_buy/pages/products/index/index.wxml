@@ -85,6 +85,28 @@
       </view>
 
       <text class="end-notice" wx:if="{{ item.end_notice != null && item.end_notice.length > 0 }}">{{item.end_notice}}</text>
+
+      <view class="completed-users" wx:if="{{ activities_avatars[item.id] !== null && activities_avatars[item.id].length > 0 }}">
+        <view class="c-header-container">
+          <text class="label">成团详情</text>
+          <view bindtap="gotoLink" data-url="/group_buy/pages/orders/index/index" class="order-list">
+            <text>查看我的拼团</text>
+            <image src="/images/arrow_o_black_01.png"></image>
+          </view>
+        </view>
+
+        <view class="groups-container">
+          <view wx:if="{{ group.members.length >= 3 }}" wx:key="index" class="group-item" wx:for="{{activities_avatars[item.id]}}" wx:for-item="group">
+            <view class="item-info">
+              <view class="avatars-container">
+                <image wx:if="{{ idx < 3 }}" wx:key="index" wx:for="{{group.members}}" wx:for-item="member" wx:for-index="idx" src="{{member.avatar}}"></image>
+              </view>
+              <text>成团时间: {{group.end_time_t}}</text>
+            </view>
+            <!-- <image class="arrow" src="../../../../images/arrow_o_black_01.png"></image> -->
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 

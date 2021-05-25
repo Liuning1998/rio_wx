@@ -99,6 +99,7 @@ page {
 
 .product-item .product-item-container {
   display: flex;
+  position: relative;
 }
 
 .product-item:last-child {
@@ -537,3 +538,101 @@ page {
 }
 
 /* 支付提示 notice */
+
+
+/* 成团记录 */
+.completed-users {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30rpx;
+  border-top: 1px solid #eee;
+  padding-top: 20rpx;
+}
+
+.completed-users .c-header-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.completed-users .c-header-container .order-list {
+  display: flex;
+  align-items: center;
+}
+
+.completed-users .c-header-container .order-list text {
+  font-size: 28rpx;
+  color: #666666;
+  font-weight: 400;
+  margin: 0;
+  margin-right: 14rpx;
+}
+
+.completed-users .c-header-container .order-list image {
+  height: 30rpx;
+  width: 16rpx;
+}
+
+.completed-users .label {
+  font-size: 32rpx;
+  /* width: 100%; */
+  display: inline-block;
+  text-align: center;
+  color: #333333;
+  font-weight: 500;
+}
+
+.groups-container {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0;
+}
+
+.groups-container .arrow {
+  width: 10rpx;
+  height: 20rpx;
+  display: inline-block;
+  margin-left: 10rpx;
+  flex-shrink: 0;
+}
+
+.groups-container .avatars-container {
+  display: flex;
+  align-items: center;
+}
+
+.groups-container .avatars-container image {
+  border-radius: 50%;
+  height: 70rpx;
+  width: 70rpx;
+  display: flex;
+  margin-right: 4rpx;
+  border: 1px solid #dddddd;
+}
+
+.groups-container .item-info text {
+  color: #666666;
+  font-size: 24rpx;
+  margin-left: 20rpx;
+}
+
+.groups-container .group-item {
+  display: flex;
+  width: 100%;
+  padding: 10rpx 0;
+  border-bottom: 1px solid #fafafa;
+  align-items: center;
+}
+
+.groups-container .item-info {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+/* 成团记录 */

@@ -14,6 +14,7 @@ Page({
     now: Math.floor((new Date).getTime()/1000),
     apiLoad: false,
     payNotice: '',
+    activities_avatars: {}
   },
 
   /**
@@ -89,6 +90,9 @@ Page({
       success: res => {
         this.setData({ apiLoad: true })
         this.appendProducts(res.data, options)
+        for(var i in res.data) {
+          this.getActivitiesAvartars(res.data[i].id)
+        }
       }
     })
   },
@@ -268,5 +272,23 @@ Page({
   //     }
   //   })
   // },
+
+  getActivitiesAvartars: function (activity_id) {
+    http.get({
+      url: `/api/group_buy_activities/${activity_id}/activity_avatar`,
+      success: res => {
+        if(res.data.result != null) {
+          this.setData({
+            [`activities_avatars.${activity_id}`]: res.data.result
+          })
+          // for(var i in res.data.result) {
+          //   this.setData({
+          //     [`activities_avatars.${activity_id}[${i}]`]: res.data.result[i]
+          //   })
+          // }
+        }
+      }
+    })
+  },
 
 })

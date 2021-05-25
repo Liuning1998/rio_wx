@@ -9,7 +9,7 @@
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="main-container">
       <view class="time-remark">
-        <text>下单后请在2分钟内完成支付</text>
+        <text>下单后请在10分钟内完成支付</text>
       </view>
       <view bindtap="selectAddress" wx:if="{{shipAddress == null || shipAddress.phone == null || shipAddress.phone.length <= 0}}" class="select-address-empty">
         <image class="location" src="/images/location_icon_001.png"></image>
