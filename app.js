@@ -30,14 +30,16 @@ App({
       } else {
         // 从服务器获取
         sessionApi.getUserInfo().then(res => {
-          this.globalData.userInfo = res
-          if (this.CallbackForUserInfo) {
-            this.CallbackForUserInfo(res)
-            
-            // 设置用户授权状态
-            if (!this.globalData.authLoginStatus && res.check_wx_auth) {
-              this.globalData.authLoginStatus = true
-              store.setSync('authLoginStatus', true)
+          if (res != null && res.phone != null) {
+            this.globalData.userInfo = res
+            if (this.CallbackForUserInfo) {
+              this.CallbackForUserInfo(res)
+              
+              // 设置用户授权状态
+              if (!this.globalData.authLoginStatus && res.check_wx_auth) {
+                this.globalData.authLoginStatus = true
+                store.setSync('authLoginStatus', true)
+              }
             }
           }
         })

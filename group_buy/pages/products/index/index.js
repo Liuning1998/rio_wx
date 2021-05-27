@@ -35,8 +35,10 @@ Page({
 
     if (brand == null) {
       this.getBrand(options.id)
+      this.setData({ home_brand_id: options.id })
       // this.getBrand(2)
     } else {
+      this.setData({ home_brand_id: brand.id })
       this.setData({ brand: brand })
     }
 
@@ -137,7 +139,7 @@ Page({
       return false
     }
     let item = e.currentTarget.dataset.item
-    var home_brand_id = this.data.brand.id
+    var home_brand_id = this.data.home_brand_id
 
     if (this.data.userInfo == null || this.data.userInfo.kzx_user_identification != 1) {
       this.setData({ currentItem: item })

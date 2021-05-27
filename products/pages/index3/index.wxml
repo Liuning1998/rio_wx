@@ -39,7 +39,7 @@
       <view class="item-content">
         <view class="info">
           <text class="name">{{item.name}}</text>
-          <text class="description">{{item.description}}</text>
+          <!-- <text class="description">{{item.description}}</text> -->
         </view>
 
         <view class="price-and-cart">

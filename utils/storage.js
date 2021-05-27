@@ -2,6 +2,7 @@
 // 默认有效时间7天
 // expire = expire || (7 * 24 * 60 * 60)
 const DefaultExpire = 7 * 24 * 60 * 60
+var config = require('../app.config.js')
  
 function getSyncWithExpire(key, expire) {
   key = keyExtension(key)
@@ -61,10 +62,11 @@ function delSync(key) {
 }
 
 function keyExtension(key) {
-  if (typeof(getApp()) == 'undefined' || typeof(getApp().globalData.env) == 'undefined') {
+  var env = config.config().env
+  if (typeof(env) == 'undefined') {
     return key
   } else {
-    let extension = getApp().globalData.env
+    let extension = env
     key = extension + "#" + key
     return key
   }

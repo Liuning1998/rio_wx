@@ -308,11 +308,13 @@ Page({
 
   reGetUserInfo: function () {
     sessionApi.getUserInfo().then(res => {
-      getApp().globalData.userInfo = res
-      this.setData({ userInfo: res })
-      // if (this.CallbackForUserInfo) {
-      //   this.CallbackForUserInfo(res)
-      // }
+      if (res != null && res.phone != null) {
+        getApp().globalData.userInfo = res
+        this.setData({ userInfo: res })
+        // if (this.CallbackForUserInfo) {
+        //   this.CallbackForUserInfo(res)
+        // }
+      }
     })
   },
 
@@ -429,8 +431,10 @@ Page({
     http.post({
       url: 'api/users/show_user',
       success: res => {
-        getApp().globalData.userInfo = res.data
-        this.setData({ userInfo: res.data, authLoginStatus: res.data.check_wx_auth })
+        if (res.data != null && res.data.phone != null) {
+          getApp().globalData.userInfo = res.data
+          this.setData({ userInfo: res.data, authLoginStatus: res.data.check_wx_auth })
+        }
       },
       fail: res => {
         // 100400 错误 pages/index/index 页面做特例处理，其他页面不执行 fail

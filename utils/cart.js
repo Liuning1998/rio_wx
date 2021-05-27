@@ -209,15 +209,17 @@ function updateVariantInfo (options) {
   }
 
   var p = new Promise((resolve, reject) => {
-    http.post({
-      url: 'api/products/fetch_variant_stock',
-      data: {
-        variant_ids: variant_ids
-      },
-      success: (res) => {
-        resolve(updateVariantInfoToCache(cartData, res.data))
-      }
-    })
+    if (variant_ids.length > 0) {
+      http.post({
+        url: 'api/products/fetch_variant_stock',
+        data: {
+          variant_ids: variant_ids
+        },
+        success: (res) => {
+          resolve(updateVariantInfoToCache(cartData, res.data))
+        }
+      })
+    }
   })
 
   return p.then(options['success'], options['fail'])

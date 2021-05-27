@@ -142,19 +142,27 @@ Page({
         phone: this.data.phone
       },
       success: (res) => {
-        this.successToast('手机号码验证成功', 1000)
-        getApp().globalData.userInfo = res.data
-        storage.setSyncWithExpire('userInfo', res.data)
-        this.setRucaptcha()
-        setTimeout(() => {
-          if (this.data.back) {
-            wx.navigateBack({})
-          } else {
-            wx.reLaunch({
-              url: '/pages/index/index',
-            })
+        if (res.data != null && res.data.phone != null) {
+          this.successToast('手机号码验证成功', 1000)
+          getApp().globalData.userInfo = res.data
+          storage.setSyncWithExpire('userInfo', res.data)
+          this.setRucaptcha()
+          setTimeout(() => {
+            if (this.data.back) {
+              wx.navigateBack({})
+            } else {
+              wx.reLaunch({
+                url: '/pages/index/index',
+              })
+            }
+          }, 1200)
+        } else {
+          var msg = '手机号码验证失败'
+          if (getApp().globalData.errorMap[res.data.code] != null) {
+            msg = getApp().globalData.errorMap[res.data.code].msg_t
           }
-        }, 1200)
+          this.errorToast(msg)
+        }
       },
       fail: (res) => {
         // this.phoneErrorToast(res)
@@ -175,7 +183,7 @@ Page({
     http.post({
       url: 'api/users/show_user',
       success: res => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
+        if (res.statusCode >= 200 && res.statusCode < 300 && res.data != null && res.data.phone != null) {
           this.successToast('该用户已绑定手机号', 1000)
           getApp().globalData.userInfo = res.data
           storage.setSyncWithExpire('userInfo', res.data)

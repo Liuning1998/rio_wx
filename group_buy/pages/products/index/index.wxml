@@ -36,7 +36,7 @@
     </view>
     <view class="product-item" wx:for="{{products}}" wx:key="item">
       <view class="product-item-container">
-        <view wx:if="{{ item.end_notice != null && item.end_notice.length > 0 }}" class="close-layer">
+        <view wx:if="{{ item.state == 'completed' || item.state == 'closed' || item.end_time < now }}" class="close-layer">
           <view class="close-container">
             <text>活动</text>
             <text>已结束</text>

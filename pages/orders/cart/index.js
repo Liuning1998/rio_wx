@@ -179,7 +179,6 @@ Page({
 
   addCart: function (e) {
     var item = e.currentTarget.dataset.item
-
     if (item.tags != null && item.tags.indexOf('虚拟卡券') >= 0) {
       this.navigateTo("/pages/products/show/index?id=" + item.id)
       return
