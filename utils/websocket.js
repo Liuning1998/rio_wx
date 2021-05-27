@@ -1,7 +1,7 @@
 var storage = require('./storage.js')
 // const reConnectTime = [1, 5, 20, 60, 120]
 
-function subscription(channel, room_number, times=0, callback) {
+function subscription(channel, room_number, callback) {
   var task = connect()
   let id =  JSON.stringify({channel: channel, room_number: room_number});
     
@@ -14,19 +14,10 @@ function subscription(channel, room_number, times=0, callback) {
   task.onMessage((res) => {
     var data = JSON.parse(res.data)
     if(data.reconnect) {
-      if (times > 30) {
-        console.error(`websockt reconnect error, ${times} times`)
-        callback({type: 'reconnect_error', times: times})
-      } else {
-        times = times + 1
-        setTimeout(res => {
-          subscription(channel, room_number, times, callback)
-        }, 5*1000)
-      }
-    } else if(data.type != 'ping'){
-      if (data.type == 'confirm_subscription') {
-        times = 0
-      }
+      setTimeout(res => {
+        subscription(channel, room_number, callback)
+      }, 5*1000)
+    } else {
       callback(data)
     }
   })
@@ -34,18 +25,6 @@ function subscription(channel, room_number, times=0, callback) {
   task.onClose(res => {
     console.log('----------task close')
     console.log(res)
-    // 1006 服务器关闭
-    if(res.code == 1006) {
-      if (times > 30) {
-        console.error(`websockt reconnect error, ${times} times`)
-        callback({type: 'reconnect_error', times: times})
-      } else {
-        times = times + 1
-        setTimeout(res => {
-          subscription(channel, room_number, times, callback)
-        }, 5*1000)
-      }
-    }
   })
 
   return task

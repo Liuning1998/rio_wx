@@ -4,6 +4,9 @@ var websocket = require('../../../../utils/websocket.js')
 
 let timer
 
+// webscoket心跳超时，每次心跳3秒，3次后重试
+var websocketHeartTimeout = 3*3
+
 Page({
 
   /**
@@ -408,6 +411,16 @@ Page({
     now = Math.floor(now.getTime()/1000)
     this.setData({ now: now })
 
+    if ( this.data.websocketPing != null && now - this.data.websocketPing > websocketHeartTimeout) {
+      this.setData({ websocketPing: now })
+      try {
+        this.data.socketTask.close()
+      } catch {}
+      try {
+        this.subscription()
+      } catch {}
+    }
+
     timer = setTimeout(this.setNow, 1000)
     this.checkGroupState()
   },
@@ -440,8 +453,10 @@ Page({
   },
 
   subscription: function () {
-    var socketTask = websocket.subscription('GroupBuyActivityChannel', this.data.activityId, 0, (data) => {
-      if (data.type == 'confirm_subscription') {
+    var socketTask = websocket.subscription('GroupBuyActivityChannel', this.data.activityId, (data) => {
+      if (data.type == 'ping') {
+        this.setData({ websocketPing: data.message })
+      } else if (data.type == 'confirm_subscription') {
         this.setData({ wsConnected: true })
       } else {
         if (data != null) {
