@@ -93,7 +93,9 @@ Page({
         this.setData({ apiLoad: true })
         this.appendProducts(res.data, options)
         for(var i in res.data) {
-          this.getActivitiesAvartars(res.data[i].id)
+          if (res.data[i].state == 'completed') {
+            this.getActivitiesAvartars(res.data[i].id)
+          }
         }
       }
     })

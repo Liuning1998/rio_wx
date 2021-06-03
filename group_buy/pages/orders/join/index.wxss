@@ -4,10 +4,6 @@ page {
   background: #f7f7f7;
 }
 
-.page-container {
-  /* padding-bottom: 160rpx; */
-}
-
 .product-container {
   width: 670rpx;
   padding: 28rpx 20rpx;
@@ -1043,7 +1039,7 @@ page {
 
 /* 推荐商品 */
 
-.quantity-limit-notice {
+.group-container .quantity-limit-notice {
   font-size: 32rpx;
   font-weight: 600;
   color: #FF0000;

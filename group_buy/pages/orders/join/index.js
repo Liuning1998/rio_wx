@@ -1,4 +1,7 @@
 // pages/products/show/index.js
+
+// group_buy_activities 返回值中 no_websocket 为true时，websocket 不订阅该接口信息
+
 var http = require('../../../../utils/http.js')
 var websocket = require('../../../../utils/websocket.js')
 var md5 = require('../../../../utils/md5.js')
@@ -12,12 +15,7 @@ let specialAreaName = '伊利专区'
 let payTime = 2*60*1000
 let successTime =  5*1000
 
-var faTimer = null
-var faTimerTime = 3*1000
-
-// 限制数据刷新请求速度
-var speedLimit = true
-var speedLimitTime = 2*1000
+var fetchTimerTimestamp = 0
 
 // webscoket心跳超时，每次心跳3秒，3次后重试
 var websocketHeartTimeout = 3*3
@@ -59,24 +57,7 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
-    this.getProductDetail(options.id)
-    
-
-    // var params = this.params
-    // if (params.localParams != null) {
-    //   this.setData({
-    //     activity: params.activity,
-    //     product: params.product,
-    //     currentVariant: params.currentVariant,
-    //     optionTypes: params.optionTypes,
-    //     optionIds: params.optionIds,
-    //     // group: params.activity.last_group
-    //     group: params.group
-    //   })
-    // } else {
-    //   // this.getGroupBuyActivity(options.id)
-    //   this.getBuyGroup(options.id)
-    // }
+    this.getActivity(options.id)
 
     this.setData({ isIphoneX: getApp().isIphoneX(), home_brand_id: options.home_brand_id })
 
@@ -121,16 +102,11 @@ Page({
   },
 
   onShow: function () {
-    speedLimit = true
-    // this.subscription()
     this.backParams = this.getBackParamsFromGlobal('params') || {}
-    if (typeof(this.data.activity) != 'undefined') {
-      this.subscription()
-    }
-
+    
     if (this.data.activity != null && this.data.activity.id != null && this.backParams.successPay != true) {
       this.setData({ showSelectContainer: false })
-      this.getProductDetail(this.data.activity.id)
+      this.getActivity(this.data.activity.id)
     }
 
     if (timer == null) {
@@ -141,14 +117,15 @@ Page({
 
     this.setData({ umd5: md5(getApp().globalData.userInfo.phone || '')})
     this.dealBackParams()
-    // if (faTimer == null) { this.fetchActivTimer() }
   },
 
   onHide: function () {
     if (this.data.socketTask != null) {
-      var socketTask = this.data.socketTask
+      try {
+        this.data.socketTask.close()
+        this.data.userGroupSocketTask.close()
+      } catch (error) {}
       this.setData({ socketTask: null })
-      socketTask.close()
     }
     // wx.closeSocket()
 
@@ -156,15 +133,15 @@ Page({
       clearTimeout(timer)
       timer = null
     }
-
-    this.clearFaTimer()
   },
 
   onUnload: function () {
     if (this.data.socketTask != null) {
-      var socketTask = this.data.socketTask
+      try {
+        this.data.socketTask.close()
+        this.data.userGroupSocketTask.close()
+      } catch {}
       this.setData({ socketTask: null })
-      socketTask.close()
     }
     // wx.closeSocket()
 
@@ -172,55 +149,6 @@ Page({
       clearTimeout(timer)
       timer = null
     }
-  },
-
-  getBuyGroup: function (id) {
-    http.get({
-      url: "api/buy_groups/" + id,
-      success: (res) => {
-        var _product = res.data.group_buy_activity.product
-        let _currentVariant
-        let optionIds = []
-        if (this.data.currentVariant != null) {
-          // 从其他页面返回时已经存在 currentVariant
-          _currentVariant = _product.variants.filter(item => item.id == this.data.currentVariant.id)[0]
-        }
-        
-        for(var i=0; i < _product.variants.length; i++) {
-          if (_currentVariant == null && _product.variants[i].is_master) {
-            _currentVariant = _product.variants[i]
-          }
-          _product.variants[i].option_values.forEach(item => optionIds.push(item.id))
-        }
-        
-        if (_currentVariant == null) {
-          _currentVariant = _product.variants[0]
-        }
-        this.checkProductType(_product)
-        this.setData({ activity: res.data.group_buy_activity, group: res.data })
-        this.setData({ product: _product, currentVariant: _currentVariant, optionTypes: _product.options, optionIds: optionIds })
-
-        if (this.data.showSelectContainer && this.data.currentVariant != null) {
-          this.setOptionsStatus(this.data.currentVariant)
-        }
-
-        // this.variantToOption()
-
-        if (_product.available_on == null || _product.available_on == 0) {
-          this.setData({ available: false })
-        }
-      },
-      fail: (res) => {
-        if (res.statusCode == '404') {
-          this.errorToast('找不到团购信息')
-          setTimeout(wx.navigateBack, 1000)
-        } else {
-          // wx.navigateBack({
-          //   delta: 1
-          // })
-        }
-      }
-    })
   },
 
   checkProductType: function (product) {
@@ -231,10 +159,6 @@ Page({
     } else if (product.tags.includes('实物')) {
       this.setData({ productType: 2 })
     }
-  },
-
-  changeSwiperCurrent: function (e) {
-    this.setData({ swiperCurrent: e.detail.current })
   },
 
   changeCurrent (currentOv) {
@@ -442,38 +366,53 @@ Page({
     now = Math.floor(now.getTime()/1000)
     this.setData({ now: now })
 
-    if ( this.data.websocketPing != null && now - this.data.websocketPing > websocketHeartTimeout) {
-      this.setData({ websocketPing: now })
-      try {
-        this.data.socketTask.close()
-      } catch {}
-      try {
-        this.subscription()
-      } catch {}
+    var activity = this.data.activity
+    if (activity != null) {
+      if (activity.refresh_time != null && activity.refresh_time > 0) {
+        if (fetchTimerTimestamp == 0 ) {
+          fetchTimerTimestamp = now
+        } else {
+          if (now - fetchTimerTimestamp >= activity.refresh_time) { 
+            fetchTimerTimestamp = now
+            this.getActivity(this.data.activity.id)
+          }
+        }
+        
+      } else if (activity.refresh_time == null || activity.refresh_time == 0) {
+        if (this.data.websocketPing != null && now - this.data.websocketPing > websocketHeartTimeout) {
+          this.reconnect()
+        }
+      }
     }
 
     timer = setTimeout(this.setNow, 1000)
   },
 
-  // subscription: function () {
-  //   if (this.data.group == null) { 
-  //     console.log("no group, don't subscribe websocket")
-  //     return false
-  //   }
-  //   var socketTask = websocket.subscription('BuyGroupChannel', this.data.group.id, 0, (data) => {
-  //     if (data.type == 'confirm_subscription') {
-  //       this.setData({ wsConnected: true })
-  //     } else {
-  //       if (data != null) {
-  //         this.checkWxMessage(data)
-  //       }
-  //     }
-  //   })
-  //   this.setData({ socketTask: socketTask })
-  // },
+  reconnect: function () {
+    var activity = this.data.activity
+    if (activity.refresh_time == null || activity.refresh_time == 0) {
+      let now = new Date
+      this.setData({ websocketPing: now })
+      try {
+        this.data.socketTask.close()
+      } catch {}
+      try {
+        // this.subscription(this.data.activity)
+        this.data.socketTask.reconnect()
+      } catch {}
+    }
+  },
 
-  subscription: function () {
-    var socketTask = websocket.subscription('GroupBuyActivityChannel', this.data.activity.id, (data) => {
+  subscription: function (activity) {
+    var socketTask = null
+    if(this.data.socketTask == null) {
+      socketTask = websocket.connect()
+      this.setData({ socketTask: socketTask })
+    } else {
+      socketTask = this.data.socketTask
+    }
+    var roomId = `v2_${activity.id}`
+    socketTask.subscription('GroupBuyActivityChannel', roomId, (data) => {
       if (data.type == 'ping'){
         this.setData({ websocketPing: data.message })
       }
@@ -485,40 +424,58 @@ Page({
         }
       }
     })
-    this.setData({ socketTask: socketTask })
+    // this.setData({ socketTask: socketTask })
+  },
+
+  subscriptionUserGroup: function (activity) {
+    var socketTask = null
+    if(this.data.socketTask == null) {
+      socketTask = websocket.connect()
+      this.setData({ socketTask: socketTask })
+    } else {
+      socketTask = this.data.socketTask
+    }
+    var roomId = `${activity.id}_${md5(getApp().globalData.userInfo.phone)}`
+    socketTask.subscription('UserGroupInfoChannel', roomId, (data) => {
+      if (data.type == 'ping'){
+        this.setData({ userGroupWebsocketPing: data.message })
+      }
+      else if(data.type == 'confirm_subscription') {
+        this.setData({ wsConnected: true })
+      } else {
+        if (data != null) {
+          setTimeout(res => {
+            this.checkUserGroupMsg(data)
+          }, 500)
+        }
+      }
+    })
+    // this.setData({ userGroupSocketTask: userGroupSocketTask })
+  },
+
+  checkUserGroupMsg: function (msg) {
+    var resData = msg.message
+    if (msg.type == 'welcome' || msg.type == 'ping' || msg.type == 'confirm_subscription') { return false }
+    var last_group = this.setLastGroup( this.data.activity.completed_groups, resData, this.data.activity.last_group )
+    var show_left_group_time = this.showLeftGroupTime(this.data.activity, last_group)
+    this.setData({show_left_group_time: show_left_group_time, current_user_group_info: resData})
   },
 
   checkWxMessage: function (msg) {
     // var last_group = this.data.group
 
-    // var resData = msg.message
-    if (msg.type == 'welcome' || msg.type == 'ping') { return false }
+    var resData = msg.message
+    if (msg.type == 'welcome' || msg.type == 'ping' || msg.type == 'confirm_subscription') { return false }
+    if (resData.activity != null) {
+      this.setActivity(resData.activity, true)
 
-    if (speedLimit) {
-      this.getProductDetail(this.data.activity.id)
-      speedLimit = false
-      setTimeout(res => {
-        speedLimit = true
-      }, speedLimitTime)
-    } else {
-      setTimeout(res => {
-        this.checkWxMessage(msg)
-      }, speedLimitTime )
+      if (resData.activity.refresh_time != null && resData.activity.refresh_time != 0) {
+        try {
+          this.data.socketTask.close()
+        } catch {}
+      }
+      
     }
-
-    // for(var i in last_group.members) {
-    //   var m = last_group.members[i].md5
-    //   if (m == this.data.umd5 && resData.activity.last_group.state == 'completed') {
-    //     this.getProductDetail(this.data.activity.id)
-    //     return true
-    //   }
-    // }
-
-    // if(resData != null && resData.activity != null) {
-    //   var activity = resData.activity
-    //   // this.setData({ activity: activity, group: activity.last_group, product: activity.product })
-    //   this.setData({ activity: activity, product: activity.product })
-    // }
   },
 
   checAuthAndPhone: function () {
@@ -541,45 +498,16 @@ Page({
     return true
   },
 
-  getProductDetail: function (id) {
+  getActivity: function (id) {
     http.get({
-      url: "api/group_buy_activities/" + id,
+      url: `api/group_buy_activities/${id}?v2=true`,
       success: (res) => {
-        var _product = res.data.product
-        let _currentVariant
-        let optionIds = []
-        if (this.data.currentVariant != null) {
-          // 从其他页面返回时已经存在 currentVariant
-          _currentVariant = _product.variants.filter(item => item.id == this.data.currentVariant.id)[0]
+        this.setProductInfo(res.data.product)
+        if (( res.data.refresh_time == null || res.data.refresh_time == 0) && this.data.socketTask == null) {
+          this.subscription(res.data)
+          this.subscriptionUserGroup(res.data)
         }
-        
-        for(var i=0; i < _product.variants.length; i++) {
-          if (_currentVariant == null && _product.variants[i].is_master) {
-            _currentVariant = _product.variants[i]
-          }
-          _product.variants[i].option_values.forEach(item => optionIds.push(item.id))
-        }
-        
-        if (_currentVariant == null) {
-          _currentVariant = _product.variants[0]
-        }
-        // this.checkProductType(_product)
-        this.setData({ activity: res.data, group: res.data.last_group, user_completed_quantity: res.data.user_completed_quantity })
-        this.setData({ product: _product, currentVariant: _currentVariant, optionTypes: _product.options, optionIds: optionIds })
-        
-        if (!this.data.wsConnected) {
-          this.subscription()
-        }
-
-        if (this.data.showSelectContainer && this.data.currentVariant != null) {
-          this.setOptionsStatus(this.data.currentVariant)
-        }
-
-        // this.variantToOption()
-
-        if (_product.available_on == null || _product.available_on == 0) {
-          this.setData({ available: false })
-        }
+        this.setActivity(res.data)
       },
       fail: (res) => {
         if (res.statusCode == '404') {
@@ -685,28 +613,147 @@ Page({
 
     if (this.backParams.successPay == true) {
       setTimeout(res => {
-        this.getProductDetail(this.data.activity.id)
+        this.getActivity(this.data.activity.id)
         this.setData({ showSuccessPay: false })
       }, successTime)
     }
 
     if (this.backParams.waitPay == true) {
       setTimeout( res => {
-        this.getProductDetail(this.data.activity.id)
+        this.getActivity(this.data.activity.id)
       }, payTime)
     }
   },
 
-  fetchActivTimer: function () {
-    faTimer = setTimeout(res => {
-      this.getProductDetail(this.data.activity.id)
-      this.fetchActivTimer()
-    }, faTimerTime)
+  // 重组团购数据
+  // activity.show_notice
+  // group.disabled
+  setActivity: function (activity, from_websockt=false) {
+    var show_notice = this.showNotice(activity)
+
+    activity.show_notice = show_notice
+    
+    if (!from_websockt) {
+      var current_user_group_info = activity.current_user_group_info
+      this.setData({ current_user_group_info: current_user_group_info })
+    } else {
+      var current_user_group_info = this.data.current_user_group_info
+    }
+    var last_group = this.setLastGroup( activity.completed_groups, current_user_group_info, activity.last_group )
+    var show_left_group_time = this.showLeftGroupTime(activity, last_group)
+    this.setData({show_left_group_time: show_left_group_time})
+
+    this.setData({ activity: activity })
   },
 
-  clearFaTimer: function () {
-    if (faTimer != null) {
-      clearTimeout(faTimer)
-    }
+  setLastGroup: function (completed_groups, current_user_group, group) {
+    if(group == null) { group = {} }
+    var lastGroup = this.formatLastGroup(completed_groups, current_user_group, group)
+
+    this.setData({ group: lastGroup })
+    return lastGroup
   },
+
+  formatLastGroup: function (completed_groups, current_user_group, group) {
+    var lastGroup = {
+      members: [],
+      start_time: group.start_time,
+      end_time: group.end_time,
+      end_time_t: group.end_time_t,
+      id: group.id,
+      origin_state: group.state,
+    }
+
+    if (current_user_group != null && Object.keys(current_user_group).length > 0) {
+      lastGroup.members.push(current_user_group)
+      lastGroup.current_user_exist = true
+      lastGroup.current_user_state = current_user_group.order_state
+      lastGroup.current_order_number = current_user_group.order_number
+
+      for (var i in completed_groups) {
+        var group_item = completed_groups[i]
+        for(var j in group_item.members) {
+          if (group_item.members[j].md5 == current_user_group.md5) {
+            lastGroup = group_item
+            return lastGroup  // 当前用户在展示的完成头像中
+          }
+        }
+      }
+    }
+
+    if (Object.keys(group).length <= 0) {
+      if (current_user_group != null && Object.keys(current_user_group).length > 0) {
+        lasGroup.current_user_exist = true
+        lastGroup.state = 'doing'
+      }
+      return lastGroup // 处理完成的6个外，没有其他member，只显示当前用户
+    }
+
+    if (current_user_group != null && current_user_group.state == 'completed') {
+      var members = group.members.filter(item => item.state == 'completed')
+      if (members.length >= 2) {
+        lastGroup.members.push(members[0])
+        lastGroup.members.push(members[1])
+        lastGroup.state = 'completed'
+        return lastGroup // 当前用户能够满足3个member完成的group
+      }
+    }
+
+    if(group.members != null && group.members.length > 1) {
+      lastGroup.members.push(group.members[0])
+    }
+    if(group.members != null && group.members.length > 2) {
+      lastGroup.members.push(group.members[1])
+    }
+
+    lastGroup.state = group.state
+    return lastGroup
+  },
+
+  showNotice: function (activity={}) {
+    if (activity.activity_notice != null && activity.activity_notice.content != null && activity.activity_notice.content.length > 0) {
+      return 1
+    }
+
+    if (activity.time_notice.content != null && activity.time_notice.content.length > 0 ) {
+      return 2
+    }
+
+    return false
+  },
+
+  setProductInfo: function (product) {
+    var _product = product
+      let _currentVariant = _product.master
+      let optionIds = []
+      // if (this.data.currentVariant != null) {
+      //   从其他页面返回时已经存在 currentVariant
+      //   _currentVariant = _product.variants.filter(item => item.id == this.data.currentVariant.id)[0]
+      // }
+
+      // for(var i=0; i < _product.variants.length; i++) {
+      //   if (_currentVariant == null && _product.variants[i].is_master) {
+      //     _currentVariant = _product.variants[i]
+      //   }
+      //   _product.variants[i].option_values.forEach(item => optionIds.push(item.id))
+      // }
+      
+      // if (_currentVariant == null) {
+      //   _currentVariant = _product.variants[0]
+      // }
+      // this.checkProductType(_product)
+      this.setData({ product: _product, currentVariant: _currentVariant, optionTypes: _product.options, optionIds: optionIds })
+
+      if (_product.available_on == null || _product.available_on == 0) {
+        this.setData({ available: false })
+      }
+  },
+
+  showLeftGroupTime: function (activity, last_group) {
+    if (activity.show_notice == 1) { return false }
+    if (last_group.state != 'new' && last_group.state != 'doing') { return false }
+    if (activity.show_notice == 2 && last_group.state == 'completed') { return false }
+    return true
+  },
+  // 重组团购数据
 })
