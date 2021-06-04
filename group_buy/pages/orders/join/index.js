@@ -690,7 +690,9 @@ Page({
     }
 
     if (current_user_group != null && current_user_group.state == 'completed') {
-      var members = group.members.filter(item => item.state == 'completed')
+      var members = group.members.filter(item => {
+        item.state == 'completed' && item.md5 == !current_user_group.md5
+      })
       if (members.length >= 2) {
         lastGroup.members.push(members[0])
         lastGroup.members.push(members[1])
@@ -699,11 +701,16 @@ Page({
       }
     }
 
-    if(group.members != null && group.members.length > 1) {
-      lastGroup.members.push(group.members[0])
+    var group_members = []
+    if (current_user_group != null && Object.keys(current_user_group).length > 0) {
+      group_members = group.members.filter(item => item.md5 != current_user_group.md5)
+    } else {
+      group_members = group.members
     }
-    if(group.members != null && group.members.length > 2) {
-      lastGroup.members.push(group.members[1])
+
+    for(var i in group_members) {
+      if (i >= 2) { break }
+      lastGroup.members.push(group_members[i])
     }
 
     lastGroup.state = group.state

@@ -67,15 +67,20 @@
     </block>
 
     <view wx:else class="avatar-container">
-      <view wx:if="{{index < 2}}" wx:for="{{ group.members }}" wx:key="item" class="user-avatar-container">
-        <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
-          <text>{{item.state_remark}}</text>
+      <block wx:if="{{ group.end_time > now }}">
+        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < 3 }}" class="empty-avatar item">?</text>
+      </block>
+      <block wx:else>
+        <view wx:if="{{index <= 2}}" wx:for="{{ group.members }}" wx:key="item" class="user-avatar-container">
+          <view wx:if="{{ item.state_remark != null && item.state_remark.length > 0 }}" class="remark">
+            <text>{{item.state_remark}}</text>
+          </view>
+          <image class="avatar item" src="{{item.avatar}}"></image>
         </view>
-        <image class="avatar item" src="{{item.avatar}}"></image>
-      </view>
 
-      <block wx:if="{{ group.members.length < 2 }}">
-        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < (3 - group.members.length)}}" class="empty-avatar item">?</text>
+        <block wx:if="{{ group.members.length < 3 }}">
+          <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < (3 - group.members.length)}}" class="empty-avatar item">?</text>
+        </block>
       </block>
     </view>
 
