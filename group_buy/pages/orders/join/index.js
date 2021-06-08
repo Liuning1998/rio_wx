@@ -635,7 +635,10 @@ Page({
     
     if (!from_websockt) {
       var current_user_group_info = activity.current_user_group_info
-      this.setData({ current_user_group_info: current_user_group_info })
+      this.setData({
+        current_user_group_info: current_user_group_info,
+        user_completed_quantity: activity.user_completed_quantity
+      })
     } else {
       var current_user_group_info = this.data.current_user_group_info
     }
@@ -675,6 +678,7 @@ Page({
         for(var j in group_item.members) {
           if (group_item.members[j].md5 == current_user_group.md5) {
             lastGroup = group_item
+            lastGroup.current_user_exist = true
             return lastGroup  // 当前用户在展示的完成头像中
           }
         }
@@ -683,13 +687,14 @@ Page({
 
     if (Object.keys(group).length <= 0) {
       if (current_user_group != null && Object.keys(current_user_group).length > 0) {
-        lasGroup.current_user_exist = true
+        lastGroup.current_user_exist = true
         lastGroup.state = 'doing'
       }
       return lastGroup // 处理完成的6个外，没有其他member，只显示当前用户
     }
 
     if (current_user_group != null && current_user_group.state == 'completed') {
+      lastGroup.current_user_exist = true
       var members = group.members.filter(item => {
         item.state == 'completed' && item.md5 == !current_user_group.md5
       })

@@ -29,7 +29,7 @@
         <text class="desc" style="color: #f00;">{{ activity.activity_notice.content || activity.time_notice.content }}</text>
       </view>
 
-      <view class="next-time-container" wx:if="{{ activity.activity_notice.show_countdown == true || activity.time_notice.show_countdown == true }}">
+      <view class="next-time-container" wx:if="{{ (activity.show_notice == 1 && activity.activity_notice.show_countdown) || (activity.show_notice == 2 && activity.time_notice.show_countdown) }}" >
         <text style="margin-right: 20rpx;">团购开始倒计时</text>
         <text class="time">{{sh.getH(activity.next_group_time - now) || '00'}}</text>
         <text class="split">:</text>
@@ -67,7 +67,7 @@
     </block>
 
     <view wx:else class="avatar-container">
-      <block wx:if="{{ group.end_time > now }}">
+      <block wx:if="{{ group.end_time < now }}">
         <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < 3 }}" class="empty-avatar item">?</text>
       </block>
       <block wx:else>
@@ -133,7 +133,7 @@
 
   <!-- 当前有正在进行的团，notice 显示在下面 -->
   <block wx:if="{{ group.state != 'completed' && group.end_time >= now }}">
-    <block wx:if="{{ activity.time_notice.length > 0 }}">
+    <block wx:if="{{ activity.time_notice.content.length > 0 }}">
       <view class="group-container">
         <view class="time-container">
           <text class="desc">{{ activity.time_notice.content }}</text>
@@ -172,7 +172,7 @@
   <view class="actions">
     <block wx:if="{{activity != null}}">
       <text wx:if="{{ activity.end_time < now || activity.state == 'completed' || activity.state == 'aborted' }}" class="btn btn-fill disabled">已结束</text>
-      <block wx:elif="{{ group.current_user_exist && group.state == 'completed' }}">
+      <block wx:elif="{{ (group.current_user_exist || user_completed_quantity >= activity.total_quanity_limit) && group.state == 'completed' }}">
         <text class="btn btn-fill disabled">您已参加过该活动</text>
         <button class="btn btn-fill" open-type="share">分享给好友</button>
       </block>
