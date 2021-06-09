@@ -69,6 +69,9 @@ class WebSocket {
       console.log('----------task open')
       console.log(res)
       this.state = 'open'
+      if (this.task == null) {
+        this.task = socketTask
+      }
 
       if (this.messageDispatch != null) {
         this.listen()

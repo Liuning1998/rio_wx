@@ -123,7 +123,6 @@ Page({
     if (this.data.socketTask != null) {
       try {
         this.data.socketTask.close()
-        this.data.userGroupSocketTask.close()
       } catch (error) {}
       this.setData({ socketTask: null })
     }
@@ -139,7 +138,6 @@ Page({
     if (this.data.socketTask != null) {
       try {
         this.data.socketTask.close()
-        this.data.userGroupSocketTask.close()
       } catch {}
       this.setData({ socketTask: null })
     }
@@ -450,7 +448,6 @@ Page({
         }
       }
     })
-    // this.setData({ userGroupSocketTask: userGroupSocketTask })
   },
 
   checkUserGroupMsg: function (msg) {

@@ -210,7 +210,7 @@ Page({
       product_limit_number: item.limit_number
     }
 
-    if(this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_id] != null && this.data.cartData.data['store_' + master.store_id].lineItems != null && this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id] != null) {
+    if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_id] != null && this.data.cartData.data['store_' + master.store_id].lineItems != null && this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id] != null) {
       let _quantity = this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id].quantity
 
       // 判断数量是否超过单品购买数量限制
