@@ -12,7 +12,7 @@
   <text class="li">6、团购商品不定期更新，具体商品以当次团购为准，如非质量问题不接受无理由退换货；</text>
   <text class="li">7、团购商品在成团价格基础上不在享受其他折扣优惠活动；</text>
   <text class="li">8、本活动养老助残卡里的养老券、失能券暂时不能使用；</text>
-  <text class="li">9、本活动的最终解释权归北京通养老助残卡服务中心公众号及金色家园小程序所有。</text>
+  <text class="li">9、本活动的最终解释权归“北京通养老助残卡服务中心”公众号及“金色家园”小程序所有。</text>
 
   <view class="btn-container">
     <text class="return-btn" bindtap="goback">确 定</text>

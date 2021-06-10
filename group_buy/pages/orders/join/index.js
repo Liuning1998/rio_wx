@@ -102,6 +102,7 @@ Page({
   },
 
   onShow: function () {
+    this.setData({now: Math.floor((new Date).getTime()/1000)})
     this.backParams = this.getBackParamsFromGlobal('params') || {}
     
     if (this.data.activity != null && this.data.activity.id != null && this.backParams.successPay != true) {
