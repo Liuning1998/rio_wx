@@ -15,7 +15,7 @@
 <scroll-view scroll-y='{{canScroll}}' class='page-container' style="height: 100%; overflow-y: scroll; " bindtouchstart='changeNavbar'>
   <view class="swiper-and-user" style="margin-top: {{pageMarginTop+44}}px;">
     <image class="su-background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_001.png" style="top: {{-pageMarginTop-44}}px"></image>
-    <view class="su-container" >
+    <view class="su-container {{ noticeText != null && noticeText.length > 0 && 'padding-top-88' }}" >
       <view wx:if="{{!authLoginStatus}}" class="defualt-user">
         <image class="default-avatar" src="/images/default_avatar.png"></image>
         <text>Hi~欢迎来到金色家园小程序</text>
