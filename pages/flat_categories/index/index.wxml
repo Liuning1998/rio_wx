@@ -1,0 +1,97 @@
+<!--pages/flat_categories/index/index.wxml-->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<navbar returnAble="{{false}}" appendStyle="background: #ffffff;" textStyle="color: #333333; font-weight: 600;" title="商品分类" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class="search-btn-container" style="top: {{pageMarginTop+44}}px">
+  <view class="search-btn" bindtap="showSearchLayer">
+    <image src="/images/search_icon_003.png"></image>
+    <text>搜索商品</text>
+  </view>
+</view>
+
+<view class="main-container">
+  <view class="category-container ">
+    <!-- <view class="category-list-container">
+      <view bindtap="changeCategory" data-item="{{ item }}" wx:for="{{categories}}" wx:key="index" class="category-item-container {{ item.id == currentCategory.id && 'active' }}">
+        <text>{{item.name}}</text>
+        <view class="line"></view>
+        <view class="current-dot"></view>
+      </view>
+    </view> -->
+
+    <view class="current-category">
+      <image wx:if="{{ currentCategory.image.length > 0 }}" class="category-banner" src="{{ currentCategory.image }}"></image>
+
+      <view class="products-container">
+        <view class="product-container" wx:for="{{ products['id_'+currentCategory.id] }}" wx:key="index">
+          <view class="avatar-container" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
+            <image class="avatar" src="{{ item.avatar }}"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
+              <text class="name">{{item.name}}</text>
+              <!-- <view class="badges">
+                <text class="item">包邮</text>
+                <text class="item-fill">赠品</text>
+              </view> -->
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="price-int">{{price.int(item.price)}}</text>
+                <text class="price-decimal">{{price.decimal(item.price)}}</text>
+              </view>
+              <text class="add-cart" catchtap="addCartAndAnimation" data-item="{{item}}">+</text>
+            </view>
+          </view>
+
+          <view class="line"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="category-list-container fixed">
+  <view style="width: 184rpx; height: {{pageMarginTop+44}}px; background: #fff; flex-shrink: 0;"></view>
+  <view style="width: 184rpx; height: 112rpx; background: #fff; flex-shrink: 0;"></view>
+  <view class="scroll" style="background: #fff;">
+    <view bindtap="changeCategory" data-item="{{ item }}" wx:for="{{categories}}" wx:key="index" class="category-item-container {{ item.id == currentCategory.id && 'active' }} neighbor-{{index-currentIndex}}">
+      <text>{{item.name}}</text>
+      <view wx:if="{{ index == (currentIndex - 1 ) }}" class="line" style="background: #f7f7f7;"></view>
+      <view wx:else class="line"></view>
+      <view class="current-dot"></view>
+    </view>
+
+    <view class="neighbor-{{categories.length - currentIndex}}" style="width: 100%; height: 100rpx; background: #f7f7f7;"></view>
+  </view>
+</view>
+
+<view wx:if="{{ showSearch }}" class="search-layer" style="top: {{pageMarginTop + 44}}px;">
+  <view class="search-container">
+    <view class="input-group">
+      <image class="icon" src="/images/search_icon_003.png"></image>
+      <input bindinput='inputChange' data-name='searchKey' value='{{ searchKey }}' focus="{{searchFocus}}" confirm-type="search" bindconfirm="search" />
+      <view bindtap="clearSearchInput" class="clear">
+        <text>x</text>
+      </view>
+    </view>
+    <text bindtap="cancelSearch" class="cancel-btn">取消</text>
+  </view>
+</view>
+
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
+
+<view catchtap="gotoCart1" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view>
+
+<view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view>

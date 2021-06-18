@@ -4,9 +4,22 @@
 <wxs module="product" src="../../utils/product.wxs"></wxs>
 <wxs module="helper" src="./helper.wxs"></wxs>
 
-<navbar returnAble="{{false}}" appendStyle="background: {{ scollStatus ? '#ffffff' : '#ffffff00;'}}" textStyle="color: {{scollStatus ? '#333333' : '#ffffff'}}; font-weight: 600;" title="金色家园" />
+<!-- <navbar returnAble="{{false}}" appendStyle="background: {{ scollStatus ? '#ffffff' : '#ffffff00;'}}" textStyle="color: {{scollStatus ? '#333333' : '#ffffff'}}; font-weight: 600;" title="金色家园" /> -->
 <!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
-
+<view class="navbar" style='margin-top: {{pageMarginTop}}px;'>
+  <view class="navbar-container">
+    <text class="title">金色家园</text>
+    <view class="search-btn-container">
+      <view style="height: 64rpx; width: 100%;" >
+        <view class="search-btn" bindtap="showSearchLayer">
+          <image src="/images/search_icon_002.png"></image>
+          <text>搜索商品</text>
+        </view>
+      </view>
+    </view>
+    <text class="title" style="opacity: 0;">金色家园</text>
+  </view>
+</view>
 
 <view class="navbar-background" style="height: {{pageMarginTop+45}}px;">
   <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_001.png"></image>    
@@ -56,7 +69,7 @@
   </view>
 
   <view class="store-container">
-    <swiper indicator-dots="{{false}}" circular="{{false}}" class="{{ specialAreas[0].length > 4 ? 'tow-row' : '' }}">
+    <swiper indicator-dots="{{false}}" circular="{{false}}" class="{{ specialAreas[0].length > 4 ? 'tow-row' : '' }}" bindchange='changeSpecailAreaSwiperCurrent'>
       <swiper-item wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
         <view bindtap="gotoShow" data-item="{{item}}" class="store-item" wx:for="{{ group }}" wx:for-item="item" wx:key="index">
           <view class="logo-container"><image src="{{item.logo}}"></image></view>
@@ -65,6 +78,9 @@
       </swiper-item>
     </swiper>
     
+    <view wx:if="{{ specialAreas.length > 1 }}" class="special-area-swiper-dots-container">
+      <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < specialAreas.length }}" class="dot {{ index == specialAreaSwiperCurrent && 'active' }}"></view>
+    </view>
   </view>
 
     <!-- 团购商品 -->
@@ -155,7 +171,7 @@
 
 
 <image wx:if="{{noticeText == null || noticeText.length <= 0}}" src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 14rpx;"></image>
-<image wx:else src="/images/loading_002.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
+<image wx:else src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
 
 <msgToast msg-data="{{ _msgData }}"/>
 
@@ -185,6 +201,43 @@
         <text class="float-notice-text">{{ noticeText }}</text>
         <text class="float-notice-text">{{ noticeText }}</text>
       </view>
+    </view>
+  </view>
+</view>
+
+
+<!-- <view wx:if="{{ showSearch }}" class="search-layer" style="top: 0;">
+  <view style="height: {{pageMarginTop + 44}}px; width: 750rpx;"></view>
+  <view wx:if="{{ noticeText != null && noticeText.length > 0 }}" style="height: 88rpx; width: 750rpx;"></view>
+  <view class="search-container">
+    <view class="search-container-01">
+      <view class="input-group">
+        <image class="icon" src="/images/search_icon_003.png"></image>
+        <input bindinput='inputChange' data-name='searchKey' value='{{ searchKey }}' focus="{{searchFocus}}" confirm-type="search" bindconfirm="search" />
+        <view bindtap="clearSearchInput" class="clear">
+          <text>x</text>
+        </view>
+      </view>
+      <text bindtap="cancelSearch" class="cancel-btn">取消</text>
+    </view>
+  </view>
+</view> -->
+
+<view wx:if="{{ showSearch }}" class="search-layer-1" style="top: 0;">
+  <view class="search-title" style="height: {{pageMarginTop + 44}}px; padding-top: {{pageMarginTop}}px; width: 750rpx; background: #fff;">
+    <text>搜索商品</text>
+  </view>
+  <!-- <view wx:if="{{ noticeText != null && noticeText.length > 0 }}" style="height: 88rpx; width: 750rpx; background:#fff;"></view> -->
+  <view class="search-container">
+    <view class="search-container-01">
+      <view class="input-group">
+        <image class="icon" src="/images/search_icon_003.png"></image>
+        <input bindinput='inputChange' data-name='searchKey' value='{{ searchKey }}' focus="{{searchFocus}}" confirm-type="search" bindconfirm="search" />
+        <view bindtap="clearSearchInput" class="clear">
+          <text>x</text>
+        </view>
+      </view>
+      <text bindtap="cancelSearch" class="cancel-btn">取消</text>
     </view>
   </view>
 </view>

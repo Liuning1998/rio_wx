@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "分类",
+  "usingComponents": {
+    "navbar": "../../components/navbar/index"
+  },
+  "enablePullDownRefresh": true
+}

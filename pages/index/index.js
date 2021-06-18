@@ -21,6 +21,7 @@ Page({
     tryProduct: null,
     noticeText: null,
     swiperCurrent: 0,
+    specialAreaSwiperCurrent: 0,
     pageBottom: false
   },
 
@@ -63,6 +64,7 @@ Page({
     this.loadCartInfo()
     this.setData({ canScroll: true })
     this.getUserInfo()
+    this.cancelSearch()
   },
 
   getRecommendProducts: function (pageNo) {
@@ -392,6 +394,10 @@ Page({
     this.setData({ swiperCurrent: e.detail.current })
   },
 
+  changeSpecailAreaSwiperCurrent: function (e) {
+    this.setData({ specialAreaSwiperCurrent: e.detail.current })
+  },
+
   changeNavbar: function () {
     this.checkNavbar()
     setTimeout(res => {
@@ -466,4 +472,48 @@ Page({
     wx.navigateTo({ url: '/group_buy/pages/products/index/index?id=' + item.id })
   },
   
+  inputChange: function (e) {
+    var options = {}
+    options[e.currentTarget.dataset.name] = e.detail.value
+    this.setData(options)
+  },
+
+  clearSearchInput: function () {
+    this.setData({ searchKey: '' })
+    this.focusSearchInput()
+  },
+
+  focusSearchInput: function () {
+    this.setData({ searchFocus: true })
+  },
+
+  clearFocusSearchInput: function () {
+    this.setData({ searchFocus: false })
+  },
+
+  showSearchLayer: function () {
+    wx.setNavigationBarColor({
+      backgroundColor: '#ffffff',
+      frontColor: '#000000',
+    })
+    this.setData({ showSearch: true, searchFocus: true })
+  },
+
+  cancelSearch: function () {
+    wx.setNavigationBarColor({
+      backgroundColor: '#000000',
+      frontColor: '#ffffff',
+    })
+
+    this.setData({ showSearch: false, searchKey: '' })
+  },
+
+  search: function () {
+    if (this.data.searchKey.length <= 0) {
+      return
+    }
+
+    // console.log('sss')
+    this.navigateTo("/products/pages/search_all/index?searchKey="+this.data.searchKey)
+  },
 })

@@ -67,7 +67,6 @@ page {
 }
 
 .su-container {
-  padding-top: 24rpx;
   position: relative;
   z-index: 5;
 }
@@ -79,6 +78,7 @@ page {
 .swiper-and-user .user-info {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 32rpx;
   box-sizing: border-box;
 }
@@ -219,6 +219,31 @@ page {
   width: 24rpx;
   background: #ffffff;
 }
+
+.special-area-swiper-dots-container {
+  position: absolute;
+  left: 0;
+  bottom: 0rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 82;
+}
+
+.special-area-swiper-dots-container .dot {
+  width: 6px;
+  height: 3px;
+  background: #dddddd;
+  box-sizing: border-box;
+  margin: 0 3px;
+  border-radius: 1rpx;
+}
+
+.special-area-swiper-dots-container .dot.active {
+  width: 24rpx;
+  background: #aaaaaa;
+}
 /* 用户信息、轮播图 */
 
 /* 商铺图标 */
@@ -226,7 +251,9 @@ page {
   display: flex;
   flex-wrap: wrap;
   padding: 0 30rpx;
+  padding-bottom: 20rpx;
   margin-top: 20rpx;
+  position: relative;
   /* justify-content: space-between; */
 }
 
@@ -714,3 +741,241 @@ page {
   width: 702rpx;
 }
 /* 团购商品 */
+
+
+/* 搜索框1 */
+.search-btn-container {
+  display: flex;
+  width: 336rpx;
+  /* padding: 24rpx; */
+  box-sizing: border-box;
+  /* position: fixed; */
+  /* z-index: 31; */
+  background: #ffffff00;
+}
+
+.search-btn-container image {
+  height: 28rpx;
+  width: 28rpx;
+  display: flex;
+  margin-right: 8rpx;
+}
+
+.search-btn-container .search-btn {
+  height: 60rpx;
+  width: 336rpx;
+  background: rgba(255,255,255,0.20);
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.50);
+  font-size: 28rpx;
+}
+/* 搜索框1 */
+
+/* 搜索层 */
+.search-layer {
+  position: fixed;
+  background: rgba(0,0,0,0.2);
+  width: 750rpx;
+  height: 100%;
+  z-index: 951;
+}
+
+.search-layer .icon {
+  height: 28rpx;
+  width: 28rpx;
+  display: flex;
+  margin-right: 8rpx;
+}
+
+.search-layer .search-container {
+  width: 750rpx;
+  background: #ffffff00;
+  display: flex;
+  align-items: center;
+  height: 112rpx;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+}
+
+.search-layer .search-container-01 {
+  width: 750rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 32rpx;
+  overflow: hidden;
+}
+
+.search-layer .input-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 622rpx;
+  height: 64rpx;
+  background: #f7f7f7;
+  /* border-radius: 32rpx; */
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.search-layer .input-group input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #2B2424;
+}
+
+.search-layer .input-group .clear{
+  height: 60rpx;
+  width: 60rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  right: -10rpx;
+}
+
+.search-layer .input-group .clear text {
+  display: inline-block;
+  width: 28rpx;
+  height: 28rpx;
+  background: #B4AFAF;
+  color: #ffffff;
+  font-size: 20rpx;
+  line-height: 26rpx;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+.search-layer .cancel-btn {
+  font-size: 28rpx;
+  color: #5B5454;
+  flex-shrink: 0;
+  padding: 0 24rpx;
+}
+
+.search-layer-1 {
+  position: fixed;
+  background: rgba(0,0,0,0.15);
+  width: 750rpx;
+  height: 100%;
+  z-index: 9951;
+}
+
+.search-layer-1 .search-container-01 {
+  width: 750rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 32rpx;
+  overflow: hidden;
+}
+
+.search-layer-1 .search-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 36rpx;
+  color: #2B2424;
+  font-weight: 600;
+  font-size: 36rpx;
+  height: 44px;
+  line-height: 44px;
+  box-sizing: border-box;
+}
+
+.search-layer-1 .icon {
+  height: 28rpx;
+  width: 28rpx;
+  display: flex;
+  margin-right: 8rpx;
+}
+
+.search-layer-1 .search-container {
+  width: 750rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  height: 112rpx;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+}
+
+.search-layer-1 .input-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 622rpx;
+  height: 64rpx;
+  background: #f7f7f7;
+  border-radius: 32rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.search-layer-1 .input-group input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #2B2424;
+}
+
+.search-layer-1 .input-group .clear{
+  height: 60rpx;
+  width: 60rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  right: -10rpx;
+}
+
+.search-layer-1 .input-group .clear text {
+  display: inline-block;
+  width: 28rpx;
+  height: 28rpx;
+  background: #B4AFAF;
+  color: #ffffff;
+  font-size: 20rpx;
+  line-height: 26rpx;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+.search-layer-1 .cancel-btn {
+  font-size: 28rpx;
+  color: #5B5454;
+  flex-shrink: 0;
+  padding-left: 24rpx;
+}
+/* 搜索层 */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 750rpx;
+  z-index: 990;
+}
+
+.navbar .navbar-container {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.navbar .navbar-container .title {
+  font-size: 36rpx;
+  color: #ffffff;
+  font-weight: 500;
+}

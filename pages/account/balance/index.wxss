@@ -1,0 +1,21 @@
+/* pages/account/balance/index.wxss */
+
+page {
+  background: #f7f7f7;
+}
+
+.empty-container {
+  margin-top: 304rpx;
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28rpx;
+  color: #2B2424;
+}
+
+.empty-container image {
+  width: 480rpx;
+  height: 244rpx;
+  margin-bottom: 44rpx;
+}

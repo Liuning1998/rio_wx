@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/flat_categories/index/index",
     "web/pages/common/index",
     "group_buy/pages/products/index/index",
     "pages/orders/cart/index",
@@ -10,6 +11,7 @@
     "pages/addresses/index/index",
     "pages/special_areas/show/index",
     "pages/account/index/index",
+    "pages/account/show/index",
     "pages/coupons/dashboard/index",
     "pages/orders/index/index",
     "pages/products/show/index",
@@ -27,6 +29,7 @@
     "pages/special_areas/show01/index",
     "pages/card_home/index",
     "products/pages/search/index",
+    "products/pages/search_all/index",
     "pages/addresses/edit/index",
     "pages/products/index/index",
     "pages/products/buy/index",
@@ -70,6 +73,12 @@
         "text": "商城",
         "iconPath": "/images/home.png",
         "selectedIconPath": "/images/home_active.png"
+      },
+      {
+        "pagePath": "pages/flat_categories/index/index",
+        "text": "分类",
+        "iconPath": "/images/category.png",
+        "selectedIconPath": "/images/category_active.png"
       },
       {
         "pagePath": "pages/orders/index/index",
