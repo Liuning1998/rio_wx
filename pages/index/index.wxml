@@ -223,12 +223,12 @@
   </view>
 </view> -->
 
-<view wx:if="{{ showSearch }}" class="search-layer-1" style="top: 0;">
-  <view class="search-title" style="height: {{pageMarginTop + 44}}px; padding-top: {{pageMarginTop}}px; width: 750rpx; background: #fff;">
+<view wx:if="{{ showSearch }}" bindtap="hideSearch" class="search-layer-1" style="top: 0;">
+  <view catchtap="{{false}}" class="search-title" style="height: {{pageMarginTop + 44}}px; padding-top: {{pageMarginTop}}px; width: 750rpx; background: #fff;">
     <text>搜索商品</text>
   </view>
   <!-- <view wx:if="{{ noticeText != null && noticeText.length > 0 }}" style="height: 88rpx; width: 750rpx; background:#fff;"></view> -->
-  <view class="search-container">
+  <view catchtap="{{false}}" class="search-container">
     <view class="search-container-01">
       <view class="input-group">
         <image class="icon" src="/images/search_icon_003.png"></image>

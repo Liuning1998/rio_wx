@@ -508,6 +508,15 @@ Page({
     this.setData({ showSearch: false, searchKey: '' })
   },
 
+  hideSearch: function () {
+    wx.setNavigationBarColor({
+      backgroundColor: '#000000',
+      frontColor: '#ffffff',
+    })
+
+    this.setData({ showSearch: false })
+  },
+
   search: function () {
     if (this.data.searchKey.length <= 0) {
       return

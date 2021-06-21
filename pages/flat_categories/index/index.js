@@ -48,10 +48,10 @@ Page({
 
   fetchProducts: function (categoryId, refresh) {
     if (categoryId == null) { return false }
-    var key = `products_${categoryId}`
+    var key = `id_${categoryId}`
     var length = 0
-    if (this.data[key] != null) {
-      length = this.data[key].length
+    if (this.data.products[key] != null) {
+      length = this.data.products[key].length
     }
     var page = Math.floor(length/getApp().globalData.perPage) + 1
     if (refresh) {
@@ -107,6 +107,9 @@ Page({
     }
 
     this.setCurentIndex(category, this.data.categories)
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
   },
 
   setCurentIndex: function (current, categroies) {
@@ -146,6 +149,10 @@ Page({
 
   cancelSearch: function () {
     this.setData({ showSearch: false, searchKey: '' })
+  },
+
+  hideSearch: function () {
+    this.setData({ showSearch: false })
   },
 
   search: function () {

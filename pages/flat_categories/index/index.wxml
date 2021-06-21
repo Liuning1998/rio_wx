@@ -67,8 +67,8 @@
   </view>
 </view>
 
-<view wx:if="{{ showSearch }}" class="search-layer" style="top: {{pageMarginTop + 44}}px;">
-  <view class="search-container">
+<view wx:if="{{ showSearch }}" bindtap="hideSearch" class="search-layer" style="top: {{pageMarginTop + 44}}px;">
+  <view class="search-container" catchtap="{{false}}">
     <view class="input-group">
       <image class="icon" src="/images/search_icon_003.png"></image>
       <input bindinput='inputChange' data-name='searchKey' value='{{ searchKey }}' focus="{{searchFocus}}" confirm-type="search" bindconfirm="search" />
