@@ -45,7 +45,7 @@
             </view>
           </view>
 
-          <view class="line"></view>
+          <view wx:if="{{ index < products['id_'+currentCategory.id].length - 1 }}" class="line"></view>
         </view>
       </view>
     </view>

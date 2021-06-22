@@ -2,6 +2,10 @@
 
 // group_buy_activities 返回值中 no_websocket 为true时，websocket 不订阅该接口信息
 
+// var key = `specialInfoForGroupBuy#id_${specialAreaId}`
+// // 做一个3分钟缓存
+// storage.setSyncWithExpire(key, res.data, 180)
+
 var http = require('../../../../utils/http.js')
 var websocket = require('../../../../utils/websocket.js')
 var md5 = require('../../../../utils/md5.js')
@@ -566,6 +570,16 @@ Page({
   // 获取商品推荐数据
   // id 7 伊利专区，临时代码
   getSpecialInfo: function () {
+    var key = `specialInfoForGroupBuy#id_${specialAreaId}`
+    var data = storage.getSyncWithExpire(key)
+    if (data != '' && data != null) {
+      this.setData({ specialProducts: data })
+    } else {
+      this.getSpecialInfoFromServer()
+    }
+  },
+
+  getSpecialInfoFromServer: function () {
     http.get({
       url: `api/special_areas/${specialAreaId}/fine_products`,
       success: res => {
@@ -573,6 +587,10 @@ Page({
           this.setData({
             specialProducts: res.data
           })
+
+          var key = `specialInfoForGroupBuy#id_${specialAreaId}`
+          // 做一个3分钟缓存
+          storage.setSyncWithExpire(key, res.data, 180)
         }
       }
     })

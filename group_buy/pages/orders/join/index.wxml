@@ -50,6 +50,7 @@
       </view>
     </block>
 
+    <view wx:if="{{ group == null }}" style="width: 100%; height: 44rpx;"></view>
     <text class="quantity-limit-notice">数量有限，售完即止！</text>
 
     <!-- 当有提示要显示时头像为空 -->
@@ -60,6 +61,7 @@
     </view> -->
 
     <!-- 当前用户已支付且支付人数3，当前用户拼团完成 -->
+    <block wx:if="{{ group != null }}">
     <block wx:if="{{ group.state == 'completed' && group.current_user_exist }}">
       <view class="success-container">
         <image src="../../../images/success_group.png" style="width: 396rpx; height: 224rpx"></image>
@@ -83,6 +85,13 @@
         </block>
       </block>
     </view>
+    </block>
+
+    <block wx:else>
+      <view class="avatar-container">
+        <text wx:for="{{'01234567890123456789'}}" wx:key="item" wx:if="{{index < 3 }}" class="empty-avatar item">?</text>
+      </view>
+    </block>
 
     <!-- <view class="member-desc"  wx:if="{{ !(helper.formatGroup(group, umd5, showSuccessPay).state == 'completed' && helper.formatGroup(group, umd5, showSuccessPay).completeMembers.length >= 3) }}">
       <text>共<text class="m-quantity">{{group.members.length || 0}}</text>人参团，{{activity.one_duration_h * 60 || 0}}分钟内人数不足自动退款</text>
@@ -185,6 +194,10 @@
         <text wx:if="{{userInfo.kzx_user_identification == 1}}" bindtap="gotoConfirm" class="btn btn-fill">立即参团</text>
         <text wx:else class="btn btn-fill disabled">立即参团</text>
       </block>
+    </block>
+
+    <block wx:else>
+      <text class="btn btn-fill disabled">立即参团</text>
     </block>
     
     <!-- <text class="btn" bindtap="goback">返回</text> -->
