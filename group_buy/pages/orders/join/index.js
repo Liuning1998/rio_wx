@@ -711,9 +711,9 @@ Page({
 
     if (current_user_group != null && current_user_group.state == 'completed') {
       lastGroup.current_user_exist = true
-      var members = group.members.filter(item => {
-        item.state == 'completed' && item.md5 == !current_user_group.md5
-      })
+      var members = group.members.filter(item =>
+        item.state == 'completed' && item.md5 != current_user_group.md5
+      )
       if (members.length >= 2) {
         lastGroup.members.push(members[0])
         lastGroup.members.push(members[1])
