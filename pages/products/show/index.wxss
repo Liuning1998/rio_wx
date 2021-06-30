@@ -341,7 +341,7 @@ page {
   color: #2B2424;
   font-weight: 500;
   margin-right: 16rpx;
-  width: 104rpx;
+  width: 120rpx;
 }
 
 .coupon-container .li {
@@ -402,7 +402,7 @@ page {
   color: #2B2424;
   font-weight: 500;
   margin-right: 16rpx;
-  width: 104rpx;
+  width: 120rpx;
 }
 
 .variant-info .desc {
@@ -428,7 +428,7 @@ page {
   color: #2B2424;
   font-weight: 500;
   margin-right: 16rpx;
-  width: 104rpx;
+  width: 120rpx;
   flex-shrink: 0;
 }
 
@@ -1094,3 +1094,72 @@ page {
   left: 0;
   z-index: 303; */
 }
+
+/* 区域限制 */
+.area-limit {
+  width: 750rpx;
+  min-height: 112rpx;
+  padding: 0 24rpx 40rpx 24rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  background: #ffffff;
+}
+
+.area-limit-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  background-image: linear-gradient(90deg, rgba(246,76,71,0.05) 0%, rgba(246,76,71,0.05) 98%);
+  border-radius: 4px;
+  border-radius: 4px;
+  padding: 24rpx 16rpx;
+  box-sizing: border-box;
+}
+
+.area-limit-container .icon{
+  height: 40rpx;
+  width: 40rpx;
+  margin-right: 12rpx;
+  position: relative;
+  top: 4rpx;
+  flex-shrink: 0;
+}
+
+.area-limit .label {
+  display: inline-block;
+  font-size: 28rpx;
+  color: #2B2424;
+  font-weight: 500;
+  margin-right: 16rpx;
+  /* width: 140rpx; */
+  flex-shrink: 0;
+}
+
+.area-limit .line {
+  width: 1rpx;
+  height: 16rpx;
+  background: #2B2424;
+  margin-right: 16rpx;
+  position: relative;
+  top: 14rpx;
+}
+
+.area-limit .areas {
+  display: flex;
+  font-size: 28rpx;
+  color: #5B5454;
+  max-width: 520rpx;
+  display: inline-block;
+}
+
+.area-limit .areas text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+}
+/* 区域限制 */

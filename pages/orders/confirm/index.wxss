@@ -621,6 +621,16 @@ page {
   position: relative;
 }
 
+.pay-notice-content .pn-header.new {
+  border-bottom: 1px solid #eeeeee;
+  height: 88rpx;
+  width: 640rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pay-notice-content .pn-header .close {
   /* width: 24rpx;
   height: 20rpx; */
@@ -645,6 +655,7 @@ page {
   box-sizing: border-box;
   font-size: 32rpx;
   color: #333333;
+  text-align: justify;
 }
 
 .pay-notice-content .pn-content .protocol {

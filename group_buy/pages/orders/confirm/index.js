@@ -13,7 +13,8 @@ Page({
   data: {
     submitStatus: false,
     shipAddress: {},
-    product: null
+    product: null,
+    showAddressNotice: false
   },
 
   /**
@@ -57,6 +58,11 @@ Page({
 
     if (!this.data.protocolStatus) {
       this.errorToast('请先阅读并同意《“金色家园”团购活动规则》')
+      return false
+    }
+
+    if (this.data.area_limit) {
+      this.errorToast("订单中的商品\n不在所选送货地址区域销售", 2000)
       return false
     }
 
@@ -155,24 +161,33 @@ Page({
         success: (data) => {
           // 验证地址是否还存在
           if (data.from_type == 'localStorage') {
-            this.setData({ shipAddress: data })
+            // this.setData({ shipAddress: data })
+            this.setShipAddress(data)
           } else {
             http.get({
               url: 'api/ship_addresses/' + data.id,
               success: res => {
-                this.setData({ shipAddress: data })
+                // this.setData({ shipAddress: data })
+                this.setShipAddress(data)
               },
               fail: res => {
                 storage.delSync('ship_address')
+                this.setShipAddress({})
               }
             })
           }
         },
         fail: (res) => {
           console.log('获取地址失败')
+          this.setShipAddress({})
         }
       })
     }
+  },
+
+  setShipAddress: function (data) {
+    this.setData({ shipAddress: data })
+    this.checkAreaLimit(this.data.storeCart, data)
   },
 
   selectAddress: function () {
@@ -439,7 +454,42 @@ Page({
     this.navigateBack({
       waitPay: true
     })
-  }
+  },
+
+  checkAreaLimit: function (storeCart, shipaddress) {
+    var result = false
+    if (shipaddress != null && shipaddress.province != null) {
+      for(var i in storeCart.lineItems) {
+        var lineItem = storeCart.lineItems[i]
+        if (!lineItem.selectStatus) { continue }
+        
+        if (lineItem.product.area_limit != null && lineItem.product.area_limit.area_limit != null && lineItem.product.area_limit.area_limit.length > 0) {
+          for(var j in lineItem.product.area_limit.area_limit) {
+            var lm = lineItem.product.area_limit.area_limit[j]
+            if (lm != null && shipaddress.province.match(lm)) {
+              result = true
+              lineItem.area_limit = true
+              break
+            }
+          }
+        }
+      }
+    }
+
+    if (result && this.data.showPayNotice != true) {
+      this.setData({ showAddressNotice: true })
+    }
+
+    this.setData({ storeCart: storeCart, area_limit: result })
+  },
+
+  addressNoticeCancelBtn: function (params) {
+    this.setData({ showAddressNotice: false })
+  },
+  
+  addressNoticeConfirmBtn: function () {
+    this.setData({ showAddressNotice: false })
+  },
 
   /**
    * 用户点击右上角分享
