@@ -19,7 +19,8 @@ Page({
     avatars: {},
     showVariantLayer: false,
     userInfo: {},
-    lineItems: []
+    lineItems: [],
+    showAddressNotice: false
   },
 
   /**
@@ -78,6 +79,11 @@ Page({
   createOrder: function () {
     if (this.data.shipAddress == null || this.data.shipAddress.id == null) {
       this.errorToast('请先选择收货地址')
+      return false
+    }
+
+    if (this.data.area_limit) {
+      this.errorToast("订单中的商品\n不在所选送货地址区域销售", 2000)
       return false
     }
 
@@ -267,16 +273,19 @@ Page({
         success: (data) => {
           // 验证地址是否还存在
           if (data.from_type == 'localStorage') {
-            this.setData({ shipAddress: data })
+            // this.setData({ shipAddress: data })
+            this.setShipAddress(data)
           } else {
             http.get({
               url: 'api/ship_addresses/' + data.id,
               success: res => {
-                this.setData({ shipAddress: data })
+                // this.setData({ shipAddress: data })
+                this.setShipAddress(data)
               },
               fail: res => {
                 storage.delSync('ship_address')
-                this.setData({ shipAddress: {} })
+                // this.setData({ shipAddress: {} })
+                this.setShipAddress({})
               }
             })
           }
@@ -285,11 +294,17 @@ Page({
           console.log('获取地址失败')
           if (res.data != null && res.data.code == 100123) {
             storage.delSync('ship_address')
-            this.setData({ shipAddress: {} })
+            // this.setData({ shipAddress: {} })
+            this.setShipAddress({})
           }
         }
       })
     }
+  },
+
+  setShipAddress: function (data) {
+    this.setData({ shipAddress: data })
+    this.checkAreaLimit(this.data.storeCart, data)
   },
 
   selectAddress: function () {
@@ -397,5 +412,40 @@ Page({
     }
 
     this.setData({ lineItems: lineItems })
+  },
+  
+  checkAreaLimit: function (storeCart, shipaddress) {
+    var result = false
+    if (shipaddress != null && shipaddress.province != null) {
+      for(var i in storeCart.lineItems) {
+        var lineItem = storeCart.lineItems[i]
+        if (!lineItem.selectStatus) { continue }
+
+        if (lineItem.product.area_limit != null && lineItem.product.area_limit.area_limit != null && lineItem.product.area_limit.area_limit.length > 0) {
+          for(var j in lineItem.product.area_limit.area_limit) {
+            var lm = lineItem.product.area_limit.area_limit[j]
+            if (lm != null && shipaddress.province.match(lm)) {
+              result = true
+              lineItem.area_limit = true
+              break
+            }
+          }
+        }
+      }
+    }
+
+    if (result && this.data.showPayNotice != true) {
+      this.setData({ showAddressNotice: true })
+    }
+
+    this.setData({ storeCart: storeCart, area_limit: result })
+  },
+
+  addressNoticeCancelBtn: function (params) {
+    this.setData({ showAddressNotice: false })
+  },
+
+  addressNoticeConfirmBtn: function () {
+    this.setData({ showAddressNotice: false })
   },
 })

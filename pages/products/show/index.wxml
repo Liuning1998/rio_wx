@@ -72,6 +72,34 @@
         <!-- <text class="desc">{{ product.description }}</text> -->
       </view>
 
+      <block wx:if="{{ product.area_limit != null && ((product.area_limit.area_limit != null && product.area_limit.area_limit.length > 0) || (product.area_limit.area_only != null && product.area_limit.area_only.length > 0)) }}">
+        <view class="area-limit" wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
+          <view class="area-limit-container">
+            <image class="icon" src="/images/area_limit.png"></image>
+            <text class="label">不可售区域</text>
+            <view class="line"></view>
+            <view class="areas">
+              <text>
+                <block wx:for="{{product.area_limit.area_limit}}">{{item}} </block>
+              </text>
+            </view>
+          </view>
+        </view>
+
+        <view wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}" class="area-limit">
+          <view class="area-limit-container">
+            <image class="icon" src="/images/area_limit.png"></image>
+            <text class="label">可售区域</text>
+            <view class="line"></view>
+            <view class="areas">
+              <text>
+                <block wx:for="{{product.area_limit.area_only}}">{{item}} </block>
+              </text>
+            </view>
+          </view>
+        </view>
+      </block>
+
       <!-- <view class="coupon-container">
         <view class="coupon-border">
           <view class="coupon-content">

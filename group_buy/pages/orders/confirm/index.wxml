@@ -198,4 +198,26 @@
   </view>
 </view>
 
+<!-- 区域限制销售提示 -->
+<view wx:if="{{showAddressNotice && !showPayNotice}}" class="pay-notice-container">
+  <view class="pay-notice-content">
+    <view class="pn-header new">
+      <text class="pn-text header" decode="{{true}}">温馨提示</text>
+      <text bindtap="addressNoticeCancelBtn" class="close">x</text>
+    </view>
+
+    <view class="pn-content">
+      <view class="pn-content-body" style="margin-top: 20rpx; display: flex; align-items: center; flex-direction: column;">
+        <text class="pn-text footer" decode="{{true}}">检测到该商品不在所选的地址区域内销售，请确认后再购买。</text>
+      </view>
+
+      <view class="btn-group">
+        <!-- <text bindtap="addressNoticeCancelBtn" class="btn cancel">取消</text> -->
+        <text bindtap="addressNoticeConfirmBtn" class="btn confirm">确定</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 区域限制销售提示 -->
+
 <msgToast msg-data="{{ _msgData }}"/>
