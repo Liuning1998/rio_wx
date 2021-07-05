@@ -89,7 +89,7 @@
         <view wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}" class="area-limit">
           <view class="area-limit-container">
             <image class="icon" src="/images/area_limit.png"></image>
-            <text class="label">可售区域</text>
+            <text class="label">仅可售区域</text>
             <view class="line"></view>
             <view class="areas">
               <text>
