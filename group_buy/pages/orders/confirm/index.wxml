@@ -208,7 +208,7 @@
 
     <view class="pn-content">
       <view class="pn-content-body" style="margin-top: 20rpx; display: flex; align-items: center; flex-direction: column;">
-        <text class="pn-text footer" decode="{{true}}">检测到该商品不在所选的地址区域内销售，请确认后再购买。</text>
+        <text class="pn-text footer" decode="{{true}}">订单中商品在所选地区不支持销售，请确认后再购买。</text>
       </view>
 
       <view class="btn-group">

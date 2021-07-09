@@ -62,7 +62,7 @@ Page({
     }
 
     if (this.data.area_limit) {
-      this.errorToast("订单中的商品\n不在所选送货地址区域销售", 2000)
+      this.errorToast("订单中商品在所选地区不支持销售，请确认后再购买。", 2000)
       return false
     }
 
