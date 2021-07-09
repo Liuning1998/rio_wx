@@ -14,6 +14,8 @@ Page({
     order: {},
     expressExtend: false,
     showPayNotice: false,
+    payMethod: 'wx_pay',
+    showPayMethodLayer: false
   },
 
   /**
@@ -162,7 +164,12 @@ Page({
     var order = this.data.order
     var notice_flag = storage.getSync('pay_notice_flag')
     if (notice_flag) {
-      this.payOrder()
+      // if (this.data.payMethod == 'brcb_pay') {
+      //   this.getBrcbPayInfo(this.data.order)
+      // } else  {
+      //   this.payOrder()
+      // }
+      this.showPayMethod()
     } else {
       http.get({
         url: `api/orders/${order.number}/pay_notice`,
@@ -175,11 +182,21 @@ Page({
               payOrder: order
             })
           } else {
-            this.payOrder()
+            // if (this.data.payMethod == 'brcb_pay') {
+            //   this.getBrcbPayInfo(this.data.order)
+            // } else  {
+            //   this.payOrder()
+            // }
+            this.showPayMethod()
           }
         },
         fail: res => {
-          this.payOrder()
+          // if (this.data.payMethod == 'brcb_pay') {
+          //   this.getBrcbPayInfo(this.data.order)
+          // } else  {
+          //   this.payOrder()
+          // }
+          this.showPayMethod()
         }
       })
     }
@@ -205,7 +222,12 @@ Page({
     this.setData({ showPayNotice: false })
 
     var order = this.data.payOrder
-    this.payOrder()
+    // if (this.data.payMethod == 'brcb_pay') {
+    //   this.getBrcbPayInfo(this.data.order)
+    // } else  {
+    //   this.payOrder()
+    // }
+    this.showPayMethod()
   },
 
   payOrder: function () {
@@ -509,6 +531,90 @@ Page({
     var url = e.currentTarget.dataset.url
     this.navigateTo(url)
   },
+
+  // 选择支付方式
+  selectWxPay: function () {
+    this.setData({ payMethod: 'wx_pay' })
+  },
+
+  selectBrcbPay: function () {
+    this.setData({ payMethod: 'brcb_pay' })
+  },
+
+  hidePayMethod: function () {
+    this.setData({ showPayMethodLayer: false })
+  },
+
+  showPayMethod: function () {
+    this.setData({ showPayMethodLayer: true })
+  },
+
+  confirmPayMethod: function () {
+    // this.createOrder()
+    if (this.data.payMethod == 'brcb_pay') {
+      this.getBrcbPayInfo(this.data.order)
+    } else {
+      this.payOrder()
+    }
+    this.hidePayMethod()
+  },
+
+  getBrcbPayInfo: function (order) {
+    var $this = this
+    // params[:pay_params] = {
+    //   wx_pay_params: {
+    //     total: 100
+    //   },
+    //   cash_params: {
+    //     total: 100
+    //     cash_ids: [1,2]
+    //   }
+    // }
+    var paramsData = {
+      pay_params: {
+        brcb_pay_params: {
+          // total: '1',
+          total: order.total,
+        },
+      }
+    }
+    try {
+      var data = { }
+      http.post({
+        url: `api/orders/${order.number}/pay`,
+        data: paramsData,
+        success: function (res) {
+          if (res.data && res.data.Signature != null) {
+            // $this.wxPay(res.data.pay_p, res.data.pay_sign, order)
+            $this.gotoBrcbPay(order, res.data)
+          } else {
+            $this.errorToast("支付失败, 请稍后再试", 1500)
+            submitStatus = false
+            $this.setData({ submitStatus: submitStatus })
+          }
+        },
+        fail: function (res) {
+          $this.errorToast("支付失败, 请稍后再试", 1500)
+          submitStatus = false
+          $this.setData({ submitStatus: submitStatus })
+        }
+      })
+      return false
+    }
+    catch (e) {
+      console.log(e)
+      $this.errorToast("支付失败, 请稍后再试", 1500)
+      
+      submitStatus = false
+      $this.setData({ submitStatus: submitStatus })
+      return false
+    }
+  },
+
+  gotoBrcbPay: function (order, data) {
+    this.navigateTo(`/web/pages/brcb_pay/index/index?id=${order.number}`, data)
+  },
+  // 选择支付方式
 
   /**
    * 用户点击右上角分享
