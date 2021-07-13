@@ -1,4 +1,9 @@
 // pages/orders/show/index.js
+
+// 重要，支付
+// 取消支付后再次支付时，余额支付部分数据不可重新选择，否则会导致预支付出问题
+// 重要
+
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 var storage = require('../../../utils/storage.js')
@@ -231,6 +236,9 @@ Page({
   },
 
   payOrder: function () {
+    // 重要，支付
+    // 取消支付后再次支付时，余额支付部分数据不可重新选择，否则会导致预支付出问题
+    // 重要
     if (Object.keys(this.data.order).length <= 0) {
       return false
     }
@@ -560,6 +568,9 @@ Page({
   },
 
   getBrcbPayInfo: function (order) {
+    // 重要，支付
+    // 取消支付后再次支付时，余额支付部分数据不可重新选择，否则会导致预支付出问题
+    // 重要
     var $this = this
     // params[:pay_params] = {
     //   wx_pay_params: {
