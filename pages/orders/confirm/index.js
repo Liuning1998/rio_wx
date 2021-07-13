@@ -1,4 +1,9 @@
 // pages/products/buy/index.js
+
+// 余额支付部分，按照订单 discount_total 计算
+// 微信支付折扣api可以控制goods_tag处理
+// brcb 支付api 可以处理
+
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 var helper = require('../../../utils/helper.js')
@@ -184,7 +189,7 @@ Page({
       pay_params: {
         wx_pay_params: {
           // total: '1',
-          total: order.total,
+          total: order.discount_total,
         },
         // cash_params: {
         //   total: '1',
@@ -479,7 +484,7 @@ Page({
       pay_params: {
         brcb_pay_params: {
           // total: '1',
-          total: order.total,
+          total: order.discount_total,
         },
       }
     }

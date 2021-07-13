@@ -252,7 +252,7 @@ Page({
     var paramsData = {
       pay_params: {
         wx_pay_params: {
-          total: this.data.order.total,
+          total: this.data.order.discount_total,
         },
         // cash_params: {
         //   total: '0.05',
@@ -265,7 +265,7 @@ Page({
       var data = {}
       http.post({
         url: `api/orders/${this.data.order.number}/pay`,
-        // data: { pay_score_total: Math.round(this.data.order.total * 100) },
+        // data: { pay_score_total: Math.round(this.data.order.discount_total * 100) },
         data: paramsData,
         success: (res) => {
           if(res.status != null && typeof(res.status) != 'undefined') {
@@ -574,7 +574,7 @@ Page({
       pay_params: {
         brcb_pay_params: {
           // total: '1',
-          total: order.total,
+          total: order.discount_total,
         },
       }
     }

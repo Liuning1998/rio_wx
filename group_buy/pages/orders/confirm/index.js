@@ -222,7 +222,7 @@ Page({
       pay_params: {
         wx_pay_params: {
           // total: '0.05',
-          total: order.total,
+          total: order.discount_total,
         },
         // cash_params: {
         //   total: '0.05',
@@ -512,7 +512,7 @@ Page({
       pay_params: {
         brcb_pay_params: {
           // total: '1',
-          total: order.total,
+          total: order.discount_total,
         },
       }
     }

@@ -242,7 +242,7 @@ page {
 
 .special-area-swiper-dots-container .dot.active {
   width: 24rpx;
-  background: #aaaaaa;
+  background: #fa2c19;
 }
 /* 用户信息、轮播图 */
 
