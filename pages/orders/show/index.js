@@ -14,7 +14,7 @@ Page({
     order: {},
     expressExtend: false,
     showPayNotice: false,
-    payMethod: 'wx_pay',
+    payMethod: 'brcb_pay',
     showPayMethodLayer: false
   },
 

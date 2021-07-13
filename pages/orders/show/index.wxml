@@ -265,14 +265,14 @@
       <text bindtap="hidePayMethod" class="close">x</text>
     </view>
     <view class="pay-method-content">
+      <view bindtap="selectBrcbPay" class="pay-method-item">
+        <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view>
+        <text class="label">养老助残卡支付</text>
+      </view>
+      
       <view class="pay-method-item" bindtap="selectWxPay">
         <view class="checkbox {{ payMethod == 'wx_pay' && 'active' }}"><image src="/images/select.png"></image></view>
         <text class="label">微信支付</text>
-      </view>
-
-      <view bindtap="selectBrcbPay" class="pay-method-item">
-        <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view>
-        <text class="label">北京农商银行支付</text>
       </view>
     </view>
 

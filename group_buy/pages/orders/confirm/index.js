@@ -14,7 +14,7 @@ Page({
     submitStatus: false,
     shipAddress: {},
     product: null,
-    payMethod: 'wx_pay',
+    payMethod: 'brcb_pay',
     showPayMethodLayer: false
   },
 

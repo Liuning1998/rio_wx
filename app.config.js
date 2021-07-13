@@ -35,9 +35,11 @@ const ENV = 'development'
 const ENV_CONFIG = {
   development: {
     serverDomain: "rio-dev.jhqli.com",
+    brcbPayBaseUrl: "https://oces.test.bjrcb.com/dist/index.html"
   },
   production: {
-    serverDomain: "rio.jhqli.com"
+    serverDomain: "rio.jhqli.com",
+    brcbPayBaseUrl: "https://oces.test.bjrcb.com/dist/index.html"
   }
 }
 
@@ -57,7 +59,8 @@ function config(options) {
     cacheTime: 60,
     perPage: 10,
     phoneReg: /^[1][3456789][0-9]{9}$/,
-    env: ENV
+    env: ENV,
+    brcbPayBaseUrl: CURRENT_ENV.brcbPayBaseUrl
   })
 }
 

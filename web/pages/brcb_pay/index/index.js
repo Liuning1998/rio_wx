@@ -16,14 +16,28 @@ Page({
 
     var global = getApp().globalData
     var _params = this.params
-    var url = global.apiServer + 'h5/brcb_pay/pay?access_token=' + global.session.access_token
-    url = url + '&order_number=' + options.id
-    for (var key in _params) {
-      url = url + '&' + key + '=' + _params[key]
-    }
-
-    // url = 'https://rio-dev.jhqli.com/h5/brcb_pay/pay_notify?order_number=J5565870533464814392'
+    
+    // 通过页面跳转到支付
+    // var url = global.apiServer + 'h5/brcb_pay/pay?access_token=' + global.session.access_token
+    // url = url + '&order_number=' + options.id
+    // for (var key in _params) {
+    //   url = url + '&' + key + '=' + _params[key]
+    // }
+    
+    // 直接渲染支付页面
+    var url =  global.brcbPayBaseUrl + "?"
+    url = url + "transName=" + _params.transName
+    url = url + "&Plain=" + _params.Plain
+    url = url + "&Signature=" + _params.Signature
 
     this.setData({ webUrl: url })
   },
+
+  
+
+  postMessage: function (e) {
+    console.log('------------------11')
+    console.log(e)
+    
+  }
 })

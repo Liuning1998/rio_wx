@@ -20,7 +20,7 @@ Page({
     showVariantLayer: false,
     userInfo: {},
     lineItems: [],
-    payMethod: 'wx_pay',
+    payMethod: 'brcb_pay',
     showPayMethodLayer: false
   },
 
