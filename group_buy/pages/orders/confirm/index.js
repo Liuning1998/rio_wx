@@ -57,15 +57,15 @@ Page({
   },
 
   createOrder: function () {
-    // if (!this.data.storeCart.virtual && (this.data.shipAddress == null || this.data.shipAddress.id == null)) {
-    //   this.errorToast('请先选择收货地址')
-    //   return false
-    // }
+    if (!this.data.storeCart.virtual && (this.data.shipAddress == null || this.data.shipAddress.id == null)) {
+      this.errorToast('请先选择收货地址')
+      return false
+    }
 
-    // if (!this.data.protocolStatus) {
-    //   this.errorToast('请先阅读并同意《“金色家园”团购活动规则》')
-    //   return false
-    // }
+    if (!this.data.protocolStatus) {
+      this.errorToast('请先阅读并同意《“金色家园”团购活动规则》')
+      return false
+    }
 
     if (submitStatus) {
       return false
@@ -391,11 +391,12 @@ Page({
   checkPayNotice: function (order) {
     var notice_flag = storage.getSync('pay_notice_flag')
     if (notice_flag) {
-      if (this.data.payMethod == 'brcb_pay') {
-        this.getBrcbPayInfo(order)
-      } else {
-        this.getPayInfo(order)
-      }
+      // if (this.data.payMethod == 'brcb_pay') {
+      //   this.getBrcbPayInfo(order)
+      // } else {
+      //   this.getPayInfo(order)
+      // }
+      this.showPayMethod()
     } else {
       http.get({
         url: `api/orders/${order.number}/pay_notice`,
@@ -408,19 +409,21 @@ Page({
               payOrder: order
             })
           } else {
-            if (this.data.payMethod == 'brcb_pay') {
-              this.getBrcbPayInfo(order)
-            } else {
-              this.getPayInfo(order)
-            }
+            // if (this.data.payMethod == 'brcb_pay') {
+            //   this.getBrcbPayInfo(order)
+            // } else {
+            //   this.getPayInfo(order)
+            // }
+            this.showPayMethod()
           }
         },
         fail: res => {
-          if (this.data.payMethod == 'brcb_pay') {
-            this.getBrcbPayInfo(order)
-          } else {
-            this.getPayInfo(order)
-          }
+          // if (this.data.payMethod == 'brcb_pay') {
+          //   this.getBrcbPayInfo(order)
+          // } else {
+          //   this.getPayInfo(order)
+          // }
+          this.showPayMethod()
         }
       })
     }
@@ -475,26 +478,35 @@ Page({
   },
 
   hidePayMethod: function () {
+    this.hideCreateLoading()
     this.setData({ showPayMethodLayer: false })
   },
 
-  showPayMethod: function () {
-    if (!this.data.storeCart.virtual && (this.data.shipAddress == null || this.data.shipAddress.id == null)) {
-      this.errorToast('请先选择收货地址')
-      return false
-    }
+  closePay: function () {
+    this.hidePayMethod()
+    this.errorToast('支付取消', 800)
 
-    if (!this.data.protocolStatus) {
-      this.errorToast("请先阅读并同意\n《“金色家园”团购活动规则》")
-      return false
-    }
-    
+    setTimeout(res => {
+      var order = this.data.order
+      submitStatus = false
+      this.setData({ submitStatus: submitStatus })
+
+      this.cancelPayBack()
+    }, 800)
+  },
+
+  showPayMethod: function () {
     this.setData({ showPayMethodLayer: true })
   },
 
   confirmPayMethod: function () {
-    this.createOrder()
     this.hidePayMethod()
+    var order = this.data.order
+    if (this.data.payMethod == 'brcb_pay') {
+      this.getBrcbPayInfo(order)
+    } else {
+      this.getPayInfo(order)
+    }
   },
 
   getBrcbPayInfo: function (order) {

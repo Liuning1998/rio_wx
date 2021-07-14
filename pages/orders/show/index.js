@@ -550,7 +550,14 @@ Page({
   },
 
   hidePayMethod: function () {
+    // this.hideCreateLoading()
     this.setData({ showPayMethodLayer: false })
+  },
+
+  closePay: function () {
+    this.hidePayMethod()
+    this.errorToast('支付取消', 800)
+    this.setData({ submitStatus: submitStatus })
   },
 
   showPayMethod: function () {
