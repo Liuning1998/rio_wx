@@ -26,7 +26,7 @@ var errorMap = {
   100157: { msg: 'member_limit_expend', msg_t: '团已满, 请参加下一个团购' },
   100158: { msg: 'group_not_exists_or_close', msg_t: '抱歉，团已满，请参加下一个团购' },
   100159: { msg: 'already_join_buy_group', msg_t: '您已参加过该活动' },
-  100160: { msg: 'area_limit limit exceeded', msg_t: "订单中的商品\n不在所选送货地址区域销售" },
+  100160: { msg: 'area_limit limit exceeded', msg_t: "订单中商品在所选地区不支持销售，请确认后再购买。" },
 }
 
 // 修改团购中专区跳转id, /group_buy/pages/join/index.js

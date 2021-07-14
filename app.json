@@ -48,8 +48,7 @@
     "group_buy/pages/orders/index/index",
     "agreement/pages/group_buy/index",
     "group_buy/pages/orders/confirm/index",
-    "web/pages/yanglaohuodong/index",
-    "web/pages/brcb_pay/index/index"
+    "web/pages/yanglaohuodong/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
