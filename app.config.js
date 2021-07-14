@@ -30,8 +30,8 @@ var errorMap = {
 }
 
 // 修改团购中专区跳转id, /group_buy/pages/join/index.js
-// const ENV = 'production'
-const ENV = 'development'
+const ENV = 'production'
+// const ENV = 'development'
 
 const ENV_CONFIG = {
   development: {
