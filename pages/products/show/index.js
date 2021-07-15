@@ -365,6 +365,10 @@ Page({
   },
 
   addCart: function () {
+    if (this.data.product.tags != null && this.data.product.tags.indexOf('团购商品') >= 0) {
+      return false
+    }
+
     let lineItem = {
       quantity: this.data.quantity || 1,
       variant_id: this.data.currentVariant.id,

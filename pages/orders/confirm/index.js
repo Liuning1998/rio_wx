@@ -26,7 +26,8 @@ Page({
     userInfo: {},
     lineItems: [],
     payMethod: 'brcb_pay',
-    showPayMethodLayer: false
+    showPayMethodLayer: false,
+    orderTotal: null
   },
 
   /**
@@ -46,6 +47,7 @@ Page({
     }
 
     this.setCartLength(storeCart)
+    this.getOrderTotal(storeCart)
 
     let avatars = this.params.avatars
     if (avatars != null && Object.keys(avatars).length > 0) {
@@ -136,6 +138,10 @@ Page({
       // coupon_id: coupon.id
     }
 
+    // if (this.data.orderTotal != null) {
+    //   _data.total = this.data.orderTotal
+    // }
+
     if (this.data.productType == 3) {
       _data['secret'] = this.data.secretText
       _data.order_type = '3'
@@ -185,11 +191,15 @@ Page({
     //     cash_ids: [1,2]
     //   }
     // }
+    var _total = order.discount_total
+    if (this.data.orderTotal != null) {
+      _total = this.data.orderTotal
+    }
     var paramsData = {
       pay_params: {
         wx_pay_params: {
           // total: '1',
-          total: order.discount_total,
+          total: _total,
         },
         // cash_params: {
         //   total: '1',
@@ -487,11 +497,16 @@ Page({
     //     cash_ids: [1,2]
     //   }
     // }
+    var _total = order.discount_total
+    if (this.data.orderTotal != null) {
+      _total = this.data.orderTotal
+    }
+
     var paramsData = {
       pay_params: {
         brcb_pay_params: {
           // total: '1',
-          total: order.discount_total,
+          total: _total,
         },
       }
     }
@@ -559,4 +574,27 @@ Page({
     this.navigateTo(`/web/pages/brcb_pay/index/index?id=${order.number}`, data)
   },
   // 选择支付方式
+
+  getOrderTotal: function (storeCart) {
+    let lineItems = []
+    for(let key in storeCart.lineItems) {
+      let _line = storeCart.lineItems[key]
+      if(_line.selectStatus) {
+        let _line_item = {
+          quantity: _line.quantity,
+          variant_id: _line.variant_id,
+          price: _line.price
+        }
+        lineItems.push(_line_item)
+      }
+    }
+
+    http.post({
+      url: '/api/products/cal_product_order_total',
+      data: { line_items: lineItems },
+      success: res => {
+        this.setData({ orderTotal: res.data.total })
+      }
+    })
+  }
 })

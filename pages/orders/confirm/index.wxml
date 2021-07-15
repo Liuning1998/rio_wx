@@ -106,7 +106,8 @@
         </view>
         <view class="total-container">
           <text class="label">合计:</text>
-          <text class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
+          <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal )}}</text>
+          <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
         </view>
       </view>
 
@@ -146,7 +147,8 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="total">
     <text class="total-desc">应付款: </text>
-    <text class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
+    <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal )}}</text>
+    <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
   </view>
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>
 </view>
