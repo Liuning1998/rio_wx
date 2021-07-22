@@ -274,7 +274,13 @@ Page({
           // 验证地址是否还存在
           if (data.from_type == 'localStorage') {
             // this.setData({ shipAddress: data })
-            this.setShipAddress(data)
+            // 2437 老地址认为无效地址
+            if ( data.id <= 2437 ) {
+              storage.delSync('ship_address')
+              this.setShipAddress({})
+            } else {
+              this.setShipAddress(data)
+            }
           } else {
             http.get({
               url: 'api/ship_addresses/' + data.id,
