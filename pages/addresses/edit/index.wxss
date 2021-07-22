@@ -203,3 +203,7 @@ form .btn, .btn.submit-form {
   font-weight: 400;
   padding: 0;
 }
+
+picker-view-column {
+  flex: 0 0 140rpx;
+}

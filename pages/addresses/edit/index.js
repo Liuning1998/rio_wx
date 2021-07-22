@@ -13,6 +13,7 @@ Page({
     provinces: [],
     cities: [],
     countys: [],
+    towns: [],
     pickerValues: [],
     pickerDisplayValue: [0, 0, 0],
     pickerShow: false,
@@ -51,7 +52,8 @@ Page({
       this.setData({ referrer: options.referrer })
     }
 
-    this.initCityData()
+    // this.initCityData()
+    this.fetchProvinceData()
   },
 
   formSubmit: function () {
@@ -72,17 +74,29 @@ Page({
       var city = this.data.cities[pickerValues[1]]
       if (city != null) {
         formValue['city_id'] = city.id
+      } else {
+        formValue['city_id'] = null
       }
 
       var county = this.data.countys[pickerValues[2]]
       if (county != null) {
         formValue['district_id'] = county.id
+      } else {
+        formValue['district_id'] = null
+      }
+
+      var town = this.data.towns[pickerValues[3]]
+      if (town != null) {
+        formValue['town_id'] = town.id
+      } else {
+        formValue['town_id'] = null
       }
     } else {
       if (this.data.address != null) {
         formValue['province_id'] = this.data.address.province_id
         formValue['city_id'] = this.data.address.city_id
         formValue['county_id'] = this.data.address.county_id
+        formValue['town_id'] = this.data.address.town_id
       }
     }
 
@@ -182,17 +196,85 @@ Page({
     var newPicker = e.detail.value
     
     if (oldPicker[0] != newPicker[0]) {
-      this.setData({ pickerDisplayValue: [newPicker[0], 0, 0] })
-      this.setCityData(newPicker[0])
-      this.setCountyData(0)
+      // this.setData({ pickerDisplayValue: [newPicker[0], 0, 0, 0] })
+      // this.setCityData(newPicker[0])
+      // this.setCountyData(0)
+      // this.setTownData(0)
+      
+      this.changeProvince(newPicker)
     } else if (oldPicker[1] != newPicker[1]) {
-      this.setData({ pickerDisplayValue: [newPicker[0], newPicker[1], 0] })
+      this.setData({ pickerDisplayValue: [newPicker[0], newPicker[1], 0, 0] })
       this.setCountyData(newPicker[1])
+      this.setTownData(0)
+    }else if (oldPicker[2] != newPicker[2]) {
+      this.setData({ pickerDisplayValue: [newPicker[0], newPicker[1], newPicker[2], 0] })
+      this.setTownData(newPicker[2])
     } else {
       this.setData({ pickerDisplayValue: newPicker })
     }
 
 
+  },
+
+  changeProvince: function (picker=null) {
+    var province
+    if (picker == null) {
+      if (this.data.address != null) {
+        for(var i in cityData) {
+          if (cityData[i].id == this.data.address.province_id) {
+            province = cityData[i]
+            break
+          }
+        }
+      } else {
+        province = cityData[0]
+      }
+    } else {
+      province = cityData[picker[0]]
+    }
+    if (province == null) { return false }
+
+    if (province.cities == null || province.cities.length <= 0) {
+      http.get({
+        url: "api/china_regions/fetch_province_info?id=" + province.id,
+        success: res => {
+          var _province = res.data
+          if (_province != null && _province.id != null) {
+            for(var i in cityData) {
+              if (cityData[i].id == _province.id) {
+                cityData[i].cities = _province.cities
+                break
+              }
+            }
+            if (picker == null) {
+              this.initPickerDisplayValuesForEdit(this.data.address)
+              this.setCityData(0)
+              this.setCountyData(0)
+              this.setTownData(0)
+            } else {
+              this.setData({ pickerDisplayValue: [picker[0], 0, 0, 0] })
+              this.setCityData(picker[0])
+              this.setCountyData(0)
+              this.setTownData(0)
+            }
+          } else {
+            console.error('获取地址数据失败')
+          }
+        },
+        fail: res => {
+          console.error('获取地址数据失败')
+        }
+      })
+    } else {
+      if (picker == null) {
+        this.initPickerDisplayValuesForEdit()
+      } else {
+        this.setData({ pickerDisplayValue: [picker[0], 0, 0, 0] })
+        this.setCityData(picker[0])
+        this.setCountyData(0)
+        this.setTownData(0)
+      }
+    }
   },
 
   setProvinceData: function () {
@@ -229,6 +311,17 @@ Page({
     return result
   },
 
+  setTownData: function (index) {
+    var result = []
+    var county = this.data.countys[index || this.data.pickerDisplayValue[2]]
+    if (county != null && county.towns != null && county.towns.constructor.name == 'Array') {
+      result = county.towns
+    }
+
+    this.setData({ towns: result })
+    return result
+  },
+
   selectCity: function () {
     this.setData({ pickerShow: true })
   },
@@ -247,6 +340,7 @@ Page({
     var province = this.data.provinces[picker[0]]
     var city = this.data.cities[picker[1]]
     var county = this.data.countys[picker[2]]
+    var town = this.data.towns[picker[3]]
 
     var result = province.name
 
@@ -257,47 +351,70 @@ Page({
     if (county != null) {
       result += county.name
     }
+
+    if (town != null) {
+      result += town.name
+    }
     
     this.setData( { cityString: result } )
   },
 
   initPickerDisplayValuesForEdit: function (address) {
     var provinces = this.setProvinceData()
-    var displayValues = [0, 0, 0]
+    var displayValues = [0, 0, 0, 0]
     var province
     var city
     var county
+    var town
     var addressString = ''
-    
-    for (var i in provinces) {
-      if (provinces[i].name == address.province) {
-        displayValues[0] = i
-        province = provinces[i]
-      }
-    }
-
     var cities = this.setCityData(displayValues[0])
-
-    for (var i in cities) {
-      if (cities[i].name == address.city) {
-        displayValues[1] = i
-        city = cities[i]
-      }
-    }
-
     var countys = this.setCountyData(displayValues[1])
+    var towns = this.setTownData(displayValues[2])
 
-    for (var i in countys) {
-      if (countys[i].name == address.district) {
-        displayValues[2] = i
-        county = countys[i]
-      }
-    }
+
 
     
-    if (address.province != null) { addressString += address.province }
-    if (address.city != null) { addressString += address.city }
-    if (address.district != null) { addressString += address.district }
+    if (address != null) {
+      for (var i in provinces) {
+        if (provinces[i].name == address.province) {
+          displayValues[0] = i
+          province = provinces[i]
+        }
+      }
+
+      for (var i in cities) {
+        if (cities[i].name == address.city) {
+          displayValues[1] = i
+          city = cities[i]
+        }
+      }
+  
+  
+      for (var i in countys) {
+        if (countys[i].name == address.district) {
+          displayValues[2] = i
+          county = countys[i]
+        }
+      }
+  
+  
+      for (var i in towns) {
+        if (towns[i].name == address.town) {
+          displayValues[3] = i
+          town = towns[i]
+        }
+      }
+
+      if (address.province != null) { addressString += address.province }
+      if (address.city != null) { addressString += address.city }
+      if (address.district != null) { addressString += address.district }
+      if (address.town != null) { addressString += address.town }
+    } else {
+      province = provinces[0]
+      city = cities[0]
+      county = countys[0]
+      town = towns[0]
+    }
 
     this.setData({ pickerDisplayValue: displayValues, cityString: addressString })
     
@@ -358,6 +475,31 @@ Page({
           this.setProvinceData()
           this.setCityData()
           this.setCountyData()
+          this.setTownData()
+        }
+      },
+      fail: (res) => {
+        console.error('获取地址数据失败')
+      }
+    })
+  },
+
+  fetchProvinceData: function () {
+    http.get({
+      url: 'api/china_regions/fetch_province',
+      success: (res) => {
+        // console.log(res)
+        if (res.data != null && res.data.constructor.name == 'Array') {
+          cityData = res.data
+          // if (this.data.address != null) {
+          //   this.initPickerDisplayValuesForEdit(this.data.address)
+          // }
+          // this.setProvinceData()
+          // this.setCityData()
+          // this.setCountyData()
+          // this.setTownData()
+          this.setProvinceData()
+          this.changeProvince()
         }
       },
       fail: (res) => {

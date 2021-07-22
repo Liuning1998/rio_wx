@@ -30,6 +30,7 @@
             <text wx:if="{{ shipAddress.province }}">{{ shipAddress.province || ''}}</text>
             <text wx:if="{{ shipAddress.city }}">{{ shipAddress.city || ''}}</text>
             <text wx:if="{{ shipAddress.district }}">{{ shipAddress.district || '' }}</text>
+            <text wx:if="{{ shipAddress.town }}">{{ shipAddress.town || '' }}</text>
             <text wx:if="{{ shipAddress.address_info }}">{{ shipAddress.address_info || '' }}</text>
           </view>
         </view>

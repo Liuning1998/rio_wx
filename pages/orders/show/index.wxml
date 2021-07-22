@@ -116,7 +116,7 @@
           </view>
           <view class="address-info">
             <text wx:if="{{shipAddress.default_address}}" class="address-label">地址: </text>
-            <text>{{order.ship_address.province || ''}}{{order.ship_address.city || ''}}{{order.ship_address.district || ''}}{{order.ship_address.address_info || ''}}</text>
+            <text>{{order.ship_address.province || ''}}{{order.ship_address.city || ''}}{{order.ship_address.district || ''}}{{order.ship_address.town || ''}}{{order.ship_address.address_info || ''}}</text>
           </view>
         </view>
 

@@ -28,6 +28,7 @@
               <block wx:if="{{ item.province }}">{{ item.province || ''}}</block>
               <block wx:if="{{ item.city }}">{{ item.city || ''}}</block>
               <block wx:if="{{ item.district }}">{{ item.district || '' }}</block>
+              <block wx:if="{{ item.town }}">{{ item.town || '' }}</block>
               <block wx:if="{{ item.address_info }}">{{ item.address_info || '' }}</block>
             </text>
           </view>

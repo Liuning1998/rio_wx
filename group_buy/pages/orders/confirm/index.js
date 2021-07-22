@@ -172,6 +172,9 @@ Page({
               },
               fail: res => {
                 storage.delSync('ship_address')
+                if (res.data != null && res.data.code == 100123) {
+                  storage.delSync('ship_address')
+                }
                 this.setShipAddress({})
               }
             })

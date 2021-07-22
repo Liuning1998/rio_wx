@@ -59,7 +59,7 @@
       <view class='item text text-purple' catchtap='okSelectCity'>确定</view>
     </view>
 
-    <picker-view indicator-class="indicator" style="width: 100%; height: 250rpx;" value="{{pickerDisplayValue}}" bindchange="bindChange">
+    <picker-view indicator-class="indicator" style="width: 100%; height: 250rpx; font-size:28rpx;" value="{{pickerDisplayValue}}" bindchange="bindChange">
       <picker-view-column>
         <view wx:for="{{ provinces }}" wx:key="index" style="line-height: 64rpx;">{{item.name}}</view>
       </picker-view-column>
@@ -70,6 +70,10 @@
 
       <picker-view-column>
         <view wx:for="{{ countys }}" wx:key="index" style="line-height: 64rpx;">{{item.name}}</view>
+      </picker-view-column>
+
+      <picker-view-column wx:if="{{ towns.length > 0 }}">
+        <view wx:for="{{ towns }}" wx:key="index" style="line-height: 64rpx;">{{item.name}}</view>
       </picker-view-column>
       
     </picker-view>
