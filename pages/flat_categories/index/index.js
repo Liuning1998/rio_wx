@@ -176,4 +176,10 @@ Page({
       this.setData({ showLoading: false })
     }, 1000)
   },
+
+  gotoCart1: function () {
+    wx.switchTab({
+      url: '/pages/orders/cart/index',
+    })
+  },
 })
