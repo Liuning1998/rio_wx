@@ -284,7 +284,7 @@ page {
   display: -webkit-box;
   width: 100%;
   padding-top: 22rpx;
-  padding-bottom: 22rpx;
+  margin-bottom: 22rpx;
   border-top: 1px solid #f7f7f7;
 }
 
