@@ -391,21 +391,19 @@ Page({
               payOrder: order
             })
           } else {
-            this.showPayMethod()
-            // if (this.data.payMethod == 'brcb_pay') {
-            //   this.getBrcbPayInfo(order)
-            // } else {
-            //   this.getPayInfo(order)
-            // }
+            if (getApp().globalData.brcbPayAvailable) {
+              this.showPayMethod()
+            } else {
+              this.getPayInfo(order)
+            }
           }
         },
         fail: res => {
-          this.showPayMethod()
-          // if (this.data.payMethod == 'brcb_pay') {
-          //   this.getBrcbPayInfo(order)
-          // } else {
-          //   this.getPayInfo(order)
-          // }
+          if (getApp().globalData.brcbPayAvailable) {
+            this.showPayMethod()
+          } else {
+            this.getPayInfo(order)
+          }
         }
       })
     }
@@ -430,12 +428,18 @@ Page({
   closePayNoticeToast: function () {
     this.setData({ showPayNotice: false })
 
-    var order = this.data.payOrder
-    if (this.data.payMethod == 'brcb_pay') {
-      this.getBrcbPayInfo(order)
+    if (getApp().globalData.brcbPayAvailable) {
+      this.showPayMethod()
     } else {
+      var order = this.data.payOrder
       this.getPayInfo(order)
     }
+    // var order = this.data.payOrder
+    // if (this.data.payMethod == 'brcb_pay') {
+    //   this.getBrcbPayInfo(order)
+    // } else {
+    //   this.getPayInfo(order)
+    // }
   },
 
   yanglaoTouch: function () {
@@ -532,7 +536,6 @@ Page({
   },
 
   confirmPayMethod: function () {
-    this.createOrder()
     this.hidePayMethod()
     var order = this.data.order
     if (this.data.payMethod == 'brcb_pay') {

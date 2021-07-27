@@ -187,21 +187,19 @@ Page({
               payOrder: order
             })
           } else {
-            // if (this.data.payMethod == 'brcb_pay') {
-            //   this.getBrcbPayInfo(this.data.order)
-            // } else  {
-            //   this.payOrder()
-            // }
-            this.showPayMethod()
+            if (getApp().globalData.brcbPayAvailable) {
+              this.showPayMethod()
+            } else {
+              this.payOrder()
+            }
           }
         },
         fail: res => {
-          // if (this.data.payMethod == 'brcb_pay') {
-          //   this.getBrcbPayInfo(this.data.order)
-          // } else  {
-          //   this.payOrder()
-          // }
-          this.showPayMethod()
+          if (getApp().globalData.brcbPayAvailable) {
+            this.showPayMethod()
+          } else {
+            this.payOrder()
+          }
         }
       })
     }
@@ -225,14 +223,11 @@ Page({
 
   closePayNoticeToast: function () {
     this.setData({ showPayNotice: false })
-
-    var order = this.data.payOrder
-    // if (this.data.payMethod == 'brcb_pay') {
-    //   this.getBrcbPayInfo(this.data.order)
-    // } else  {
-    //   this.payOrder()
-    // }
-    this.showPayMethod()
+    if (getApp().globalData.brcbPayAvailable) {
+      this.showPayMethod()
+    } else {
+      this.payOrder()
+    }
   },
 
   payOrder: function () {

@@ -33,6 +33,8 @@ var errorMap = {
 // const ENV = 'production'
 const ENV = 'development'
 
+const BrcbPayAvailable = false
+
 const ENV_CONFIG = {
   development: {
     serverDomain: "rio-dev.jhqli.com",
@@ -61,7 +63,8 @@ function config(options) {
     perPage: 10,
     phoneReg: /^[1][3456789][0-9]{9}$/,
     env: ENV,
-    brcbPayBaseUrl: CURRENT_ENV.brcbPayBaseUrl
+    brcbPayBaseUrl: CURRENT_ENV.brcbPayBaseUrl,
+    brcbPayAvailable: BrcbPayAvailable,
   })
 }
 
