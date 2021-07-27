@@ -107,7 +107,8 @@
         </view>
         <view class="total-container">
           <text class="label">合计:</text>
-          <text class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
+          <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal )}}</text>
+          <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
         </view>
       </view>
 
@@ -147,7 +148,8 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="total">
     <text class="total-desc">应付款: </text>
-    <text class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
+    <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal )}}</text>
+    <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
   </view>
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>
 </view>
@@ -231,5 +233,46 @@
   </view>
 </view>
 <!-- 区域限制销售提示 -->
+
+<!-- 选择支付方式 -->
+<view wx:if="{{ showPayMethodLayer }}" class="pay-method-layer">
+  <view class="pay-method-container">
+    <view class="pm-header">
+      <!-- <image class="close" src="/images/close_white.png"></image> -->
+      <text>选择支付方式</text>
+      <!-- <text bindtap="hidePayMethod" class="close">x</text> -->
+      <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
+    </view>
+    <view class="pay-method-content">
+      <text class="total">￥{{order.discount_total}}</text>
+      <view bindtap="selectBrcbPay" class="pay-method-item">
+        <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
+        <image class="icon" src="/images/yanglaozhucanka_icon.png"></image>
+        <view class="item-main">
+          <text class="label">养老助残卡支付</text>
+          <view class="pay-menthod-checkbox {{ payMethod == 'brcb_pay' && 'active' }}">
+            <image class="checkbox-icon" src="/images/selected_icon_003.png"></image>
+          </view>
+        </view>
+      </view>
+
+      <view class="pay-method-item" bindtap="selectWxPay">
+        <!-- <view class="checkbox {{ payMethod == 'wx_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
+        <image class="icon" src="/images/weixin_icon.png"></image>
+        <view class="item-main">
+          <text class="label">微信支付</text>
+          <view class="pay-menthod-checkbox {{ payMethod == 'wx_pay' && 'active' }}">
+            <image class="checkbox-icon" src="/images/selected_icon_003.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom-btns {{ isIphoneX && 'iphone-x' }}">
+      <text class="pay-method-confirm" bindtap="confirmPayMethod">确定</text>
+    </view>
+  </view>
+</view>
+<!-- 选择支付方式 -->
 
 <msgToast msg-data="{{ _msgData }}"/>

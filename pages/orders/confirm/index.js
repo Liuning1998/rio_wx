@@ -1,4 +1,9 @@
 // pages/products/buy/index.js
+
+// 余额支付部分，按照订单 discount_total 计算
+// 微信支付折扣api可以控制goods_tag处理
+// brcb 支付api 可以处理
+
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 var helper = require('../../../utils/helper.js')
@@ -20,7 +25,10 @@ Page({
     showVariantLayer: false,
     userInfo: {},
     lineItems: [],
-    showAddressNotice: false
+    showAddressNotice: false,
+    payMethod: 'brcb_pay',
+    showPayMethodLayer: false,
+    orderTotal: null
   },
 
   /**
@@ -40,6 +48,7 @@ Page({
     }
 
     this.setCartLength(storeCart)
+    this.getOrderTotal(storeCart)
 
     let avatars = this.params.avatars
     if (avatars != null && Object.keys(avatars).length > 0) {
@@ -71,6 +80,9 @@ Page({
   },
 
   onShow: function () {
+    if (this.data.payMethod == 'brcb_pay' && this.data.order != null && this.data.order.number != null) {
+      this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+    }
     this.setData({ submitStatus: false })
     submitStatus = false
     this.getShipAddress()
@@ -132,6 +144,10 @@ Page({
       // coupon_id: coupon.id
     }
 
+    // if (this.data.orderTotal != null) {
+    //   _data.total = this.data.orderTotal
+    // }
+
     if (this.data.productType == 3) {
       _data['secret'] = this.data.secretText
       _data.order_type = '3'
@@ -142,11 +158,16 @@ Page({
       data: _data,
       success: function (res) {
         console.log(res)
+        $this.setData({ order: res.data })
         if($this.data.buyType != 'now') {
           cartApi.removeStoreLineOfSelect($this.data.storeCart)
         }
         // $this.getPayInfo(res.data)
-        $this.checkPayNotice(res.data)
+        // if ($this.data.payMethod == 'brcb_pay') {
+        //   $this.getBrcbPayInfo(res.data)
+        // } else {
+          $this.checkPayNotice(res.data)
+        // }
       },
       fail: function (res) {
         $this.hideCreateLoading()
@@ -176,11 +197,15 @@ Page({
     //     cash_ids: [1,2]
     //   }
     // }
+    var _total = order.discount_total
+    if (this.data.orderTotal != null) {
+      _total = this.data.orderTotal
+    }
     var paramsData = {
       pay_params: {
         wx_pay_params: {
           // total: '1',
-          total: order.total,
+          total: _total,
         },
         // cash_params: {
         //   total: '1',
@@ -348,7 +373,12 @@ Page({
   checkPayNotice: function (order) {
     var notice_flag = storage.getSync('pay_notice_flag')
     if (notice_flag) {
-      this.getPayInfo(order)
+      // if (this.data.payMethod == 'brcb_pay') {
+      //   this.getBrcbPayInfo(order)
+      // } else {
+      //   this.getPayInfo(order)
+      // }
+      this.showPayMethod()
     } else {
       http.get({
         url: `api/orders/${order.number}/pay_notice`,
@@ -361,11 +391,21 @@ Page({
               payOrder: order
             })
           } else {
-            this.getPayInfo(order)
+            this.showPayMethod()
+            // if (this.data.payMethod == 'brcb_pay') {
+            //   this.getBrcbPayInfo(order)
+            // } else {
+            //   this.getPayInfo(order)
+            // }
           }
         },
         fail: res => {
-          this.getPayInfo(order)
+          this.showPayMethod()
+          // if (this.data.payMethod == 'brcb_pay') {
+          //   this.getBrcbPayInfo(order)
+          // } else {
+          //   this.getPayInfo(order)
+          // }
         }
       })
     }
@@ -391,7 +431,11 @@ Page({
     this.setData({ showPayNotice: false })
 
     var order = this.data.payOrder
-    this.getPayInfo(order)
+    if (this.data.payMethod == 'brcb_pay') {
+      this.getBrcbPayInfo(order)
+    } else {
+      this.getPayInfo(order)
+    }
   },
 
   yanglaoTouch: function () {
@@ -454,4 +498,159 @@ Page({
   addressNoticeConfirmBtn: function () {
     this.setData({ showAddressNotice: false })
   },
+
+  // 选择支付方式
+  selectWxPay: function () {
+    this.setData({ payMethod: 'wx_pay' })
+  },
+
+  selectBrcbPay: function () {
+    this.setData({ payMethod: 'brcb_pay' })
+  },
+
+  hidePayMethod: function () {
+    this.hideCreateLoading()
+    this.setData({ showPayMethodLayer: false })
+  },
+
+  closePay: function () {
+    this.hidePayMethod()
+    this.errorToast('支付取消', 800)
+
+    setTimeout(res => {
+      var order = this.data.order
+      submitStatus = false
+      this.setData({ submitStatus: submitStatus })
+
+      this.redirectTo("/pages/orders/show/index?id=" + order.number)
+    }, 800)
+  },
+
+  showPayMethod: function () {
+    this.hideCreateLoading()
+    this.setData({ showPayMethodLayer: true })
+  },
+
+  confirmPayMethod: function () {
+    this.createOrder()
+    this.hidePayMethod()
+    var order = this.data.order
+    if (this.data.payMethod == 'brcb_pay') {
+      this.getBrcbPayInfo(order)
+    } else {
+      this.getPayInfo(order)
+    }
+  },
+
+  getBrcbPayInfo: function (order) {
+    var $this = this
+    // params[:pay_params] = {
+    //   wx_pay_params: {
+    //     total: 100
+    //   },
+    //   cash_params: {
+    //     total: 100
+    //     cash_ids: [1,2]
+    //   }
+    // }
+    var _total = order.discount_total
+    if (this.data.orderTotal != null) {
+      _total = this.data.orderTotal
+    }
+
+    var paramsData = {
+      pay_params: {
+        brcb_pay_params: {
+          // total: '1',
+          total: _total,
+        },
+      }
+    }
+    try {
+      var data = { }
+      http.post({
+        url: `api/orders/${order.number}/pay`,
+        data: paramsData,
+        success: function (res) {
+          $this.hideCreateLoading()
+
+          if (res.data && res.data.Signature != null) {
+            // $this.wxPay(res.data.pay_p, res.data.pay_sign, order)
+            $this.gotoBrcbPay(order, res.data)
+          } else {
+            $this.errorToast("支付失败, 请稍后再试", 1500)
+            if ($this.data.order != null) {
+              setTimeout(res => {
+                submitStatus = false
+                $this.setData({ submitStatus: submitStatus })
+                $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+              }, 1500)
+            } else {
+              submitStatus = false
+              $this.setData({ submitStatus: submitStatus })
+            }
+          }
+        },
+        fail: function (res) {
+          $this.hideCreateLoading()
+          $this.errorToast("支付失败, 请稍后再试", 1500)
+          if ($this.data.order != null) {
+            setTimeout(res => {
+              submitStatus = false
+              $this.setData({ submitStatus: submitStatus })
+              $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+            }, 1500)
+          } else {
+            submitStatus = false
+            $this.setData({ submitStatus: submitStatus })
+          }
+        }
+      })
+      return false
+    }
+    catch (e) {
+      console.log(e)
+      $this.hideCreateLoading()
+      $this.errorToast("支付失败, 请稍后再试", 1500)
+      if ($this.data.order != null) {
+        setTimeout(res => {
+          submitStatus = false
+          $this.setData({ submitStatus: submitStatus })
+          $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+        }, 1500)
+      } else {
+        submitStatus = false
+        $this.setData({ submitStatus: submitStatus })
+      }
+      return false
+    }
+  },
+
+  gotoBrcbPay: function (order, data) {
+    this.navigateTo(`/web/pages/brcb_pay/index/index?id=${order.number}`, data)
+  },
+  // 选择支付方式
+
+  getOrderTotal: function (storeCart) {
+    let lineItems = []
+    for(let key in storeCart.lineItems) {
+      let _line = storeCart.lineItems[key]
+      if(_line.selectStatus) {
+        let _line_item = {
+          quantity: _line.quantity,
+          variant_id: _line.variant_id,
+          price: _line.price
+        }
+        lineItems.push(_line_item)
+      }
+    }
+
+    http.post({
+      url: '/api/products/cal_product_order_total',
+      data: { line_items: lineItems },
+      success: res => {
+        this.setData({ orderTotal: res.data.total })
+      }
+    })
+  }
 })

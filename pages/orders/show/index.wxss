@@ -776,3 +776,164 @@ page {
   height: 20rpx;
 }
 /* 支付提示 notice */
+
+/* 选择支付方式 */
+.pay-method-layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9901;
+  background: rgba(0,0,0,0.20);
+  height: 100%;
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pay-method-layer .pay-method-container {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+  min-height: 924rpx;
+  overflow: hidden;
+}
+
+.pay-method-layer .pay-method-item .icon {
+  height: 52rpx;
+  width: 52rpx;
+  display: flex;
+}
+
+.pay-method-layer .checkbox-icon {
+  height: 40rpx;
+  width: 56rpx;
+  display: flex;
+}
+
+.pay-method-layer .pay-method-container .pm-header {
+  height: 108rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2B2424;
+  font-size: 32rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #F7F7F7;
+  position: relative;
+}
+
+.pay-method-layer .pm-header .close {
+  height: 50rpx;
+  width: 50rpx;
+  position: absolute;
+  left: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-method-layer .pm-header .close .close-icon {
+  width: 25rpx;
+  height: 25rpx;
+  position: relative;
+}
+
+.pay-method-layer .pm-header .close .close-icon::before {
+  width: 28rpx;
+  height: 3rpx;
+  background: #000000;
+  position: absolute;
+  content: '';
+  display: inline-block;
+  top: 10rpx;
+  transform: rotate(45deg);
+}
+
+.pay-method-layer .pm-header .close .close-icon::after {
+  width: 28rpx;
+  height: 3rpx;
+  background: #000000;
+  position: absolute;
+  content: '';
+  display: inline-block;
+  top: 10rpx;
+  transform: rotate(-45deg);
+}
+
+.pay-method-layer .pay-method-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pay-method-layer .pay-method-content .total {
+  display: inline-block;
+  height: 192rpx;
+  line-height: 192rpx;
+  font-size: 60rpx;
+  color: #2B2424;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1rpx solid #f7f7f7;
+}
+
+.pay-method-layer .pay-method-item {
+  width: 100%;
+  height: 144rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 48rpx;
+  justify-content: space-between;
+}
+
+.pay-method-layer .pay-method-item .item-main {
+  width: 608rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #f7f7f7;
+  height: 144rpx;
+}
+
+.pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox {
+  height: 44rpx;
+  width: 44rpx;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1rpx solid #F64C47;
+  margin-right: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox.active {
+  background: #F64C47;
+}
+
+.pay-method-layer .bottom-btns {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 64rpx;
+}
+
+.pay-method-layer .bottom-btns .pay-method-confirm {
+  background-image: linear-gradient(118deg, #FF524E 0%, #FB2C2A 100%);
+  border-radius: 42rpx;
+  border-radius: 42rpx;
+  height: 84rpx;
+  width: 654rpx;
+  display: inline-block;
+  line-height: 84rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #ffffff;
+}
+/* 选择支付方式 */

@@ -1,0 +1,2 @@
+<!--web/pages/brcb_pay/index/index.wxml-->
+<web-view src="{{webUrl}}" bindload="postMessage"></web-view>

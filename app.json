@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/products/show/index",
+    "pages/orders/confirm/index",
     "pages/flat_categories/index/index",
     "web/pages/common/index",
     "group_buy/pages/products/index/index",
@@ -17,7 +18,6 @@
     "pages/orders/index/index",
     "pages/contact/index",
     "pages/orders/show/index",
-    "pages/orders/confirm/index",
     "pages/orders/expresses/show",
     "products/pages/yiyuangou/index",
     "agreement/pages/yiyuangou/index",
@@ -48,7 +48,8 @@
     "group_buy/pages/orders/index/index",
     "agreement/pages/group_buy/index",
     "group_buy/pages/orders/confirm/index",
-    "web/pages/yanglaohuodong/index"
+    "web/pages/yanglaohuodong/index",
+    "web/pages/brcb_pay/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

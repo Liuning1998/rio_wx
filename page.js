@@ -215,6 +215,10 @@ function beforeOnload (context) {
         return false
       }
 
+      if (item.tags != null && item.tags.indexOf('团购商品') >= 0) {
+        return false
+      }
+
       let master = item.master
       if (master == null) {
         return

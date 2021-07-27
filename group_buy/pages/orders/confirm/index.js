@@ -14,7 +14,9 @@ Page({
     submitStatus: false,
     shipAddress: {},
     product: null,
-    showAddressNotice: false
+    showAddressNotice: false,
+    payMethod: 'brcb_pay',
+    showPayMethodLayer: false
   },
 
   /**
@@ -40,6 +42,11 @@ Page({
   },
 
   onShow: function () {
+    if (this.data.payMethod == 'brcb_pay' && this.data.order != null && this.data.order.number != null) {
+      // this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+      wx.navigateBack({})
+    }
+
     this.setData({ submitStatus: false })
     submitStatus = false
     this.getShipAddress()
@@ -119,6 +126,7 @@ Page({
         // $this.setData({ submitStatus: submitStatus })
         $this.hideCreateLoading()
         // $this.redirectTo('/try_product/pages/orders/index/index')
+        $this.setData({ order: res.data })
         $this.checkPayNotice(res.data)
       },
       fail: function (res) {
@@ -238,7 +246,7 @@ Page({
       pay_params: {
         wx_pay_params: {
           // total: '0.05',
-          total: order.total,
+          total: order.discount_total,
         },
         // cash_params: {
         //   total: '0.05',
@@ -407,7 +415,12 @@ Page({
   checkPayNotice: function (order) {
     var notice_flag = storage.getSync('pay_notice_flag')
     if (notice_flag) {
-      this.getPayInfo(order)
+      // if (this.data.payMethod == 'brcb_pay') {
+      //   this.getBrcbPayInfo(order)
+      // } else {
+      //   this.getPayInfo(order)
+      // }
+      this.showPayMethod()
     } else {
       http.get({
         url: `api/orders/${order.number}/pay_notice`,
@@ -420,11 +433,21 @@ Page({
               payOrder: order
             })
           } else {
-            this.getPayInfo(order)
+            // if (this.data.payMethod == 'brcb_pay') {
+            //   this.getBrcbPayInfo(order)
+            // } else {
+            //   this.getPayInfo(order)
+            // }
+            this.showPayMethod()
           }
         },
         fail: res => {
-          this.getPayInfo(order)
+          // if (this.data.payMethod == 'brcb_pay') {
+          //   this.getBrcbPayInfo(order)
+          // } else {
+          //   this.getPayInfo(order)
+          // }
+          this.showPayMethod()
         }
       })
     }
@@ -450,7 +473,11 @@ Page({
     this.setData({ showPayNotice: false })
 
     var order = this.data.payOrder
-    this.getPayInfo(order)
+    if (this.data.payMethod == 'brcb_pay') {
+      this.getBrcbPayInfo(order)
+    } else {
+      this.getPayInfo(order)
+    }
   },
 
   successPayBack: function () {
@@ -499,6 +526,131 @@ Page({
   addressNoticeConfirmBtn: function () {
     this.setData({ showAddressNotice: false })
   },
+
+  // 选择支付方式
+  selectWxPay: function () {
+    this.setData({ payMethod: 'wx_pay' })
+  },
+
+  selectBrcbPay: function () {
+    this.setData({ payMethod: 'brcb_pay' })
+  },
+
+  hidePayMethod: function () {
+    this.hideCreateLoading()
+    this.setData({ showPayMethodLayer: false })
+  },
+
+  closePay: function () {
+    this.hidePayMethod()
+    this.errorToast('支付取消', 800)
+
+    setTimeout(res => {
+      var order = this.data.order
+      submitStatus = false
+      this.setData({ submitStatus: submitStatus })
+
+      this.cancelPayBack()
+    }, 800)
+  },
+
+  showPayMethod: function () {
+    this.setData({ showPayMethodLayer: true })
+  },
+
+  confirmPayMethod: function () {
+    this.hidePayMethod()
+    var order = this.data.order
+    if (this.data.payMethod == 'brcb_pay') {
+      this.getBrcbPayInfo(order)
+    } else {
+      this.getPayInfo(order)
+    }
+  },
+
+  getBrcbPayInfo: function (order) {
+    var $this = this
+    // params[:pay_params] = {
+    //   wx_pay_params: {
+    //     total: 100
+    //   },
+    //   cash_params: {
+    //     total: 100
+    //     cash_ids: [1,2]
+    //   }
+    // }
+    var paramsData = {
+      pay_params: {
+        brcb_pay_params: {
+          // total: '1',
+          total: order.discount_total,
+        },
+      }
+    }
+    try {
+      var data = { }
+      http.post({
+        url: `api/orders/${order.number}/pay`,
+        data: paramsData,
+        success: function (res) {
+          $this.hideCreateLoading()
+
+          if (res.data && res.data.Signature != null) {
+            // $this.wxPay(res.data.pay_p, res.data.pay_sign, order)
+            $this.gotoBrcbPay(order, res.data)
+          } else {
+            $this.errorToast("支付失败, 请稍后再试", 1500)
+            if ($this.data.order != null) {
+              setTimeout(res => {
+                submitStatus = false
+                $this.setData({ submitStatus: submitStatus })
+                $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+              }, 1500)
+            } else {
+              submitStatus = false
+              $this.setData({ submitStatus: submitStatus })
+            }
+          }
+        },
+        fail: function (res) {
+          $this.hideCreateLoading()
+          $this.errorToast("支付失败, 请稍后再试", 1500)
+          if ($this.data.order != null) {
+            setTimeout(res => {
+              submitStatus = false
+              $this.setData({ submitStatus: submitStatus })
+              $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+            }, 1500)
+          } else {
+            submitStatus = false
+            $this.setData({ submitStatus: submitStatus })
+          }
+        }
+      })
+      return false
+    }
+    catch (e) {
+      console.log(e)
+      $this.hideCreateLoading()
+      $this.errorToast("支付失败, 请稍后再试", 1500)
+      if ($this.data.order != null) {
+        setTimeout(res => {
+          submitStatus = false
+          $this.setData({ submitStatus: submitStatus })
+          $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+        }, 1500)
+      } else {
+        submitStatus = false
+        $this.setData({ submitStatus: submitStatus })
+      }
+      return false
+    }
+  },
+
+  gotoBrcbPay: function (order, data) {
+    this.navigateTo(`/web/pages/brcb_pay/index/index?id=${order.number}`, data)
+  },
+  // 选择支付方式
 
   /**
    * 用户点击右上角分享
