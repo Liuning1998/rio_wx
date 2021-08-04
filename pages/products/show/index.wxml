@@ -56,7 +56,7 @@
           <text class="price-int">{{price.int(currentVariant.price)}}</text>
           <text class="price-decimal">{{price.decimal(currentVariant.price)}}</text>
           <view class="badges">
-            <text class="li">包邮</text>
+            <!-- <text class="li">包邮</text> -->
             <!-- <text class="li">赠品</text> -->
           </view>
         </view>
