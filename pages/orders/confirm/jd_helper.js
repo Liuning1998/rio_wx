@@ -1,0 +1,145 @@
+const http = require("../../../utils/http")
+var storage = require('../../../utils/storage.js')
+
+var jd_functions = {
+  checkJdPrice: function (storeCart) {
+    let variant_ids = []
+    for(let key in storeCart.lineItems) {
+      let _line = storeCart.lineItems[key]
+      if(_line.selectStatus) {
+        variant_ids.push(_line.variant_id)
+      }
+    }
+
+    http.post({
+      url: 'api/jd_products/fetch_jd_product_price',
+      data: {
+        variant_ids: variant_ids
+      },
+      success: res => {
+        var prices = res.data.variants
+        if (prices != null && prices.length > 0) {
+          var lineItems = []
+          if (this.data.storeCart != null) { storeCart = this.data.storeCart }
+          if (this.data.lineItems != null) { lineItems = this.data.lineItems }
+          var total = 0
+          for(var i in prices) {
+            var price = prices[i]
+
+            for (let j in storeCart.lineItems) {
+              let _line_item = storeCart.lineItems[j]
+              if(!_line_item.selectStatus) { continue }
+              if (_line_item.variant_id == price.id && _line_item.price == price.price) {
+                _line_item.price = price.price
+                _line_item.origin_price = price.origin_price
+              }
+              total = total + _line_item.price * _line_item.quantity
+            }
+            
+            if (lineItems.length > 0) {
+              storeCart.total = total
+              this.setData({ lineItems: lineItems })
+            }
+            this.setData({ storeCart: storeCart })
+          }
+          
+        }
+      },
+      fail: res => {
+
+      }
+    })
+  },
+  
+  // checkJdAreaLimit: function (storeCart) {
+  //   let variant_ids = []
+  //   for(let key in storeCart.lineItems) {
+  //     let _line = storeCart.lineItems[key]
+  //     if(_line.selectStatus) {
+  //       variant_ids.push(_line.variant_id)
+  //     }
+  //   }
+
+  //   http.get({
+  //     url: '',
+  //     data: { variant_ids: variant_ids },
+  //     success: res => {
+
+  //     },
+  //     fail: res => {
+
+  //     }
+  //   })
+  // },
+
+  checkJdStockAndAreaLimit: function (storeCart, ship_address_id) {
+    let variant_ids = []
+    for(let key in storeCart.lineItems) {
+      let _line = storeCart.lineItems[key]
+      if(_line.selectStatus) {
+        variant_ids.push(_line.variant_id)
+      }
+    }
+
+    http.post({
+      url: 'api/jd_products/valid_product',
+      data: { variant_ids: variant_ids, ship_address_id:  ship_address_id},
+      success: res => {
+        if(res.data.status != 'ok') {
+          this.setData({ canCreateOrder: false })
+        }
+      },
+      fail: res => {
+        
+      }
+    })
+  },
+
+  fetchJdFreight: function (storeCart, ship_address_id) {
+    let lineItems = []
+    for(let key in storeCart.lineItems) {
+      let _line = storeCart.lineItems[key]
+      if(_line.selectStatus) {
+        let _line_item = {
+          quantity: _line.quantity,
+          variant_id: _line.variant_id,
+          price: _line.price
+        }
+        lineItems.push(_line_item)
+      }
+    }
+
+    http.get({
+      url: 'api/jd_orders/freight',
+      data: { line_items: lineItems, ship_address_id: ship_address_id },
+      success: res => {
+        if(res.data.status == 'ok') {
+          // this.setData({ shipmentExpenses: res.data.freight })
+          this.updateShipmentExpenses(res.data.freight)
+        } else {
+          this.updateShipmentExpenses(8)
+        }
+      },
+      fail: res => {
+        this.updateShipmentExpenses(8)
+      }
+    })
+  },
+
+  updateShipmentExpenses: function (freight) {
+    this.setData({ shipmentExpenses: freight })
+  }
+  // 京东商品
+}
+
+// context 为 page 上下文（page 的 this）
+// 将上面的方法引入到 page 中
+function extend (context) {
+  for (var key in jd_functions) {
+    context[key] = jd_functions[key]
+  }
+}
+
+module.exports = {
+  extend: extend
+}

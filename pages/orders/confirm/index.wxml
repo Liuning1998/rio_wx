@@ -89,12 +89,12 @@
         </view>
 
 
-        <!-- <view class="shipment-expenses">
+        <view wx:if="{{ shipmentExpenses != null && shipmentExpenses > 0 }}" class="shipment-expenses">
           <text class="label">基础运费:</text>
-          <text class="price">+￥8.00</text>
+          <text class="price">+￥{{ price.tos(shipmentExpenses) }}</text>
         </view>
 
-        <view class="discount-shipment-expenses">
+        <!-- <view class="discount-shipment-expenses">
           <text class="label">减免运费:</text>
           <text class="price">-￥8.00</text>
         </view> -->
@@ -107,8 +107,8 @@
         </view>
         <view class="total-container">
           <text class="label">合计:</text>
-          <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal )}}</text>
-          <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
+          <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal)}}</text>
+          <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses) )}}</text>
         </view>
       </view>
 
@@ -149,7 +149,7 @@
   <view class="total">
     <text class="total-desc">应付款: </text>
     <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal )}}</text>
-    <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo) )}}</text>
+    <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses) )}}</text>
   </view>
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>
 </view>

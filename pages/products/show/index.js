@@ -334,6 +334,7 @@ Page({
     }
     
     let store_id = this.data.product.store_id || 0
+    let store_name = this.data.product.store_name
     let lineItem = {
       quantity: this.data.quantity || 1,
       variant_id: this.data.currentVariant.id,
@@ -359,6 +360,9 @@ Page({
       origin_total: Math.round(lineItem.origin_price * lineItem.quantity * 100) / 100.0,
     }
     let url = `/pages/orders/confirm/index?store_id=${store_id}&buyType=now&productType=${this.data.productType}`
+    if (store_name == '京东') {
+      url = url + '&store_name=京东'
+    }
     this.navigateTo(url, {
       cart: cart
     })

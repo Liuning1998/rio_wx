@@ -111,7 +111,7 @@ page {
   left: 0;
   width: 112rpx;
   height: 32rpx;
-  background: #EAD9A9;
+  background: #f00;
   color: #ffffff;
   font-size: 20rpx;
   line-height: 32rpx;

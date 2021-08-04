@@ -104,7 +104,12 @@ Page({
       return false
     }
 
-    this.navigateTo("/pages/orders/confirm/index?store_id=" + item.store_id, {
+    var url = "/pages/orders/confirm/index?store_id=" + item.store_id
+    if (item.store_name == '京东') {
+      url = url + "&store_name=京东"
+    }
+
+    this.navigateTo(url, {
       avatars: this.data.avatars
     })
   },

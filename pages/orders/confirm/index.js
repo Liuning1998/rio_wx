@@ -8,6 +8,7 @@ var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 var helper = require('../../../utils/helper.js')
 var storage = require('../../../utils/storage.js')
+var jdHelper = require('./jd_helper.js')
 
 var submitStatus = false
 Page({
@@ -24,11 +25,13 @@ Page({
     avatars: {},
     showVariantLayer: false,
     userInfo: {},
-    lineItems: [],
+    lineItems: [], // 购物车中已勾选的商品
     showAddressNotice: false,
     payMethod: 'brcb_pay',
     showPayMethodLayer: false,
-    orderTotal: null
+    orderTotal: null,
+    shipmentExpenses: 0,
+    canCreateOrder: true
   },
 
   /**
@@ -36,6 +39,8 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+    jdHelper.extend(this)
+
     var store_id = options.store_id || 0
     // var store_id = 1
 
@@ -47,8 +52,20 @@ Page({
       var storeCart = cart.data['store_' + store_id]
     }
 
+    this.setData({
+      store_id: store_id,
+      storeCart: storeCart
+    })
     this.setCartLength(storeCart)
-    this.getOrderTotal(storeCart)
+
+    if (options.store_name == '京东') {
+      this.setData({ store_name: '京东' })
+      // 京东订单
+      this.checkJdPrice(storeCart)
+    } else {
+      // 其他订单
+      this.getOrderTotal(storeCart)
+    }
 
     let avatars = this.params.avatars
     if (avatars != null && Object.keys(avatars).length > 0) {
@@ -58,11 +75,6 @@ Page({
     if (options.productType != null) {
       this.setData({ productType: options.productType })
     }
-
-    this.setData({
-      store_id: store_id,
-      storeCart: storeCart
-    })
 
     this.setLineItems(storeCart)
     // this.setData({
@@ -111,6 +123,11 @@ Page({
       }
     }
 
+    if (!this.data.canCreateOrder) {
+      this.errorToast('库存不足或订单中商品在所选地区不支持销售')
+      return
+    }
+
     if (submitStatus) {
       return false
     }
@@ -151,6 +168,15 @@ Page({
     if (this.data.productType == 3) {
       _data['secret'] = this.data.secretText
       _data.order_type = '3'
+    }
+
+    if (this.data.shipmentExpenses > 0) {
+      _data.shipment_expense = this.data.shipmentExpenses
+      _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
+    }
+
+    if (this.data.store_name == '京东') {
+      _data.store_name = this.data.store_name
     }
 
     http.post({
@@ -300,7 +326,7 @@ Page({
           if (data.from_type == 'localStorage') {
             // this.setData({ shipAddress: data })
             // 2437 老地址认为无效地址
-            if ( data.id <= 2437 ) {
+            if ( data.id <= 0 ) {
               storage.delSync('ship_address')
               this.setShipAddress({})
             } else {
@@ -336,6 +362,10 @@ Page({
   setShipAddress: function (data) {
     this.setData({ shipAddress: data })
     this.checkAreaLimit(this.data.storeCart, data)
+    if (this.data.store_name == '京东') {
+      this.checkJdStockAndAreaLimit(this.data.storeCart, data.id)
+      this.fetchJdFreight(this.data.storeCart, data.id)
+    }
   },
 
   selectAddress: function () {

@@ -35,7 +35,7 @@ const ENV = 'development'
 
 // 设置是否可以选择支付方式
 // 默认支持微信支付，如果 BrcbPayAvailable 为 true，则支持微信支付、农商行支付选择
-const BrcbPayAvailable = false
+const BrcbPayAvailable = true
 
 const ENV_CONFIG = {
   development: {
