@@ -144,7 +144,10 @@
       <image src="{{item.avatar}}" class="avatar"></image>
       <view class="product-content">
         <view class="name-container">
-          <text class="name"><text class="hot-badge">热销</text>{{item.name}}</text>
+          <text class="name">{{item.name}}</text>
+          <view class="pbadges">
+            <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+          </view>
         </view>
         <view class="price-and-btn">
           <vew class="price-container">

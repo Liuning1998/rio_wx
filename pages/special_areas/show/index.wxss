@@ -617,3 +617,25 @@ page {
   margin: 0 20rpx;
 }
 /* 到底提示 */
+
+/* 徽标 */
+.pbadges {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8rpx;
+}
+.pbadges .badge-item {
+  font-size: 20rpx;
+  color: #F64C47;
+  height: 28rpx;
+  line-height: 28rpx;
+  border: 1px solid #F64C47;
+  padding: 0 4rpx;
+  border-radius: 4rpx;
+  display: inline-block;
+  position: relative;
+  top: -2rpx;
+  margin-right: 4rpx;
+  margin-bottom: 4rpx;
+}
+/* 徽标 */

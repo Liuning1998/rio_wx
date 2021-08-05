@@ -31,6 +31,9 @@
           <view class="product-info">
             <view class="name-and-badge" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
               <text class="name">{{item.name}}</text>
+              <view class="pbadges">
+                <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+              </view>
               <!-- <view class="badges">
                 <text class="item">包邮</text>
                 <text class="item-fill">赠品</text>

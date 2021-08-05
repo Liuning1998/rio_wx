@@ -265,7 +265,7 @@ page {
 .name-and-desc {
   display: flex;
   flex-direction: column;
-  padding: 0 24rpx 0 24rpx;
+  padding: 0 24rpx 22rpx 24rpx;
   box-sizing: border-box;
   background: #ffffff;
   /* border-top: 1 solid #f7f7f7; */
@@ -284,7 +284,6 @@ page {
   display: -webkit-box;
   width: 100%;
   padding-top: 22rpx;
-  margin-bottom: 22rpx;
   border-top: 1px solid #f7f7f7;
 }
 

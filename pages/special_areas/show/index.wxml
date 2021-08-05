@@ -84,6 +84,9 @@
           <image class="avatar" src="{{item.avatar}}"></image>
           <view class="product-content">
             <text class="name">{{item.name || ''}}</text>
+            <view class="pbadges">
+              <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+            </view>
             <view class="price-and-cart">
               <view class="price-container">
                 <text class="price-int">{{ price.int(item.price) }}</text>
@@ -109,8 +112,8 @@
             <view class="product-content">
               <view class="name-and-badges">
                 <text class="name">{{ item.name || '' }}</text>
-                <view class="badges">
-                  <text class="li">热销</text>
+                <view class="pbadges">
+                  <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
                 </view>
               </view>
 
