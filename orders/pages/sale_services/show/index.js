@@ -18,7 +18,7 @@ Page({
     var id = options.id
     // var id = 12
 
-    this.fetch_detail(12)
+    this.fetch_detail(id)
   },
 
   fetch_detail: function (id) {
