@@ -68,7 +68,7 @@
           <text>专属价格</text>
         </view>
       </view>
-      <view class="category-content">
+      <view class="category-content {{ categories.length > 5 && 'more' }}">
         <view bindtap="gotoCategory" data-item="{{item}}" class="category-item" wx:for="{{categories}}" wx:key="index">
           <view class="icon-container"><image src="{{item.icon}}"></image></view>
           <text class="name">{{item.name}}</text>

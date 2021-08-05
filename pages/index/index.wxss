@@ -80,6 +80,7 @@ page {
   align-items: center;
   justify-content: space-between;
   padding: 0 32rpx;
+  padding-top: 1rpx;
   box-sizing: border-box;
 }
 

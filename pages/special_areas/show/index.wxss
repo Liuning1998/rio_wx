@@ -239,6 +239,15 @@ page {
   justify-content: space-around;
 }
 
+.category-container .category-content.more {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.category-container .category-content.more .category-item {
+  width: 25%;
+}
+
 .category-container .category-item {
   width: 20%;
   display: flex;
