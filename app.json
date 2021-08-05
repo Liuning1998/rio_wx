@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "orders/pages/sale_services/show/index",
+    "pages/orders/show/index",
     "pages/products/show/index",
     "pages/orders/confirm/index",
     "pages/flat_categories/index/index",
@@ -17,7 +19,6 @@
     "pages/coupons/dashboard/index",
     "pages/orders/index/index",
     "pages/contact/index",
-    "pages/orders/show/index",
     "pages/orders/expresses/show",
     "products/pages/yiyuangou/index",
     "agreement/pages/yiyuangou/index",

@@ -21,7 +21,7 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
-    console.log(this.params)
+
     this.setData({ order: this.params.order })
     this.getServices()
     this.getOrderServiceStatus(this.params.order)

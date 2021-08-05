@@ -149,7 +149,8 @@
     <view class="product-expenses">
       <view class="content">
         <text class="label">商品金额</text>
-        <text>￥{{ order.total }}</text>
+        <text wx:if="{{ order.shipment_expense != null && order.shipment_expense > 0 }}">￥{{ order.total - order.shipment_expense }}</text>
+        <text wx:else>￥{{ order.total }}</text>
         </view>
     </view>
 
@@ -210,6 +211,27 @@
         </view> -->
       </view>
     </view>
+
+    <!-- 售后列表 -->
+    <view class="sale-services-container" wx:if="{{ saleServices != null && saleServices.length > 0 }}">
+      <view class="sale-services-label">
+        <text>售后商品</text>
+      </view>
+
+      <view class="sale-services-body">
+        <view wx:for="{{ saleServices }}" wx:for-item="item" wx:key="index" class="product-item" bindtap="gotoSaleServiceShow" data-item="{{item}}">
+          <view class="avatar-container"><image src="{{item.master_image}}"></image></view>
+          <view class="description">
+            <text class="name">{{ item.product_info }}</text>
+            <view class="date-and-status">
+              <text class="date">{{item.created_at}}</text>
+              <text class="status">{{ item.state.title }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 售后列表 -->
   </view>
 </scroll-view>
 

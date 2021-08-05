@@ -30,7 +30,7 @@ Page({
     getApp().commonBeforeOnLoad(this)
 
     let number = options.id
-    // let number = "J2551071170524272762"
+    // let number = "J1495708935655979834"
     http.get({
       url: 'api/orders/'+number,
       success: res => {
@@ -49,6 +49,7 @@ Page({
     })
 
     this.getOrderServiceStatus(number)
+    this.fetch_sale_services(number)
   },
 
   onShow: function () {
@@ -629,6 +630,22 @@ Page({
   },
   // 选择支付方式
 
+  fetch_sale_services: function (order_number) {
+    http.get({
+      url: "api/sale_order_services",
+      data: { order_number: order_number },
+      success: res => {
+        this.setData({ saleServices: res.data.result })
+      }
+    })
+  },
+
+  gotoSaleServiceShow: function (e) {
+    let item = e.currentTarget.dataset.item
+    if (item.id == null) { return }
+
+    this.navigateTo(`/orders/pages/sale_services/show/index?id=${item.id}`)
+  },
   /**
    * 用户点击右上角分享
    */
