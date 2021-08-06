@@ -58,8 +58,8 @@ Page({
     })
     this.setCartLength(storeCart)
 
-    if (options.store_name == '京东') {
-      this.setData({ store_name: '京东' })
+    if (options.store_short_name == '京东') {
+      this.setData({ store_short_name: '京东' })
       // 京东订单
       this.checkJdPrice(storeCart)
     } else {
@@ -173,10 +173,6 @@ Page({
     if (this.data.shipmentExpenses > 0) {
       _data.shipment_expense = this.data.shipmentExpenses
       _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
-    }
-
-    if (this.data.store_name == '京东') {
-      _data.store_name = this.data.store_name
     }
 
     http.post({
@@ -362,7 +358,7 @@ Page({
   setShipAddress: function (data) {
     this.setData({ shipAddress: data })
     this.checkAreaLimit(this.data.storeCart, data)
-    if (this.data.store_name == '京东') {
+    if (this.data.store_short_name == '京东') {
       this.checkJdStockAndAreaLimit(this.data.storeCart, data.id)
       this.fetchJdFreight(this.data.storeCart, data.id)
     }

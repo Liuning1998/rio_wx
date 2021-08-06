@@ -105,8 +105,8 @@ Page({
     }
 
     var url = "/pages/orders/confirm/index?store_id=" + item.store_id
-    if (item.store_name == '京东') {
-      url = url + "&store_name=京东"
+    if (item.store_short_name == '京东') {
+      url = url + "&store_short_name=京东"
     }
 
     this.navigateTo(url, {

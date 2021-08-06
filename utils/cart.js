@@ -17,6 +17,7 @@ function addCart (lineItem) {
   let storeCart = cart['store_'+lineItem.store_id] || {}
   storeCart.store_id = lineItem.store_id
   storeCart.store_name = lineItem.product.store_name
+  storeCart.store_short_name = lineItem.product.store_short_name
   if (storeCart['lineItems'] != null && storeCart['lineItems']['variant_'+lineItem.variant_id] != null) {
     let _line = storeCart['lineItems']['variant_' + lineItem.variant_id]
     _line.quantity += lineItem.quantity
