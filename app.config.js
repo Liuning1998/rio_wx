@@ -41,11 +41,12 @@ const BrcbPayAvailable = true
 const ENV_CONFIG = {
   development: {
     serverDomain: "rio-dev.jhqli.com",
-    brcbPayBaseUrl: "https://oces.test.bjrcb.com/dist/index.html"
+    // brcbPayBaseUrl: "https://oces.test.bjrcb.com/dist/index.html"
+    brcbPayBaseUrl: "https://oces.bjrcb.com/dist/index.html"
   },
   production: {
     serverDomain: "rio.jhqli.com",
-    brcbPayBaseUrl: "https://oces.test.bjrcb.com/dist/index.html"
+    brcbPayBaseUrl: "https://oces.bjrcb.com/dist/index.html"
   }
 }
 

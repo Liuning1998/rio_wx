@@ -98,7 +98,7 @@ Page({
       path = path + '?' + parmsArray.join('&')
 
       return {
-        title: '金色家园 幸福生活',
+        title: '金色家园',
         path: path,
         // imageUrl: ''
       }

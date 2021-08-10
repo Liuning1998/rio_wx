@@ -195,7 +195,7 @@ function beforeOnload (context) {
     //   // 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持PNG及JPG。显示图片长宽比是 5: 4。	
     //   // 使用默认截图
     //   return {
-    //     title: '金色家园·幸福生活',
+    //     title: '金色家园',
     //     path: `/${this.route}?from=share` ,
     //     imageUrl: 'https://score-admin.ixiaoliu.com/wx_share.jpg'
     //   }

@@ -6,7 +6,7 @@
     </view>
 
     <view class='msg'>
-      <text class='label text-lg'>请先登录, 登录后"金色家园 幸福生活"将获取以下权限</text>
+      <text class='label text-lg'>请先登录, 登录后"金色家园"将获取以下权限</text>
       <view class='remark text text-muted'>
         <i class="fa fa-circle" aria-hidden="true"></i>获取您公开的信息（头像、昵称等）</view>
     </view>

@@ -31,7 +31,7 @@
 <scroll-view bindtouchstart='changeNavbar' scroll-y class='page-container'>
   <view class="ads-background" style="padding-top: {{pageMarginTop+44}}px;">
     <view class="background-image">
-      <image src="{{ads[0].images[0]}}"></image>
+      <image src="{{specialArea.background_images}}"></image>
     </view>
   </view>
 

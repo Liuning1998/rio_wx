@@ -23,7 +23,7 @@ Page({
     this.getBanner()
     this.setData({ 
       itemId: option.item_id,
-      pageTitle: option.name || '金色家园 幸福生活'
+      pageTitle: option.name || '金色家园'
     })
     this.getProducts(option.item_id)
   },

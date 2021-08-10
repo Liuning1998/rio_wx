@@ -322,6 +322,7 @@ Page({
           if (data.from_type == 'localStorage') {
             // this.setData({ shipAddress: data })
             // 2437 老地址认为无效地址
+            // if ( data.id <= 2437 ) {
             if ( data.id <= 0 ) {
               storage.delSync('ship_address')
               this.setShipAddress({})

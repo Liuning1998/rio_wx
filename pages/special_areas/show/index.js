@@ -18,7 +18,8 @@ Page({
     pageNo: 1,
     currentStore: {},
     searchStyle: "",
-    pageBottom: false
+    pageBottom: false,
+    specialArea: null
   },
 
   /**
@@ -114,14 +115,9 @@ Page({
 
   getAds: function (special_area_id) {
     http.get({
-      url: "api/ads/special_area_home",
-      data: {
-        special_area_id: special_area_id
-      },
+      url: "/api/special_areas/" + special_area_id,
       success: res => {
-        if (res.data != null && res.data.ads != null && res.data.ads.constructor.name == "Array") {
-          this.setData({ ads: res.data.ads })
-        }
+        this.setData({ specialArea: res.data })
       }
     })
   },
