@@ -28,11 +28,12 @@ var errorMap = {
   100159: { msg: 'already_join_buy_group', msg_t: '您已参加过该活动' },
   100160: { msg: 'area_limit limit exceeded', msg_t: "订单中商品在所选地区不支持销售，请确认后再购买。" },
   100163: { msg: 'user_limit', msg_t: "下单失败，您不是北京市96156居家养老服务平台认证用户" },
+  100161: { msg: 'not_sale', mst_t: "商品不可售, 请稍后再试"},
 }
 
 // 修改团购中专区跳转id, /group_buy/pages/join/index.js
-// const ENV = 'production'
-const ENV = 'development'
+const ENV = 'production'
+// const ENV = 'development'
 
 // 设置是否可以选择支付方式
 // 默认支持微信支付，如果 BrcbPayAvailable 为 true，则支持微信支付、农商行支付选择

@@ -13,6 +13,7 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+    this.setData({ imageUrl: options.url })
   },
 
   /**

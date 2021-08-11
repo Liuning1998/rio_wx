@@ -5,4 +5,4 @@
 <!-- <view class="banner-container">
   <image class="banner" src="{{adImages[0]}}"></image>
 </view> -->
-<image style="width: 750rpx; height: 1984rpx; display: flex;" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/yanglao_huodong_001.png"></image>
+<image mode="widthFix" style="width: 750rpx; display: flex;" src="{{imageUrl}}"></image>

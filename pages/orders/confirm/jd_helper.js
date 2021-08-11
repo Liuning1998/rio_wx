@@ -90,7 +90,16 @@ var jd_functions = {
         }
       },
       fail: res => {
-        
+        if (res.data.code != null) {
+          this.setData({ canCreateOrder: false })
+          var msg = '库存不足或订单中商品在所选地区不支持销售'
+
+          if (getApp().globalData.errorMap[res.data.code] != null) {
+            msg = getApp().globalData.errorMap[res.data.code].msg_t
+          }
+
+          this.errorToast(msg)
+        }
       }
     })
   },
