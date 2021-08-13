@@ -51,6 +51,12 @@
           <view wx:if="{{ index < products['id_'+currentCategory.id].length - 1 }}" class="line"></view>
         </view>
       </view>
+
+      <view class="page-bottom" wx:if="{{products['id_'+currentCategory.id].length > 0 && pageBottom['id_'+currentCategory.id]}}" style="width: 100%; padding-bottom: 100rpx;">
+        <image src="/images/bottom_icon_001.png"></image>
+        <text>已经到底啦</text>
+        <image src="/images/bottom_icon_001.png" class="right"></image>
+      </view>
     </view>
   </view>
 </view>

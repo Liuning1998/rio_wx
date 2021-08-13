@@ -35,7 +35,7 @@ Page({
     this.getAds(item_id)
 
     this.setData({
-      pageTitle: options.name || "专区首页",
+      pageTitle: decodeURI(options.name) || "专区首页",
       currentStore: {
         id: item_id,
         name: options.name

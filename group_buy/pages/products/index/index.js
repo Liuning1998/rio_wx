@@ -42,7 +42,7 @@ Page({
       this.setData({ brand: brand })
     }
 
-    this.setData({ tagName: options.tag_name, tagID: options.tag_id, sortBadge: options.sort_badge })
+    this.setData({ tagName: decodeURI(options.tag_name), tagID: options.tag_id, sortBadge: options.sort_badge })
 
     this.getProducts()
 

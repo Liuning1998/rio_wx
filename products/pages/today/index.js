@@ -159,5 +159,12 @@ Page({
     this.setData({
       [key]: animation.export(),
     })
+
+    setTimeout( res => {
+      let _key = `cartAnimations.${item_key}.class`
+      this.setData({
+        [_key]: "hidden"
+      })
+    }, 500)
   }
 })

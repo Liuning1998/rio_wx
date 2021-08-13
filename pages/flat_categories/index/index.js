@@ -80,11 +80,21 @@ Page({
     for(var i in resProducts) {
       var product = resProducts[i]
       if (product == null) { continue }
-      if (products.length <= 0 || products.filter(item => item.id == product.id).length <= 0) {
+      if (products.length <= 0 || products.filter(item => item.id == product.id).length <= 2) {
         var dataKey = `products.${key}[${currentIndex}]`
         this.setData({ [dataKey]: product })
         currentIndex += 1
       }
+      // var dataKey = `products.${key}[${currentIndex}]`
+      // this.setData({ [dataKey]: product })
+      // currentIndex += 1
+    }
+
+    var bottomKey = `pageBottom.${key}`
+    if (resProducts.length < 10) {
+      this.setData({ [bottomKey]: true })
+    } else {
+      this.setData({ [bottomKey]: false })
     }
   },
 

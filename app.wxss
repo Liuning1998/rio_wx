@@ -127,3 +127,29 @@
   margin-bottom: 4rpx;
 }
 /* 徽标 */
+
+/* 到底提示 */
+.page-bottom image {
+  width: 46rpx;
+  height: 28rpx;
+  display: flex;
+}
+
+.page-bottom image.right {
+  transform: rotate(180deg);
+}
+
+.page-bottom {
+  height: 160rpx;
+  width: 750rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-bottom text {
+  font-size: 28rpx;
+  color: #B4AFAF;
+  margin: 0 20rpx;
+}
+/* 到底提示 */

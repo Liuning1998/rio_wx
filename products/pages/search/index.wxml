@@ -35,7 +35,7 @@
     <text>没有搜索到相关商品</text>
   </view>
 
-  <view wxelse class="products-container">
+  <view wx:else class="products-container">
     <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
       <view class="avatar-container">
         <image class="avatar" src="{{item.avatar}}"></image>
@@ -60,6 +60,12 @@
           </view>
         </view>
       </view>
+    </view>
+
+    <view class="page-bottom" wx:if="{{pageBottom}}">
+      <image src="/images/bottom_icon_001.png"></image>
+      <text>已经到底啦</text>
+      <image src="/images/bottom_icon_001.png" class="right"></image>
     </view>
   </view>
 </scroll-view>

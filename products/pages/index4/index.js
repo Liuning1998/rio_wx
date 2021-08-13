@@ -36,7 +36,7 @@ Page({
 
     this.setData({ 
       sortBadge: options.sort_badge, 
-      pageTitle: options.name || "商品列表",
+      pageTitle: decodeURI(options.name) || "商品列表",
       special_area_id: item_id
     })
     this.getProducts(item_id)
@@ -60,6 +60,12 @@ Page({
         if (res.data != null && res.data.constructor.name == 'Array') {
           // this.setData({ products: res.data })
           this.appendProducts(res.data)
+
+          if (res.data.length < 10) {
+            this.setData({ pageBottom: true })
+          } else {
+            this.setData({ pageBottom: false })
+          }
         }
       }
     })
@@ -133,7 +139,13 @@ Page({
 
 
   goback: function () {
-    wx.navigateBack({})
+    if (getCurrentPages().length > 1) {
+      wx.navigateBack({})
+    } else {
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+    }
   },
 
   getAds: function (special_area_id) {

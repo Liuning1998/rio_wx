@@ -23,7 +23,7 @@ Page({
     this.getBanner()
     this.setData({ 
       itemId: option.item_id,
-      pageTitle: option.name || '金色家园'
+      pageTitle: decodeURI(option.name) || '金色家园'
     })
     this.getProducts(option.item_id)
   },
@@ -169,7 +169,13 @@ Page({
   },
 
   goback: function () {
-    wx.navigateBack({})
+    if (getCurrentPages().length > 1) {
+      wx.navigateBack({})
+    } else {
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+    }
   },
 
   onReachBottom: function () {

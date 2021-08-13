@@ -70,6 +70,12 @@ Page({
           } else {
             this.appendProducts(res.data)
           }
+
+          if (res.data.length < 10) {
+            this.setData({ pageBottom: true })
+          } else {
+            this.setData({ pageBottom: false })
+          }
         }
       }
     })

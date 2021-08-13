@@ -40,8 +40,8 @@ Page({
       this.setData({ brand: brand })
     }
 
-    this.setData({ tagName: options.tag_name, tagID: options.tag_id, sortBadge: options.sort_badge })
-    this.getProducts(options.tag_name, 1, null)
+    this.setData({ tagName: decodeURI(options.tag_name), tagID: options.tag_id, sortBadge: options.sort_badge })
+    this.getProducts(decodeURI(options.tag_name), 1, null)
   },
 
   /**
@@ -72,6 +72,12 @@ Page({
             this.setData({ products: res.data, loaded: true, pageNo: pageNo })
           } else {
             this.appendProducts(res.data)
+          }
+
+          if (res.data.length < 10) {
+            this.setData({ pageBottom: true })
+          } else {
+            this.setData({ pageBottom: false })
           }
         }
       }
@@ -170,7 +176,13 @@ Page({
   },
 
   goback: function () {
-    wx.navigateBack({})
+    if (getCurrentPages().length > 1) {
+      wx.navigateBack({})
+    } else {
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+    }
   },
 
   changeNavbar: function () {

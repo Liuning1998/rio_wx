@@ -190,16 +190,36 @@ function beforeOnload (context) {
       this.navigateTo(url)
     }
 
-    // this.onShareAppMessage = function () {
-    //   // imageUrl
-    //   // 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持PNG及JPG。显示图片长宽比是 5: 4。	
-    //   // 使用默认截图
-    //   return {
-    //     title: '金色家园',
-    //     path: `/${this.route}?from=share` ,
-    //     imageUrl: 'https://score-admin.ixiaoliu.com/wx_share.jpg'
-    //   }
-    // }
+    this.onShareAppMessage = function () {
+      // imageUrl
+      // 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持PNG及JPG。显示图片长宽比是 5: 4。	
+      // 使用默认截图
+      var noRedirectRoot = [
+        "pages/products/show/index",
+        "pages/special_areas/show/index",
+        "pages/special_areas/show01/index",
+        "products/pages/index/index",
+        "products/pages/index2/index",
+        "products/pages/index3/index",
+        "products/pages/index4/index",
+        "products/pages/search/index",
+        "products/pages/search_all/index",
+        "products/pages/today/index",
+        "products/pages/yiyuangou/index",
+      ]
+
+      if (!noRedirectRoot.includes(this.route)) {
+        return {
+            title: '金色家园',
+            path: `/pages/index/index?from=share` ,
+          }
+      }
+      // return {
+      //   title: '金色家园',
+      //   path: `/${this.route}?from=share` ,
+      //   // imageUrl: 'https://score-admin.ixiaoliu.com/wx_share.jpg'
+      // }
+    }
 
     // 加入购物车，并产生动画效果
     this.addCartAndAnimation = function (e) {

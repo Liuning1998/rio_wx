@@ -32,11 +32,11 @@ Page({
     }
 
     this.setData({ 
-      tagName: options.tag_name,
+      tagName: decodeURI(options.tag_name),
       tagID: options.tag_id,
       statusBarHeight: wx.getSystemInfoSync().statusBarHeight 
     })
-    this.getProducts(options.tag_name, 1, null)
+    this.getProducts(decodeURI(options.tag_name), 1, null)
     // this.getProducts('休闲零食', 1, null)
   },
 
@@ -68,6 +68,12 @@ Page({
             this.setData({ products: res.data, loaded: true, pageNo: pageNo })
           } else {
             this.appendProducts(res.data)
+          }
+
+          if (res.data.length < 10) {
+            this.setData({ pageBottom: true })
+          } else {
+            this.setData({ pageBottom: false })
           }
         }
       }
