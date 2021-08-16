@@ -80,7 +80,11 @@ Page({
     for(var i in resProducts) {
       var product = resProducts[i]
       if (product == null) { continue }
-      if (products.length <= 0 || products.filter(item => item.id == product.id).length <= 2) {
+      let exist_flag = 5
+      if (resProducts.length < getApp().globalData.perPage) {
+        exist_flag = 0
+      }
+      if (products.length <= 0 || products.filter(item => item.id == product.id).length <= exist_flag) {
         var dataKey = `products.${key}[${currentIndex}]`
         this.setData({ [dataKey]: product })
         currentIndex += 1

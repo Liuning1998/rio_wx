@@ -29,7 +29,7 @@ var jd_functions = {
             for (let j in storeCart.lineItems) {
               let _line_item = storeCart.lineItems[j]
               if(!_line_item.selectStatus) { continue }
-              if (_line_item.variant_id == price.id && _line_item.price == price.price) {
+              if (_line_item.variant_id == price.id && _line_item.price != price.price) {
                 _line_item.price = price.price
                 _line_item.origin_price = price.origin_price
               }
