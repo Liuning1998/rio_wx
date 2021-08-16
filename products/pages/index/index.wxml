@@ -74,7 +74,7 @@
 </view>
 
 <view class="cart-animation-container">
-  <view wx:for="{{cartAnimations}}" wx:key="index" class="item" animation="{{item.animation}}" style="{{item.style}}">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
     <text>+1</text>
   </view>
 </view>
