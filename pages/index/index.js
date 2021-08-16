@@ -65,6 +65,8 @@ Page({
     this.setData({ canScroll: true })
     this.getUserInfo()
     this.cancelSearch()
+
+    wx.stopPullDownRefresh()
   },
 
   getRecommendProducts: function (pageNo) {

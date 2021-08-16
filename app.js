@@ -96,7 +96,7 @@ App({
 
     var sysInfo = wx.getSystemInfoSync()
 
-    if (['iPhone X', 'iPhone XS', 'iPhone XR', 'iPhone XS MAX'].includes(sysInfo.model) || sysInfo.model.match(/iPhone X/g) != null || sysInfo.model.match(/iPhone1[01234]/g)) {
+    if (['iPhone X', 'iPhone XS', 'iPhone XR', 'iPhone XS MAX'].includes(sysInfo.model) || sysInfo.model.match(/iPhone X/g) != null || (sysInfo.model.match(/iPhone1[01234]/g) && !sysInfo.model.match(/iPhone [6789]/g))) {
       this.globalData.isIphoneX = true
       return true
     } else {
