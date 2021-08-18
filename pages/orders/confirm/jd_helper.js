@@ -25,10 +25,10 @@ var jd_functions = {
           var total = 0
           for(var i in prices) {
             var price = prices[i]
-
             for (let j in storeCart.lineItems) {
               let _line_item = storeCart.lineItems[j]
               if(!_line_item.selectStatus) { continue }
+              if(price.id != _line_item.variant_id) { continue }
               if (_line_item.variant_id == price.id && _line_item.price != price.price) {
                 _line_item.price = price.price
                 _line_item.origin_price = price.origin_price
