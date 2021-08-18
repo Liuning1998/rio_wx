@@ -22,7 +22,11 @@ function priceInt (price) {
 
 // lineItems 购物车中已勾选的商品
 function discountTotal (storeCart, lineItems, user=null, shipmentExpenses=0) {
-  if (user == null) { return storeCart.total }
+  if (user == null) {
+    var total = storeCart.total + shipmentExpenses
+    total = Math.round(total * 100)/100
+    return total
+  }
   if (user.kzx_user_identification == 1 && user.discount != null) {
     var result = 0
     for(var i=0; i < lineItems.length; i++) {

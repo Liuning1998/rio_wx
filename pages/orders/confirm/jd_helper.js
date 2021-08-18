@@ -21,28 +21,24 @@ var jd_functions = {
         if (prices != null && prices.length > 0) {
           var lineItems = []
           if (this.data.storeCart != null) { storeCart = this.data.storeCart }
-          if (this.data.lineItems != null) { lineItems = this.data.lineItems }
           var total = 0
-          for(var i in prices) {
-            var price = prices[i]
-            for (let j in storeCart.lineItems) {
-              let _line_item = storeCart.lineItems[j]
-              if(!_line_item.selectStatus) { continue }
-              if(price.id != _line_item.variant_id) { continue }
-              if (_line_item.variant_id == price.id && _line_item.price != price.price) {
-                _line_item.price = price.price
-                _line_item.origin_price = price.origin_price
-              }
-              total = total + _line_item.price * _line_item.quantity
+
+          for (let i in storeCart.lineItems) {
+            let _line_item = storeCart.lineItems[i]
+            if(!_line_item.selectStatus) { continue }
+
+            var price = prices.filter(item => item.id == _line_item.variant_id)[0]
+            if (price != null) {
+              _line_item.price = price.price
+              _line_item.origin_price = price.origin_price
             }
-            
-            if (lineItems.length > 0) {
-              storeCart.total = total
-              this.setData({ lineItems: lineItems })
-            }
-            this.setData({ storeCart: storeCart })
+
+            lineItems.push(_line_item)
+            total = total + _line_item.price * _line_item.quantity
           }
           
+          storeCart.total = total
+          this.setData({ storeCart: storeCart, lineItems: lineItems })
         }
       },
       fail: res => {
