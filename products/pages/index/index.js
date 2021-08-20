@@ -141,28 +141,28 @@ Page({
     })
   },
 
-  appendProducts: function (data,categoryId) {
-    var key = `id_${categoryId}`
-    let products = this.data.products[key]
-    let offset = products.length
+  // appendProducts: function (data,categoryId) {
+  //   var key = `id_${categoryId}`
+  //   let products = this.data.products[key]
+  //   let offset = products.length
     
 
-    data.forEach(item => {
-      if (products.filter(i => i.id == item.id).length <= 0) {
-        productsI.proArr.push(item)
-        this.setData({ products: products})
-        offset += 1
-      }
-    })
+  //   data.forEach(item => {
+  //     if (products.filter(i => i.id == item.id).length <= 0) {
+  //       productsI.proArr.push(item)
+  //       this.setData({ products: products})
+  //       offset += 1
+  //     }
+  //   })
 
-    if (data.length >= getApp().globalData.perPage) {
-      this.setData({ pageNo: this.data.pageNo + 1 })
-    }
+  //   if (data.length >= getApp().globalData.perPage) {
+  //     this.setData({ pageNo: this.data.pageNo + 1 })
+  //   }
 
-    this.setData({ loaded: true })
+  //   this.setData({ loaded: true })
 
-    // this.stopPDRefresh()
-  },
+  //   // this.stopPDRefresh()
+  // },
 
   gotoProduct: function (e) {
     var item = e.currentTarget.dataset.item
@@ -270,9 +270,9 @@ Page({
   },
 
   search: function () {
-    // if (this.data.searchKey.length <= 0) {
-    //   return
-    // }
+    if (this.data.searchKey.trim() == '') {
+      this.hideSearch()
+    }
 
     var key = `id_${this.data.currentCategory.id}`;
     var labelArr = this.data.labelArr;
@@ -286,7 +286,6 @@ Page({
       [`products.${key}`]:[],
       labelArr:labelArr
     })
-    this.hideSearch()
 
     this.getProducts(this.data.currentCategory.id, null,true,this.data.searchKey)
     
@@ -383,6 +382,7 @@ Page({
     });
     this.getProducts(id,this.data.orderType,true,this.data.searchKey)
     this.getRect('#'+ele);
+    this.cancelSearch();
   },
 
   getRect(ele) { //获取点击元素的信息,ele为传入的id
