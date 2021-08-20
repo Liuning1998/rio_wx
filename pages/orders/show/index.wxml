@@ -1,6 +1,7 @@
 <!--pages/orders/show/index.wxml-->
 <wxs module="helper" src="./helper.wxs"></wxs>
 <wxs module="rhelper" src="../../../utils/helper.wxs"></wxs>
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
 
 <navbar appendStyle="background: #ffffff;" textStyle="color: #342F27; font-weight: 600;" title="订单详情" />
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
@@ -149,7 +150,7 @@
     <view class="product-expenses">
       <view class="content">
         <text class="label">商品金额</text>
-        <text wx:if="{{ order.shipment_expense != null && order.shipment_expense > 0 }}">￥{{ order.total - order.shipment_expense }}</text>
+        <text wx:if="{{ order.shipment_expense != null && order.shipment_expense > 0 }}">￥{{ price.tos(order.total - order.shipment_expense) }}</text>
         <text wx:else>￥{{ order.total }}</text>
         </view>
     </view>
