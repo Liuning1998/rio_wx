@@ -430,8 +430,9 @@ page {
   text-align: center;
   font-size: 22rpx;
   color: #2B2424;
-  margin-right: 6rpx;
+  margin-right: 5rpx;
   display: inline-block;
+  border: 1px solid #F7F7F7;
 }
 .label-many{
   position: absolute;
