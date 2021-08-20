@@ -69,18 +69,38 @@
   </view>
 
   <view class="store-container">
-    <swiper indicator-dots="{{false}}" circular="{{false}}" class="{{ specialAreas[0].length > 4 ? 'tow-row' : '' }}" bindchange='changeSpecailAreaSwiperCurrent'>
+    <!-- <swiper indicator-dots="{{false}}" circular="{{false}}" class="{{ specialAreas[0].length > 4 ? 'tow-row' : '' }}" bindchange='changeSpecailAreaSwiperCurrent'>
       <swiper-item wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
         <view bindtap="gotoShow" data-item="{{item}}" class="store-item" wx:for="{{ group }}" wx:for-item="item" wx:key="index">
           <view class="logo-container"><image src="{{item.logo}}"></image></view>
           <text>{{item.name}}</text>
         </view>
       </swiper-item>
-    </swiper>
+    </swiper> -->
     
-    <view wx:if="{{ specialAreas.length > 1 }}" class="special-area-swiper-dots-container">
+    <!-- 修改 start -->
+      <scroll-view scroll-x="true" class="new-store-container" scroll-with-animation="{true}" scroll-left='0' bindscroll="getleft">
+        <!--内容区域--> 
+        <view class="new-store-item-parent" wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
+          <view  bindtap="gotoShow" class="new-store-item" wx:for="{{group}}" wx:for-item="item">
+            <view class="new-logo-container">
+              <image src="{{item.logo}}"></image>
+            </view>
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+      </scroll-view > 
+      <!--滚动条部分--> 
+      <view wx:if="{{slideShow}}" class="slide"> 
+        <view class='slide-bar' >
+          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view> 
+        </view> 
+       </view>
+    <!-- end -->
+
+    <!-- <view wx:if="{{ specialAreas.length > 1 }}" class="special-area-swiper-dots-container">
       <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < specialAreas.length }}" class="dot {{ index == specialAreaSwiperCurrent && 'active' }}"></view>
-    </view>
+    </view> -->
   </view>
 
     <!-- 团购商品 -->
