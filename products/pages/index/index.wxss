@@ -329,6 +329,7 @@ page {
 .top-label{
   /* margin-top: 24rpx; */
   padding: 24rpx;
+  padding-right: 0;
   width: 100%;
   box-sizing: border-box;
   background-color: #fff;
@@ -345,7 +346,7 @@ page {
 }
 .top-label .label-box.more .label-text:last-child{
   /* overflow: hidden; */
-  margin-right: 67rpx;
+  margin-right: 100rpx;
 }
 
 view.label-text{

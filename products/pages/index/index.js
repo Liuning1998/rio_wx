@@ -150,7 +150,6 @@ Page({
     data.forEach(item => {
       if (products.filter(i => i.id == item.id).length <= 0) {
         productsI.proArr.push(item)
-        console.log(products)
         this.setData({ products: products})
         offset += 1
       }
@@ -361,7 +360,6 @@ Page({
     })
     // 搜索内容的标签先清空数据
     var product = `products.id_${this.data.currentCategory.id}`
-    console.log(e.currentTarget.dataset.item.searched)
     if(e.currentTarget.dataset.item.searched){
       labelArr.forEach(function(e,i){
         if(i == index){
@@ -393,7 +391,6 @@ Page({
       let moveParams = that.data.moveParams;
       moveParams.subLeft = rect.left;
       moveParams.subHalfWidth = rect.width/2;
-      console.log()
       that.moveTo();
     }).exec()
   },
