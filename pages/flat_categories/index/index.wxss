@@ -364,3 +364,126 @@ page {
   height: 50rpx;
   left: 328rpx;
 }
+/* 标签位置 */
+.top-label{
+  width: 566rpx;
+  padding: 0 24rpx 24rpx;
+  position: relative;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.top-label.fixed{
+  position: fixed;
+  z-index: 1;
+}
+.products-title{
+  font-size: 24rpx;
+  color: #5B5454;
+  text-align: center;
+}
+.products-title view{
+  width: 6rpx;
+  height: 6rpx;
+  position: relative;
+  background-color: #D8D8D8;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.products-title view.left::after{
+  content: "";
+  position: absolute;
+  width: 38rpx;
+  height: 2rpx;
+  background-color: #D8D8D8;
+  top: 50%;
+  left: -47rpx;
+  transform: translateY(-50%);
+}
+.products-title view.right::after{
+  content: "";
+  position: absolute;
+  width: 38rpx;
+  height: 2rpx;
+  background-color: #D8D8D8;
+  top: 50%;
+  right: -47rpx;
+  transform: translateY(-50%);
+}
+.top-label .label-box{
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.label-box.more .label-text:last-child{
+  margin-right: 50rpx;
+}
+.label-text{
+  width: 112rpx;
+  line-height: 52rpx;
+  border-radius: 60rpx;
+  background-color: #F7F7F7;
+  text-align: center;
+  font-size: 22rpx;
+  color: #2B2424;
+  margin-right: 6rpx;
+  display: inline-block;
+}
+.label-many{
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  top: 0;
+  z-index: 1;
+  left: 0;
+  padding: 0 70rpx 0 24rpx;
+  box-sizing: border-box;
+}
+
+.label-many .label-text{
+  margin-bottom: 12rpx;
+}
+.label-many .label-text:nth-child(4n){
+  margin-right: 0;
+}
+.label-text.active{
+  background-color: rgba(246,76,71,0.2);
+  border: 1px solid rgba(246,76,71,0.50);
+  color: #f64c47;
+}
+.top-label .label-down{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70rpx;
+  z-index: 1;
+}
+.top-label .label-down .img-box{
+  padding: 23rpx 0;
+  background-color: #fff;
+  position: relative;
+  z-index: 1;
+}
+.top-label .label-down .img-box image{
+  width: 18rpx;
+  height: 12rpx;
+  display: block;
+  margin: 0 auto;
+  transition: all .1s;
+}
+.label-down.rotate image{
+  transform: rotate(180deg);
+}
+.top-label .label-down .shadow{
+  position: absolute;
+  width: 70rpx;
+  height: 30rpx;
+  box-shadow: -6px 0px 9px 0px rgba(0,0,0,0.2);
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  background: #000;
+  border-radius: 37%;
+}

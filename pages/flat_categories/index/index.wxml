@@ -21,10 +21,36 @@
     </view> -->
 
     <view class="current-category">
-      <image wx:if="{{ currentCategory.image.length > 0 }}" class="category-banner" src="{{ currentCategory.image }}"></image>
+      <view class="current-top">
+        <image wx:if="{{ currentCategory.image.length > 0 }}" class="category-banner" src="{{ currentCategory.image }}"></image>
+        <view id="fixedTop"></view>
+        <view class="top-label {{topShow ? 'fixed':''}}" style="top:{{topShow ? parentTop : 0}}px" >
+          <scroll-view class="label-box {{categories[currentIndex].labelArr.length>=6 ? 'more' : ''}}" scroll-x scroll-left="{{scrollLeft}}" bindscroll="scrollMove" scroll-with-animation>
+            <view wx:for="{{categories[currentIndex].labelArr}}" bindtap="labelSreen" class="label-text {{item.id == currentCategory.secondId ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}"  id="ele{{index}}">{{item.name}}</view>
+          </scroll-view>
 
-      <view class="products-container">
-        <view class="product-container" wx:for="{{ products['id_'+currentCategory.id] }}" wx:key="index">
+          <view class="label-many" wx:if="{{labelShow}}">
+            <view wx:for="{{categories[currentIndex].labelArr}}" bindtap="labelSreen" class="label-text {{item.id == currentCategory.secondId ? 'active' : ''}}" data-index="{{index}}" data-item="{{item}}" id="ele{{index}}">{{item.name}}</view>
+          </view>
+
+          <view wx:if="{{categories[currentIndex].labelArr.length>=6}}" class="label-down {{labelShow ? 'rotate' : ''}}" bindtap="openLabel">
+            <view class="img-box">
+              <image src="../images/down.png"></image>
+            </view>
+            <view class="shadow"></view>
+          </view>
+
+        </view>
+      </view>
+      
+
+      <view class="products-container" style="padding-top:{{topShow ? 40 : 0}}px">
+        <view class="products-title">
+          <view class="left"></view>
+          {{productsTitle}}
+          <view class="right"></view>
+        </view>
+        <view class="product-container" wx:for="{{ products['id_'+currentCategory.secondId]}}" wx:key="index">
           <view class="avatar-container" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
             <image class="avatar" src="{{ item.avatar }}"></image>
           </view>
@@ -52,7 +78,7 @@
         </view>
       </view>
 
-      <view class="page-bottom" wx:if="{{products['id_'+currentCategory.id].length > 0 && pageBottom['id_'+currentCategory.id]}}" style="width: 100%; padding-bottom: 100rpx;">
+      <view class="page-bottom" wx:if="{{products['id_'+currentCategory.secondId].length > 0 && pageBottom['id_'+currentCategory.id]}}" style="width: 100%; padding-bottom: 100rpx;">
         <image src="/images/bottom_icon_001.png"></image>
         <text>已经到底啦</text>
         <image src="/images/bottom_icon_001.png" class="right"></image>

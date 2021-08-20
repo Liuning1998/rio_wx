@@ -5,27 +5,83 @@
 <navbar appendStyle="background: #ffffff;" title="{{pageTitle}}" />
 <view style='margin-top: {{pageMarginTop+44}}px;'></view>
 
-<view wx:if="{{ !(loaded && products.length <= 0) }}" class="list-cations-header" style="top: {{44+pageMarginTop}}px">
-  <view bindtap="changeOrder" data-order-type="auto" class="action-item {{orderType == null && 'active'}} ">
-    <text>综合排序</text>
+<view class="top-operation" style="top: {{pageMarginTop+44}}px">
+  <!-- 搜索 -->
+  <view class="search-btn-container" >
+    <view class="search-btn" bindtap="showSearchLayer">
+      <image src="/images/search_icon_003.png"></image>
+      <text>搜索商品</text>
+    </view>
   </view>
+  <!-- 标签筛选 -->
+  <view class="top-label">
+    <view wx:if="{{labelArr.length >= 6}}" class="drop-down" bindtap="openLabel">
+      <view class="img-box">
+        <image class="right" src="../../images/drop-down.png"></image>
+      </view>
+      <view class="shadow"></view>
+    </view>
+    <scroll-view scroll-x scroll-left="{{scrollLeft}}" bindscroll="scrollMove" scroll-with-animation class="label-box {{labelArr.length>=6 ? 'more' : ''}}">
+      <view wx:for="{{labelArr}}" data-item="{{item}}" data-index="{{index}}" bindtap="labelSreen" class="label-text {{item.active ? 'active' : ''}}" id="ele{{index}}">
+        <text>{{item.name}}</text>
+        <image wx:if="{{item.active}}" src="../../images/label_actice.png"></image>
+      </view>
+    </scroll-view>
+    <view wx:if="{{labelShow}}" class="label-many" >
+      <view class="label-many-box">
+        <view class="label-many-title">
+          <text>请选择商品分类</text>
+          <view class="chose-close" bindtap="closeLabel">
+            <image src="../../images/drop-down.png"></image>
+          </view>
+        </view>
+        <view class="label-many-content">
+          <view wx:for="{{labelArr}}" data-item="{{item}}" data-index="{{index}}" bindtap="labelSreen" class="label-text {{item.active ? 'active' : ''}}">
+            <text>{{item.name}}</text>
+            <image wx:if="{{item.active}}" src="../../images/label_actice.png"></image>
+          </view>
+        </view>
+      </view>
+      <view class="label-Mantle" bindtap="closeLabel"></view>
+    </view>
+  </view>
+  <!-- 综合筛选 -->
+  <view wx:if="{{ !loaded && products['id_'+currentCategory.id].length >= 0 }}" class="list-cations-header">
+    <view bindtap="changeOrder" data-order-type="auto" class="action-item {{orderType == null && 'active'}} ">
+      <text>综合排序</text>
+    </view>
 
-  <view bindtap="changeOrder" data-order-type="price" class="action-item {{orderType != null && 'active'}}">
-    <text>商品价格</text>
-    <view class="price-arrow {{orderType}}">
-      <view class="up"></view>
-      <view class="down"></view>
+    <view bindtap="changeOrder" data-order-type="price" class="action-item {{orderType != null && 'active'}}">
+      <text>商品价格</text>
+      <view class="price-arrow {{orderType}}">
+        <view class="up"></view>
+        <view class="down"></view>
+      </view>
     </view>
   </view>
 </view>
 
+<view wx:if="{{ showSearch }}" bindtap="hideSearch" class="search-layer" style="top: {{pageMarginTop + 44}}px;">
+  <view class="search-container" catchtap="{{false}}">
+    <view class="input-group">
+      <image class="icon" src="/images/search_icon_003.png"></image>
+      <input bindinput='inputChange' data-name='searchKey' value='{{ searchKey }}' focus="{{searchFocus}}" confirm-type="search" bindconfirm="search" />
+      <view bindtap="clearSearchInput" class="clear">
+        <text>x</text>
+      </view>
+    </view>
+    <text bindtap="cancelSearch" class="cancel-btn">取消</text>
+  </view>
+</view>
+
+
 <scroll-view scroll-y class='page-container'>
-  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
+  <view wx:if="{{ loaded && (products['id_'+currentCategory.id] == null || products['id_'+currentCategory.id].length <= 0)}}" class="product-empty">
     <image src="../../images/products_empty_icon_001.png"></image>
     <text>商品上架中，敬请期待</text>
   </view>
   <view wx:else class="products-container">
-    <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
+    <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products['id_'+currentCategory.id]}}" wx:key="index" class="product-item">
       <view class="avatar-container">
         <image class="avatar" src="{{item.avatar}}"></image>
       </view>
