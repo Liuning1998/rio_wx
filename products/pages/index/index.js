@@ -47,14 +47,16 @@ Page({
 
     var labelArr = this.data.labelArr;
     
-    var allLabel = {};
-    allLabel.id = category.id;
-    allLabel.name = '全部分类';
-    allLabel.icon = null;
-    allLabel.active = true;
-    allLabel.searched = false;
-    labelArr.unshift(allLabel)
+    var allLabel = {
+      id: category.id,
+      name: '全部分类',
+      icon: null,
+      active: true,
+      searched: false,
+    };
+   
 
+    labelArr.unshift(allLabel)
 
     var moveParams = this.data.moveParams;
     var products = {};
@@ -73,7 +75,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.loadCartInfo()
+    this.loadCartInfo();
   },
 
   //获取商品
@@ -292,8 +294,7 @@ Page({
   },
 
   onReachBottom: function () {
-    console.log(this.data.orderType)
-    this.getProducts(this.data.currentCategory.id, this.data.orderType)
+    this.getProducts(this.data.currentCategory.id, this.data.orderType, true,this.data.searchKey)
   },
 
   // 页数判断

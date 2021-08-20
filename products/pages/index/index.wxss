@@ -351,11 +351,13 @@ page {
 view.label-text{
   display: inline-block;
   border-radius: 4rpx;
-  width: 164rpx;
+  min-width: 164rpx;
+  box-sizing: border-box;
   text-align: center;
   background-color: #F7F7F7;
   margin-right: 12rpx;
   position: relative;
+  padding: 0 12rpx;
 }
 
 view.label-text text{

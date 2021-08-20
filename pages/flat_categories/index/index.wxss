@@ -421,7 +421,9 @@ page {
   margin-right: 50rpx;
 }
 .label-text{
-  width: 112rpx;
+  padding: 0 12rpx;
+  box-sizing: border-box;
+  min-width: 112rpx;
   line-height: 52rpx;
   border-radius: 60rpx;
   background-color: #F7F7F7;

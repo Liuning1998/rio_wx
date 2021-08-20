@@ -48,11 +48,6 @@ Page({
             parentTop: res.top
         })
     }).exec()
-    query.select(".top-label").boundingClientRect((res) => {
-        this.setData({
-          labelHeight: res.height
-        })
-    }).exec()
   },
   onPageScroll: function (e) {
     const query = wx.createSelectorQuery();

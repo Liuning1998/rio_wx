@@ -10,18 +10,18 @@
   <view class="search-btn-container" >
     <view class="search-btn" bindtap="showSearchLayer">
       <image src="/images/search_icon_003.png"></image>
-      <text>搜索商品</text>
+      <text>{{searchKey ? searchKey : '搜索商品'}}</text>
     </view>
   </view>
   <!-- 标签筛选 -->
-  <view class="top-label">
-    <view wx:if="{{labelArr.length >= 6}}" class="drop-down" bindtap="openLabel">
+  <view class="top-label" wx:if="{{labelArr.length > 1}}">
+    <view wx:if="{{labelArr.length >= 5}}" class="drop-down" bindtap="openLabel">
       <view class="img-box">
         <image class="right" src="../../images/drop-down.png"></image>
       </view>
       <view class="shadow"></view>
     </view>
-    <scroll-view scroll-x scroll-left="{{scrollLeft}}" bindscroll="scrollMove" scroll-with-animation class="label-box {{labelArr.length>=6 ? 'more' : ''}}">
+    <scroll-view scroll-x scroll-left="{{scrollLeft}}" bindscroll="scrollMove" scroll-with-animation class="label-box {{labelArr.length>=5 ? 'more' : ''}}">
       <view wx:for="{{labelArr}}" data-item="{{item}}" data-index="{{index}}" bindtap="labelSreen" class="label-text {{item.active ? 'active' : ''}}" id="ele{{index}}">
         <text>{{item.name}}</text>
         <image wx:if="{{item.active}}" src="../../images/label_actice.png"></image>
@@ -80,7 +80,7 @@
     <image src="../../images/products_empty_icon_001.png"></image>
     <text>商品上架中，敬请期待</text>
   </view>
-  <view wx:else class="products-container">
+  <view wx:else class="products-container" style="padding-top:{{labelArr.length>1 ? 328 : 225}}rpx">
     <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products['id_'+currentCategory.id]}}" wx:key="index" class="product-item">
       <view class="avatar-container">
         <image class="avatar" src="{{item.avatar}}"></image>

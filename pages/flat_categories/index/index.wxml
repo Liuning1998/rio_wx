@@ -24,7 +24,7 @@
       <view class="current-top">
         <image wx:if="{{ currentCategory.image.length > 0 }}" class="category-banner" src="{{ currentCategory.image }}"></image>
         <view id="fixedTop"></view>
-        <view class="top-label {{topShow ? 'fixed':''}}" style="top:{{topShow ? parentTop : 0}}px" >
+        <view wx:if="{{categories[currentIndex].labelArr.length > 1}}" class="top-label {{topShow ? 'fixed':''}}" style="top:{{topShow ? parentTop : 0}}px" >
           <scroll-view class="label-box {{categories[currentIndex].labelArr.length>=6 ? 'more' : ''}}" scroll-x scroll-left="{{scrollLeft}}" bindscroll="scrollMove" scroll-with-animation>
             <view wx:for="{{categories[currentIndex].labelArr}}" bindtap="labelSreen" class="label-text {{item.id == currentCategory.secondId ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}"  id="ele{{index}}">{{item.name}}</view>
           </scroll-view>
@@ -45,7 +45,7 @@
       
 
       <view class="products-container" style="padding-top:{{topShow ? 40 : 0}}px">
-        <view class="products-title">
+        <view wx:if="{{categories[currentIndex].labelArr.length > 1}}" class="products-title">
           <view class="left"></view>
           {{productsTitle}}
           <view class="right"></view>
