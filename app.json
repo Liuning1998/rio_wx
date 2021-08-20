@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "products/pages/index/index",
+    "pages/products/index/index",
     "orders/pages/sale_services/show/index",
     "pages/orders/show/index",
     "pages/products/show/index",
     "pages/orders/confirm/index",
     "pages/flat_categories/index/index",
     "web/pages/common/index",
-    "group_buy/pages/products/index/index",
     "pages/orders/cart/index",
     "products/pages/index2/index",
     "live/pages/index/index",
@@ -32,25 +33,31 @@
     "products/pages/search/index",
     "products/pages/search_all/index",
     "pages/addresses/edit/index",
-    "pages/products/index/index",
     "pages/products/buy/index",
     "pages/coupons/protocol/index",
     "pages/activity_rule/index",
     "pages/coupons/list/index",
     "pages/login/index",
-    "products/pages/index/index",
     "products/pages/index3/index",
     "products/pages/index4/index",
     "products/pages/today/index",
     "agreement/pages/sale_service/show",
     "pages/card/index/index",
-    "group_buy/pages/orders/join/index",
-    "group_buy/pages/products/show/index",
-    "group_buy/pages/orders/index/index",
     "agreement/pages/group_buy/index",
-    "group_buy/pages/orders/confirm/index",
     "web/pages/yanglaohuodong/index",
     "web/pages/brcb_pay/index/index"
+  ],
+  "subpackages": [
+    {
+      "root": "group_buy",
+      "pages": [
+        "pages/products/index/index",
+        "pages/orders/join/index",
+        "pages/products/show/index",
+        "pages/orders/index/index",
+        "pages/orders/confirm/index"
+      ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",
