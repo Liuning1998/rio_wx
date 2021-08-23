@@ -111,7 +111,7 @@
       </view>
     </view>
 
-    <view class="page-bottom" wx:if="{{pageBottom}}">
+    <view class="page-bottom" wx:if="{{pageBottom['id_' + currentCategory.id]}}">
       <image src="/images/bottom_icon_001.png"></image>
       <text>已经到底啦</text>
       <image src="/images/bottom_icon_001.png" class="right"></image>

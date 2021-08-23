@@ -111,7 +111,7 @@ Page({
       data: _data,
       success: res => {
         console.log(refresh)
-        if(!refresh){
+        if(refresh){
           this.setData({
             [`products.${key}`]:[],
           })
@@ -301,7 +301,7 @@ Page({
   },
 
   onReachBottom: function () {
-    this.getProducts(this.data.currentCategory.id, this.data.orderType, true,this.data.searchKey)
+    this.getProducts(this.data.currentCategory.id, this.data.orderType, false,this.data.searchKey)
   },
 
   // 页数判断
