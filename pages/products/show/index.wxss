@@ -287,6 +287,20 @@ page {
   border-top: 1px solid #f7f7f7;
 }
 
+.name-and-desc .name .postage {
+  background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  font-size: 20rpx;
+  color: #ffffff;
+  height: 28rpx;
+  line-height: 28rpx;
+  padding: 0 8rpx;
+  border-radius: 4rpx;
+  display: inline-block;
+  position: relative;
+  top: -4rpx;
+  margin-right: 8rpx;
+}
+
 .name-and-desc .desc {
   margin-top: 16rpx;
   font-size: 24rpx;

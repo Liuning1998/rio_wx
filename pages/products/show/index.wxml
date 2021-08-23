@@ -68,7 +68,7 @@
       </view>
 
       <view class="name-and-desc">
-        <text class="name">{{ product.name }}</text>
+        <text class="name"><text wx:if="{{product.is_postage.length > 0}}" class="postage">包邮</text>{{ product.name }}</text>
         <view class="pbadges">
           <text wx:for="{{ product.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
         </view>
