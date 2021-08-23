@@ -80,4 +80,167 @@
   </view>
 </view>
 
+
+<!-- 地区选择 -->
+<view wx:if="{{addressShow}}" class="select-address" bindtap="closeAddress">
+  <view class="select-address-box" catchtap="false">
+    <view class="select-address-title">
+      <text>选择地区</text>
+      <view bindtap="closeAddress">X</view>
+    </view>
+    <view class="select-finish">
+      <view class="active">北京</view>
+      <view>北京</view>
+      <view>北京</view>
+    </view>
+    <swiper class="select-address-ul" duration="300">
+      <swiper-item>
+        <scroll-view scroll-y="true">
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view scroll-y="true">
+          <view class="select-address-li">
+            <text>陕西省1</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省1</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省1</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view scroll-y="true">
+          <view class="select-address-li">
+            <text>陕西省2</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省2</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省2</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省2</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+          <view class="select-address-li">
+            <text>陕西省</text>
+            <view class="select-address-li-active">√</view>
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+
+
 <msgToast msg-data="{{ _msgData }}"/>

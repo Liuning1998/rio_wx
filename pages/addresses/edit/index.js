@@ -26,7 +26,9 @@ Page({
     phone: '',
     address_info: '',
     real_name: '',
-    textareaLine: 1
+    textareaLine: 1,
+    // 地址选择弹框状态
+    addressShow:false
   },
 
   onLoad: function (options) {
@@ -323,7 +325,9 @@ Page({
   },
 
   selectCity: function () {
-    this.setData({ pickerShow: true })
+    // this.setData({ pickerShow: true })
+    this.setData({addressShow:true})
+    
   },
 
   cancelSelectCity: function () {
@@ -488,7 +492,7 @@ Page({
     http.get({
       url: 'api/china_regions/fetch_province',
       success: (res) => {
-        // console.log(res)
+        console.log(res)
         if (res.data != null && res.data.constructor.name == 'Array') {
           cityData = res.data
           // if (this.data.address != null) {
@@ -515,5 +519,13 @@ Page({
     this.setData({ textareaLine: line })
   },
   
+  // 关闭地址选择弹窗
+  closeAddress:function(){
+    this.setData({addressShow:false})
+  }
+
+
+
+
 })
 
