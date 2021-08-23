@@ -22,7 +22,14 @@ Page({
     noticeText: null,
     swiperCurrent: 0,
     specialAreaSwiperCurrent: 0,
-    pageBottom: false
+    pageBottom: false,
+    // 导航滚动条
+    slideWidth:'',//滑块宽
+    slideLeft:0 ,//滑块位置
+    totalLength:'',//当前滚动列表总长
+    slideShow:false,
+    slideRatio:''
+    //导航滚动条
   },
 
   /**
@@ -30,7 +37,14 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+    // 获取手机信息
 
+    var systemInfo = wx.getSystemInfoSync() ;
+    this.setData({
+      windowWidth: systemInfo.windowWidth,
+    })
+
+    // 获取手机信息
     let _reLogin = this.getParamsFromGlobal('reLogin')
 
     if (_reLogin) {
@@ -184,17 +198,56 @@ Page({
       url: 'api/special_areas/recommend',
       success: res => {
         if (res.data != null && res.data.constructor.name == 'Array') {
+          //原swiper写法
+
+          // var result = []
+          // for(let i in res.data){
+          //   let j = Math.floor(i/8)
+          //   if(result[j] == null) { result[j] = [] }
+          //   result[j].push(res.data[i])
+          // }
+
+          //原swiper写法 end
           var result = []
           for(let i in res.data){
-            let j = Math.floor(i/8)
+            let j = Math.floor(i/2)
             if(result[j] == null) { result[j] = [] }
             result[j].push(res.data[i])
           }
           this.setData({ specialAreas: result })
+          // 计算store导航滚动条比例
+          this.getRatio()
         }
       }
     })
   },
+  // 获取导航便宜比例
+  getRatio(){
+    var that = this ;
+    if (!that.data.specialAreas || that.data.specialAreas.length<=4){
+      console.log('false不够')
+      this.setData({
+        slideShow:false
+      })
+    }else{
+      console.log('false够')
+      var _totalLength = that.data.specialAreas.length * 175; //分类列表总长度
+      var _ratio = 64 / _totalLength * (750 / this.data.windowWidth); //滚动列表长度与滑条长度比例
+      var _showLength = 750 / _totalLength * 64; //当前显示红色滑条的长度(保留两位小数)
+      this.setData({
+        slideWidth: _showLength,
+        totalLength: _totalLength,
+        slideShow: true,
+        slideRatio:_ratio
+      })
+    }
+  } ,
+  //导航滑动slideLeft动态变化
+  getleft(e){
+    this.setData({
+      slideLeft: e.detail.scrollLeft * this.data.slideRatio
+    })
+  } ,
 
   getAds: function () {
     http.get({
@@ -247,7 +300,7 @@ Page({
   },
 
   gotoShow: function (e) {
-    var item = e.currentTarget.dataset.item
+    var item = e.currentTarget.dataset.item;
     if (item.id == null) {
       return
     }

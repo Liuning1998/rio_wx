@@ -1163,7 +1163,8 @@ page {
   display: flex;
   font-size: 28rpx;
   color: #5B5454;
-  max-width: 520rpx;
+  /* max-width: 520rpx; */
+  width: calc(100% - 225rpx);
   display: inline-block;
 }
 

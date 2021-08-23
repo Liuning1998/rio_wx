@@ -990,3 +990,64 @@ page {
   margin-bottom: 4rpx;
 }
 /* 徽标 */
+
+/* 横向store导航 */
+.new-store-container .new-store-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.new-store-container{
+  white-space: nowrap;
+}
+.new-store-item-parent{
+  display: inline-block;
+  width: 175rpx;
+  text-align: center;
+  vertical-align: top;
+}
+.new-store-item .new-logo-container{
+  display: flex;
+}
+.new-store-item image {
+  height: 128rpx;
+  width: 128rpx;
+  /* border-radius: 50%; */
+  margin-right: -28rpx;
+}
+
+.new-store-item .logo-container {
+  height: 88rpx;
+  width: 88rpx;
+  /* border-radius: 50%; */
+}
+
+.new-store-item text {
+  font-size: 28rpx;
+  color: #333333;
+  margin-top: 14rpx;
+  font-weight: 500;
+}
+
+.slide{
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+.slide .slide-bar{
+  width:64rpx;
+  margin:0 auto;
+  height:2px;
+  background:#DDD8D8;
+  border-radius: 30rpx;
+}
+.slide .slide-bar .slide-show{
+  height:100%;
+  border-radius: 30rpx;
+  background-color:#F64C47;
+}
+
+/* 横向store导航 */
