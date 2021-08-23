@@ -82,7 +82,7 @@
       <scroll-view scroll-x="true" class="new-store-container" scroll-with-animation="{true}" scroll-left='0' bindscroll="getleft">
         <!--内容区域--> 
         <view class="new-store-item-parent" wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
-          <view  bindtap="gotoShow" class="new-store-item" wx:for="{{group}}" wx:for-item="item">
+          <view  bindtap="gotoShow" data-item="{{item}}" class="new-store-item" wx:for="{{group}}" wx:for-item="item">
             <view class="new-logo-container">
               <image src="{{item.logo}}"></image>
             </view>

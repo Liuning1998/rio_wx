@@ -1006,10 +1006,14 @@ page {
   text-align: center;
   vertical-align: top;
 }
+.new-store-item .new-logo-container{
+  display: flex;
+}
 .new-store-item image {
-  height: 88rpx;
-  width: 88rpx;
+  height: 128rpx;
+  width: 128rpx;
   /* border-radius: 50%; */
+  margin-right: -28rpx;
 }
 
 .new-store-item .logo-container {
@@ -1034,15 +1038,16 @@ page {
   box-sizing: border-box;
 }
 .slide .slide-bar{
-  width:230rpx;
+  width:64rpx;
   margin:0 auto;
-  height:1.5px;
-  background:#eee;
+  height:2px;
+  background:#DDD8D8;
+  border-radius: 30rpx;
 }
 .slide .slide-bar .slide-show{
   height:100%;
-  background-color:#ff6969;
-
+  border-radius: 30rpx;
+  background-color:#F64C47;
 }
 
 /* 横向store导航 */

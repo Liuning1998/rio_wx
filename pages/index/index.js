@@ -232,8 +232,8 @@ Page({
     }else{
       console.log('false够')
       var _totalLength = that.data.specialAreas.length * 175; //分类列表总长度
-      var _ratio = 230 / _totalLength * (750 / this.data.windowWidth); //滚动列表长度与滑条长度比例
-      var _showLength = 750 / _totalLength * 230; //当前显示红色滑条的长度(保留两位小数)
+      var _ratio = 64 / _totalLength * (750 / this.data.windowWidth); //滚动列表长度与滑条长度比例
+      var _showLength = 750 / _totalLength * 64; //当前显示红色滑条的长度(保留两位小数)
       this.setData({
         slideWidth: _showLength,
         totalLength: _totalLength,
@@ -300,7 +300,7 @@ Page({
   },
 
   gotoShow: function (e) {
-    var item = e.currentTarget.dataset.item
+    var item = e.currentTarget.dataset.item;
     if (item.id == null) {
       return
     }

@@ -557,7 +557,7 @@ page {
 .all-products .price-decimal {
   font-size: 24rpx;
   font-weight: 500;
-  color: #D94B52;
+  color: #F64C47;
 }
 
 .all-products .price-decimal::before {
