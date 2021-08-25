@@ -239,7 +239,7 @@ Page({
         [bottomKey]:!bottomkeyVal
       })  
 
-      this.getProducts(this.data.currentCategory.id, orderType, false,this.data.searchKey)
+      this.getProducts(this.data.currentCategory.id, orderType, true,this.data.searchKey)
     }
 
 
@@ -296,7 +296,7 @@ Page({
       labelArr:labelArr
     })
 
-    this.getProducts(this.data.currentCategory.id, null,false,this.data.searchKey)
+    this.getProducts(this.data.currentCategory.id, null,true,this.data.searchKey)
     
   },
 
