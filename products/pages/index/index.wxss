@@ -8,6 +8,8 @@ page {
   position: fixed;
   left: 0;
   z-index: 31;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 搜索框1 */

@@ -36,6 +36,7 @@ Page({
     moveParams.screenHalfWidth = wx.getSystemInfoSync().windowWidth/2;
     this.setData({ moveParams: moveParams})
 
+
   },
 
   onShow: function () {
@@ -81,6 +82,7 @@ Page({
           ele.secondId = ele.id
         })
         this.setData({ categories: res.data })
+
         var defaultCategory = res.data.filter(item => item.sort_value)[0] || res.data[0]
         
         if (defaultCategory != null) {
@@ -88,6 +90,8 @@ Page({
             this.setData({currentCategory: defaultCategory})
           }
           this.fetchProducts(defaultCategory.id)
+          // 获取标签
+          this.getLabel(defaultCategory.id)
         }
       }
     })
@@ -163,8 +167,13 @@ Page({
       return false
     }
 
-    this.setData({ currentCategory: category,productsTitle:'全部分类' })
+    this.setData({ currentCategory: category,productsTitle:'全部分类'})
 
+    setTimeout(res=>{
+      this.setData({
+        scrollLeft:0
+      })
+    },50)
 
     var key = `id_${category.id}`
     if (this.data.products[key] == null || this.data.products[key].length < 5) {
@@ -172,6 +181,8 @@ Page({
     }
 
     this.setCurentIndex(category, this.data.categories)
+
+
     wx.pageScrollTo({
       scrollTop: 0
     })
@@ -189,7 +200,8 @@ Page({
     this.setData({ currentIndex: index })
 
     // 获取标签
-    this.getLabel();
+    this.getLabel(current.id);
+   
   },
 
   inputChange: function (e) {
@@ -309,15 +321,16 @@ Page({
   },
 
   //获取标签
-  getLabel:function(){
+  getLabel:function(currentId){
     var categories = this.data.categories;
     var currentIndex = this.data.currentIndex;
     var key = `categories[${currentIndex}].labelArr`
     if(categories[currentIndex].labelArr.length == 1){
       http.get({
-        url: `api/platform_categories?q[father_id_eq]=${this.data.currentCategory.id}`,
+        url: `api/platform_categories?q[father_id_eq]=${currentId}`,
         // data: _data,
         success: res => {
+          console.log('加载成功！',res.data)
           res.data.forEach(function(ele,i){
             ele.active = false
             categories[currentIndex].labelArr.push(ele)

@@ -90,7 +90,7 @@
 <view class="category-list-container fixed">
   <view style="width: 184rpx; height: {{pageMarginTop+44}}px; background: #fff; flex-shrink: 0;"></view>
   <view style="width: 184rpx; height: 112rpx; background: #fff; flex-shrink: 0;"></view>
-  <view class="scroll" style="background: #fff;">
+  <view class="scroll" style="background: #f7f7f7;">
     <view bindtap="changeCategory" data-item="{{ item }}" wx:for="{{categories}}" wx:key="index" class="category-item-container {{ item.id == currentCategory.id && 'active' }} neighbor-{{index-currentIndex}}">
       <text>{{item.name}}</text>
       <view wx:if="{{ index == (currentIndex - 1 ) }}" class="line" style="background: #f7f7f7;"></view>

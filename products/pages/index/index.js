@@ -110,14 +110,11 @@ Page({
       url: `api/special_areas/${this.data.special_area_id}/category_products`,
       data: _data,
       success: res => {
-        console.log(refresh)
-        if(refresh){
-          this.setData({
-            [`products.${key}`]:[],
-          })
-        }
+
         wx.hideLoading()
+
         var products = this.data.products;
+        
         if (res.data != null && res.data.constructor.name == 'Array') {
           // if (refresh) {
           //   let pageNo = 1
@@ -140,12 +137,6 @@ Page({
         }else{
           this.setData({loaded:false})
         }
-      },
-      fail: res =>{
-
-        wx.hideLoading()
-        this.errorToast('加载失败！')
-
       }
     })
   },
@@ -235,11 +226,11 @@ Page({
         title: '加载中...',
       })
       this.setData({
-        // [`products.${key}`]:[],
+        [`products.${key}`]:[],
         [bottomKey]:!bottomkeyVal
       })  
 
-      this.getProducts(this.data.currentCategory.id, orderType, false,this.data.searchKey)
+      this.getProducts(this.data.currentCategory.id, orderType, true,this.data.searchKey)
     }
 
 
@@ -292,16 +283,16 @@ Page({
     })
     
     this.setData({
-      // [`products.${key}`]:[],
+      [`products.${key}`]:[],
       labelArr:labelArr
     })
 
-    this.getProducts(this.data.currentCategory.id, null,false,this.data.searchKey)
+    this.getProducts(this.data.currentCategory.id, null,true,this.data.searchKey)
     
   },
 
   onReachBottom: function () {
-    this.getProducts(this.data.currentCategory.id, this.data.orderType, false,this.data.searchKey)
+    this.getProducts(this.data.currentCategory.id, this.data.orderType, true,this.data.searchKey)
   },
 
   // 页数判断
