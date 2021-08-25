@@ -28,7 +28,12 @@ Page({
     real_name: '',
     textareaLine: 1,
     // 地址选择弹框状态
-    addressShow:false
+    addressShow:false,
+    // 地址选择组件
+    windowHeight: 0,
+    // locationArr: ['山东省', '青岛市', '黄岛区']
+    locationArr: ['', '', '']
+    // 地址组建 end
   },
 
   onLoad: function (options) {
@@ -56,7 +61,46 @@ Page({
 
     // this.initCityData()
     this.fetchProvinceData()
+
+    // 地址选择组件
+    //获得dialog组件
+    this.getAddress = this.selectComponent("#getAddress");
+    var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        console.log(res.pixelRatio) //设备像素比
+        console.log(res.windowWidth) //可使用窗口宽度
+        console.log(res.windowHeight) //可使用窗口高度
+ 
+        that.setData({
+          windowWidth: res.windowWidth, //可使用窗口宽度
+          windowHeight: res.windowHeight, //可使用窗口高度
+        })
+      }
+    })
+    // 地址选择组件 end
+
   },
+
+  // 地址选择组件
+  //选择地址
+  chooseAddress: function(e) {
+    var that = this
+ 
+    this.getAddress.showsGoodsDetail();
+  },
+ 
+  //组件回调
+  resultEvent: function(e) {
+    var that = this
+ 
+    console.log(e)
+    console.log(e.detail.nameArr)
+    that.setData({
+      locationArr: e.detail.nameArr
+    })
+  },
+  // 地址选择组件 end
 
   formSubmit: function () {
     if (!this.data.ableSubmit) return false
@@ -240,6 +284,7 @@ Page({
       http.get({
         url: "api/china_regions/fetch_province_info?id=" + province.id,
         success: res => {
+          console.log(res)
           var _province = res.data
           if (_province != null && _province.id != null) {
             for(var i in cityData) {
@@ -326,7 +371,6 @@ Page({
 
   selectCity: function () {
     // this.setData({ pickerShow: true })
-    this.setData({addressShow:true})
     
   },
 
@@ -470,7 +514,7 @@ Page({
     http.get({
       url: 'api/china_regions',
       success: (res) => {
-        // console.log(res)
+        console.log(res)
         if (res.data != null && res.data.constructor.name == 'Array') {
           cityData = res.data
           if (this.data.address != null) {
@@ -512,17 +556,15 @@ Page({
     })
   },
 
+
+
+
   changeTextareaLine: function (e) {
     console.log(e.detail)
     let line = e.detail.lineCount
     if (line == null || line <= 0) { line = 1 }
     this.setData({ textareaLine: line })
   },
-  
-  // 关闭地址选择弹窗
-  closeAddress:function(){
-    this.setData({addressShow:false})
-  }
 
 
 
