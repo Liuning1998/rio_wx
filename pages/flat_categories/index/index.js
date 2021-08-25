@@ -152,7 +152,7 @@ Page({
 
   onReachBottom: function () {
     if (this.data.currentCategory != null) {
-      this.fetchProducts(this.data.currentCategory.id)
+      this.fetchProducts(this.data.currentCategory.secondId)
     }
   },
 
@@ -235,7 +235,7 @@ Page({
   onPullDownRefresh() {
     // this.refreshData()
     this.setData({ showLoading: true })
-    this.fetchProducts(this.data.currentCategory.id, true)
+    this.fetchProducts(this.data.currentCategory.secondId, true)
   },
 
   stopPDRefresh: function () {
