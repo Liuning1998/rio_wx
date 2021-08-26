@@ -1,7 +1,7 @@
 <!--pages/flat_categories/index/index.wxml-->
 <wxs module="price" src="../../../utils/price.wxs"></wxs>
 <navbar returnAble="{{false}}" appendStyle="background: #ffffff;" textStyle="color: #333333; font-weight: 600;" title="商品分类" />
-<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+<view style='padding-top: {{pageMarginTop + 44}}px;'></view>
 
 <view class="search-btn-container" style="top: {{pageMarginTop+44}}px">
   <view class="search-btn" bindtap="showSearchLayer">

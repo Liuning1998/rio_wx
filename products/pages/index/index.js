@@ -19,7 +19,9 @@ Page({
       subLeft:0, //点击元素距离屏幕左边的距离
       subHalfWidth:0, //点击元素的宽度一半
       screenHalfWidth:0 //屏幕宽度的一半
-   },
+    },
+    //  正在点击，避免重复点击
+    clicked:false
   },
 
   /**
@@ -112,9 +114,15 @@ Page({
       success: res => {
 
         wx.hideLoading()
-
+        
         var products = this.data.products;
         
+        // if(refresh){
+        //   this.setData({
+        //       [`products.${key}`]:[],
+        //   })
+        // }
+
         if (res.data != null && res.data.constructor.name == 'Array') {
           // if (refresh) {
           //   let pageNo = 1
@@ -206,7 +214,6 @@ Page({
     var bottomKey = `pageBottom.${key}`;
     var bottomkeyVal = this.data.pageBottom[key];
     
-
     if (orderType == 'price') {
       if (this.data.orderType == 'price down') {
         orderType = "price up"
@@ -227,7 +234,8 @@ Page({
       })
       this.setData({
         [`products.${key}`]:[],
-        [bottomKey]:!bottomkeyVal
+        [bottomKey]:false,
+        clicked:true
       })  
 
       this.getProducts(this.data.currentCategory.id, orderType, true,this.data.searchKey)
@@ -270,11 +278,12 @@ Page({
   },
 
   search: function () {
-    if (this.data.searchKey.trim() == '') {
+    if (this.data.searchKey == null || this.data.searchKey.trim() == '') {
       this.hideSearch()
     }
 
     var key = `id_${this.data.currentCategory.id}`;
+    var bottomKey = `pageBottom.${key}`;
     var labelArr = this.data.labelArr;
     labelArr.forEach(function(e,i){
       if(('id_'+e.id) == key){
@@ -284,7 +293,9 @@ Page({
     
     this.setData({
       [`products.${key}`]:[],
-      labelArr:labelArr
+      labelArr:labelArr,
+      [bottomKey]:false,
+      clicked:true
     })
 
     this.getProducts(this.data.currentCategory.id, null,true,this.data.searchKey)
@@ -292,6 +303,7 @@ Page({
   },
 
   onReachBottom: function () {
+    console.log('下啦')
     this.getProducts(this.data.currentCategory.id, this.data.orderType, false,this.data.searchKey)
   },
 
@@ -321,9 +333,9 @@ Page({
 
     var bottomKey = `pageBottom.${key}`
     if (resProducts.length < 10) {
-      this.setData({ [bottomKey]: true })
+      this.setData({ [bottomKey]: true ,clicked:false})
     } else {
-      this.setData({ [bottomKey]: false })
+      this.setData({ [bottomKey]: false ,clicked:false })
     }
   },
 
@@ -358,28 +370,35 @@ Page({
       }
     })
     // 搜索内容的标签先清空数据
-    var product = `products.id_${this.data.currentCategory.id}`
-    if(e.currentTarget.dataset.item.searched){
-      labelArr.forEach(function(e,i){
-        if(i == index){
-          e.searched = false
-        }
-      })
-      this.setData({
-        [product]:[],
-      })
-    }
+    // var product = `products.id_${this.data.currentCategory.id}`
+    // if(e.currentTarget.dataset.item.searched){
+    //   labelArr.forEach(function(e,i){
+    //     if(i == index){
+    //       e.searched = false
+    //     }
+    //   })
+    //   this.setData({
+    //     [product]:[],
+    //   })
+    // }
     //  点击后的标签居中
     let ele = 'ele' + e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.item.id;
     // var currentIndex = (products || []).findIndex((profire) => profire.id===id);
-    
+    var key = `id_${this.data.currentCategory.id}`;
+    var bottomKey = `pageBottom.${key}`;
+
     this.setData({
       activeIdx: e.currentTarget.dataset.index,
       labelArr:labelArr,
       currentCategory:e.currentTarget.dataset.item,
       searchKey:'',
+      orderType:null,
+      [`products.${key}`]:[],
+      [bottomKey]:false,
+      clicked:true
     });
+    
     this.getProducts(id,this.data.orderType,true,this.data.searchKey)
     this.getRect('#'+ele);
     this.cancelSearch();

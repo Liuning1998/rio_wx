@@ -50,15 +50,14 @@ Page({
         })
     }).exec()
   },
-  onPageScroll: function (e) {
+  // 置顶方法
+  topShow:function(){
     const query = wx.createSelectorQuery();
     query.select("#fixedTop").boundingClientRect((res) => {
-      console.log(res)
       this.setData({
         labelTop: res.top
       })
     }).exec()
-
     if(this.data.parentTop >= this.data.labelTop){
       this.setData({
         topShow:true
@@ -69,6 +68,9 @@ Page({
       })
     }
 
+  },
+  onPageScroll: function (e) {
+    this.topShow()
   },
  
 
@@ -162,13 +164,16 @@ Page({
 
   changeCategory: function (e) {
 
+
     var category = e.currentTarget.dataset.item
     if (category == null || category.id == this.data.currentCategory.id) {
       return false
     }
 
-    this.setData({ currentCategory: category,productsTitle:'全部分类'})
-
+    this.setData({ currentCategory: category,productsTitle:'全部分类',topShow:false})
+    setTimeout(res=>{
+      this.topShow()
+    },50)
     setTimeout(res=>{
       this.setData({
         scrollLeft:0
@@ -270,9 +275,15 @@ Page({
     console.log(e.currentTarget.dataset.item)
     var id = e.currentTarget.dataset.item.id;
     var currentidKey = `currentCategory.secondId`
+    var key = `id_${id}`;
+    if(!this.data.products[key]){
+      setTimeout(res=>{
+        this.setData({topShow:false})
+      },50)
+    }
     this.setData({
       [currentidKey]:id,
-      productsTitle:e.currentTarget.dataset.item.name
+      productsTitle:e.currentTarget.dataset.item.name,
     });
     this.getRect('#'+ele);
     this.fetchProducts(id)
