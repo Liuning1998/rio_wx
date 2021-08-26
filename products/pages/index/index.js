@@ -91,7 +91,7 @@ Page({
     }
 
     var page = Math.floor(length/getApp().globalData.perPage) + 1
-    if (refresh) {
+    if (refresh) {//代表数据要清空
       _data.page = 1
     }else{
       _data.page = page
@@ -292,7 +292,7 @@ Page({
   },
 
   onReachBottom: function () {
-    this.getProducts(this.data.currentCategory.id, this.data.orderType, true,this.data.searchKey)
+    this.getProducts(this.data.currentCategory.id, this.data.orderType, false,this.data.searchKey)
   },
 
   // 页数判断
