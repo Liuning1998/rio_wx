@@ -32,13 +32,12 @@ Page({
     // 地址选择组件
     windowHeight: 0,
     // locationArr: ['山东省', '青岛市', '黄岛区']
-    locationArr: ['', '', '']
+    locationArr: ['', '', '','']
     // 地址组建 end
   },
 
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
-    
     var address = this.getParamsFromGlobal(options.paramId)
     if (address != null ) {
       this.setData({ 
@@ -92,12 +91,26 @@ Page({
  
   //组件回调
   resultEvent: function(e) {
-    var that = this
  
     console.log(e)
-    console.log(e.detail.nameArr)
-    that.setData({
-      locationArr: e.detail.nameArr
+    var province_id = `address.province_id`
+    var city_id = `address.city_id`
+    var district_id = `address.district_id`
+    var town_id = `address.town_id`
+    var province = `address.province`
+    var city = `address.city`
+    var district = `address.district`
+    var town = `address.town`
+    this.setData({
+      locationArr: e.detail.nameArr,
+      [province_id]:e.detail.province_id,
+      [city_id]:e.detail.city_id,
+      [district_id]:e.detail.district_id,
+      [town_id]:e.detail.town_id,
+      [province]: e.detail.nameArr[0],
+      [city]: e.detail.nameArr[1],
+      [district]: e.detail.nameArr[2],
+      [town]: e.detail.nameArr[3],
     })
   },
   // 地址选择组件 end
@@ -108,44 +121,12 @@ Page({
     var formValue = {
       real_name: this.data.real_name,
       phone: this.data.phone,
-      address_info: this.data.address_info
+      address_info: this.data.address_info,
+      province_id:this.data.address.province_id,
+      city_id:this.data.address.city_id,
+      district_id:this.data.address.district_id,
+      town_id:this.data.address.town_id,
     }
-    var pickerValues = this.data.pickerValues
-    formValue['province'] = this.data.provinces[pickerValues[0]]
-
-    var province = this.data.provinces[pickerValues[0]]
-    if (province != null) {
-      formValue['province_id'] = province.id
-
-      var city = this.data.cities[pickerValues[1]]
-      if (city != null) {
-        formValue['city_id'] = city.id
-      } else {
-        formValue['city_id'] = null
-      }
-
-      var county = this.data.countys[pickerValues[2]]
-      if (county != null) {
-        formValue['district_id'] = county.id
-      } else {
-        formValue['district_id'] = null
-      }
-
-      var town = this.data.towns[pickerValues[3]]
-      if (town != null) {
-        formValue['town_id'] = town.id
-      } else {
-        formValue['town_id'] = null
-      }
-    } else {
-      if (this.data.address != null) {
-        formValue['province_id'] = this.data.address.province_id
-        formValue['city_id'] = this.data.address.city_id
-        formValue['county_id'] = this.data.address.county_id
-        formValue['town_id'] = this.data.address.town_id
-      }
-    }
-
     formValue.default_address = this.data.default_address
 
     if (!this.validate(formValue)) {
@@ -153,8 +134,12 @@ Page({
     }
 
     if (this.data.newObject) {
+      console.log(formValue)
+      return
       this.createAddress(formValue)
     } else {
+      console.log(formValue)
+      return
       this.editAddress(formValue)
     }
   },
@@ -370,7 +355,7 @@ Page({
   },
 
   selectCity: function () {
-    // this.setData({ pickerShow: true })
+    this.setData({ pickerShow: true })
     
   },
 
@@ -418,6 +403,7 @@ Page({
     var cities = this.setCityData(displayValues[0])
     var countys = this.setCountyData(displayValues[1])
     var towns = this.setTownData(displayValues[2])
+    var locationArr = this.data.locationArr;
 
 
 
@@ -453,18 +439,17 @@ Page({
         }
       }
 
-      if (address.province != null) { addressString += address.province }
-      if (address.city != null) { addressString += address.city }
-      if (address.district != null) { addressString += address.district }
-      if (address.town != null) { addressString += address.town }
+      if (address.province != null) { locationArr[0] = address.province }
+      if (address.city != null) { locationArr[1] = address.city }
+      if (address.district != null) { locationArr[2] = address.district }
+      if (address.town != null) { locationArr[3] = address.town  }
     } else {
       province = provinces[0]
       city = cities[0]
       county = countys[0]
       town = towns[0]
     }
-
-    this.setData({ pickerDisplayValue: displayValues, cityString: addressString })
+    this.setData({ pickerDisplayValue: displayValues, locationArr: locationArr })
     
   },
 

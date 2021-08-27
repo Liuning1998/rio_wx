@@ -17,8 +17,10 @@
 
       <view class='input-group'>
         <view class='label text'>选择地区</view>
-        <view class="{{ 'input text ' + (cityString == '' && 'placeholder') }}" bindtap='selectCity'>
-          {{ cityString == '' ? '请选择地区' : cityString }}
+        <!-- <view class="{{ 'input text ' + (cityString == '' && 'placeholder') }}" bindtap='selectCity'> -->
+        <view class="input text {{locationArr[0] ? '' : 'placeholder'}}" bindtap='chooseAddress'>
+          <!-- {{ cityString == '' ? '请选择地区' : cityString }} -->
+          {{address == null ? '请选择地区' : (locationArr[0] + locationArr[1] + locationArr[2] + locationArr[3])}}
         </view>
       </view>
 
@@ -82,10 +84,10 @@
 
 
 
-<getAddress id='getAddress' locationArr="{{locationArr}}" bind:resultEvent="resultEvent">
+<getAddress id='getAddress' address="{{address}}" bind:resultEvent="resultEvent">
   </getAddress>
 <view class='choose_address' bindtap='chooseAddress'>选择地址</view>
-<view>{{locationArr[0] + locationArr[1] + locationArr[2]}}</view>
+<view>{{locationArr[0] + locationArr[1] + locationArr[2] + locationArr[3]}}</view>
 
 
 

@@ -22,6 +22,8 @@
   background: #fff;
   z-index: 20;
   overflow: hidden;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
 }
  
 .goodsdetail-top {
@@ -29,28 +31,38 @@
   width: 750rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #f0f0f0;
-  display: flex;
-  padding: 0 0 0 20rpx;
+  /* display: flex; */
+  padding: 0 80rpx 0 20rpx;
   position: relative;
+  white-space: nowrap;
+  overflow: hidden;
 }
  
 .goodsdetail-top-l {
   height: 80rpx;
-  padding: 0 20rpx 0 20rpx;
+  padding: 0 15rpx;
   line-height: 80rpx;
   box-sizing: border-box;
   /* border: 1rpx solid #000; */
   font-size: 26rpx;
+  /* overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+  display: inline-block;
 }
  
 .goodsdetail-top-l-o {
-  height: 80rpx;
-  padding: 0 20rpx 0 20rpx;
-  line-height: 80rpx;
+  height: 79rpx;
+  padding: 0 15rpx;
+  line-height: 79rpx;
   box-sizing: border-box;
-  border-bottom: 1rpx solid #e22e1f;
+  border-bottom: 1rpx solid #F64C47;
   font-size: 26rpx;
   /* color: #e22e1f; */
+  /* overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+  display: inline-block;
 }
  
 .goodsdetail-top-c {
@@ -95,15 +107,17 @@
  
 .goodsdetail-top-cancel {
   position: absolute;
-  right: 0;
-  top: 0;
-  color: #aaa;
-  height: 80rpx;
-  padding: 0 40rpx 0 20rpx;
-  line-height: 80rpx;
+  right: 20rpx;
+  top: 17rpx;
+  color: #fff;
+  height: 50rpx;
+  line-height: 50rpx;
   box-sizing: border-box;
-  /* border: 1rpx solid #000; */
-  font-size: 26rpx;
+  width: 50rpx;
+  background: #99999996;
+  border-radius: 50%;
+  z-index: 2;
+  text-align: center;
 }
  
 .swiper-box {
@@ -133,14 +147,6 @@
   position: relative;
 }
  
-.icon-cheveron-right:before {
-  content: "\e902";
-  font-family: 'icomoon' !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-}
  
 .font-size {
   font-size: 36rpx;
@@ -151,5 +157,23 @@
   position: absolute;
   right: 0;
   top: 0;
-  color: #d0d0d0;
+  color: #F64C47;
+}
+
+.loading{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background-color: #f0f0f0; */
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+.loading image{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
