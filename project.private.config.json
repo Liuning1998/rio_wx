@@ -11,20 +11,7 @@
       "list": []
     },
     "miniprogram": {
-      "list": [
-        {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
-          "query": "",
-          "scene": null,
-          "partialCompile": {
-            "enabled": true,
-            "pages": [
-              "products/pages/index/index"
-            ]
-          }
-        }
-      ]
+      "list": []
     }
   }
 }
