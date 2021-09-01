@@ -42,32 +42,46 @@ Page({
         })
       }
     })
+
+
+    this.getAddresses()
     
   },
 
   onShow: function () {
-    this.setData({ addresses: [], loaded: false, pageNo: 1, touchMoveList: {}, deleteButtonShowId: -1 })
-    this.getAddresses()
+
+    // this.setData({ addresses: [], loaded: false, pageNo: 1, touchMoveList: {}, deleteButtonShowId: -1 })
+    // this.getAddresses()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    http.get({
-      url: 'ship_addresses?page=' + this.data.pageNo,
-      success: (res) => {
-        this.pushItemToList(res.data)
-      },
-    })
+  // onReachBottom: function () {
+  //   http.get({
+  //     url: 'ship_addresses?page=' + this.data.pageNo,
+  //     success: (res) => {
+  //       this.pushItemToList(res.data)
+  //     },
+  //   })
+  // },
+  stopPDRefresh: function () {
+    setTimeout(res => {
+      wx.stopPullDownRefresh()
+      this.setData({ showLoading: false })
+    }, 500)
   },
-
   getAddresses: function () {
     http.get({
       url: 'api/ship_addresses?page=' + this.data.pageNo,
       success: (res) => {
-        this.pushItemToList(res.data)
-        this.setData( {loaded: true} )
+        console.log(res.data)
+        // this.pushItemToList(res.data)
+        this.setData({
+          loaded: true,
+          addresses:res.data
+        })
+        this.stopPDRefresh()
       },
       fail: (res) => { this.setData({ loaded: true }) }
     })
@@ -82,6 +96,7 @@ Page({
     }
 
     this.setData({ addresses: addresses.concat(_addrs) })
+    console.log(this.data.addresses)
   },
 
   /**
@@ -168,7 +183,6 @@ Page({
 
   deleteItem: function (e) {
     var item = e.currentTarget.dataset.item
-
     wx.showModal({
       title: '删除地址',
       content: '您确定删除用户名 “' + item.real_name + '” 的收货地址吗？',
@@ -198,11 +212,11 @@ Page({
 
   deleteForShow: function (item) {
     var addresses = this.data.addresses
-    console.log(addresses)
     for (var key in addresses) {
       if (addresses[key].id == item.id) {
         var temp = {}
         temp["addresses[" + key + '].deleted'] = true
+        console.log(temp)
         this.setData(temp)
       }
     }
@@ -212,5 +226,11 @@ Page({
     var item = e.currentTarget.dataset.item
     this.setData({ deleteButtonShowId: item.id })
   },
-  
+
+
+  onPullDownRefresh: function(e) {
+    // 触发下拉刷新时执行
+    this.setData({ showLoading: true })
+    this.getAddresses()
+  },
 })

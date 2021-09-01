@@ -17,8 +17,10 @@
 
       <view class='input-group'>
         <view class='label text'>选择地区</view>
-        <view class="{{ 'input text ' + (cityString == '' && 'placeholder') }}" bindtap='selectCity'>
-          {{ cityString == '' ? '请选择地区' : cityString }}
+        <!-- <view class="{{ 'input text ' + (cityString == '' && 'placeholder') }}" bindtap='selectCity'> -->
+        <view class="input text {{locationArr[0] ? '' : 'placeholder'}}" bindtap='chooseAddress'>
+          <!-- {{ cityString == '' ? '请选择地区' : cityString }} -->
+          {{address == null ? '请选择地区' : (locationArr[0] + locationArr[1] + locationArr[2] + locationArr[3])}}
         </view>
       </view>
 
@@ -31,7 +33,7 @@
       </view>
     </view>
 
-    <view class='set-default'>
+    <view class='set-default' wx:if="{{!address.default_address}}">
       <view style="width: 100%; display: flex; justify-content: space-between;">
         <text>设置默认地址</text>
         <switch checked='{{ default_address }}' color="#FF524E" bindchange="switchDefaultAddress"/>
@@ -79,5 +81,11 @@
     </picker-view>
   </view>
 </view>
+
+
+
+<getAddress id='getAddress' address="{{address}}" bind:resultEvent="resultEvent">
+  </getAddress>
+
 
 <msgToast msg-data="{{ _msgData }}"/>

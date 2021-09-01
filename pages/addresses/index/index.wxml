@@ -1,6 +1,6 @@
 <!--pages/address/index/index.wxml-->
 <wxs module="rhelper" src="../../../utils/helper.wxs"></wxs>
-<scroll-view scroll-y='{{ canScroll }}' style="height:{{scrollHeight}}px">
+<view>
   <navbar appendStyle="background: #ffffff;" title="地址管理" />
   <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
@@ -60,6 +60,8 @@
     <view bindtap='newAddress' class='btn btn-lg btn-radius btn-radius-border'>+添加新地址</view>
   </view> -->
 
-</scroll-view>
+</view>
+
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 10}}px; margin-top: 110rpx;"></image>
 
 <msgToast msg-data="{{ _msgData }}"/>
