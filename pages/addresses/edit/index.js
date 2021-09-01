@@ -182,6 +182,8 @@ Page({
     const currPage = pages[pages.length - 1];   //当前页面
     const prevPage = pages[pages.length - 2];  //上一个页面
     var addresses = prevPage.data.addresses;
+    if(prevPage.route != 'pages/addresses/index/index'){return}
+    console.log('已经return')
     if(type){//添加
       console.log('添加')
       if(data.default_address){
