@@ -100,6 +100,12 @@ Page({
     this.getShipAddress()
   },
 
+  priceTos:function(price) {
+    if (price == null) {return ''}
+    price = parseFloat(price)
+    return price.toFixed(2)
+  },
+
   createOrder: function () {
     if (this.data.shipAddress == null || this.data.shipAddress.id == null) {
       this.errorToast('请先选择收货地址')
@@ -154,7 +160,7 @@ Page({
     var $this = this
     var _data = {
       line_items: lineItems,
-      total: this.data.storeCart.total,
+      total:this.priceTos(this.data.storeCart.total),
       ship_address_id: this.data.shipAddress.id,
       card_type: '0',
       order_type: '2'
