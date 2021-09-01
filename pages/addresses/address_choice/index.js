@@ -1,21 +1,14 @@
-var city = require('./method.js')
+// var city = require('./method.js')
 var http = require("../../../utils/http.js")
 
 Component({
  
   properties: {
-    // locationArr: {
-    //   type: Array,
-    //   value: '',
-    //   observer: function(newVal, oldVal) {
-    //     console.log('我是传递进入的省', newVal)
-    //   }
-    // },
     address:{
       type:Object,
       value:'',
       observer:function(newVal, oldVal){
-        console.log('我是传递进入的地址id', newVal)
+        // console.log('我是传递进入的地址id', newVal)
       }
     }
   },
@@ -32,6 +25,7 @@ Component({
     cityIndex: 0,
     // countryArr: [],
     // countryIndex: 0,
+    firstTime:true
   },
  
   methods: {
@@ -46,7 +40,7 @@ Component({
     },
     // 请求省
     getProvince() {
-      console.log(this.data.provinceArr)
+      // console.log(this.data.provinceArr)
       if(this.data.provinceArr.length == 0){
         this.setData({loading:true})
         http.get({
@@ -56,11 +50,14 @@ Component({
           },
           success: (res) => {
             if (res.data != null && res.data.constructor.name == 'Array') {
-              console.log(res.data)
+              // console.log(res.data+'加载省')
               this.setData({
                 provinceArr: res.data,
                 loading:false
               });
+              if(this.data.province_id != null){
+                this.getScrollTop('province','province_'+this.data.province_id)
+              }
             }
           },
           fail: (res) => {
@@ -70,43 +67,60 @@ Component({
       }
       
     },
-
+    // 计算scroll-view滚动距离
+    getScrollTop:function(type,id){
+      var scrollViewHeight;
+      var scrollTop;
+      var subTop//选中元素距离scroll-view顶部距离
+      var idKey = `#${id}`;
+      var screenHeight = this.data.screenHeight;//scroll-view高度
+      var screenTop = this.data.screenTop;//scroll-view距离页面顶部距离
+      wx.createSelectorQuery().in(this).select(idKey).boundingClientRect((rect)=>{
+        scrollViewHeight = Math.round(rect.height)
+        subTop = Math.round(rect.top) - screenTop;
+        scrollTop = subTop - screenHeight/2 + scrollViewHeight/2
+        if(type == 'town'){
+          this.setData({townScrollTop:scrollTop})
+        }else if(type == 'district'){
+          this.setData({districtScrollTop:scrollTop})
+        }else if(type == 'city'){
+          this.setData({cityScrollTop:scrollTop})
+        }else if(type == 'province'){
+          this.setData({provinceScrollTop:scrollTop})
+        }
+      }).exec()
+    },
     //显示
     showsGoodsDetail: function() {
       var that = this
       // var tempLocalArr = that.properties.locationArr //传入的省市区
       var address = that.properties.address //传入的省市区id
-      console.log(address)
+      // console.log(address)
       var tempNameArr = that.data.nameArr //顶部省市区
- 
+
       that.setData({
-        isShowToast: false
+        isShowToast: false,
       })
- 
+
+      // 获取scroll-view的高度
+      wx.createSelectorQuery().in(this).select('.swiper-box-scr').boundingClientRect((rect)=>{
+        that.setData({
+          screenHeight:Math.round(rect.height),
+          screenTop:Math.round(rect.top),
+        })
+      }).exec()
+  
       this.getProvince();
       //是否传入地址 传入则显示当前地址   为传入则显示之前地址
-      // if (tempLocalArr[0] == '' || tempLocalArr[1] == '' || tempLocalArr[2] == '' || tempLocalArr[3] == '') {
-      //   console.log('我是未传入地址')
-      // } else {
-      //   console.log('我是传入了地址')
-
-      //   that.setData({
-      //     nameArr: tempLocalArr,
-      //   })
- 
-      // }
       if(address == null){
         console.log('我是未传入地址')
-      }else{
+      }else if(this.data.firstTime){
         console.log('我是传入了地址')
         var nameArr = this.data.nameArr;
         nameArr[0] = address.province || '';
         nameArr[1] = address.city || '';
         nameArr[2] = address.district || '';
         nameArr[3] = address.town || '';
-        this.getAddress('city',address.province_id)
-        this.getAddress('district',address.city_id)
-        this.getAddress('town',address.district_id)
         var currentTab = this.data.currentTab;
         if(address.town_id){
           currentTab = 3
@@ -117,19 +131,25 @@ Component({
         }else if(address.province_id){
           currentTab = 0
         }
+
         this.setData({
           nameArr:nameArr,
           province_id:address.province_id,
           city_id:address.city_id,
           district_id:address.district_id,
           town_id:address.town_id,
-          currentTab:currentTab
+          currentTab:currentTab,
+          firstTime:false
         })
+        this.getAddress('city',address.province_id)
+        this.getAddress('district',address.city_id)
+        this.getAddress('town',address.district_id)
+       
       }
     },
     // 统一获取省市区
     getAddress:function(type,id){
-      console.log(type,id)
+      // console.log(type,id)
       if(id!=null){
         var key = `${type}Arr`
         http.get({
@@ -142,6 +162,16 @@ Component({
               this.setData({
                 [key]:res.data
               })
+
+            // 判断加载第几个地址
+            if(type == 'town' && this.data.town_id){
+              this.getScrollTop('town','town_'+this.data.town_id)
+            }else if(type == 'district' && this.data.district_id){
+              this.getScrollTop('district','district_'+this.data.district_id)
+            }else if(type == 'city' && this.data.city_id){
+              this.getScrollTop('city','city_'+this.data.city_id)
+            }
+
           },
           fail: res => {
             console.error('获取地址数据失败')
@@ -181,9 +211,10 @@ Component({
               cityArr: res.data,
               currentTab: 1,
               [key]:'请选择',
-              loading:false
+              loading:false,
+              cityScrollTop:0
             });
-            console.log(res.data)
+            // console.log(res.data)
           }
             
         },
@@ -191,7 +222,7 @@ Component({
           console.error('获取地址数据失败')
         }
       })
-      console.log(this.data);
+      // console.log(this.data);
     },
  
     //改变市
@@ -226,6 +257,7 @@ Component({
               [key]:'请选择',
               loading:false,
               nameArr: tempNameArr,
+              districtScrollTop:0
             });
           }
             
@@ -234,7 +266,7 @@ Component({
           console.error('获取地址数据失败')
         }
       })
-      console.log(this.data);
+      // console.log(this.data);
     },
  
     //改变区县
@@ -267,7 +299,8 @@ Component({
               currentTab: 3,
               nameArr: tempNameArr,
               [key]:'请选择',
-              loading:false
+              loading:false,
+              townScrollTop:0
             });
           }
             
@@ -276,7 +309,7 @@ Component({
           console.error('获取地址数据失败')
         }
       })
-      console.log(this.data);
+      // console.log(this.data);
     },
     //改变街道
     townChange:function(e){
@@ -287,19 +320,31 @@ Component({
         town_id: e.currentTarget.dataset.item.id,
         nameArr: tempNameArr,
       })
-      console.log(this.data);
+      // console.log(this.data);
       this.exit()
     },
 
     //修改地址并退出弹框
     exit:function(e){
-      setTimeout(res=>{
+      if(this.data.nameArr[3] == ''){
         this.setData({
-          isShowToast: true,
+          townArr:[],
+          town_id:null
         })
-      },300)
-      //关闭并返回
+      }else if(this.data.nameArr[2] == '' && this.data.nameArr[3] == ''){
+        this.setData({
+          townArr:[],
+          districtArr:[],
+          district_id:null,
+          town_id:null
+        })
+      }
       console.log(this.data)
+      this.setData({
+        isShowToast: true,
+      })
+      //关闭并返回
+      // console.log(this.data)
       this.triggerEvent('resultEvent', {
         nameArr: this.properties.nameArr,
         province_id:this.data.province_id,
