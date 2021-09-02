@@ -160,7 +160,7 @@ Page({
     var $this = this
     var _data = {
       line_items: lineItems,
-      total:this.priceTos(this.data.storeCart.total),
+      total:parseFloat(this.priceTos(this.data.storeCart.total)),
       ship_address_id: this.data.shipAddress.id,
       card_type: '0',
       order_type: '2'
@@ -180,6 +180,7 @@ Page({
       _data.shipment_expense = this.data.shipmentExpenses
       _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
     }
+    
 
     http.post({
       url: "api/orders",
