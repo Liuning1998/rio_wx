@@ -173,8 +173,9 @@ Page({
     if (this.data.shipmentExpenses > 0) {
       _data.shipment_expense = this.data.shipmentExpenses
       _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
+      console.log(_data)
     }
-
+    
     http.post({
       url: "api/orders",
       data: _data,

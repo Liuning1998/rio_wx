@@ -75,6 +75,8 @@ Page({
     this.setData({ submitStatus: submitStatus })
     this.showCreateLoading()
 
+
+    console.log(this.data.currentVariant.price,this.data.total);
     var $this = this
     http.post({
       url: "api/orders",
