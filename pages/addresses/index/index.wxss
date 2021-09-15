@@ -209,3 +209,15 @@ page {
   display: flex;
 }
 /* 地址列表 */
+
+/* 空白 */
+
+.loading-icon {
+  position: fixed;
+  z-index: 90;
+  width: 90rpx;
+  height: 50rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20rpx;
+}

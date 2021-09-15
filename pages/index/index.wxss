@@ -1038,9 +1038,9 @@ page {
   box-sizing: border-box;
 }
 .slide .slide-bar{
-  width:64rpx;
+  width:128rpx;
   margin:0 auto;
-  height:2px;
+  height:3px;
   background:#DDD8D8;
   border-radius: 30rpx;
 }
