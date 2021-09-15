@@ -175,7 +175,8 @@ Page({
       // } else  {
       //   this.payOrder()
       // }
-      this.showPayMethod()
+      // this.showPayMethod()
+      this.getBrcbPayInfo(this.data.order)
     } else {
       http.get({
         url: `api/orders/${order.number}/pay_notice`,
@@ -188,11 +189,7 @@ Page({
               payOrder: order
             })
           } else {
-            if (getApp().globalData.brcbPayAvailable) {
-              this.showPayMethod()
-            } else {
-              this.payOrder()
-            }
+            this.getBrcbPayInfo(this.data.order)
           }
         },
         fail: res => {
@@ -218,8 +215,11 @@ Page({
     if (this.data.payNoticeProtocolStatus) {
       storage.setSync('pay_notice_flag', true)
     }
+    this.getBrcbPayInfo(this.data.order)
+    
+    this.setData({ showPayNotice: false })
 
-    this.closePayNoticeToast()
+    // this.closePayNoticeToast()
   },
 
   closePayNoticeToast: function () {
@@ -563,7 +563,8 @@ Page({
   confirmPayMethod: function () {
     // this.createOrder()
     if (this.data.payMethod == 'brcb_pay') {
-      this.getBrcbPayInfo(this.data.order)
+      this.checkPayNotice(this.data.order)
+      // this.getBrcbPayInfo(this.data.order)
     } else {
       this.payOrder()
     }

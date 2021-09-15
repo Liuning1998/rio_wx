@@ -177,10 +177,11 @@ Page({
     }
 
     if (this.data.shipmentExpenses > 0) {
+      console.log(_data.total)
       _data.shipment_expense = this.data.shipmentExpenses
       _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
     }
-    
+
 
     http.post({
       url: "api/orders",
@@ -191,14 +192,18 @@ Page({
         if($this.data.buyType != 'now') {
           cartApi.removeStoreLineOfSelect($this.data.storeCart)
         }
+        $this.showPayMethod()
         // $this.getPayInfo(res.data)
         // if ($this.data.payMethod == 'brcb_pay') {
         //   $this.getBrcbPayInfo(res.data)
         // } else {
-          $this.checkPayNotice(res.data)
+
+          // $this.checkPayNotice(res.data)
+
         // }
       },
       fail: function (res) {
+        console.log(res);
         $this.hideCreateLoading()
         var msg = '下单失败, 请稍后再试'
         if (getApp().globalData.errorMap[res.data.code] != null) {
@@ -412,7 +417,8 @@ Page({
       // } else {
       //   this.getPayInfo(order)
       // }
-      this.showPayMethod()
+      // this.showPayMethod()
+      this.getBrcbPayInfo(order)
     } else {
       http.get({
         url: `api/orders/${order.number}/pay_notice`,
@@ -425,11 +431,12 @@ Page({
               payOrder: order
             })
           } else {
-            if (getApp().globalData.brcbPayAvailable) {
-              this.showPayMethod()
-            } else {
-              this.getPayInfo(order)
-            }
+            this.getBrcbPayInfo(order)
+            // if (getApp().globalData.brcbPayAvailable) {
+            //   this.showPayMethod()
+            // } else {
+            //   this.getPayInfo(order)
+            // }
           }
         },
         fail: res => {
@@ -451,8 +458,10 @@ Page({
     if (this.data.payNoticeProtocolStatus) {
       storage.setSync('pay_notice_flag', true)
     }
+    this.getBrcbPayInfo(this.data.order)
 
-    this.closePayNoticeToast()
+    this.setData({ showPayNotice: false })
+    // this.closePayNoticeToast()
   },
 
   changePayNoticeProtocol: function () {
@@ -573,7 +582,8 @@ Page({
     this.hidePayMethod()
     var order = this.data.order
     if (this.data.payMethod == 'brcb_pay') {
-      this.getBrcbPayInfo(order)
+      this.checkPayNotice(order)
+      // this.getBrcbPayInfo(order)
     } else {
       this.getPayInfo(order)
     }

@@ -90,7 +90,7 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="time-remark">
     <image src="/images/info_icon_01.png"></image>
-    <text>请在10分钟内完成支付</text>
+    <text>请在30分钟内完成支付</text>
   </view>
   <button class="btn btn-lg pay-btn {{ (!protocolStatus || submitStatus) && 'disable' }}" bindtap='createOrder' data-state='addCart'>立即支付</button>
 </view>

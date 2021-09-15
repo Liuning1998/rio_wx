@@ -9,7 +9,7 @@
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="main-container">
       <view class="time-remark">
-        <text>下单后请在10分钟内完成支付</text>
+        <text>下单后请在30分钟内完成支付</text>
       </view>
       <view bindtap="selectAddress" wx:if="{{shipAddress == null || shipAddress.phone == null || shipAddress.phone.length <= 0}}" class="select-address-empty">
         <image class="location" src="/images/location_icon_001.png"></image>
@@ -193,9 +193,13 @@
     </view>
 
     <view class="pn-content">
-      <text class="pn-text" decode="{{true}}">
+      <!-- <text class="pn-text" decode="{{true}}">
         &nbsp;&nbsp;&nbsp;&nbsp;在微信支付确认弹框中选择支付方式为：<text style="color: #f00;">{{payNotice}}</text>
-      </text>
+      </text> -->
+      <!-- <text class="pn-text" decode="{{true}}"> -->
+        <!-- <text style="color: #f00;">{{payNotice}}</text> -->
+      <!-- </text> -->
+      <rich-text class="pn-text" nodes='{{payNotice}}' style=""></rich-text>
       <view class="protocol">
         <view bindtap="changePayNoticeProtocol" class="checkbox {{ payNoticeProtocolStatus && 'active' }}"><image src="/images/select.png"></image></view>
         <view>
