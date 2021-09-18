@@ -199,8 +199,7 @@ page {
   height: 8rpx;
   border-radius: 50%;
   background-color: #B4AFAF;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 13rpx;
   left: -20rpx;
 }
 .page-container{

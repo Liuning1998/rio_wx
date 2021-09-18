@@ -63,6 +63,7 @@ Page({
             res.data.data.forEach((ele,i) => {
               ele.detailShow = false
               ele.el = couponsList.length + i
+              ele.description = ele.description.split('\\n ')
               couponsList.push(ele)
             })
 

@@ -10,6 +10,8 @@ var helper = require('../../../utils/helper.js')
 var storage = require('../../../utils/storage.js')
 var jdHelper = require('./jd_helper.js')
 
+var coupon = require('./coupon.js')
+
 var submitStatus = false
 Page({
 

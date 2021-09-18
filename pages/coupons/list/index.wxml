@@ -49,8 +49,7 @@
     </view>
   </view>
   <view class="coupon-list-mask" wx:if="{{item.detailShow}}">
-    <view>使用规则使用规则使用规则使用；</view>
-    <view>使用规则使用规则使用规则使用规则使用规则使用；</view>
+    <view wx:for="{{item.description}}" wx:for-item="des">{{des}}</view>
   </view>
 </view>
 
