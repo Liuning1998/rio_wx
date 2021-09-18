@@ -103,7 +103,7 @@
         </view>
       </block>
 
-      <!-- <view class="coupon-container">
+      <view class="coupon-container">
         <view class="coupon-border">
           <view class="coupon-content">
             <text class="label">优惠券</text>  
@@ -122,7 +122,7 @@
             <view class="li"></view>
           </view>
         </view>
-      </view> -->
+      </view>
 
       <view wx:if="{{ currentVariant.show_name != null && currentVariant.show_name.length > 0 }}" class="variant-info" bindtap="onlyShowSelectLayer">
         <view class="main-info">
