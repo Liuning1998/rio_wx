@@ -317,7 +317,7 @@ page {
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
-  color: #2B2424;
+  color: #F64C47;
   font-size: 24rpx;
 }
 
