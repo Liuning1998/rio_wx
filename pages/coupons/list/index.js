@@ -27,7 +27,8 @@ Page({
     }],
     noData:false,
     loading:false,
-    loadErr:false
+    loadErr:false,
+    couponsList:[],//优惠券列表
   },
 
   /**
@@ -49,7 +50,8 @@ Page({
   },
 
   getCoupons:function(page){
-    var couponsList = this.data.couponsList || [];
+    var couponsList = this.data.couponsList;
+    var couponsListEl = this.data.couponsList.length;
     this.setData({
       loading:true
     })
@@ -59,11 +61,14 @@ Page({
         page:page
       },
       success: res => {
+        console.log(res.data.data)
         if(res.data.data.length != 0){
             res.data.data.forEach((ele,i) => {
               ele.detailShow = false
-              ele.el = couponsList.length + i
-              ele.description = ele.description.split('\\n ')
+              ele.el = couponsListEl + i
+              if(ele.description != null){
+                ele.description = ele.description.split('\\n ')
+              }
               couponsList.push(ele)
             })
 
@@ -86,8 +91,6 @@ Page({
             loading:false,
           })
         }
-
-        console.log(this.data.couponsList)
       },
       fail: res=>{
         console.log(res);

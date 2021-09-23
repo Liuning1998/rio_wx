@@ -88,22 +88,18 @@
           </view>
         </view>
 
-        <view class="coupon">
-          <radio-group bindchange="radioChange">
-            <label class="weui-cell weui-check__label" wx:for="{{items}}" wx:key="{{item.value}}">
-
-            <view class="weui-cell__hd">
-              <radio value="{{item.value}}" checked="true"/>
-            </view>
-            <view class="weui-cell__bd">{{item.name}}</view>
-            </label>
-            
-          </radio-group>
-        </view>
-
         <view wx:if="{{ shipmentExpenses != null && shipmentExpenses > 0 }}" class="shipment-expenses">
           <text class="label">基础运费:</text>
           <text class="price">+￥{{ price.tos(shipmentExpenses) }}</text>
+        </view>
+
+        <view class="coupon">
+          <label class="weui-cell weui-check__label" data-item="{{item}}" bindtap="couponChange" wx:for="{{couponNew}}" wx:key="{{item.number}}">
+            <view class="weui-cell__hd">
+              <radio color="#F64C47" checked="{{item.isCheck}}"/>
+            </view>
+            <view class="weui-cell__bd">{{item.el}}:满{{item.limit_value}}-{{item.value}}</view>
+          </label>
         </view>
 
         <!-- <view class="discount-shipment-expenses">
@@ -119,7 +115,7 @@
         </view>
         <view class="total-container">
           <text class="label">合计:</text>
-          <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal)}}</text>
+          <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos(orderTotal)}}</text>
           <text wx:else class="price">￥{{price.tos( price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses) )}}</text>
         </view>
       </view>

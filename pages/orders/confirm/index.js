@@ -10,7 +10,7 @@ var helper = require('../../../utils/helper.js')
 var storage = require('../../../utils/storage.js')
 var jdHelper = require('./jd_helper.js')
 
-var coupon = require('./coupon.js')
+var couponJs = require('./coupon.js')
 
 var submitStatus = false
 Page({
@@ -33,7 +33,13 @@ Page({
     showPayMethodLayer: false,
     orderTotal: null,
     shipmentExpenses: 0,
-    canCreateOrder: true
+    canCreateOrder: true,
+
+    // 优惠券测试
+    coupon:[],
+    couponNew:[],
+    checkCoupon:null
+    // 优惠券测试end
   },
 
   /**
@@ -43,15 +49,22 @@ Page({
     getApp().commonBeforeOnLoad(this)
     jdHelper.extend(this)
 
+
     var store_id = options.store_id || 0
     // var store_id = 1
 
     if (options.buyType == 'now') {
       var storeCart = this.params.cart
+      if(coupon!=null && checkCoupon.discountPrice == 'number'){
+        storeCart.total = checkCoupon.discountPrice
+      }
       this.setData({ buyType: 'now' })
     } else {
       var cart = cartApi.getCartCache()
       var storeCart = cart.data['store_' + store_id]
+      // if(coupon!=null && checkCoupon.discountPrice == 'number'){
+      //   storeCart.total = checkCoupon.discountPrice
+      // }
     }
 
     this.setData({
@@ -59,6 +72,7 @@ Page({
       storeCart: storeCart
     })
     this.setCartLength(storeCart)
+
 
     if (options.store_short_name == '京东') {
       this.setData({ store_short_name: '京东' })
@@ -91,6 +105,107 @@ Page({
     if (typeof(this.data.userInfo.kzx_user_identification) == 'undefined' || this.data.userInfo.kzx_user_identification.length == 0) {
       this.yanglaoTouch()
     }
+  },
+
+  // 优惠券切换
+  couponChange:function(e){
+    console.log(e)
+    console.log(this.data.couponNew)
+    var checkNumber = e.currentTarget.dataset.item;
+    var couponNew = this.data.couponNew;
+    if(this.data.store_short_name == '京东'){
+      var key = `storeCart.afterTotal`
+    }else{
+      var key = `afterOrderTotal`
+    }
+    couponNew.forEach((ele,i)=>{
+      if(ele.number == checkNumber.number){
+        ele.isCheck = !ele.isCheck
+        if(ele.isCheck){
+          this.setData({
+            [key]:ele.discountPrice,
+            checkCoupon:ele,
+            isUse:true
+          })
+        }else{
+          this.setData({
+            [key]:ele.price,
+            checkCoupon:null,
+            isUse:false
+          })
+        }
+      }else{
+        ele.isCheck = false
+      }
+    })
+    this.setData({
+      couponNew:couponNew
+    })
+
+  },
+  //请求优惠券总数
+  getCouponsCount:function(){
+    http.get({
+      url: 'api/promotions',
+      data:{
+        page:1
+      },
+      success: res => {
+        if(res.data.count > 0){
+          var allPage = Math.ceil(res.data.count / 10)
+          this.setData({
+            allPage:allPage
+          })
+          this.getCouponsList(1)
+        }
+      },
+      fail: res=>{
+        console.log(res);
+      }
+    })
+  },
+  // 请求优惠券接口
+  getCouponsList:function(page){
+    var couponArr = this.data.coupon;
+    var AllLength = this.data.allPage;
+    var couPonLength = this.data.coupon.length;
+    http.get({
+      url: 'api/promotions',
+      data:{
+        page:page
+      },
+      success: res => {
+        if(res.data.data.length != 0){
+            res.data.data.forEach((ele,i) => {
+              ele.detailShow = false
+              ele.el = couPonLength + i
+              if(ele.description != null){
+                ele.description = ele.description.split('\\n ')
+              }
+              couponArr.push(ele)
+            })
+            if (++page <= AllLength) {
+              this.getCouponsList(page);
+              this.setData({
+                coupon:couponArr
+              })
+            }else{
+              if (this.data.store_short_name == '京东') {
+                var coupon = couponJs.couponSort(this.data.coupon,this.data.storeCart.total,this)
+              }else{
+                var coupon = couponJs.couponSort(this.data.coupon,parseFloat(this.data.orderTotal),this)
+              }
+              this.setData({
+                couponNew:coupon
+              })
+            }
+            
+        }
+      },
+      fail: res=>{
+        console.log(res);
+      }
+    })
   },
 
   onShow: function () {
@@ -168,10 +283,18 @@ Page({
       order_type: '2'
       // coupon_id: coupon.id
     }
+    if(this.data.storeCart.afterTotal){
+      _data.total = parseFloat(this.data.storeCart.afterTotal)
+    }
 
+    //原来已注释
     // if (this.data.orderTotal != null) {
     //   _data.total = this.data.orderTotal
     // }
+
+    if (this.data.checkCoupon != null) {
+      _data.user_promotions_number = this.data.checkCoupon.number
+    }
 
     if (this.data.productType == 3) {
       _data['secret'] = this.data.secretText
@@ -181,7 +304,7 @@ Page({
     if (this.data.shipmentExpenses > 0) {
       console.log(_data.total)
       _data.shipment_expense = this.data.shipmentExpenses
-      _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
+      // _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
     }
 
 
@@ -699,6 +822,7 @@ Page({
       data: { line_items: lineItems },
       success: res => {
         this.setData({ orderTotal: res.data.total })
+        console.log( res.data.total)
       }
     })
   }

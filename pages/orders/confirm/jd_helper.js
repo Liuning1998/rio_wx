@@ -1,5 +1,6 @@
 const http = require("../../../utils/http")
 var storage = require('../../../utils/storage.js')
+var index = require('./index.js')
 
 var jd_functions = {
   checkJdPrice: function (storeCart) {
@@ -140,9 +141,16 @@ var jd_functions = {
 // context 为 page 上下文（page 的 this）
 // 将上面的方法引入到 page 中
 function extend (context) {
+  var allRequire = [];
   for (var key in jd_functions) {
     context[key] = jd_functions[key]
+    allRequire.push(jd_functions[key])
   }
+
+  Promise.all(allRequire).then( res => {
+    console.log('异步执行完毕',index)    //这里的res是一个数组，分别是上面三个请求的返回值
+  })
+  console.log('京东查运费')
 }
 
 module.exports = {
