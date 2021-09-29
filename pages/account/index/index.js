@@ -172,11 +172,18 @@ Page({
   gotoOrder: function (e) {
     let status = e.currentTarget.dataset.state
     console.log('ass')
-    this.subscribe().then(res =>{
+    if(status == 'all'){
+      this.subscribe().then(res =>{
+        wx.reLaunch({
+          url: `/pages/orders/index/index?state=${status}`,
+        })
+      })
+    }else{
       wx.reLaunch({
         url: `/pages/orders/index/index?state=${status}`,
       })
-    })
+    }
+
   },
 
   /**
