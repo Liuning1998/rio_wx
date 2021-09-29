@@ -243,6 +243,7 @@ Page({
       console.log(_data.total)
       _data.shipment_expense = this.data.shipmentExpenses
       _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
+      console.log(_data)
     }
     
     // 使用优惠券
