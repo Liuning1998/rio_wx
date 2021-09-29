@@ -191,6 +191,7 @@ page {
   position: relative;
   font-size: 20rpx;
   color: #5B5454;
+  overflow-wrap: break-word
 }
 .coupon-list-mask view::before{
   position: absolute;
@@ -207,7 +208,7 @@ page {
 }
 .loading{
   text-align: center;
-  margin: 20rpx 0;
+  padding: 30rpx 0;
   font-size: 20rpx;
   color: grey;
 }

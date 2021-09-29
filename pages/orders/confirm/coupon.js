@@ -1,7 +1,7 @@
 
 
 function couponSort(couponArr,price,app){//优惠券数组和优惠前价格
-  console.log(app.data.shipmentExpenses)
+  console.log('price',price)
   if(isNaN(price) || typeof(price) != "number"){
     app.errorToast('优惠券参数错误')
     return false
@@ -12,13 +12,13 @@ function couponSort(couponArr,price,app){//优惠券数组和优惠前价格
   // 分类
   couponArr.forEach(ele=>{
     if(ele.type.trim() == '满减' && parseFloat(ele.limit_value) <= price){
-      ele.discountPrice = Math.round((price + app.data.shipmentExpenses - parseFloat(ele.value))*100) / 100
+      ele.discountPrice = price - parseFloat(ele.value)
       ele.price = price + app.data.shipmentExpenses
       ele.isCan=true //有效优惠券
       ele.isCheck=false //是否选中
       canUse.push(ele)
     }else if(ele.type.trim() == '折扣'){
-      ele.discountPrice = Math.round((price + app.data.shipmentExpenses) * parseFloat(ele.discount)) /100
+      // ele.discountPrice = price * parseFloat(ele.折扣)
       ele.price = price + app.data.shipmentExpenses
       ele.isCan=true //有效优惠券
       ele.isCheck=false //是否选中
@@ -44,23 +44,29 @@ function couponSort(couponArr,price,app){//优惠券数组和优惠前价格
     //   canUse.push(ele)
     // })
     //默认选中第一个
-    console.log(canUse)
     canUse[0].isCheck=true
-    if(app.data.store_short_name == '京东'){
-      var key = `storeCart.afterTotal`
-      console.log('京东')
-    }else{
-      var key = `afterOrderTotal`
-    }
     app.setData({
-      [key]:canUse[0].discountPrice,
       checkCoupon:canUse[0],
-      isUse:true
+      couponNew:canUse
     })
   }
-  return canUse
 }
 
+// 计算当前优惠券价格
+// function calculatePrice(checkCoupon,price){
+//   if(checkCoupon.type == '满减'){
+//     var afterPrice = parseFloat(price) - parseFloat(checkCoupon.value)
+//     return afterPrice
+//   }else if(checkCoupon.type == '折扣'){
+//     return price
+//   }
+// }
+
+
+
+
+
 module.exports = {
-  couponSort: couponSort
+  couponSort: couponSort,
+  // calculatePrice:calculatePrice
 }

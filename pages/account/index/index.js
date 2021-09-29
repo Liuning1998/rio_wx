@@ -19,6 +19,79 @@ Page({
     getApp().commonBeforeOnLoad(this)
   },
 
+
+  //询问是否弹窗订阅
+  subscribeMessage:function(){
+    //判断是否已经订阅
+    var _this = this
+    wx.getSetting({
+      withSubscriptions: true,
+      success(res) {
+        console.log(res)
+        var itemSettings = res.subscriptionsSetting.itemSettings;
+        if (itemSettings) {
+          if (itemSettings['j3FKFyq9kJnybm8yoN2em_0kD96zc2sqAhyOmr7mbmo']=='accept' && itemSettings['hxlDiBwF6YabpwEPm4L4vrutDMNEG1wbt8yzxDEBB6I']=='accept') {
+            console.log('已订阅')
+            _this.setData({
+              isSubscribe: true
+            });
+          }else{
+            console.log('未订阅')
+            _this.subscribe()
+          }
+        }else{
+          console.log('未订阅')
+          _this.subscribe()
+        }
+      }
+    })
+
+  },
+
+  // 订阅消息
+  subscribe:function(){
+    var _this = this;
+    var muId = ['j3FKFyq9kJnybm8yoN2em_0kD96zc2sqAhyOmr7mbmo','hxlDiBwF6YabpwEPm4L4vrutDMNEG1wbt8yzxDEBB6I']
+    return new Promise((resolve,reject)=>{
+      wx.requestSubscribeMessage({
+        tmplIds: muId,
+        success (res) { 
+          console.log('成功',res)
+          resolve(res)
+          // if(res.muId[0] == 'reject' || res.muId[1] == 'reject'){
+          //   console.log('用户拒绝订阅消息')
+          // }else{
+          //   console.log(res.muId[0])
+          // }
+        },
+        fail(res){
+          console.log('失败',res)
+          resolve(res)
+        },
+        complete(res){
+          console.log('完成',res)
+          resolve(res)
+        }
+      })
+    }) 
+
+  },
+
+  // 跳转优惠券
+  gotoCoupon:function(){
+    this.subscribe().then(res =>{
+      this.navigateTo('/pages/coupons/list/index')
+    })
+  },
+    // 跳转优惠券
+    gotoCoupon:function(){
+      this.subscribe().then(res =>{
+        this.navigateTo('/pages/coupons/list/index')
+      })
+    },
+  
+
+
   onShow: function () {
     this.checkAuthLoginStatus()
     // this.resetUerInfo()
@@ -33,8 +106,10 @@ Page({
   },
 
   gotoOrders: function (status) {
-    wx.switchTab({
-      url: '/pages/orders/index/index',
+    this.subscribe().then(res =>{
+      wx.switchTab({
+        url: '/pages/orders/index/index',
+      })
     })
   },
 
@@ -97,8 +172,10 @@ Page({
   gotoOrder: function (e) {
     let status = e.currentTarget.dataset.state
     console.log('ass')
-    wx.reLaunch({
-      url: `/pages/orders/index/index?state=${status}`,
+    this.subscribe().then(res =>{
+      wx.reLaunch({
+        url: `/pages/orders/index/index?state=${status}`,
+      })
     })
   },
 

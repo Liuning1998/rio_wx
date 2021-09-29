@@ -39,7 +39,7 @@
         <text>{{item.name}}</text>
         <view class="coupon-operation-top-btn">
           <text>{{helper.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
-          <!-- <text class="{{helper.isExpire(nowDate,item.expires_at) ? '' : 'gray'}}">立即使用</text> -->
+          <text bindtap="{{helper.isExpire(nowDate,item.expires_at) ? 'gotoHome' : ''}}" class="{{helper.isExpire(nowDate,item.expires_at) ? '' : 'gray'}}">立即使用</text>
         </view>
       </view>
       <view class="coupon-operation-bottom {{item.detailShow ? 'active' : ''}}" data-info="{{item}}" bindtap="down">
@@ -60,7 +60,7 @@
 <view class="loading" wx:if="{{loading}}">
   加载中...
 </view>
-<view class="loading" wx:if="{{loadErr && !loading}}">
+<view class="loading" wx:if="{{loadErr && !loading && couponsList.length != 0}}">
   加载失败，请重试...
 </view>
 </scroll-view>

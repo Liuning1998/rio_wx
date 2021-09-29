@@ -75,8 +75,8 @@
         <text class="desc">0</text>
         <text class="label">卡券(张)</text>
       </view>
-      <view class="info-item" bindtap="gotoLink" data-url="/pages/coupons/list/index">
-        <text class="desc">{{userInfo.user_promotions_count}}</text>
+      <view class="info-item" bindtap="gotoCoupon" data-url="/pages/coupons/list/index">
+        <text class="desc">{{userInfo.user_promotions_count || 0}}</text>
         <text class="label">优惠券(张)</text>
       </view>
       <view data-url="/pages/account/balance/index" bindtap="gotoLink" class="info-item">

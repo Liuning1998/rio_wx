@@ -1,7 +1,6 @@
 // pages/coupons/list/index.js
 
 var http = require('../../../utils/http.js')
-
 Page({
 
   /**
@@ -36,9 +35,9 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
-
     // 获取优惠券
     this.getCoupons(1)
+    
   },
 
   onShow: function () {
@@ -68,6 +67,8 @@ Page({
               ele.el = couponsListEl + i
               if(ele.description != null){
                 ele.description = ele.description.split('\\n ')
+              }else if(ele.description == null){
+                ele.description = ['无']
               }
               couponsList.push(ele)
             })
@@ -81,8 +82,10 @@ Page({
               couponsCount:res.data.count,
               loading:false,
               loadErr:false,
+              noData:true,
               pageNo:page
             })
+            
         }else{
           console.log(page)
           this.setData({
@@ -113,9 +116,21 @@ Page({
 
   // 上拉加载
   upLoad:function(){
+    console.log(this.data.isTap)
     var page = this.data.pageNo;
-    if(this.data.loading == false){
+    var allPage;
+    if(this.data.couponsCount / 10 < 1){
+      allPage = 1
+    }else{
+      allPage = Math.ceil(this.data.couponsCount/10.0)
+      console.log(this.data.couponsCount,allPage)
+    }
+    
+    if(this.data.loading == false && page < allPage){
+      console.log(allPage,'加载下一页')
       this.getCoupons(page+1)
+    }else{
+      console.log('不用加载下一页')
     }
   },
 

@@ -2,7 +2,6 @@
 
 //判断是否过期
 function isExpire(nowDtae,oldDate){
-  // console.log(nowDtae,oldDate)
   return oldDate > nowDtae
 }
 
