@@ -93,7 +93,11 @@ Page({
     }
 
     var page = Math.floor(length/getApp().globalData.perPage) + 1
+<<<<<<< HEAD
     if (refresh) {//代表数据要清空
+=======
+    if (refresh) {//if要清空数据时
+>>>>>>> onReachBottom
       _data.page = 1
     }else{
       _data.page = page
@@ -303,7 +307,6 @@ Page({
   },
 
   onReachBottom: function () {
-    console.log('下啦')
     this.getProducts(this.data.currentCategory.id, this.data.orderType, false,this.data.searchKey)
   },
 
