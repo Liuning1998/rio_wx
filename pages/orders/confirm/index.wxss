@@ -1036,7 +1036,7 @@ page {
 }
 .coupon-card-mark{
   position: absolute;
-  top: 5rpx;
+  top: 3rpx;
   left: 0;
 }
 .coupon-card-mark.gray{
@@ -1062,7 +1062,7 @@ page {
   text-align: center;
   position: absolute;
   left: -10rpx;
-  top: 19rpx;
+  top: 20rpx;
 }
 .coupon-list-mask{
   width: 702rpx;
