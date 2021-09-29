@@ -1,12 +1,68 @@
+<wxs module="helper" src="./helper.wxs"></wxs>
+
 <!--pages/coupons/list/index.wxml-->
 <navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="优惠券"/>
-<view  style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
-<scroll-view scroll-y class='page-container'>
-  <view class="empty-container">
+<scroll-view scroll-y bindscrolltolower="upLoad" class='page-container'>
+<view  style='padding-top: {{pageMarginTop + 44}}px;'></view>
+  <view hidden="{{couponsList.length != 0 || loading}}" class="empty-container">
     <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_coupon_icon.png"></image>
     <text>暂无优惠券~</text>
   </view>
+<view class="coupon-list" data-info="{{item}}" wx:for="{{couponsList}}" wx:for-item="item">
+  <view class="coupon">
+    <image class="coupon-bg" src="../../../images/coupon/coupon-content1.png"></image>
+    <view class="coupon-card">
+
+      <image wx:if="{{helper.isExpire(nowDate,item.expires_at)}}" class="coupon-card-bg" src="../../../images/coupon/coupon-card.png"></image>
+      <image wx:else class="coupon-card-bg" src="../../../images/coupon/coupon-card1.png"></image>
+
+      <view class="coupon-card-content">
+        <view class="coupon-money">
+          <text>￥</text>
+          <text>{{item.value}}</text>
+        </view>
+        <view class="coupon-brief">满{{item.limit_value}}可用</view>
+      </view>
+
+      <view wx:if="{{helper.isExpire(nowDate,item.expires_at)}}" class="coupon-card-mark">
+        <image class="coupon-card-mark-bg" src="../../../images/coupon/coupon-babel.png"></image>
+        <text class="coupon-card-mark-text">仅剩{{helper.surplusDay(nowDate,item.expires_at)}}天</text>
+      </view>
+      <view wx:else class="coupon-card-mark gray">
+        <image class="coupon-card-mark-bg" src="../../../images/coupon/coupon_border.png"></image>
+        <text class="coupon-card-mark-text">已失效</text>
+      </view>
+    </view>
+    <view class="coupon-operation">
+      <view class="coupon-operation-top">
+        <text>{{item.name}}</text>
+        <view class="coupon-operation-top-btn">
+          <text>{{helper.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
+          <text bindtap="{{helper.isExpire(nowDate,item.expires_at) ? 'gotoHome' : ''}}" class="{{helper.isExpire(nowDate,item.expires_at) ? '' : 'gray'}}">立即使用</text>
+        </view>
+      </view>
+      <view class="coupon-operation-bottom {{item.detailShow ? 'active' : ''}}" data-info="{{item}}" bindtap="down">
+        <text>使用规则</text>
+        <text> ^ </text>
+      </view>
+    </view>
+  </view>
+  <view class="coupon-list-mask" wx:if="{{item.detailShow}}">
+    <view wx:for="{{item.description}}" wx:for-item="des">{{des}}</view>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view class="loading" wx:if="{{noData && !loading && couponsList.length != 0 && !loadErr}}">
+  已加载全部!
+</view>
+<view class="loading" wx:if="{{loading}}">
+  加载中...
+</view>
+<view class="loading" wx:if="{{loadErr && !loading && couponsList.length != 0}}">
+  加载失败，请重试...
+</view>
 </scroll-view>
 
 <msgToast msg-data="{{ _msgData }}"/>

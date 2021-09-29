@@ -9,7 +9,7 @@ var cartKey = 'cartCache'
 function addCart (lineItem) {
   let _cart = storage.getSyncWithExpire(cartKey) || {}
   let cart = _cart.data || {}
-
+  console.log(_cart)
   if(lineItem == null || lineItem.variant_id == null) {
     return _cart
   }

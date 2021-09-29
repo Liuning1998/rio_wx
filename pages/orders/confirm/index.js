@@ -9,6 +9,7 @@ var cartApi = require('../../../utils/cart.js')
 var helper = require('../../../utils/helper.js')
 var storage = require('../../../utils/storage.js')
 var jdHelper = require('./jd_helper.js')
+var couponJs = require('./coupon.js')
 
 var submitStatus = false
 Page({
@@ -31,7 +32,10 @@ Page({
     showPayMethodLayer: false,
     orderTotal: null,
     shipmentExpenses: 0,
-    canCreateOrder: true
+    canCreateOrder: true,
+    checkCoupon:null,
+    nowDate:Date.parse(new Date()) / 1000,
+    couponShow:false
   },
 
   /**
@@ -96,9 +100,66 @@ Page({
       this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
     }
     this.setData({ submitStatus: false })
+
     submitStatus = false
+    
     this.getShipAddress()
+ 
   },
+
+  // 优惠券切换
+  couponChange:function(e){
+    // console.log(e)
+    // console.log(this.data.couponNew)
+    var checkNumber = e.currentTarget.dataset.item;
+    var couponNew = this.data.couponNew;
+    couponNew.forEach((ele,i)=>{
+      var key = `couponNew[${i}].isCheck`;
+      if(ele.number == checkNumber.number){
+        if(ele.isCheck){
+          this.setData({
+            checkCoupon:null,
+            [key]:!ele.isCheck
+          })
+          // console.log('true',this.data.checkCoupon)
+        }else{
+          this.setData({
+            checkCoupon:ele,
+            [key]:!ele.isCheck
+          })
+          // console.log('false',this.data.checkCoupon)
+        }
+      }else{
+        this.setData({
+          [key]:false
+        })
+      }
+    })
+    this.closeCoupon()
+
+  },
+  // 下拉
+  down:function(e){
+    var el = e.currentTarget.dataset.index;
+    var key = `couponNew[${el}].detailShow`;
+    // console.log(el)
+    this.setData({
+      [key]:!this.data.couponNew[el].detailShow
+    })
+  },
+  // 关闭优惠券弹窗
+  closeCoupon:function(){
+    this.setData({
+      couponShow:false
+    })
+  },
+  // 打开优惠券弹窗
+  openCoupon:function(){
+    this.setData({
+      couponShow:true
+    })
+  },
+
 
   priceTos:function(price) {
     if (price == null) {return ''}
@@ -107,6 +168,8 @@ Page({
   },
 
   createOrder: function () {
+
+    this.closeCoupon()
     if (this.data.shipAddress == null || this.data.shipAddress.id == null) {
       this.errorToast('请先选择收货地址')
       return false
@@ -180,8 +243,14 @@ Page({
       console.log(_data.total)
       _data.shipment_expense = this.data.shipmentExpenses
       _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
+      console.log(_data)
     }
-
+    
+    // 使用优惠券
+    if(this.data.checkCoupon != null){
+      _data.user_promotions_number = this.data.checkCoupon.number
+      // _data.total = couponJs.calculatePrice(this.data.checkCoupon,_data.total) 
+    }
 
     http.post({
       url: "api/orders",
@@ -233,7 +302,11 @@ Page({
     // }
     var _total = order.discount_total
     if (this.data.orderTotal != null) {
-      _total = this.data.orderTotal
+      if(this.data.checkCoupon != null) {
+        _total = this.data.orderTotal - parseFloat(this.data.checkCoupon.value)
+      }else{
+        _total = this.data.orderTotal
+      }
     }
     var paramsData = {
       pay_params: {
@@ -328,43 +401,40 @@ Page({
 
   getShipAddress: function () {
     if (!this.data.virtual) {
-      helper.getShipAddress({
-        success: (data) => {
-          // 验证地址是否还存在
-          if (data.from_type == 'localStorage') {
-            // this.setData({ shipAddress: data })
-            // 2437 老地址认为无效地址
-            if ( data.id <= 2437 ) {
-            // if ( data.id <= 0 ) {
-              storage.delSync('ship_address')
-              this.setShipAddress({})
-            } else {
+      return new Promise((resolve,reject)=>{
+        helper.getShipAddress({
+          success: (data) => {
+            // 验证地址是否还存在
+            if (data.from_type == 'localStorage') {
+              // this.setData({ shipAddress: data })
+              // 2437 老地址认为无效地址  if ( data.id <= 2437 ) { storage.delSync('ship_address') this.setShipAddress({}) } 
               this.setShipAddress(data)
+            } else {
+              http.get({
+                url: 'api/ship_addresses/' + data.id,
+                success: res => {
+                  // this.setData({ shipAddress: data })
+                  this.setShipAddress(data)
+                },
+                fail: res => {
+                  storage.delSync('ship_address')
+                  // this.setData({ shipAddress: {} })
+                  this.setShipAddress({})
+                }
+              })
             }
-          } else {
-            http.get({
-              url: 'api/ship_addresses/' + data.id,
-              success: res => {
-                // this.setData({ shipAddress: data })
-                this.setShipAddress(data)
-              },
-              fail: res => {
-                storage.delSync('ship_address')
-                // this.setData({ shipAddress: {} })
-                this.setShipAddress({})
-              }
-            })
+          },
+          fail: (res) => {
+            console.log('获取地址失败')
+            if (res.data != null && res.data.code == 100123) {
+              storage.delSync('ship_address')
+              // this.setData({ shipAddress: {} })
+              this.setShipAddress({})
+            }
           }
-        },
-        fail: (res) => {
-          console.log('获取地址失败')
-          if (res.data != null && res.data.code == 100123) {
-            storage.delSync('ship_address')
-            // this.setData({ shipAddress: {} })
-            this.setShipAddress({})
-          }
-        }
+        })
       })
+
     }
   },
 
@@ -372,8 +442,18 @@ Page({
     this.setData({ shipAddress: data })
     this.checkAreaLimit(this.data.storeCart, data)
     if (this.data.store_short_name == '京东') {
-      this.checkJdStockAndAreaLimit(this.data.storeCart, data.id)
-      this.fetchJdFreight(this.data.storeCart, data.id)
+      Promise.all([this.checkJdStockAndAreaLimit(this.data.storeCart, data.id),this.fetchJdFreight(this.data.storeCart, data.id),]).then(res => {
+        //京东
+        console.log('成功')
+        this.getCouponCount()
+      }).catch(res=>{
+        //京东
+        console.log('失败')
+        this.getCouponCount()
+      })
+    }else{
+        //非京东
+        this.getOrderTotal(this.data.storeCart)
     }
   },
 
@@ -530,7 +610,6 @@ Page({
         }
       }
     }
-
     if (result && this.data.showPayNotice != true) {
       this.setData({ showAddressNotice: true })
     }
@@ -602,7 +681,11 @@ Page({
     // }
     var _total = order.discount_total
     if (this.data.orderTotal != null) {
-      _total = this.data.orderTotal
+      if(this.data.checkCoupon != null) {
+        _total = this.data.orderTotal - parseFloat(this.data.checkCoupon.value)
+      }else{
+        _total = this.data.orderTotal
+      }
     }
 
     var paramsData = {
@@ -697,6 +780,8 @@ Page({
       data: { line_items: lineItems },
       success: res => {
         this.setData({ orderTotal: res.data.total })
+        // 请求成功加载优惠券
+        this.getCouponCount()
       }
     })
   }

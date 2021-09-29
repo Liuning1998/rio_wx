@@ -20,7 +20,8 @@ Page({
     expressExtend: false,
     showPayNotice: false,
     payMethod: 'brcb_pay',
-    showPayMethodLayer: false
+    showPayMethodLayer: false,
+    couponShow:false,
   },
 
   /**
@@ -34,7 +35,6 @@ Page({
     http.get({
       url: 'api/orders/'+number,
       success: res => {
-        console.log(res)
         if (res.data != null && Object.keys(res.data).length >0) {
           this.setData({ order: res.data })
         } else {
@@ -66,6 +66,15 @@ Page({
         }
       })
     }
+  },
+
+
+  // 优惠券下拉
+  couponDown:function(){
+    var couponShow = this.data.couponShow
+    this.setData({
+      couponShow:!couponShow
+    })
   },
 
   // 删除订单

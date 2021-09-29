@@ -1,0 +1,15 @@
+//计算优惠后价格
+function  calculatePrice(price,checkCoupon) {
+  if(checkCoupon == null){
+    return price
+  }else if(checkCoupon.type == '满减'){
+    var afterPrice = parseFloat(price) - parseFloat(checkCoupon.value)
+    return afterPrice.toFixed(2)
+  }else if(checkCoupon.type == '折扣'){
+    return price
+  }
+}
+
+module.exports = {
+  calculatePrice: calculatePrice,
+}

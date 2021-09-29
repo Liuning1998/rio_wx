@@ -1023,3 +1023,45 @@ page {
   color: #999999;
 }
 /* 售后列表 */
+
+
+/* 优惠券 */
+
+.coupon{
+  width: 650rpx;
+  margin: 0px auto 0;
+  position: relative;
+}
+.coupon .coupon-list{
+  display: flex;
+  justify-content: space-between;
+  color: #B4AFAF;
+  font-size: 26rpx;
+  margin-right: 24rpx;
+  margin-top: 1px;
+  line-height: 56rpx;
+  border-top: 1rpx solid #f7f7ff;
+}
+.coupon-box{
+  display: block;
+  min-height: 88rpx;
+  height: auto;
+}
+.coupon-box .content{
+  height: 88rpx;
+}
+.coupon-box-down{
+  display: flex;
+  align-items: center;
+}
+.coupon-box-down.show image{
+  transform: rotate(-90deg);
+}
+.coupon-box-down image{
+  display: inline-block;
+  width: 40rpx;
+  height: 40rpx;
+  transform: rotate(90deg);
+  transition: all .2s;
+}
+/* 优惠券end */
