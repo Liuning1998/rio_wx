@@ -93,11 +93,8 @@ Page({
     }
 
     var page = Math.floor(length/getApp().globalData.perPage) + 1
-<<<<<<< HEAD
-    if (refresh) {//代表数据要清空
-=======
+
     if (refresh) {//if要清空数据时
->>>>>>> onReachBottom
       _data.page = 1
     }else{
       _data.page = page
