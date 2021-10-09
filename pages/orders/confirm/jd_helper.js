@@ -161,8 +161,10 @@ var jd_functions = {
                 res.data.data.forEach((ele,i) => {
                   ele.detailShow = false
                   ele.el = couPonLength + i
-                  if(ele.description != null){
-                    ele.description = ele.description.split('\\n ')
+                  if(ele.description.trim() != null && ele.description.trim() != ''){
+                    ele.description = ele.description.split('\r\n')
+                  }else if(ele.description.trim() == null || ele.description.trim() == ''){
+                    ele.description = null
                   }
                   couponArr.push(ele)
                 })
@@ -195,10 +197,10 @@ var jd_functions = {
           res.data.data.forEach((ele,i) => {
             ele.detailShow = false
             ele.el = i
-            if(ele.description != null){
-              ele.description = ele.description.split('\\n ')
-            }else if(ele.description == null){
-              ele.description = ['无']
+            if(ele.description.trim() != null && ele.description.trim() != ''){
+              ele.description = ele.description.split('\r\n')
+            }else if(ele.description.trim() == null || ele.description.trim() == ''){
+              ele.description = null
             }
           })
           this.setData({
