@@ -65,10 +65,10 @@ Page({
             res.data.data.forEach((ele,i) => {
               ele.detailShow = false
               ele.el = couponsListEl + i
-              if(ele.description != null){
-                ele.description = ele.description.split('\\n ')
-              }else if(ele.description == null){
-                ele.description = ['无']
+              if(ele.description.trim() != null && ele.description.trim() != ''){
+                ele.description = ele.description.split('\r\n')
+              }else if(ele.description.trim() == null || ele.description.trim() == ''){
+                ele.description = null
               }
               couponsList.push(ele)
             })
