@@ -158,7 +158,7 @@
     <view wx:if="{{order.shipment_expense > 0}}" class="shipment-expenses">
       <view class="content">
         <text class="label">运费(快递)：</text>
-        <text>-￥{{order.shipment_expense}}</text>
+        <text>￥{{order.shipment_expense}}</text>
       </view>
     </view>
 

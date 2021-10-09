@@ -465,6 +465,7 @@ page {
   font-size: 28rpx;
   color: #2B2424;
   margin-right: 8rpx;
+  font-weight: 500;
 }
 
 .bottom-tools .total .price {
