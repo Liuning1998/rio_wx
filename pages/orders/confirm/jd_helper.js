@@ -126,22 +126,25 @@ var jd_functions = {
         success: res => {
           if(res.data.status == 'ok') {
             // this.setData({ shipmentExpenses: res.data.freight })
-            this.updateShipmentExpenses(res.data.freight)
+            this.updateShipmentExpenses(res.data.freight,res.data.notice)
           } else {
-            this.updateShipmentExpenses(8)
+            this.updateShipmentExpenses(8,res.data.notice)
           }
           resolve(res)
         },
         fail: res => {
           reject(res)
-          this.updateShipmentExpenses(8)
+          this.updateShipmentExpenses(8,'')
         }
       })
     })
   },
 
-  updateShipmentExpenses: function (freight) {
-    this.setData({ shipmentExpenses: freight })
+  updateShipmentExpenses: function (freight,notice) {
+    this.setData({ 
+      shipmentExpenses: freight,
+      freeNotice:notice.trim()
+    })
   },
   // 京东商品
 

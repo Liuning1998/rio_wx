@@ -35,7 +35,8 @@ Page({
     canCreateOrder: true,
     checkCoupon:null,
     nowDate:Date.parse(new Date()) / 1000,
-    couponShow:false
+    couponShow:false,
+    freeNotice:''// 本单京东商品符合免邮费条件
   },
 
   /**

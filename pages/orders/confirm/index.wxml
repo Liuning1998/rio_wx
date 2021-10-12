@@ -144,6 +144,11 @@
         <text>支付方式:</text>
         <text class="content">在线支付</text>
       </view>
+
+      <!-- 本单优惠 -->
+      <view class="time-remark" wx:if="{{freeNotice != ''}}">
+        <text>{{freeNotice}}</text>
+      </view>
       
 
       <!-- <view class="secret-container" wx:if="{{ productType == 3 }}">
