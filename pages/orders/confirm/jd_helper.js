@@ -107,6 +107,19 @@ var jd_functions = {
   },
 
   fetchJdFreight: function (storeCart, ship_address_id) {
+    ship_address_id=undefined
+    console.log('-----------------------------------------------------------------')
+    console.log(ship_address_id)
+
+    // 判断ship_address_id是否为undefined
+    if(!ship_address_id && this.data.shipAddress.id){//如果ship_address_id没取到但是页面收货地址存在直接赋值ship_address_id
+      ship_address_id = this.data.shipAddress.id;
+      console.log(ship_address_id)
+    }else if(!ship_address_id && !this.data.shipAddress.id){//如果ship_address_id和上方地址都空，说明没有选择收货地址
+      this.warningToast('请选择收货地址')
+      return
+    }
+
     let lineItems = []
     for(let key in storeCart.lineItems) {
       let _line = storeCart.lineItems[key]
@@ -134,6 +147,8 @@ var jd_functions = {
         },
         fail: res => {
           reject(res)
+          let msg = '地址选择出错，请重试'
+          this.errorToast(msg)
           this.updateShipmentExpenses(8,'')
         }
       })
@@ -141,6 +156,7 @@ var jd_functions = {
   },
 
   updateShipmentExpenses: function (freight,notice) {
+    notice = notice || ''
     this.setData({ 
       shipmentExpenses: freight,
       freeNotice:notice.trim()
