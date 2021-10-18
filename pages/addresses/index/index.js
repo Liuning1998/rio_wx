@@ -148,6 +148,7 @@ Page({
       success: (res) => {
         // messageModal.successToast('设置成功', 1000)
         this.setDefaultAddressState(address)
+        helper.cacheShipAddress(address)
       },
       fail: (res) => {
         // messageModal.errorToast('设置失败', 1000)
@@ -171,7 +172,8 @@ Page({
   selectAddress: function (e) {
     if (this.data.referrer != null) {
       var address = e.currentTarget.dataset.address
-      helper.cacheShipAddress(address)
+      // helper.cacheShipAddress(address)
+      helper.cacheShipAddressReal(address)
     } else {
       return false
     }

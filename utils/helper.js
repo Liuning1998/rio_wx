@@ -3,7 +3,8 @@ var http = require('./http.js')
 
 function getShipAddress(options) {
   var p = new Promise((resolve, reject) => {
-    var address = storage.getSyncWithExpire('ship_address')
+    var address = storage.getSyncWithExpire('ship_address_real') || storage.getSyncWithExpire('ship_address')
+    console.log(address)
     if ( address != '' && address !=null ) {
       address.from_type = 'localStorage'
       resolve(address)
@@ -31,6 +32,10 @@ function getShipAddress(options) {
 function cacheShipAddress(address) {
   storage.setSyncWithExpire('ship_address', address, 360*24*60*60)
 }
+//修改订单确认页面实时切换的地址
+function cacheShipAddressReal(address) {
+  storage.setSyncWithExpire('ship_address_real', address, 360*24*60*60)
+}
 
 function hidePhone (phone=null) {
   phone = '' + phone
@@ -45,6 +50,7 @@ function hidePhone (phone=null) {
 module.exports = {
   getShipAddress: getShipAddress,
   cacheShipAddress: cacheShipAddress,
-  hidePhone: hidePhone
+  hidePhone: hidePhone,
+  cacheShipAddressReal:cacheShipAddressReal
   
 }

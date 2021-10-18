@@ -108,6 +108,12 @@ Page({
  
   },
 
+  onUnload:function(){
+    console.log('退出订单确认页面')
+    storage.delSync('ship_address_real')
+  },
+
+
   // 优惠券切换
   couponChange:function(e){
     // console.log(e)
@@ -405,9 +411,6 @@ Page({
       return new Promise((resolve,reject)=>{
         helper.getShipAddress({
           success: (data) => {
-            console.log('-----------------------------------------------------------------')
-            console.log(data)
-            console.log(data.id)
             // 验证地址是否还存在 
             if (data.from_type == 'localStorage') {
               // this.setData({ shipAddress: data })

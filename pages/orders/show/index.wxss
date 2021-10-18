@@ -1065,3 +1065,9 @@ page {
   transition: all .2s;
 }
 /* 优惠券end */
+
+.go-express{
+  font-size: 29rpx;
+  color: #F64C47;
+  margin-right: 12rpx;
+}

@@ -75,14 +75,14 @@
       <!-- <view wx:elif="{{ order.state == 'new' }}" >
       </view> -->
       <view class="expresses-container" wx:elif="{{ true || order.expresses != null && order.expresses.length > 0 }}">
-        <view wx:if="{{ order.expresses.length == 1 }}" class="one">
+        <view wx:if="{{ order.expresses.length == 1 }}" bindtap="gotoExpress" data-item="{{order.expresses[0]}}" class="one">
           <image src="/images/order/shipment.png" class="icon"></image>
-          <view class="content" bindtap="gotoExpress" data-item="{{order.expresses[0]}}">
+          <view class="content">
             <text class="title">您订单已送出</text>
             <text class="info">{{ order.expresses[0].name }} {{ orders.expresses[0].express_number }}</text>
           </view>
-
-          <image style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
+          <view class="go-express">查看物流</view>
+          <image style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_red_01.png"></image>
         </view>
 
         <view wx:elif="{{order.expresses.length > 1}}" class="more" bindtap="changeExpressExtend">
@@ -100,7 +100,8 @@
             <view class="info" bindtap="gotoExpress" data-item="{{item}}">
               <text class="name">{{ item.name }}</text>
               <text class="no">{{ item.express_number }}</text>
-              <image class="" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
+              <view class="go-express">查看物流</view>
+              <image class="" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_red_01.png"></image>
             </view>
           </view>
         </view>

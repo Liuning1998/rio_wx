@@ -107,14 +107,11 @@ var jd_functions = {
   },
 
   fetchJdFreight: function (storeCart, ship_address_id) {
-    ship_address_id=undefined
-    console.log('-----------------------------------------------------------------')
-    console.log(ship_address_id)
+    // ship_address_id=undefined
 
     // 判断ship_address_id是否为undefined
     if(!ship_address_id && this.data.shipAddress.id){//如果ship_address_id没取到但是页面收货地址存在直接赋值ship_address_id
       ship_address_id = this.data.shipAddress.id;
-      console.log(ship_address_id)
     }else if(!ship_address_id && !this.data.shipAddress.id){//如果ship_address_id和上方地址都空，说明没有选择收货地址
       this.warningToast('请选择收货地址')
       return
@@ -212,7 +209,7 @@ var jd_functions = {
       url: '/api/promotions/select_promotions',
       success: res => {
         if(res.data.data.length != 0){
-          console.log('优惠券请求结果非空，有可用优惠券')
+          // console.log('优惠券请求结果非空，有可用优惠券')
           res.data.data.forEach((ele,i) => {
             ele.detailShow = false
             ele.el = i
