@@ -197,8 +197,12 @@ Page({
               this.deleteForShow(item)
 
               var cacheAddress = storage.getSync('ship_address')
+              var cacheAddressreal = storage.getSync('ship_address_real')
               if (cacheAddress.id == item.id) {
                 storage.delSync('ship_address')
+              }
+              if(cacheAddressreal.id == item.id){
+                storage.delSync('ship_address_real')
               }
             },
             fail: (res) => {

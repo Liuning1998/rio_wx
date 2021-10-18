@@ -156,8 +156,8 @@ Page({
       data: data,
       success: (res) => {
         this.successToast('创建地址成功', 1000)
-        helper.cacheShipAddress(res.data)
-
+        // helper.cacheShipAddress(res.data)
+        helper.cacheShipAddressReal(res.data)
         this.ifDefault(res.data,true)
 
         setTimeout(res => {
@@ -223,7 +223,8 @@ Page({
       success: (res) => {
         this.successToast('修改地址成功', 1000)
         console.log(res.data)
-        helper.cacheShipAddress(res.data)
+        // helper.cacheShipAddress(res.data)
+        helper.cacheShipAddressReal(res.data)
 
         this.ifDefault(res.data,false)
 
