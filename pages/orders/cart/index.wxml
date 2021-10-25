@@ -24,12 +24,16 @@
     <view wx:if="{{!helper.empty(cartData)}}" class="cart-container">
       <view wx:for="{{ cartData.data }}" wx:for-item="storeCart" wx:key="sindex"  class="store-cart-container">
         <view class="store-header">
-          <view style="display: flex; align-items: center;">
+          <view style="display: flex; align-items: center;margin-right: auto;">
             <view bindtap="allSelected" data-item="{{storeCart}}" class="select {{ storeCart.allSelectStatus && 'selected' }}"><image src="/images/selected_icon_003.png"></image></view>
             <image class="store-icon" src="/images/store_icon_001.png"></image>
             <text class="name">{{storeCart.store_name}}</text>
             <!-- <image style="height: 14rpx; width: 7rpx; margin-left: 10rpx; margin-top: 2rpx;" src="/images/arrow_o_black_01.png"></image> -->
           </view>
+          <block>
+            <view class="coupon-title" wx:if="{{storeCart.store_short_name == '京东'}}">满149元免基础运费</view>
+            <view class="coupon-title" wx:else>免运费</view>
+          </block>
           <text bindtap="deleteStoreItem" data-item="{{storeCart}}" class="delete">删除</text>
         </view>
 

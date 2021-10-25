@@ -99,7 +99,7 @@ page {
   display: flex;
   height: 72rpx;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   font-size: 32rpx;
   color: #333333;
   font-weight: 600;
@@ -606,3 +606,10 @@ page {
   margin-left: 8rpx;
 }
 /* 商品列表 */
+
+/* 商铺头部优惠信息 */
+.coupon-title{
+  color: #F64C47;
+  font-size: 20rpx;
+  font-weight: normal;
+}

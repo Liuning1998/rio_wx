@@ -94,7 +94,7 @@
         </view>
 
 
-        <view wx:if="{{ shipmentExpenses != null && shipmentExpenses > 0 }}" class="shipment-expenses">
+        <view wx:if="{{ shipmentExpenses != null  }}" class="shipment-expenses">
           <text class="label">基础运费:</text>
           <text class="price">+￥{{ price.tos(shipmentExpenses) }}</text>
         </view>
