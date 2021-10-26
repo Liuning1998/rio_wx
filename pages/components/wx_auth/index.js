@@ -29,7 +29,8 @@ Component({
         storage.setSync('authenticated', 'authenticated')
 
         storage.setSync('wx_user_info', res.detail)
-
+        
+        // api/wechat_users接口参数为以下参数  此方法暂时不用
         http.post({
           url: 'api/wechat_users',
           data: {

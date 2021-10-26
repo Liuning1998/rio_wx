@@ -4,6 +4,7 @@ var storage = require("./storage.js")
 
 function login() {
   var p = new Promise((resolve, reject) => {
+    console.log('login回调')
     wx.login({
       success: function(res) {
         http.post({
@@ -30,7 +31,7 @@ function login() {
 
   return p
 }
-
+// api/wechat_users接口参数为以下参数  此方法暂时不用
 function updateUserInfo () {
   wx.getSetting({
     success: res => {

@@ -1,6 +1,8 @@
 // pages/store/index/index.js
 var http = require('../../utils/http.js')
 var sessionApi = require('../../utils/session.js')
+var store = require('../../utils/storage.js')
+const app = getApp()
 
 Page({
 
@@ -225,12 +227,10 @@ Page({
   getRatio(){
     var that = this ;
     if (!that.data.specialAreas || that.data.specialAreas.length<=4){
-      console.log('false不够')
       this.setData({
         slideShow:false
       })
     }else{
-      console.log('false够')
       var _totalLength = that.data.specialAreas.length * 175; //分类列表总长度
       var _ratio = 128 / _totalLength * (750 / this.data.windowWidth); //滚动列表长度与滑条长度比例
       var _showLength = 750 / _totalLength * 128; //当前显示红色滑条的长度(保留两位小数)
@@ -258,7 +258,6 @@ Page({
         }
       },
       success: res => {
-        console.log(res)
         if (res.data != null && res.data.constructor.name == "Array") {
           this.setData({ ads: res.data })
         }
@@ -489,6 +488,19 @@ Page({
   },
 
   getUserInfo: function () {
+    var isToken =  store.getSyncWithExpire('session')
+    if(isToken.access_token){//如果token存在
+      this.getUserInfoFunc()
+    }else{
+      app.callbackShowUser = ()=>{
+        this.getUserInfoFunc()
+      }
+    }
+
+  },
+
+  // getUserInfo函数体
+  getUserInfoFunc:function(){
     http.post({
       url: 'api/users/show_user',
       success: res => {

@@ -34,7 +34,6 @@ App({
             this.globalData.userInfo = res
             if (this.CallbackForUserInfo) {
               this.CallbackForUserInfo(res)
-              
               // 设置用户授权状态
               if (!this.globalData.authLoginStatus && res.check_wx_auth) {
                 this.globalData.authLoginStatus = true
@@ -60,6 +59,10 @@ App({
       sessionApi.login().then(res=> {
         this.globalData.session = res
         getUser()
+        //首页传过来的showuser回调
+        if (this.callbackShowUser){
+          this.callbackShowUser();
+       }
         if (this.CallbackForSession) {
           this.CallbackForSession(res)
         }
@@ -72,7 +75,7 @@ App({
   
           updateManager.onCheckForUpdate(function (res) {
             // 请求完新版本信息的回调
-            console.log('请求完新版本信息的回调',)
+            console.log('请求完新版本信息的回调',res)
             if(res.hasUpdate){
               updateManager.onUpdateReady(function () {
                 // wx.showModal({
