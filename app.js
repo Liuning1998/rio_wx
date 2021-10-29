@@ -19,6 +19,10 @@ App({
   }),
 
   onLaunch: function () {
+
+    // 清除遗留临时地址缓存
+    store.delSync('ship_address_real')
+
     var getUser = () => {
       // 从本地存储获取userInfo
       var userInfo = store.getSyncWithExpire('userInfo')

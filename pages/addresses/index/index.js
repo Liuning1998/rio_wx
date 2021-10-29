@@ -75,7 +75,6 @@ Page({
     http.get({
       url: 'api/ship_addresses?page=' + this.data.pageNo,
       success: (res) => {
-        console.log(res.data)
         // this.pushItemToList(res.data)
         this.setData({
           loaded: true,
@@ -172,6 +171,10 @@ Page({
   selectAddress: function (e) {
     if (this.data.referrer != null) {
       var address = e.currentTarget.dataset.address
+      var storageShipAddress = storage.getSync('ship_address')
+      if(address.default_address){
+        helper.cacheShipAddress(address)
+      }
       // helper.cacheShipAddress(address)
       helper.cacheShipAddressReal(address)
     } else {

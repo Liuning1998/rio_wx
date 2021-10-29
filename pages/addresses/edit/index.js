@@ -140,6 +140,10 @@ Page({
       return false
     }
 
+    this.setData({
+      ableSubmit:false
+    })
+
     if (this.data.newObject) {
       console.log(formValue)
       this.createAddress(formValue)
@@ -157,10 +161,18 @@ Page({
       success: (res) => {
         this.successToast('创建地址成功', 1000)
         // helper.cacheShipAddress(res.data)
-        helper.cacheShipAddressReal(res.data)
+        const pages = getCurrentPages();
+        const prevPage = pages[pages.length - 2];  //上一个页面
+        if(prevPage.route == 'pages/orders/confirm/index'){//如果前一个页面是下单页面则创建临时地址缓存
+          helper.cacheShipAddressReal(res.data)
+        }
+        if(res.data.default_address){//如果创建的是默认的更新默认地址缓存
+          helper.cacheShipAddress(res.data)
+        }
         this.ifDefault(res.data,true)
 
         setTimeout(res => {
+          this.setData({ ableSubmit: true })
           this.redirect()
         }, 1000)
         
@@ -183,9 +195,7 @@ Page({
     const prevPage = pages[pages.length - 2];  //上一个页面
     var addresses = prevPage.data.addresses;
     if(prevPage.route != 'pages/addresses/index/index'){return}
-    console.log('已经return')
     if(type){//添加
-      console.log('添加')
       if(data.default_address){
         for(var key in addresses){
           addresses[key].default_address = false
@@ -195,14 +205,12 @@ Page({
         addresses.push(data)
       }
     }else{//修改
-      console.log('修改')
       for(var key in addresses){
         if(data.default_address){//选为默认
           addresses[key].default_address = false
           if(addresses[key].id == data.id){
             addresses.splice(key,1)
             addresses.unshift(data)
-            console.log(addresses)
           }
         }else{
           if(addresses[key].id == data.id){
@@ -222,13 +230,22 @@ Page({
       data: data,
       success: (res) => {
         this.successToast('修改地址成功', 1000)
-        console.log(res.data)
         // helper.cacheShipAddress(res.data)
-        helper.cacheShipAddressReal(res.data)
+
+        const pages = getCurrentPages();
+        const prevPage = pages[pages.length - 2];  //上一个页面
+        if(prevPage.route == 'pages/orders/confirm/index'){//如果前一个页面是下单页面则创建临时地址缓存
+          helper.cacheShipAddressReal(res.data)
+        }
+
+        if(res.data.default_address){//如果创建的是默认的更新默认地址缓存
+          helper.cacheShipAddress(res.data)
+        }
 
         this.ifDefault(res.data,false)
 
         setTimeout(res => {
+          this.setData({ ableSubmit: true })
           this.redirect()
         }, 1000)
       },
@@ -503,8 +520,12 @@ Page({
               prevPage.deleteForShow(item)
 
               var cacheAddress = storage.getSync('ship_address')
+              var cacheAddressReal = storage.getSync('ship_address_real')
               if(cacheAddress.id == address.id) {
                 storage.delSync('ship_address')
+              }
+              if(cacheAddressReal.id == address.id) {
+                storage.delSync('ship_address_real')
               }
 
               // wx.redirectTo ({
