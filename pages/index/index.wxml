@@ -22,18 +22,20 @@
 </view>
 
 <view class="navbar-background" style="height: {{pageMarginTop+45}}px;">
-  <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_001.png"></image>    
+  <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_002.png"></image>    
 </view>
 
 <scroll-view scroll-y='{{canScroll}}' class='page-container' style="height: 100%; overflow-y: scroll; " bindtouchstart='changeNavbar'>
   <view class="swiper-and-user" style="margin-top: {{pageMarginTop+44}}px;">
-    <image class="su-background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_001.png" style="top: {{-pageMarginTop-44}}px"></image>
+    <image class="su-background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_002.png" style="top: {{-pageMarginTop-44}}px"></image>
+    <!-- 原url001 -->
     <view class="su-container {{ noticeText != null && noticeText.length > 0 && 'padding-top-88' }}" >
       <view wx:if="{{!authLoginStatus}}" class="defualt-user">
         <image class="default-avatar" src="/images/default_avatar.png"></image>
         <text>Hi~欢迎来到金色家园小程序</text>
       </view>
 
+      <!-- 目前隐藏 -->
       <view wx:else class="user-info">
         <view class="avatar-and-name">
           <view class="avatar-container" >
@@ -109,7 +111,7 @@
     </view>
     <!-- 团购商品 -->
 
-  <!-- 三 -->
+  <!-- 三 换下方形式-->
   <view class="section-2" wx:if="{{ homeBrands != null && homeBrands.length > 0 }}">
     <view class="first-container">
       <view wx:if="{{homeBrands[0] != null}}" class="card" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">
@@ -152,6 +154,43 @@
     </view>
   </view>
   <!-- 三 -->
+
+  <view class="brand-transverse"  wx:if="{{newBrandData.length > 0}}">
+    <view class="brand-title">
+      <text class="left">{{homeBrands[0].title}}</text>
+      <text class="right" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">{{homeBrands[0].subtitle}} ></text>
+    </view>
+    <scroll-view class="brand-scroll" scroll-x="true">
+      <view class="brand-scroll-container">
+        <view class="product-item-contaier" bindtap="gotoProduct" data-item="{{item}}" wx:key="index" wx:for="{{newBrandData}}">
+          <image class="avatar" src="{{item.avatar}}"></image>
+          <view class="product-content">
+            <view class="name-container">
+              <view class="pbadges">
+                <text class="badge-item" wx:for="{{ item.badges }}" wx:for-item="badge">{{badge}}</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <view class="price">
+                  <text class="price-int">{{price.int(item.price)}}</text>
+                  <text class="price-decimal">{{price.decimal(item.price)}}</text>
+                </view>
+                <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
+              </view>
+              <view class="add-cart-image-box">
+                <image catchtap="addCartAndAnimation" data-item="{{item}}" class="add-cart-image" src="../../images/cart_icon_007_red.png"></image>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="brand-more" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">
+          <text class="brand-more-text">查看更多</text>
+          <image class="brand-more-icon" src="../../images/arrow_o_black.png"></image>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
 
   <!-- 商品列表 -->
   <view wx:if="{{products.length > 0}}" class="products-label">

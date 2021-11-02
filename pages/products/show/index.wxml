@@ -14,7 +14,9 @@
 </view>
 
 <view class="navbar block {{navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
-  <image bindtap="goback" mode="heightFix" class="return" src="/images/arrow_o_black.png"></image>
+  <view class="return" bindtap="goback">
+    <image mode="heightFix" class="" src="/images/arrow_o_black.png"></image>
+  </view>
   <view class="actions">
     <view class="item {{ navbarActive == 1 && 'active' }}">
       <text class="">商品</text>
@@ -149,6 +151,13 @@
         </view>
       </view> -->
 
+      <!-- 活动商品展示 -->
+      <view class="activity-proshow" wx:if="{{product.activity_url.name}}"  bindtap="gotoUrl" data-url="{{product.activity_url.url}}">
+        <image class="activity-img" src="../../../images/activity_pro.png"></image>
+        <image class="activity-left" src="../../../images/activity_pro_left.png"></image>
+        <text class="activity-center">{{product.activity_url.name}}</text>
+        <text class="activity-right">点击查看</text>
+      </view>
     </view>
 
     <view class='pop-detail' id="pop-detail">

@@ -338,15 +338,16 @@
     </view>
     <view class="pay-method-content">
       <text class="total">￥{{order.discount_total}}</text>
-      <view bindtap="selectBrcbPay" class="pay-method-item">
+      <view bindtap="selectBrcbPay" class="pay-method-item" style="position: relative;height: 196rpx;">
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
-        <image class="icon" src="/images/yanglaozhucanka_icon.png"></image>
-        <view class="item-main">
+        <image class="icon" style="position: relative;top: -26rpx;" src="/images/yanglaozhucanka_icon.png"></image>
+        <view class="item-main" style="padding-bottom: 52rpx;">
           <text class="label">养老助残卡支付</text>
           <view class="pay-menthod-checkbox {{ payMethod == 'brcb_pay' && 'active' }}">
             <image class="checkbox-icon" src="/images/selected_icon_003.png"></image>
           </view>
         </view>
+        <text class="tips">温馨提示：由于发卡银行限制，使用养老助残卡支付的订单不支持取消或退款，如有故障问题可申请换货</text>
       </view>
 
       <view class="pay-method-item" bindtap="selectWxPay">

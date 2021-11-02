@@ -55,9 +55,15 @@ page {
 }
 
 .navbar.block .return {
+  height: 82rpx;
+  width: 90rpx;
+  display: flex;
+  align-items: center;
+  margin-left: -25rpx;
+}
+.navbar.block .return image{
   height: 32rpx;
-  margin: 20rpx 30rpx;
-  margin-left: 0;
+  margin-left: 25rpx;
 }
 
 .product-detail-container {
@@ -1177,3 +1183,51 @@ page {
   display: -webkit-box;
 }
 /* 区域限制 */
+
+
+/* 活动商品展示 */
+.activity-proshow{
+  width: 750rpx;
+  min-height: 112rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin-top: 16rpx;
+  padding: 30rpx 0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+.activity-proshow .activity-img{
+  position: absolute;
+  width: 750rpx;
+  height: 60rpx;
+  bottom: 0;
+  left: 0;
+}
+.activity-proshow .activity-center{
+  font-size: 28rpx;
+  color: #FF5C37;
+  max-width: 550rpx;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.activity-proshow .activity-right{
+  font-size: 18rpx;
+  font-weight: 500;
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.activity-proshow .activity-left{
+  width: 40rpx;
+  height: 38rpx;
+  margin: -6rpx 15rpx 0 0;
+}
+/* 活动商品展示 */

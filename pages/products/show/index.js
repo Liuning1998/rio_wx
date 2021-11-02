@@ -370,6 +370,17 @@ Page({
     })
   },
 
+  // 跳转活动商品
+  gotoUrl:function(e){
+    console.log(e)
+    var url = e.currentTarget.dataset.url
+    if (url == null || url.length <= 0) {
+      return
+    }
+
+    this.navigateTo('/web/pages/yanglaohuodong/index?url='+url)
+  },
+
   addCart: function () {
     if (this.data.product.tags != null && this.data.product.tags.indexOf('团购商品') >= 0) {
       return false

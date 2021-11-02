@@ -25,6 +25,9 @@ Page({
     swiperCurrent: 0,
     specialAreaSwiperCurrent: 0,
     pageBottom: false,
+    // 新推荐板块
+    newBrandData:[],
+    newBrandPage:1,
     // 导航滚动条
     slideWidth:'',//滑块宽
     slideLeft:0 ,//滑块位置
@@ -67,6 +70,9 @@ Page({
       }
     })
     this.getHomeBrands()
+
+    // 获取新推荐板块
+    this.getBrandNew(this.data.newBrandPage)
 
     if (typeof(options.sources) != 'undefined') {
       this.yanglaoApi(options)
@@ -126,30 +132,33 @@ Page({
     http.get({
       url: '/api/home_brands',
       success: res => {
-        if(res.data != null && res.data.length > 0) {
-          let _tryProduct = null
-          let _todayProducts = null
-          let _data = []
-          let _groupProducts = null
-          for(let i=0; i < res.data.length; i++) {
-            let item = res.data[i]
-            if(item.tags.indexOf('试用商品') >= 0) {
-              _tryProduct = item
-            // } else if (item.tags.indexOf('今日特惠') >= 0) {
-            //   _todayProducts = item
-            } else if (item.tags.indexOf('团购商品') >= 0) {
-              _groupProducts = item
-            } else {
-              _data.push(item)
-            }
-          }
           this.setData({
-            homeBrands: _data,
-            tryProduct: _tryProduct,
-            todayProducts: _todayProducts,
-            groupProducts: _groupProducts
+            homeBrands: res.data,
           })
-        }
+        // if(res.data != null && res.data.length > 0) {
+        //   let _tryProduct = null
+        //   let _todayProducts = null
+        //   let _data = []
+        //   let _groupProducts = null
+        //   for(let i=0; i < res.data.length; i++) {
+        //     let item = res.data[i]
+        //     if(item.tags.indexOf('试用商品') >= 0) {
+        //       _tryProduct = item
+        //     // } else if (item.tags.indexOf('今日特惠') >= 0) {
+        //     //   _todayProducts = item
+        //     } else if (item.tags.indexOf('团购商品') >= 0) {
+        //       _groupProducts = item
+        //     } else {
+        //       _data.push(item)
+        //     }
+        //   }
+        //   this.setData({
+        //     homeBrands: _data,
+        //     tryProduct: _tryProduct,
+        //     todayProducts: _todayProducts,
+        //     groupProducts: _groupProducts
+        //   })
+        // }
       }
     })
   },
@@ -592,4 +601,31 @@ Page({
     // console.log('sss')
     this.navigateTo("/products/pages/search_all/index?searchKey="+this.data.searchKey)
   },
+
+  // 新推荐板块
+  getBrandNew:function(page){
+    var newBrandData = this.data.newBrandData;
+    http.get({
+      url: '/api/products/roll_products',
+      data:{
+        page:page
+      },
+      success: res => {
+        console.log(this.data.newBrandPage)
+        if(res.data != null && res.data.length > 0) {
+          res.data.forEach((item,index)=>{
+            newBrandData.push(item)
+          })
+          this.setData({
+            newBrandData:newBrandData,
+            newBrandPage : page+1
+          })
+          if( res.data.length >= 10){
+            this.getBrandNew(this.data.newBrandPage)
+          }
+        }
+      }
+    })
+  }
+
 })

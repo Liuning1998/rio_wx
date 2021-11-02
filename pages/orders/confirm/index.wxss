@@ -1179,3 +1179,14 @@ page {
   margin-bottom: 44rpx;
 }
 /* 优惠券end */
+
+
+.tips{
+  position: absolute;
+  bottom: 10rpx;
+  left: 48rpx;
+  font-size: 26rpx;
+  line-height: 34rpx;
+  color: #999999;
+  padding-right: 42rpx;
+}
