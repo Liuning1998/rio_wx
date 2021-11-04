@@ -9,7 +9,6 @@ var cartKey = 'cartCache'
 function addCart (lineItem) {
   let _cart = storage.getSyncWithExpire(cartKey) || {}
   let cart = _cart.data || {}
-  console.log(_cart)
   if(lineItem == null || lineItem.variant_id == null) {
     return _cart
   }
@@ -162,12 +161,18 @@ function setCartToCache (cartData) {
     let storeCartOriginTotal = 0
     let allSelectStatus = true
     for (let line in cartData[store].lineItems) {
+      //无库存(stock<=0)或者下架(available_on == false)的删除掉购物车缓存
+      console.log(cartData[store].lineItems[line].available_on)
+      if (!cartData[store].lineItems[line].available_on || cartData[store].lineItems[line].stock <= 0) {
+        return removeFromCart(cartData[store].lineItems[line])
+      }
       // 没有选中的 lineItem 不统计到 store cart 中的 quantity、total
       cartTotalQuantity += cartData[store].lineItems[line].quantity
       if (!cartData[store].lineItems[line].selectStatus) { 
         allSelectStatus = false
         continue 
       }
+
       storeCartQauntity += cartData[store].lineItems[line].quantity
       cartData[store].lineItems[line].total = Math.round(cartData[store].lineItems[line].quantity * cartData[store].lineItems[line].price * 100) / 100.0
       cartData[store].lineItems[line].vip_total = Math.round(cartData[store].lineItems[line].quantity * cartData[store].lineItems[line].vip_price * 100) / 100.0
@@ -231,8 +236,8 @@ function updateVariantInfoToCache (cart, res) {
   if (res.constructor.name != 'Array') {
     return cart
   }
-
   for (let store in cart) {
+
     if (cart[store].lineItems == null) { continue }
     for (let line in cart[store].lineItems) {
       let lineItem = cart[store].lineItems[line]
