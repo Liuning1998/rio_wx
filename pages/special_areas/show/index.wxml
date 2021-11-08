@@ -31,7 +31,15 @@
 <scroll-view bindtouchstart='changeNavbar' scroll-y class='page-container'>
   <view class="ads-background" style="padding-top: {{pageMarginTop+44}}px;">
     <view class="background-image">
-      <image src="{{specialArea.background_images}}"></image>
+      <!-- <image src="{{specialArea.background_images}}"></image> -->
+      <!-- change to swiper -->
+      <swiper autoplay="{{true}}" circular="{{true}}" interval="{{5000}}" duration="{{500}}">
+        <block wx:for="{{specialArea.background_images}}" wx:key="*this">
+          <swiper-item>
+            <image src="{{item}}"></image>
+          </swiper-item>
+        </block>
+      </swiper>
     </view>
   </view>
 

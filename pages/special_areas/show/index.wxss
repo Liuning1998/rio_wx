@@ -98,6 +98,12 @@ page {
   top: 0;
 }
 
+/* swiper */
+.ads-background  swiper{
+  width:100%;
+  height: 100%;
+}
+
 .ads-background image {
   height: 750rpx;
   width: 750rpx;
