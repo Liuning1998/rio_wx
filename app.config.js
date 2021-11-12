@@ -14,6 +14,7 @@ var errorMap = {
   100137: { msg: 'coupon_no_found', msg_t: '找不到折扣券' },
   100139: { msg: 'activity_limit', msg_t: '超过活动期内购买张数限制' },
   100140: { msg: 'coupon_not_enough not enough', msg_t: '该卡券数量不足' },
+  100141: { msg: 'coupon_received', msg_t: '该卡券已经领取' },
   100115: { msg: 'order_payed pay failed', msg_t: '该订单已经支付' },
   100143: { msg: 'rush_failure', msg_t: '超过购买张数限制' },
   100209: { msg: 'coupon not found', msg_t: "换购码错误" },

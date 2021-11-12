@@ -1,12 +1,88 @@
 <!--pages/coupons/dashboard/index.wxml-->
 <navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="领券中心"/>
-<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
-<scroll-view scroll-y class='page-container'>
-  <view class="empty-container">
+<scroll-view scroll-y bindscrolltolower="{{couponsCount?'upLoad':''}}" class='page-container'>
+  <view style='padding-top: {{pageMarginTop + 44}}px;'></view>
+  
+  <view style="display: none;" class="empty-container">
     <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_default_icon.png"></image>
     <text>敬请期待~</text>
   </view>
+
+  <view class="banner">
+    <swiper class="banner-swiper" autoplay="{{true}}" circular="{{true}}" interval="{{5000}}" duration="{{500}}">
+      <block wx:for="{{bannerArr}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="products-title">
+    <text class="icon yellow-icon"></text>
+    <text class="icon red-icon"></text>
+    <text class="text">全场通用优惠券</text>
+    <text class="icon red-icon"></text>
+    <text class="icon yellow-icon"></text>
+  </view>
+
+  <view class="products">
+    <view class="products-item" wx:for="{{couponsList}}" wx:key="{{item.id}}">
+      <image class="products-images" src="../../../images/coupon/receive.jpg"></image>
+      <view class="products-content">
+        <view class="products-name">{{item.name}}</view>
+        <view class="products-value">
+          <text class="value-text">{{item.value}}</text>
+          <text class="condition-text">满{{item.limit_value}}可用</text>
+        </view>
+      </view>
+      <view class="products-button {{!item.show_status ? 'complete' : ''}}">
+        <view class="btn" data-item="{{item}}" data-index="{{index}}" bindtap="{{item.show_status ? 'receiveCoupons' : ''}}">
+          <block wx:if="{{item.show_status}}">
+            立即领取
+          </block>
+          <block wx:else>
+            已领取
+          </block>
+        </view>
+      </view>
+    </view>
+    <!-- 加载状态 -->
+    <view class="loading" wx:if="{{noData && !loading && couponsList.length != 0 && !loadErr}}">
+      已加载全部!
+    </view>
+    <view class="loading" wx:if="{{loading}}">
+      加载中...
+    </view>
+    <view class="loading" wx:if="{{loadErr && !loading && couponsList.length != 0}}">
+      加载失败，请重试...
+    </view>
+  </view>
+
 </scroll-view>
 
+<!-- 领取成功弹窗 -->
+<view class="success-popup" wx:if="{{successPopup}}">
+  <view class="popup-content">
+    <image class="popup-images" src="../../../images/coupon/success.png"></image>
+    <view class="popup-center">
+      <text class="title">恭喜你领卷成功!</text>
+      <view class="popup-bottom">
+        <view class="text">优惠券已放入“我的优惠券”中</view>
+        <view class="btn" bindtap="toCoupons">查看优惠券</view>
+      </view>
+    </view>
+    <image class="close" bindtap="closePopup" src="../../../images/coupon/close.png" ></image>
+  </view>
+</view>
+<!-- 领取失败弹窗 -->
+<view class="error-popup" wx:if="{{errorShow}}">
+  <view class="error-content">
+    <view class="error-title">优惠券领取失败</view>
+    <view class="error-text">{{errorMsg}}</view>
+    <image class="error-image" src="../../../images/coupon/error.png"></image>
+    <view class="error-btn" bindtap="closeErrorPopup">我知道了</view>
+  </view>
+</view>
 <msgToast msg-data="{{ _msgData }}"/>
