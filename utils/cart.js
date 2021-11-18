@@ -162,7 +162,7 @@ function setCartToCache (cartData) {
     let allSelectStatus = true
     for (let line in cartData[store].lineItems) {
       //无库存(stock<=0)或者下架(available_on == false)的删除掉购物车缓存
-      console.log(cartData[store].lineItems[line].available_on)
+      // console.log(cartData[store].lineItems[line].available_on)
       if (!cartData[store].lineItems[line].available_on || cartData[store].lineItems[line].stock <= 0) {
         return removeFromCart(cartData[store].lineItems[line])
       }

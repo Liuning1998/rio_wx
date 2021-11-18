@@ -414,15 +414,10 @@ Page({
             // 验证地址是否还存在 
             if (data.from_type == 'localStorage') {
               // this.setData({ shipAddress: data })
-              // 2437 老地址认为无效地址  if ( data.id <= 2437 ) { storage.delSync('ship_address') this.setShipAddress({}) } 
-              if(  data.id <= 2437 ){
-                console.log('老地址')
-                storage.delSync('ship_address') 
-                this.setShipAddress({}) 
-              }else{
+              // 2437 老地址认为无效地址  if ( data.id <= 2437 ) { storage.delSync('ship_address') this.setShipAddress({}) }else{
                 console.log('新地址')
                 this.setShipAddress(data)
-              }
+              // }
             } else {
               http.get({
                 url: 'api/ship_addresses/' + data.id,

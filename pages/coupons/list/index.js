@@ -98,6 +98,7 @@ Page({
       fail: res=>{
         console.log(res);
         this.setData({
+          pageNo:page-1,
           loading:false,
           loadErr:true
         })

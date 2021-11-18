@@ -45,15 +45,22 @@ Page({
   // 获取数据 getData
   getData:function(page){
     var couponsList = this.data.couponsList;
+    this.setData({
+      loading:true
+    })
     http.get({
       url: 'api/promotions/receive_promotion_index',
       data:{
         page:page
       },
       success: res => {
-        console.log(res)
-        if(res.data.data.length != 0){
-          couponsList = [...couponsList,...res.data.data]
+        if(res.data.data.length != 0 && res.data.data != null){
+          // couponsList = [...couponsList,...res.data.data]
+            res.data.data.forEach((ele)=>{
+              if(ele){
+                couponsList.push(ele)
+              }
+            })
 
           if(res.data.data.length < 10){
             this.setData({noData:true})
@@ -76,28 +83,46 @@ Page({
         }
       },
       fail: res=>{
-        console.log(res);
+        // console.log(res);
+        this.setData({
+          pageNo:page-1,
+          loadErr:true,
+          loading:false,
+        })
+      }
+    })
+  },
+  // 微信客服
+  toCS:function(){
+    wx.openCustomerServiceChat({
+      extInfo: {url: 'https://work.weixin.qq.com/kfid/kfc00a22d27e10abbaf'},
+      corpId: 'ww8fb0efed659c7362',
+      success(res) {
+        // console.log(res)
+      },
+      fail(res){
+        // console.log(res)
       }
     })
   },
 
   // 上拉加载
   upLoad:function(){
-    console.log('触发上拉加载')
+    // console.log('触发上拉加载')
     var page = this.data.pageNo;
     var allPage;
     if(this.data.couponsCount / 10 < 1){
       allPage = 1
     }else{
       allPage = Math.ceil(this.data.couponsCount/10.0)
-      console.log(this.data.couponsCount,allPage)
+      // console.log(this.data.couponsCount,allPage)
     }
     
     if(this.data.loading == false && page < allPage){
-      console.log(allPage,'加载下一页')
+      // console.log(allPage,'加载下一页')
       this.getData(page+1)
     }else{
-      console.log('不用加载下一页')
+      // console.log('不用加载下一页')
     }
   },
   
@@ -117,7 +142,7 @@ Page({
         promotion_id:promotion_id
       },
       success: res => {
-        console.log(res)
+        // console.log(res)
         if(res.data.status =='ok'){
           this.setData({
             successPopup:true,
@@ -127,7 +152,7 @@ Page({
         }
       },
       fail: res=>{
-        console.log(res);
+        // console.log(res);
 
         var msg = this.data.errorMap;
         if (getApp().globalData.errorMap[res.data.code] != null) {
@@ -151,10 +176,13 @@ Page({
         }
       },
       success: res => {
-        console.log(res)
-        this.setData({
-          bannerArr:res.data[0].images
-        })
+        // console.log(res)
+        if(res.data[0]){
+          this.setData({
+            bannerArr:res.data[0].images
+          })
+        }
+
       }
     })
   },

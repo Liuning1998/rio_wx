@@ -96,24 +96,32 @@ page {
   align-items: flex-end;
 }
 .products .products-item .products-content .products-value .value-text{
-  font-size: 40rpx;
+  font-size: 50rpx;
   color: #F64C47;
   line-height: 1;
+  font-weight: 500;
 }
 .products .products-item .products-content .products-value .value-text::before{
   content: "￥";
-  font-size: 20rpx;
+  font-size: 26rpx;
   color: #F64C47;
+  position: relative;
+  top: -2rpx;
 }
 .products .products-item .products-content .products-value .condition-text{
   margin-left: 8rpx;
-  line-height: 24rpx;
-  font-size: 16rpx;
-  border-radius: 12rpx;
+  /* line-height: 33rpx; */
+  font-size: 22rpx;
+  font-weight: 500;
+  border-radius: 25rpx;
   background-color: #FFEAEB;
   color: #F64C47;
-  padding: 0 12rpx;
+  padding: 0 14rpx 0;
   margin-bottom: 4rpx;
+  height: 35rpx;
+  line-height: 35rpx;
+  justify-content: center;
+  align-items: center;
 }
 .products .products-item .products-button{
   display: flex;
@@ -144,7 +152,7 @@ page {
 .success-popup{
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,.2);
+  background-color: rgba(0,0,0,.4);
   position: fixed;
   top: 0;
   left: 0;
@@ -210,7 +218,7 @@ page {
 .error-popup{
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,.2);
+  background-color: rgba(0,0,0,.4);
   position: fixed;
   top: 0;
   left: 0;
@@ -241,6 +249,7 @@ page {
   -webkit-line-clamp: 2;
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
+  text-align: center;
 }
 .error-popup .error-content .error-image{
   width: 198rpx;

@@ -3,14 +3,9 @@
 
 <scroll-view scroll-y bindscrolltolower="{{couponsCount?'upLoad':''}}" class='page-container'>
   <view style='padding-top: {{pageMarginTop + 44}}px;'></view>
-  
-  <view style="display: none;" class="empty-container">
-    <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_default_icon.png"></image>
-    <text>敬请期待~</text>
-  </view>
 
   <view class="banner">
-    <swiper class="banner-swiper" autoplay="{{true}}" circular="{{true}}" interval="{{5000}}" duration="{{500}}">
+    <swiper wx:if="{{bannerArr.length>0}}" class="banner-swiper" autoplay="{{true}}" circular="{{true}}" interval="{{5000}}" duration="{{500}}">
       <block wx:for="{{bannerArr}}" wx:key="*this">
         <swiper-item>
           <image src="{{item}}"></image>
@@ -28,7 +23,7 @@
   </view>
 
   <view class="products">
-    <view class="products-item" wx:for="{{couponsList}}" wx:key="{{item.id}}">
+    <view class="products-item" wx:for="{{couponsList}}" wx:key="id">
       <image class="products-images" src="../../../images/coupon/receive.jpg"></image>
       <view class="products-content">
         <view class="products-name">{{item.name}}</view>
@@ -48,6 +43,12 @@
         </view>
       </view>
     </view>
+
+    <view class="empty-container" wx:if="{{ !loading && !loadErr && couponsList.length == 0 }}">
+      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_default_icon.png"></image>
+      <text>暂无可领取优惠券~</text>
+    </view>
+
     <!-- 加载状态 -->
     <view class="loading" wx:if="{{noData && !loading && couponsList.length != 0 && !loadErr}}">
       已加载全部!
@@ -55,11 +56,10 @@
     <view class="loading" wx:if="{{loading}}">
       加载中...
     </view>
-    <view class="loading" wx:if="{{loadErr && !loading && couponsList.length != 0}}">
-      加载失败，请重试...
+    <view class="loading" wx:if="{{loadErr && !loading}}">
+      加载失败，请重试!
     </view>
   </view>
-
 </scroll-view>
 
 <!-- 领取成功弹窗 -->
@@ -67,7 +67,7 @@
   <view class="popup-content">
     <image class="popup-images" src="../../../images/coupon/success.png"></image>
     <view class="popup-center">
-      <text class="title">恭喜你领卷成功!</text>
+      <text class="title">恭喜你领券成功!</text>
       <view class="popup-bottom">
         <view class="text">优惠券已放入“我的优惠券”中</view>
         <view class="btn" bindtap="toCoupons">查看优惠券</view>

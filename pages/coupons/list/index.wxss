@@ -45,7 +45,7 @@ page {
 .coupon .coupon-card .coupon-card-content{
   position: absolute;
   width: 100%;
-  top: 45%;
+  top: 49%;
   left: 0;
   transform: translateY(-50%);
   text-align: center;
@@ -55,9 +55,10 @@ page {
   color: #fff;
 }
 .coupon .coupon-card .coupon-money text:nth-child(2){
-  font-size: 30rpx;
+  font-size: 60rpx;
   color: #fff;
-  font-weight: bold;
+  font-weight: 500;
+  line-height: 60rpx;
 }
 .coupon .coupon-card .coupon-brief{
   width: 100%;
