@@ -250,9 +250,8 @@ Page({
       console.log(_data.total)
       _data.shipment_expense = this.data.shipmentExpenses
       _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
-      console.log(_data)
     }
-    
+
     // 使用优惠券
     if(this.data.checkCoupon != null){
       _data.user_promotions_number = this.data.checkCoupon.number
@@ -315,6 +314,11 @@ Page({
         _total = this.data.orderTotal
       }
     }
+    // 如果_total为负数 ， 置为0
+    if(_total <= 0){
+      _total=0
+    }
+    
     var paramsData = {
       pay_params: {
         wx_pay_params: {
@@ -695,6 +699,10 @@ Page({
       }else{
         _total = this.data.orderTotal
       }
+    }
+    // 如果_total为负数 ， 置为0
+    if(_total <= 0){
+      _total=0
     }
 
     var paramsData = {

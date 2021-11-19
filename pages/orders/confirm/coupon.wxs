@@ -4,6 +4,9 @@ function  calculatePrice(price,checkCoupon) {
     return price
   }else if(checkCoupon.type == '满减'){
     var afterPrice = parseFloat(price) - parseFloat(checkCoupon.value)
+    if(afterPrice <= 0){
+      afterPrice = 0
+    }
     return afterPrice.toFixed(2)
   }else if(checkCoupon.type == '折扣'){
     return price

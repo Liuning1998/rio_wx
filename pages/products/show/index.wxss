@@ -1210,7 +1210,7 @@ page {
 .activity-proshow .activity-center{
   font-size: 28rpx;
   color: #FF5C37;
-  max-width: 550rpx;
+  max-width: 620rpx;
   font-weight: bold;
   overflow: hidden;
   white-space: nowrap;

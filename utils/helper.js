@@ -52,5 +52,4 @@ module.exports = {
   cacheShipAddress: cacheShipAddress,
   hidePhone: hidePhone,
   cacheShipAddressReal:cacheShipAddressReal
-  
 }
