@@ -91,7 +91,10 @@
             <text class="title">您订单已送出</text>
             <text class="info">共 {{order.expresses.length}} 个包裹</text>
           </view>
-          <image class="arrow-down {{expressExtend && 'extend'}}" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_black_01.png"></image>
+          <view class="more-look">
+            <text>点击查看</text>
+            <image class="arrow-down {{expressExtend && 'extend'}}" style="height: 28rpx; width: 12rpx;" src="/images/arrow_o_red_01.png"></image>
+          </view>
         </view>
 
         <view wx:if="{{ expressExtend }}" class="expresses-list">

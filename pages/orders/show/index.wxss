@@ -1071,3 +1071,13 @@ page {
   color: #F64C47;
   margin-right: 12rpx;
 }
+
+.more-look{
+  display: flex;
+  align-items: center;
+}
+
+.more-look text{
+  margin-right: 20rpx;
+  color: #F64C47;
+}
