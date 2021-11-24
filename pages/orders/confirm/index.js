@@ -315,9 +315,9 @@ Page({
       }
     }
     // 如果_total为负数 ， 置为0
-    if(_total <= 0){
-      _total=0
-    }
+    // if(_total <= 0){
+    //   _total=0
+    // }
     
     var paramsData = {
       pay_params: {
@@ -701,9 +701,9 @@ Page({
       }
     }
     // 如果_total为负数 ， 置为0
-    if(_total <= 0){
-      _total=0
-    }
+    // if(_total <= 0){
+    //   _total=0
+    // }
 
     var paramsData = {
       pay_params: {
