@@ -21,7 +21,7 @@ Page({
     navbarActive: 1,
     submitType: null,
     productType: null, // 1 虚拟卡券, 2 实物, 3 一元购商品
-    optionIds: []
+    optionIds: [],
   },
 
   /**
@@ -32,6 +32,9 @@ Page({
 
     this.getProductDetail(options.id)
     // this.getProductDetail('wkm3')
+
+    // 获取优惠券数据
+    this.getData()
 
     this.setData({ isIphoneX: getApp().isIphoneX() })
   },
@@ -44,6 +47,39 @@ Page({
 
     this.loadCartInfo()
   },
+
+  // 打开优惠券弹窗
+  openCoupon:function(){
+    var coupon_popup = this.selectComponent('#coupon_popup');
+    coupon_popup.openPopup()
+  },
+  // 获取数据 getData
+  getData:function(){
+    var couponsList = this.data.couponsList || [];
+    http.get({
+      url: 'api/promotions/receive_promotion_index',
+      success: res => {
+        if(res.data.data.length != 0 && res.data.data != null){
+            res.data.data.forEach((ele)=>{
+              if(ele){
+                couponsList.push(ele)
+              }
+            })
+            this.setData({
+              couponsList:couponsList,
+              loadErr:false,
+            })
+        }
+      },
+      fail: res=>{
+        // console.log(res);
+        this.setData({
+          loadErr:true,
+        })
+      }
+    })
+  },
+  
 
   getProductDetail: function (id) {
     http.get({

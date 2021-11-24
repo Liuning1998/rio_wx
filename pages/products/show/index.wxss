@@ -1231,3 +1231,63 @@ page {
   margin: -6rpx 15rpx 0 0;
 }
 /* 活动商品展示 */
+
+/* 领券 */
+.variant-info .coupon{
+  max-width: 520rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.variant-info .coupon .coupon-item{
+  display: inline-block;
+  line-height: 30rpx;
+  position: relative;
+  margin-right: 10rpx;
+  overflow: hidden;
+  font-size: 20rpx;
+  box-sizing: border-box;
+  margin: 5rpx 10rpx 5rpx 0;
+}
+.variant-info .coupon .coupon-item .item-icon{
+  width: 4rpx;
+  height: 4rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1rpx solid #EB433E;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.variant-info .coupon .coupon-item .item-icon.left{
+  left: -2rpx;
+}
+.variant-info .coupon .coupon-item .item-icon.right{
+  right: -2rpx;
+}
+.variant-info .coupon .coupon-item .item-text.left{
+  background-color: #FFE3E2;
+  border-top: 1rpx solid #EB433E;
+  border-left: 1rpx solid #EB433E;
+  border-bottom: 1rpx solid #EB433E;
+  padding: 0 6rpx;
+  color: #EB433E;
+  border-top-left-radius: 5rpx;
+  border-bottom-left-radius: 5rpx;
+}
+.variant-info .coupon .coupon-item .item-text.right{
+  color: #EB433E;
+  padding: 0 9rpx 0 6rpx;
+  border-top: 1rpx solid #EB433E;
+  border-right: 1rpx solid #EB433E;
+  border-bottom: 1rpx solid #EB433E;
+  border-top-right-radius: 5rpx;
+  border-bottom-right-radius: 5rpx;
+}
+.main-info.coupons{
+  display: flex;
+  align-items: center;
+}
+.margin-none{
+  margin-top: 0;
+}
+/* 领券end */
