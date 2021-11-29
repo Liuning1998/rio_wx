@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "商品详情",
   "usingComponents": {
-    "navbar": "../../components/navbar/index",
-    "coupon_popup": "../../components/coupons_popup/index"
+    "navbar": "../../components/navbar/index"
   }
 }

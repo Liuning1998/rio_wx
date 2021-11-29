@@ -34,6 +34,9 @@ page {
   width: 702rpx;
   height: 220rpx;
 }
+.products{
+  padding-bottom: 40rpx;
+}
 .products-title{
   margin: 36rpx 0;
   line-height: 39.6rpx;

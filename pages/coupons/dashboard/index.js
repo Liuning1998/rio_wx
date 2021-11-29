@@ -1,6 +1,8 @@
 // pages/coupons/dashboard/index.js
 
-var http = require('../../../utils/http.js')
+var http = require('../../../utils/http.js');
+var helper = require('../../../utils/helper.js');
+const perPage = getApp().globalData.perPage;
 
 Page({
 
@@ -56,13 +58,14 @@ Page({
       success: res => {
         if(res.data.data.length != 0 && res.data.data != null){
           // couponsList = [...couponsList,...res.data.data]
+          helper.checkRepeat(couponsList,res.data.data)
             res.data.data.forEach((ele)=>{
               if(ele){
                 couponsList.push(ele)
               }
             })
 
-          if(res.data.data.length < 10){
+          if(res.data.data.length < perPage){
             this.setData({noData:true})
           }
 
@@ -108,14 +111,12 @@ Page({
 
   // 上拉加载
   upLoad:function(){
-    // console.log('触发上拉加载')
     var page = this.data.pageNo;
     var allPage;
-    if(this.data.couponsCount / 10 < 1){
+    if(this.data.couponsCount / perPage < 1){
       allPage = 1
     }else{
-      allPage = Math.ceil(this.data.couponsCount/10.0)
-      // console.log(this.data.couponsCount,allPage)
+      allPage = Math.ceil(this.data.couponsCount/perPage)
     }
     
     if(this.data.loading == false && page < allPage){
@@ -157,11 +158,11 @@ Page({
         var msg = this.data.errorMap;
         if (getApp().globalData.errorMap[res.data.code] != null) {
           msg = getApp().globalData.errorMap[res.data.code].msg_t;
-          this.setData({
-            errorMsg:msg,
-            errorShow:true
-          })
         }
+        this.setData({
+          errorMsg:msg,
+          errorShow:true
+        })
         
       }
     })

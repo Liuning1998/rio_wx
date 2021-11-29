@@ -47,9 +47,22 @@ function hidePhone (phone=null) {
   return _phone
 }
 
+//对象数组arr1去重
+function checkRepeat(arr,arr1){
+  arr.forEach((e)=>{
+    arr1.forEach((item,index) => {
+      if(!item || e.id == item.id){
+          delete arr1[index]
+      }
+    })
+  })
+  return arr1
+}
+
 module.exports = {
   getShipAddress: getShipAddress,
   cacheShipAddress: cacheShipAddress,
   hidePhone: hidePhone,
-  cacheShipAddressReal:cacheShipAddressReal
+  cacheShipAddressReal:cacheShipAddressReal,
+  checkRepeat:checkRepeat
 }

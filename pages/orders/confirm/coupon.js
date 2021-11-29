@@ -1,13 +1,13 @@
 
 
 function couponSort(couponArr,price,app){//优惠券数组和优惠前价格
-  // console.log('price',price)
+  console.log(couponArr)
   if(isNaN(price) || typeof(price) != "number"){
     app.errorToast('优惠券参数错误')
     return false
   }
   var canUse = [];
-  // var cantUse = [];
+  var cantUse = [];
 
   // 分类
   couponArr.forEach(ele=>{
@@ -27,7 +27,7 @@ function couponSort(couponArr,price,app){//优惠券数组和优惠前价格
       ele.isCan=false //无效优惠券
       ele.isCheck=false //是否选中
       ele.price = price
-      // cantUse.push(ele)
+      cantUse.push(ele)
     }
   })
   if(canUse.length > 0){
@@ -47,9 +47,12 @@ function couponSort(couponArr,price,app){//优惠券数组和优惠前价格
     canUse[0].isCheck=true
     app.setData({
       checkCoupon:canUse[0],
-      couponNew:canUse
     })
   }
+  app.setData({
+    couponNew:canUse,
+    couponNewCant:cantUse
+  })
 }
 
 // 计算当前优惠券价格

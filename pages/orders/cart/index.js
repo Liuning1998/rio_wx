@@ -1,6 +1,7 @@
 // pages/orders/cart/index.js
 var cartApi = require("../../../utils/cart.js")
 var http = require('../../../utils/http.js')
+var helper = require('../../../utils/helper.js')
 
 Page({
 
@@ -21,7 +22,13 @@ Page({
       // src: '/page/weui/cell/icon_del.svg', // icon的路径
       src: '/images/delete_icon.png'
     }],
-    avatars: {}
+    avatars: {},
+    isShowCoupon:false, //是否提示示领取优惠券
+    couponGetEnd:false, //优惠券是否已经请求成功
+    cPageNow:1, //优惠券列表页数
+    cNoData:false, //加载完全部数据
+    canUseGetCoupon:true,//是否可以再次请求优惠券
+    isShow:false,
   },
 
   /**
@@ -42,6 +49,7 @@ Page({
     //     console.log(res)
     //   }
     // })
+
   },
 
   /**
@@ -67,7 +75,144 @@ Page({
         this.setData({ cartData: res, cartLoaded: true })
       }
     })
+
+    // 判断是否显示领取优惠券
+    this.isShowCoupon()
   },
+
+  // 打开优惠券弹窗
+  openCoupon:function(){
+    var couponGetEnd = this.data.couponGetEnd;
+    this.setData({
+      isShow:true
+    })
+    if(!couponGetEnd){
+      this.getCouponData()
+    }
+  },
+
+  // 关闭优惠券弹窗
+  closePopup:function(){
+    this.setData({
+      isShow:false
+    })
+  },
+
+  // 判断是否显示领取优惠券
+  isShowCoupon:function(){
+    http.get({
+      url: 'api/promotions/can_receive_promotion',
+      success: res => {
+        console.log(res)
+        if(res.data.status != null){
+          if(!res.data.status){
+            this.setData({
+              isShow:false
+            })
+          }
+          this.setData({
+            isShowCoupon:res.data.status
+          })
+        }
+      }
+    })
+  },
+
+  // 获取数据 getCouponData
+  getCouponData:function(){
+    var couponsList = this.data.couponsList || [];
+    var page = this.data.cPageNow;
+    var cNoData = this.data.cNoData;
+    this.setData({
+      canUseGetCoupon:false,
+      couponGetEnd:true,
+      loadErr:false,
+    })
+    if(!cNoData){
+      http.get({
+        url: 'api/promotions/receive_promotion_index',
+        data:{
+          page:page
+        },
+        success: res => {
+          if(res.data.data.length != 0 && res.data.data != null){
+              res.data.data = helper.checkRepeat(couponsList,res.data.data)
+              res.data.data.forEach((ele)=>{
+                if(ele){
+                  couponsList.push(ele)
+                }
+              })
+              this.setData({
+                couponsList:couponsList,
+                cPageNow:page + 1,
+                canUseGetCoupon:true
+              })
+          }else if(res.data.data != null && res.data.data.length == 0){
+            this.setData({
+              cNoData:true,
+              canUseGetCoupon:true
+            })
+          }
+        },
+        fail: res=>{
+          // console.log(res);
+          this.setData({
+            loadErr:true,
+            canUseGetCoupon:true
+          })
+        }
+      })
+    }
+
+
+  },
+
+  // 下一页
+  getNextPge:function(){
+    if( this.data.canUseGetCoupon && !this.data.cNoData ) {
+      this.getCouponData()
+    }
+  },
+
+  // 领取优惠券
+  receiveCoupons:function(e){
+    var promotion_id = e.target.dataset.item.id;
+    var el = e.target.dataset.index;
+    var key = `couponsList[${el}].show_status`;
+    
+    http.post({
+      url: 'api/promotions/receive_promotion',
+      data:{
+        promotion_id:promotion_id
+      },
+      success: res => {
+        if(res.data.status =='ok'){
+          console.log([key])
+          this.setData({
+            successPopup:true,
+            [key]:false
+          })
+          wx.showToast({
+            title: '领取成功',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      fail: res=>{
+        var msg =  '领取失败';
+        if (getApp().globalData.errorMap[res.data.code] != null) {
+          msg = getApp().globalData.errorMap[res.data.code].msg_t;
+        }
+        wx.showToast({
+          title: msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
+  },
+  
 
   getRecommendProducts: function () {
     http.get({
@@ -180,6 +325,12 @@ Page({
     var item = e.currentTarget.dataset.item
     if (item == null || item.id == null) { return }
     this.navigateTo("/pages/products/show/index?id="+item.id)
+  },
+
+  gotoStore: function (e) {
+    var item = e.currentTarget.dataset.item
+    if (item == null || item.store_id == null) { return }
+    this.navigateTo("/products/pages/index/index?store_id="+item.store_id+"&pageType=store&store_name="+item.store_name)
   },
 
   addCart: function (e) {

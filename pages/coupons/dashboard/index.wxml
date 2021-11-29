@@ -14,7 +14,7 @@
     </swiper>
   </view>
 
-  <view class="products-title">
+  <view class="products-title" wx:if="{{couponsList.length != 0 }}">
     <text class="icon yellow-icon"></text>
     <text class="icon red-icon"></text>
     <text class="text">全场通用优惠券</text>
@@ -43,7 +43,6 @@
         </view>
       </view>
     </view>
-
     <view class="empty-container" wx:if="{{ !loading && !loadErr && couponsList.length == 0 }}">
       <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_default_icon.png"></image>
       <text>暂无可领取优惠券~</text>

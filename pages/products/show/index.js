@@ -1,6 +1,7 @@
 // pages/products/show/index.js
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
+var helper = require('../../../utils/helper.js')
 
 Page({
 
@@ -22,6 +23,13 @@ Page({
     submitType: null,
     productType: null, // 1 虚拟卡券, 2 实物, 3 一元购商品
     optionIds: [],
+    isShowCoupon:false,//是否可以领取优惠券
+    cPageNow:1, //优惠券列表页数
+    cNoData:false, //加载完全部数据
+    canUseGetCoupon:true,//是否可以再次请求优惠券
+    isShow:false,//优惠券弹框
+    loadErr:false,//加载错误
+    couponsList:[],
   },
 
   /**
@@ -34,7 +42,7 @@ Page({
     // this.getProductDetail('wkm3')
 
     // 获取优惠券数据
-    this.getData()
+    this.canReceive()
 
     this.setData({ isIphoneX: getApp().isIphoneX() })
   },
@@ -50,34 +58,125 @@ Page({
 
   // 打开优惠券弹窗
   openCoupon:function(){
-    var coupon_popup = this.selectComponent('#coupon_popup');
-    coupon_popup.openPopup()
+    this.setData({
+      isShow:true
+    })
   },
-  // 获取数据 getData
-  getData:function(){
-    var couponsList = this.data.couponsList || [];
-    http.get({
-      url: 'api/promotions/receive_promotion_index',
+  closePopup:function(){
+    this.setData({
+      isShow:false
+    })
+  },
+
+  // 领取优惠券
+  receiveCoupons:function(e){
+    var promotion_id = e.target.dataset.item.id;
+    var el = e.target.dataset.index;
+    var key = `couponsList[${el}].show_status`;
+    http.post({
+      url: 'api/promotions/receive_promotion',
+      data:{
+        promotion_id:promotion_id
+      },
       success: res => {
-        if(res.data.data.length != 0 && res.data.data != null){
-            res.data.data.forEach((ele)=>{
-              if(ele){
-                couponsList.push(ele)
-              }
-            })
-            this.setData({
-              couponsList:couponsList,
-              loadErr:false,
-            })
+        if(res.data.status =='ok'){
+          console.log([key])
+          this.setData({
+            successPopup:true,
+            [key]:false
+          })
+          wx.showToast({
+            title: '领取成功',
+            icon: 'none',
+            duration: 2000
+          })
         }
       },
       fail: res=>{
-        // console.log(res);
-        this.setData({
-          loadErr:true,
+        var msg =  '领取失败';
+        if (getApp().globalData.errorMap[res.data.code] != null) {
+          msg = getApp().globalData.errorMap[res.data.code].msg_t;
+        }
+        wx.showToast({
+          title: msg,
+          icon: 'none',
+          duration: 2000
         })
+        
       }
     })
+  },
+
+  // 判断是否展示优惠券领取
+  canReceive:function(){
+    http.get({
+      url: 'api/promotions/can_receive_promotion',
+      success: res => {
+        if(res.data.status != null && res.data.status == true){
+          this.setData({
+            isShowCoupon:res.data.status
+          })
+          this.getData()
+        }
+      }
+    })
+  },
+
+  // 下一页
+  getNextPge:function(){
+    if( this.data.canUseGetCoupon  && !this.data.cNoData ) {
+      this.getData()
+    }
+  },
+
+
+
+  // 获取数据 getData
+  getData:function(){
+    var couponsList = this.data.couponsList || [];
+    var page = this.data.cPageNow;
+    var cNoData = this.data.cNoData;
+    this.setData({
+      canUseGetCoupon:false,
+      loadErr:false,
+    })
+    if(!cNoData){
+      http.get({
+        url: 'api/promotions/receive_promotion_index',
+        data:{
+          page:page
+        },
+        success: res => {
+          if(res.data.data.length != 0 && res.data.data != null){
+              // 去重
+              res.data.data = helper.checkRepeat(couponsList,res.data.data)
+              res.data.data.forEach((ele)=>{
+                if(ele){
+                  couponsList.push(ele)
+                }
+              })
+              this.setData({
+                couponsList:couponsList,
+                cPageNow:page + 1,
+                canUseGetCoupon:true
+              })
+          }else if( res.data.data != null && res.data.data.length == 0){
+            this.setData({
+              cNoData:true,
+              canUseGetCoupon:true
+            })
+          }
+        },
+        fail: res=>{
+          // console.log(res);
+          this.setData({
+            loadErr:true,
+            canUseGetCoupon:true
+          })
+        }
+      })
+    }
+
   },
   
 

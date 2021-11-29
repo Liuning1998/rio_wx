@@ -83,13 +83,12 @@ Page({
       this.navigateTo('/pages/coupons/list/index')
     })
   },
-    // 跳转优惠券
-    gotoCoupon:function(){
-      this.subscribe().then(res =>{
-        this.navigateTo('/pages/coupons/list/index')
-      })
-    },
-  
+  // 跳转领券中心
+  gotoDashboard:function(){
+    this.subscribe().then(res =>{
+      this.navigateTo('/pages/coupons/dashboard/index')
+    })
+  },
 
 
   onShow: function () {
@@ -106,11 +105,11 @@ Page({
   },
 
   gotoOrders: function (status) {
-    this.subscribe().then(res =>{
+    // this.subscribe().then(res =>{
       wx.switchTab({
         url: '/pages/orders/index/index',
       })
-    })
+    // })
   },
 
   gotoAddresses: function (status) {
@@ -173,11 +172,11 @@ Page({
     let status = e.currentTarget.dataset.state
     console.log('ass')
     if(status == 'all'){
-      this.subscribe().then(res =>{
+      // this.subscribe().then(res =>{
         wx.reLaunch({
           url: `/pages/orders/index/index?state=${status}`,
         })
-      })
+      // })
     }else{
       wx.reLaunch({
         url: `/pages/orders/index/index?state=${status}`,

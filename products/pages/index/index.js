@@ -30,16 +30,24 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
+    console.log('上个页面信息',options)
+    console.log('this.params',this.params)
     var category
     if(options.pageType == 'category') {
       if (this.params.category == null) {
         category = {
-          id: options.category_id,
-          name: options.category_name
+          id: options.store_id,
+          name: options.store_name
         }
       } else {
         category = this.params.category
       } 
+    }else if(options.pageType == 'store'){//购物车店铺入口
+      category = {
+        id: options.store_id,
+        name: options.store_name,
+        pageType:'store'
+      }
     }
 
     var pageTitle = '商品列表'
@@ -70,7 +78,10 @@ Page({
 
     this.getProducts(category.id, null)
 
-    this.getLabel();
+    // 如果不是购物车入口
+    if(options.pageType == 'category'){
+      this.getLabel();
+    }
   },
 
   /**
@@ -82,10 +93,24 @@ Page({
 
   //获取商品
   getProducts: function (category_id, orderType, refresh,searchKey) {
-    let _data = {
-      category_id: category_id,
-      // page: page || 1
+    let pageType = this.data.category.pageType;
+    let _url,
+        _data;
+    // 判断是否为购物车入口
+    if(pageType != null && pageType =='store'){
+      _data = {}
+      _url = '/api/stores/' + this.data.category.id;
+      if(orderType!=null || searchKey!=null){
+        _url = `/api/stores/${this.data.category.id}/search`;
+      }
+    }else{
+      _data = {
+        category_id: category_id,
+        // page: page || 1
+      }
+      _url = `api/special_areas/${this.data.special_area_id}/category_products`
     }
+
     var key = `id_${category_id}`
     var length = 0
     if (this.data.products[key] != null) {
@@ -107,10 +132,9 @@ Page({
     if (orderType != null) {
       _data.order = orderType
     }
-
   
     http.get({
-      url: `api/special_areas/${this.data.special_area_id}/category_products`,
+      url: _url,
       data: _data,
       success: res => {
 

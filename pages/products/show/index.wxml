@@ -135,7 +135,7 @@
       </view>
 
       <!--领券 -->
-      <view class="variant-info" wx:if="{{couponsList != null && couponsList.length > 0}}" bindtap="openCoupon">
+      <view class="variant-info" wx:if="{{isShowCoupon}}" bindtap="openCoupon">
         <view class="main-info coupons">
           <text class="label">领券</text>
           <view class="coupon">
@@ -279,4 +279,48 @@
 <msgToast msg-data="{{ _msgData }}"/>
 
 <!-- 优惠券弹窗 -->
-<coupon_popup id="coupon_popup" couponsList="{{couponsList}}" loadErr="{{loadErr}}"  bindclosePopup="closeCoupon"></coupon_popup>>
+<!-- <coupon_popup id="coupon_popup" couponsList="{{couponsList}}" loadErr="{{loadErr}}"  cNoData="{{cNoData}}" canUseGetCoupon="{{canUseGetCoupon}}" bind:getCouponData="getCouponData"></coupon_popup> -->
+
+
+<view class="coupon-p" hidden="{{!isShow}}">
+  <view class="coupon-mask" bindtap="closePopup"></view>
+  <view class='popup'>
+    <view class="popup-title">
+      <text>优惠</text>
+      <view class="close" bindtap="closePopup">
+        <image src="/images/arrow_o_black.png"></image>
+        <image src="/images/arrow_o_black.png"></image>
+      </view>
+    </view>
+    <view class="popup-brief">领券</view>
+    <scroll-view scroll-y lower-threshold="0" bindscrolltolower="getNextPge" class="pupup-scroll">
+      <view class="popup-item" wx:for="{{couponsList}}"  wx:key="id">
+        <image class="item-images" src="../../../images/coupon/receive.jpg"></image>
+        <view class="item-center">
+          <view class="item-name">{{item.name}}</view>
+          <view class="item-value">
+            <text class="value-text">{{item.value}}</text>
+            <text class="condition-text">满{{item.limit_value}}可用</text>
+          </view>
+        </view>
+        <view class="receive-btn">
+          <view class="btn" hover-class="hove-btn" wx:if="{{item.show_status}}" data-item="{{item}}" data-index="{{index}}"  bindtap="receiveCoupons" hover-stay-time="100" >立即领取</view>
+          <view class="btn1" wx:else style="opacity: 0;">已领取</view>
+        </view>
+        <image hidden="{{item.show_status}}" class="finished-img" src="/images/finished.png"></image>
+      </view>
+      <view wx:if="{{couponsList.length != 0 && !cNoData}}" style="width: 100%;height: 20rpx;"></view>
+      <!-- 加载全部情况 -->
+      <view class="no-data" wx:if="{{cNoData}}">
+        <text>已加载全部......</text>
+      </view>
+      <!-- 加载失败情况 -->
+      <view class="no-data" wx:if="{{loadErr}}">
+        <text>加载失败,请刷新页面......</text>
+      </view>
+    </scroll-view>
+    <view class="popup-btn">
+      <view bindtap="closePopup" hover-class="hove-btn" hover-stay-time="100" >完成</view>
+    </view>
+  </view>
+</view>

@@ -101,7 +101,7 @@
         <text class="item-label">我的拼团</text>
       </view>
       
-      <view bindtap="gotoLink" data-url="/pages/coupons/dashboard/index" class="action-item">
+      <view bindtap="gotoDashboard" data-url="/pages/coupons/dashboard/index" class="action-item">
         <image class="icon-01" src="/images/account/coupon_icon.png"/>
         <text class="item-label">领券中心</text>
       </view>
