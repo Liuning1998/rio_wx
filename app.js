@@ -23,6 +23,12 @@ App({
     // 清除遗留临时地址缓存
     store.delSync('ship_address_real')
 
+    // 判断缓存地址是否< 2439 为true删掉
+    var ship_address = store.getSyncWithExpire('ship_address');
+    if(ship_address != null && ship_address.id < 2439){
+      store.delSync('ship_address')
+    }
+
     var getUser = () => {
       // 从本地存储获取userInfo
       var userInfo = store.getSyncWithExpire('userInfo')
