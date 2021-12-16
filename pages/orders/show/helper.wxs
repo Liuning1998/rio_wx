@@ -43,13 +43,13 @@ function couponAfter(promotionArr){
   var value = 0;
   var promotionArr = promotionArr || []
   if(promotionArr.length != 0){
-    console.log('非空数组')
+    // console.log('非空数组')
     promotionArr.forEach(function(ele,i){
       value += parseFloat(ele.value) 
     })
     return value
   }else{
-    console.log('空数组')
+    // console.log('空数组')
     return 0
   }
 }

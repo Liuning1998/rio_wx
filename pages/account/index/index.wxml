@@ -18,15 +18,26 @@
 
       <view class="user-container">
         <view wx:if="{{ authLoginStatus }}" class="user-content">
-          <view class="avatar-container" >
-            <open-data class='avatar-image' type="userAvatarUrl"></open-data>
+          <view class="avatar-containe-parent">
+            <image class="pendant" wx:if="{{userInfo.vip_level}}" src="/pages/member/images/member_pendant.png"></image>
+            <view class="avatar-container" >
+              <open-data class='avatar-image' type="userAvatarUrl"></open-data>
+            </view>
           </view>
           <view class="welcome-info">
-            <view class="user-name">
+            <!-- <view class="user-name">
               <open-data class="name" type="userNickName"></open-data>
+            </view> -->
+            <view class="user-other">
+              <block>
+                <text wx:if="{{ userInfo.phone != null && userInfo.phone.length == 11 }}" class="mark">{{ userInfo.phone }}</text>
+                <text bindtap="gotoPhone" wx:else class="mark">去补全手机号</text>
+              </block>
+              <view class="user-member-leval" wx:if="{{userInfo.vip_level}}">
+                <!-- <image class="bg" src="/pages/member/images/level_bg.png"></image> -->
+                <text>会员等级{{userInfo.vip_level.current_vip_level}}</text>
+              </view>
             </view>
-            <text wx:if="{{ userInfo.phone != null && userInfo.phone.length == 11 }}" class="mark">{{ userInfo.phone }}</text>
-            <text bindtap="gotoPhone" wx:else class="mark">去补全手机号</text>
           </view>
         </view>
 
@@ -38,6 +49,19 @@
             <text class="item-label">登录</text>
             <text class="sub-item-label">点击登录，享受更多优惠及服务~</text>
           </view>
+        </view>
+      </view>
+
+      <!-- 会员权益 -->
+      <view class="member" wx:if="{{userInfo.vip_level}}">
+        <image class="member-back" src="/pages/member/images/member_back.png"></image>
+        <view class="member-left">
+          <image class="member-logo" src="/pages/member/images/member_logo.png"></image>
+          <view class="member-des">会员等级{{userInfo.vip_level.current_vip_level}} 尊享全场{{userInfo.vip_level.current_discount}}折</view>
+        </view>
+        <view class="member-go" bindtap="gotoLink" data-url="/pages/member/index/index">
+          <text>查看权益</text>
+          <image src="/images/arrow_o_white_01.png"></image>
         </view>
       </view>
     </view>

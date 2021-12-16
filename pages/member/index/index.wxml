@@ -1,0 +1,89 @@
+<!--pages/member/index/index.wxml-->
+<wxs module="helper" src="./helper.wxs"></wxs>
+
+<view class="navbar-container {{navSwitch ? 'dark' : ''}}">
+  <view class="status-bar" style='height: {{ statusBarHeight }}px;'></view>
+  <view class="navbar-content">
+    <view bindtap='goback' class='return-image-container'>
+      <image wx:if="{{navSwitch}}" class='return-image' src='../../../images/arrow_o_black.png'></image>
+      <image wx:else class='return-image' src='../../../images/arrow_o_white_01.png'></image>
+    </view>
+    <text class='navbar-title'>{{ pageTitle }}</text>
+  </view>
+</view>
+<view class="member-head">
+  <image class="member-head-bg" src="/pages/member/images/member_bg.png"></image>
+  <view class="member-head-info" wx:if="{{vips != null}}">
+    <view class="level-text">{{vips.current_vip_level + '会员'}}</view>
+    <view class="expiry">有效期至{{vips.expired_at}}</view>
+    <view class="img" id="navswitch">
+      <image class="img-src" src="../images/head_level_{{helper.sliceString(vips.current_vip_level) || 1}}.png"></image>
+    </view>
+  </view>
+</view>
+<view class="member-right">
+  <view class="member-title">
+    <text class="main">我的会员权益</text>
+    <text class="vice">专属优惠享不停</text>
+  </view>
+  <view class="right-box member-breadth" wx:if="{{vips != null}}">
+    <view class="right-info">
+      <image class="img" src="../images/right_{{helper.sliceString(vips.current_vip_level || 1)}}.png"></image>
+      <view class="right-info-absolute">
+        <view class="level">{{vips.current_vip_level}}会员</view>
+        <view class="discount">全场{{vips.current_discount}}折</view>
+      </view>
+    </view>
+  </view>  
+</view>
+
+<view class="member-rule">
+  <view class="member-title">
+    <text class="main">会员升级规则</text>
+    <text class="vice">本月实付额决定下个月的会员等级</text>
+  </view>
+  <view class="right-box member-breadth">
+    <view class="rule-box">
+      <view class="info">本月已完成<text class="{{vips.payment_total >= level[vips.current_vip_level].total ? '' : 'red'}}">{{vips.payment_total}}</text>元，{{vips.discount_desc}}</view>
+      <view class="speed-of-progress">
+        <view class="level" wx:for="{{level}}" wx:key="item">
+          <view class="level-text">
+            <image class="img-src" wx:if="{{vips.payment_total != null && vips.payment_total >= item.total}}" src="../images/level_{{item.level}}.png"></image>
+            <image class="img-src" wx:else src="../images/level_green_{{item.level}}.png"></image>
+            <text class="total">{{item.total}}元</text>
+          </view>
+          <view class="speed" wx:if="{{item.level != levelLength}}">
+            <view class="total-line"></view>
+            <view class="current" wx:if="{{vips.payment_total > item.total}}" style="width: {{helper.speed(vips.payment_total, level[item.next].total, item.total) + '%'}}"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="member-grade">
+  <view class="member-title">
+    <text class="main">会员等级权益</text>
+    <text class="vice">等级越高优惠越大</text>
+  </view>
+  <view class="right-box member-breadth">
+    <view class="grade-box">
+      <view class="info">您当月购物的实际支付金额（不含优惠券、折扣等）将决定下月会员等级，不同会员等级享受不同权益。</view>
+      <view class="tabel">
+        <view class="th">
+          <view class="td">当月累计实付额</view>
+          <view class="td">下月会员等级</view>
+          <view class="td">会员权益</view>
+        </view>
+        <view class="tr" wx:for="{{level}}" wx:key="item">
+          <view class="td">{{item.total}}-{{level[item.next].total - 1 || '以上'}}<text wx:if="{{(level[item.next].total - 1)}}">元</text></view>
+          <view class="td">{{index}}</view>
+          <view class="td">全场{{item.discount}}折</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<msgToast msg-data="{{ _msgData }}"/>

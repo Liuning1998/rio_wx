@@ -20,33 +20,45 @@ function priceInt (price) {
   return priceStr.slice(0, length-3)
 }
 
-// lineItems 购物车中已勾选的商品
-function discountTotal (storeCart, lineItems, user=null, shipmentExpenses=0) {
+// lineItems 购物车中已勾选的商品（选中所有商品（总和 - 优惠券） * 折扣 - 优惠）
+function discountTotal (storeCart, lineItems, user=null, current_discount=10, shipmentExpenses=0,couponValue=0) {
   if (user == null) {
-    var total = storeCart.total + shipmentExpenses
+    var total = storeCart.total - couponValue + shipmentExpenses
     total = Math.round(total * 100)/100
     return total
   }
-  if (user.kzx_user_identification == 1 && user.discount != null) {
-    var result = 0
-    for(var i=0; i < lineItems.length; i++) {
-      var item = lineItems[i]
-      var item_total = item.price * item.quantity * user.discount
-      item_total = Math.round(item_total * 100)/100
-
-      result = result + item_total
-    }
-    result = result + shipmentExpenses * 0.98
-
-    return Math.round(result * 100)/100
-  } else {
-    return storeCart.total + shipmentExpenses
+  
+  // if (user.kzx_user_identification == 1 && user.discount != null) 
+  var result = 0
+  for(var i=0; i < lineItems.length; i++) {
+    var item = lineItems[i]
+    var item_total = item.price * item.quantity
+    result = result + item_total
   }
+  result = (result - couponValue) * current_discount  / 10 + shipmentExpenses
+  return Math.round(result * 100)/100
+}
+
+function vipDiscount(lineItems, user=null,couponValue=0,current_discount=10){
+  if (user == null) {
+    return 0
+  }
+
+  var result = 0;
+  var discount = 1 - current_discount / 10;
+  for(var i=0; i < lineItems.length; i++) {
+    var item = lineItems[i]
+    var item_total = item.price * item.quantity
+    result = result + item_total
+  }
+  result = (result - couponValue) * discount
+  return Math.round(result * 100)/100
 }
 
 module.exports = {
   tos: priceTos,
   int: priceInt,
   decimal: priceDecimal,
-  discountTotal: discountTotal
+  discountTotal: discountTotal,
+  vipDiscount:vipDiscount
 }

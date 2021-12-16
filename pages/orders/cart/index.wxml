@@ -133,7 +133,7 @@
 
           <text bindtap="gotoProduct" data-item="{{item}}" class="name">{{item.name}}</text>
           <view class="pbadges" style="padding: 0 24rpx; box-sizing: border-box;">
-            <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+            <text wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge" class="badge-item">{{ badge }}</text>
           </view>
 
           <view class="bottom-info-container">

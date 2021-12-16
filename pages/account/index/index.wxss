@@ -49,7 +49,7 @@ page {
 
 .page-header {
   width: 750rpx;
-  height: 360rpx;
+  height: 418rpx;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -61,13 +61,13 @@ page {
 }
 
 .page-header .header-background-container image {
-  height: 360rpx;
+  height: 418rpx;
   width: 750rpx;
   display: flex;
 }
 
 .page-header .header-content {
-  height: 360rpx;
+  height: 418rpx;
   position: absolute;
   z-index: 3;
   top: 0;
@@ -96,6 +96,7 @@ page {
 .user-content .welcome-info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .user-content .welcome-info .user-name{
@@ -103,6 +104,7 @@ page {
   font-size: 28rpx;
   display: flex;
   font-weight: 500;
+  width: 100%;
 }
 
 .user-content .welcome-info .user-name .name {
@@ -118,16 +120,51 @@ page {
 }
 
 .user-content .welcome-info .mark {
-  font-size: 28rpx;
+  font-size: 23rpx;
   color: #ffffff;
-  height: 30rpx;
-  line-height: 30rpx;
+  height: 32rpx;
+  line-height: 32rpx;
   padding: 0rpx 12rpx;
   display: inline-block;
   border-radius: 16rpx;
-  border: 2rpx solid #ffffff;
+  border: 1px solid #ffffff;
   /* box-sizing: border-box; */
   font-weight: 500;
+}
+.user-content .welcome-info .user-member-leval{
+  border-radius: 16px;
+  margin-left: 8rpx;
+  display: flex;
+  position: relative;
+  align-items: center;
+  background-image: linear-gradient(154deg, #FFFFFF 0%,#FFE6A2 100%);
+  padding: 1px;
+}
+.user-content .welcome-info .user-member-leval text{
+  line-height: 32rpx;
+  display: inline-block;
+  border-radius: 16px;
+  padding: 0 14rpx;
+  font-size: 23rpx;
+  color: #FFFFFF;
+  z-index: 1;
+  background-image: linear-gradient(154deg, #FADF4C 0%, #F8C042 26%, #FDAE31 100%);
+  max-width: 219rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-content .welcome-info .user-member-leval .bg{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.user-other{
+  display: flex;
 }
 
 .no-login {
@@ -178,10 +215,19 @@ page {
   flex-shrink: 0;
   margin-right: 24rpx;
 }
-
+.avatar-containe-parent  .pendant{
+  width: 36rpx;
+  height: 32rpx;
+  position: absolute;
+  top: -13rpx;
+  left: -3rpx;
+}
+.avatar-containe-parent{
+  position: relative;
+}
 .user-content .avatar-container .avatar-image {
-  height: 100rpx;
-  width: 100rpx;
+  height: 99.6rpx;
+  width: 99.6rpx;
 }
 
 .action-container .icon-01{
@@ -324,3 +370,59 @@ page {
   line-height: 48rpx;
 }
 /* 订单 */
+
+/* 会员权益 */
+.member{
+  width: 702rpx;
+  margin: 50.2rpx auto 0;
+  height: 88rpx;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25rpx 0 24rpx;
+  box-sizing: border-box;
+}
+.member .member-back{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.member .member-left{
+  width: calc(100% - 150rpx);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.member .member-logo{
+  width: 132rpx;
+  height: 28rpx;
+}
+.member .member-des{
+  font-size: 24rpx;
+  color: #F6D876;
+  text-align: center;
+  margin-left: 44.8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.member .member-go{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.member .member-go text{
+  font-size: 22rpx;
+  color: #Fff;
+}
+.member .member-go image{
+  width: 8rpx;
+  height: 16rpx;
+  transform: rotate(180deg);
+  margin-left: 11rpx;
+}
+/* 会员权益 end */

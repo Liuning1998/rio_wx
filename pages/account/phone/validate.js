@@ -31,9 +31,10 @@ Page({
 
     this.setData({ back: options.back })
 
-    if (this.data.userInfo.tmp_user_phone != null && this.data.userInfo.tmp_user_phone.length > 0) {
-      this.setData({ phone: this.data.userInfo.tmp_user_phone })
-    }
+    // 21/12/25 注
+    // if (this.data.userInfo.tmp_user_phone != null && this.data.userInfo.tmp_user_phone.length > 0) {
+    //   this.setData({ phone: this.data.userInfo.tmp_user_phone })
+    // }
   },
 
   onShow: function () {

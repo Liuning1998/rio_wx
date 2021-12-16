@@ -53,7 +53,7 @@
   /* border: 1rpx solid #ededed; */
 }
 
-.score-message-toast-container image.score-message-close {
+.score-message-toast-container .score-message-close {
   height: 20rpx;
   width: 24rpx;
   position: absolute;
@@ -62,7 +62,7 @@
   padding: 20rpx;
 }
 
-.score-message-toast-container image.score-message-badge {
+.score-message-toast-container .score-message-badge {
   height: 56rpx;
   width: 56rpx;
   margin-bottom: 20rpx;

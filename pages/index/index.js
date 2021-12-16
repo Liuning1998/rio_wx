@@ -415,6 +415,10 @@ Page({
     wx.navigateTo({ url: '/try_product/pages/products/index/index' })
   },
 
+  gotoVips: function (e) {
+    wx.navigateTo({ url: '/pages/member/index/index' })
+  },
+
   getNotice: function () {
     http.get({
       url: "api/ads/show_content",

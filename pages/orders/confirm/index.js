@@ -93,9 +93,11 @@ Page({
     //   protocolType: _protocolType
     // })
 
-    if (typeof(this.data.userInfo.kzx_user_identification) == 'undefined' || this.data.userInfo.kzx_user_identification.length == 0) {
-      this.yanglaoTouch()
-    }
+
+    // 21/12/25 注
+    // if (typeof(this.data.userInfo.kzx_user_identification) == 'undefined' || this.data.userInfo.kzx_user_identification.length == 0) {
+    //   this.yanglaoTouch()
+    // }
   },
 
   onShow: function () {
@@ -303,17 +305,18 @@ Page({
       _data.order_type = '3'
     }
 
-    if (this.data.shipmentExpenses > 0) {
-      _data.shipment_expense = this.data.shipmentExpenses
-      _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
-    }
-
     // 使用优惠券
     if(this.data.checkCoupon != null){
       _data.user_promotions_number = this.data.checkCoupon.number
       // _data.total = couponJs.calculatePrice(this.data.checkCoupon,_data.total) 
     }
 
+    // 加运费
+    if (this.data.shipmentExpenses > 0) {
+      _data.shipment_expense = this.data.shipmentExpenses
+      _data.total = Math.round((_data.total + this.data.shipmentExpenses) * 100)/100
+    }
+    
     http.post({
       url: "api/orders",
       data: _data,
@@ -361,13 +364,15 @@ Page({
     //   }
     // }
     var _total = order.discount_total
-    if (this.data.orderTotal != null) {
-      if(this.data.checkCoupon != null) {
-        _total = this.data.orderTotal - parseFloat(this.data.checkCoupon.value)
-      }else{
-        _total = this.data.orderTotal
-      }
-    }
+    
+    // if (this.data.orderTotal != null) {
+    //   if(this.data.checkCoupon != null) {
+    //     _total = this.data.orderTotal - parseFloat(this.data.checkCoupon.value)
+    //   }else{
+    //     _total = this.data.orderTotal
+    //   }
+    // }
+
     // 如果_total为负数 ， 置为0
     // if(_total <= 0){
     //   _total=0
@@ -377,7 +382,7 @@ Page({
       pay_params: {
         wx_pay_params: {
           // total: '1',
-          total: this.priceTos(_total),
+          total: _total,
         },
         // cash_params: {
         //   total: '1',
@@ -385,7 +390,7 @@ Page({
         // }
       }
     }
-
+    
     try {
       var data = { }
       http.post({
@@ -743,13 +748,15 @@ Page({
     //   }
     // }
     var _total = order.discount_total
-    if (this.data.orderTotal != null) {
-      if(this.data.checkCoupon != null) {
-        _total = this.data.orderTotal - parseFloat(this.data.checkCoupon.value)
-      }else{
-        _total = this.data.orderTotal
-      }
-    }
+
+    // if (this.data.orderTotal != null) {
+    //   if(this.data.checkCoupon != null) {
+    //     _total = this.data.orderTotal - parseFloat(this.data.checkCoupon.value)
+    //   }else{
+    //     _total = this.data.orderTotal
+    //   }
+    // }
+
     // 如果_total为负数 ， 置为0
     // if(_total <= 0){
     //   _total=0
@@ -759,7 +766,7 @@ Page({
       pay_params: {
         brcb_pay_params: {
           // total: '1',
-          total: this.priceTos(_total),
+          total: _total,
         },
       }
     }

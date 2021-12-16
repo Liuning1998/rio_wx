@@ -103,7 +103,7 @@ Page({
     http.get({
       url: 'api/promotions/can_receive_promotion',
       success: res => {
-        console.log(res)
+        // console.log(res)
         if(res.data.status != null){
           if(!res.data.status){
             this.setData({

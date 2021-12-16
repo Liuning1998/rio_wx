@@ -45,7 +45,8 @@
     "pages/card/index/index",
     "agreement/pages/group_buy/index",
     "web/pages/yanglaohuodong/index",
-    "web/pages/brcb_pay/index/index"
+    "web/pages/brcb_pay/index/index",
+    "pages/member/index/index"
   ],
   "subpackages": [
     {

@@ -1,7 +1,6 @@
 
 
 function couponSort(couponArr,price,app){//优惠券数组和优惠前价格
-  console.log(couponArr)
   if(isNaN(price) || typeof(price) != "number"){
     app.errorToast('优惠券参数错误')
     return false

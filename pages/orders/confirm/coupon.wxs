@@ -1,17 +1,23 @@
 //计算优惠后价格
-function  calculatePrice(price,checkCoupon) {
+function  calculatePrice(price,checkCoupon=null,current_discount=10) {
+  var total = 0;
+
   if(checkCoupon == null){
-    return price
+    total = price * current_discount / 10 
+    return Math.round(total * 100)/100
   }else if(checkCoupon.type == '满减'){
-    var afterPrice = parseFloat(price) - parseFloat(checkCoupon.value)
-    // if(afterPrice <= 0){
-    //   afterPrice = 0
+    // if(userInfo == null){
+    //   total = price - checkCoupon.value + shipmentExpenses
+    //   return Math.round(total * 100)/100
     // }
-    return afterPrice.toFixed(2)
+    total = (price - checkCoupon.value) * current_discount / 10 
+    return Math.round(total * 100)/100
   }else if(checkCoupon.type == '折扣'){
     return price
   }
 }
+
+
 
 module.exports = {
   calculatePrice: calculatePrice,

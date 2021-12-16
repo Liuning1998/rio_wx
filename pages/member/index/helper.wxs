@@ -1,0 +1,25 @@
+//计算进度
+function speed(current,total,item){
+  if(!total || !current ){
+    return 0
+  }
+  if((current-item) / (total - item) > 1){
+    return 100
+  }else{
+    return (current-item) / (total-item) * 100
+  }
+}
+
+function toNum(num){
+  return parseFloat(num)
+}
+
+function sliceString(level){
+  var str = level.slice(1)
+  return str
+}
+module.exports = {
+  speed: speed,
+  toNum:toNum,
+  sliceString:sliceString
+}

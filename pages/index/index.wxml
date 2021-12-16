@@ -38,14 +38,23 @@
       <!-- 目前隐藏 -->
       <view wx:else class="user-info">
         <view class="avatar-and-name">
+          <image wx:if="{{userInfo.vip_level}}" class="pendant" src="/pages/member/images/member_pendant.png"></image>
           <view class="avatar-container" >
             <open-data class='avatar-image' type="userAvatarUrl"></open-data>
           </view>
-          <open-data class="name" type="userNickName"></open-data>
+          <!-- <open-data class="name" type="userNickName"></open-data> -->
+          <view class="user-member-leval" wx:if="{{userInfo.vip_level}}">
+            <!-- <image class="bg" src="/pages/member/images/level_bg.png"></image> -->
+            <text class="info">会员等级{{userInfo.vip_level.current_vip_level}}</text>
+          </view>
         </view>
         <!-- <view class="account-info">
           <text class="balance">平台余额(元): {{ userInfo.account_balance || 0 }}</text>
         </view> -->
+        <view class="goto-member" bindtap="gotoVips" wx:if="{{userInfo.vip_level}}">
+          <text>查看会员权益</text>
+          <image class="img" src="/images/arrow_o_white_01.png"></image>
+        </view>
       </view>
 
       <view class="swiper-container">
