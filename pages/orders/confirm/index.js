@@ -514,15 +514,14 @@ Page({
     this.checkAreaLimit(this.data.storeCart, data)
     if (this.data.store_short_name == '京东') {
       Promise.all([this.checkJdStockAndAreaLimit(this.data.storeCart, data.id),this.fetchJdFreight(this.data.storeCart, data.id),]).then(res => {
+        console.log('------------checkJdStockAndAreaLimit   fetchJdFreight------------')
         //京东
         this.getCouponCount()
       }).catch(res=>{
+        console.log('------------checkJdStockAndAreaLimit   fetchJdFreight，请求错误------------')
         //京东
         this.getCouponCount()
       })
-    }else{
-        //非京东
-        this.getOrderTotal(this.data.storeCart)
     }
   },
 

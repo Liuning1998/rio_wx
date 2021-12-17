@@ -222,19 +222,9 @@ var jd_functions = {
           this.setData({
             coupon:res.data.data
           })
-          // console.log('开始排序')
           couponJs.couponSort(this.data.coupon,( parseFloat(this.data.orderTotal) || this.data.storeCart.total)+this.data.shipmentExpenses,this)
         }else{
           console.log('优惠券请求结果为空,没可用优惠券')
-          // var data = [
-          //   {detailShow:false,el:0,available_on:1630425600,description:'具体描述，具体描述',expires_at:1632844800,limit_value:'5.0',name:'满5减1',number:'2021091413433973',received_at:1631935774,type:'满减',value:'1.0'},
-          //   {detailShow:false,el:1,available_on:1630425600,description:'具体描述，具体描述',expires_at:1632844800,limit_value:'50.0',name:'满50减10.2',number:'2021091413433974',received_at:1631935774,type:'满减',value:'10.2'},
-          //   {detailShow:false,el:2,available_on:1630425600,description:'具体描述，具体描述',expires_at:1632844800,limit_value:'10.0',name:'满10减9',number:'2021091413433975',received_at:1631935774,type:'满减',value:'9.0'},
-          //   {detailShow:false,el:3,available_on:1630425600,description:'具体描述，具体描述',expires_at:1632844800,limit_value:'2.0',name:'满2减1',number:'2021091413433976',received_at:1631935774,type:'满减',value:'1.0'},
-          //   {detailShow:false,el:4,available_on:1630425600,description:'具体描述，具体描述',expires_at:1632844800,limit_value:'5.0',name:'满5减4',number:'2021091413433977',received_at:1631935774,type:'满减',value:'4.0'},
-          //   {detailShow:false,el:5,available_on:1630425600,description:'具体描述，具体描述',expires_at:1632844800,limit_value:'35.0',name:'满35减30',number:'2021091413433978',received_at:1631935774,type:'满减',value:'30.0'},
-          //   {detailShow:false,el:6,available_on:1630425600,description:'具体描述，具体描述',expires_at:1632844800,limit_value:'30.0',name:'满30减11.11',number:'2021091413433979',received_at:1631935774,type:'满减',value:'11.11'}
-          // ]
         }
       },
       fail: res=>{

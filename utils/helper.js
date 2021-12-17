@@ -4,7 +4,6 @@ var http = require('./http.js')
 function getShipAddress(options) {
   var p = new Promise((resolve, reject) => {
     var address = storage.getSyncWithExpire('ship_address_real') || storage.getSyncWithExpire('ship_address')
-    console.log(address)
     if ( address != '' && address !=null ) {
       address.from_type = 'localStorage'
       resolve(address)
