@@ -93,6 +93,8 @@
           </view>
         </view>
 
+
+
         <!-- <view class="discount-shipment-expenses">
           <text class="label">减免运费:</text>
           <text class="price">-￥8.00</text>
@@ -107,13 +109,13 @@
         <view class="total-container">
           <text class="label">合计:</text>
           <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal)}}</text>
-          <text wx:else class="price">￥{{ price.tos(storeCart.total) }}</text>
+          <text wx:else class="price">￥{{ price.tos(storeCart.total) }}</text> 
         </view>
       </view>
 
       <!-- 优惠券 -->
-      <view class="expenses coupon-text">
-        <view class="product-expenses" bindtap="openCoupon">
+      <view class="expenses coupon-text"> 
+        <view class="product-expenses" bindtap="openCoupon"> 
           <view class="view-two">
             <text class="label">优惠券:</text>
             <text class="can-use">{{couponNew ? couponNew.length : 0}}</text>
@@ -124,18 +126,20 @@
             <image class="arrow" src="/images/arrow_o_black_01.png"></image>
           </view>
         </view>
-        <view class="product-expenses">
-          <view class="view-two">
-            <text class="label">会员专享:</text>
-          </view>
-          <view class="total-container">
-            <text>-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount)}}：<block wx:if="{{userInfo}}">{{userInfo.vip_level.current_discount + '折'}}</block></text>
-          </view>
-        </view>
-        <view wx:if="{{ shipmentExpenses != null  }}" class="shipment-expenses">
-          <text class="label">基础运费:</text>
-          <text class="price">+￥{{ price.tos(shipmentExpenses) }}</text>
-        </view>
+
+        <view class="product-expenses"> 
+          <view class="view-two"> 
+            <text class="label">会员专享:</text> 
+          </view> 
+          <view class="total-container"> 
+            <text>-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount)}}：<block wx:if="{{userInfo}}">{{userInfo.vip_level.current_discount + '折'}}</block></text> 
+          </view> 
+        </view> 
+        <view wx:if="{{ shipmentExpenses != null  }}" class="shipment-expenses"> 
+          <text class="label">基础运费:</text> 
+          <text class="price">+￥{{ price.tos(shipmentExpenses) }}</text> 
+        </view> 
+
       </view>
 
 
@@ -306,10 +310,10 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="total">
     <text class="total-desc">应付款: </text>
-    <text wx:if="{{ orderTotal != null }}" class="price">￥{{couponAfter.calculatePrice( orderTotal , checkCoupon , userInfo.vip_level.current_discount)}}</text>
+    <text wx:if="{{ orderTotal != null }}" class="price">￥{{couponAfter.calculatePrice( orderTotal , checkCoupon , userInfo.vip_level.current_discount)}}</text> 
     <text wx:else class="price">
-      <!-- <block>￥{{couponAfter.calculatePrice(price.tos(  ) , checkCoupon )}}</block> -->
-      <block>￥{{price.discountTotal(storeCart, lineItems, userInfo, userInfo.vip_level.current_discount , shipmentExpenses,checkCoupon.value)}}</block>
+      <!-- <block>￥{{couponAfter.calculatePrice(price.tos(  ) , checkCoupon )}}</block> --> 
+      <block>￥{{price.discountTotal(storeCart, lineItems, userInfo, userInfo.vip_level.current_discount , shipmentExpenses,checkCoupon.value)}}</block> 
     </text>
   </view>
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap="{{canReceiveCoupon ? 'openCanReceive':'createOrder'}}" data-state='addCart'>立即支付</button>
