@@ -222,7 +222,7 @@ var jd_functions = {
           this.setData({
             coupon:res.data.data
           })
-          couponJs.couponSort(this.data.coupon,( parseFloat(this.data.orderTotal) || this.data.storeCart.total)+this.data.shipmentExpenses,this)
+          couponJs.couponSort(this.data.coupon,( parseFloat(this.data.orderTotal) || this.data.storeCart.total),this)
         }else{
           console.log('优惠券请求结果为空,没可用优惠券')
         }
