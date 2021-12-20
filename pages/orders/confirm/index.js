@@ -68,7 +68,9 @@ Page({
     if (options.store_short_name == '京东') {
       this.setData({ store_short_name: '京东' })
       // 京东订单
-      this.checkJdPrice(storeCart)
+      this.checkJdPrice(storeCart).then(res=>{
+        this.getCouponCount()
+      })
     } else {
       // 其他订单
       this.getOrderTotal(storeCart)
@@ -139,7 +141,6 @@ Page({
 
   // 优惠券切换
   couponChange:function(e){
-    // console.log(e)
     // console.log(this.data.couponNew)
     var checkNumber = e.currentTarget.dataset.item;
     var couponNew = this.data.couponNew;
@@ -513,15 +514,8 @@ Page({
     this.setData({ shipAddress: data })
     this.checkAreaLimit(this.data.storeCart, data)
     if (this.data.store_short_name == '京东') {
-      Promise.all([this.checkJdStockAndAreaLimit(this.data.storeCart, data.id),this.fetchJdFreight(this.data.storeCart, data.id),]).then(res => {
-        console.log('------------checkJdStockAndAreaLimit   fetchJdFreight------------')
-        //京东
-        this.getCouponCount()
-      }).catch(res=>{
-        console.log('------------checkJdStockAndAreaLimit   fetchJdFreight，请求错误------------')
-        //京东
-        this.getCouponCount()
-      })
+      this.checkJdStockAndAreaLimit(this.data.storeCart, data.id)
+      this.fetchJdFreight(this.data.storeCart, data.id)
     }
   },
 
