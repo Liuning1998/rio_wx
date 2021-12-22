@@ -127,12 +127,12 @@
           </view>
         </view>
 
-        <view class="product-expenses"> 
+        <view class="product-expenses" wx:if="{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount).result}}"> 
           <view class="view-two"> 
-            <text class="label">会员专享:</text> 
+            <text class="label">会员专享:{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount).result}}</text> 
           </view> 
           <view class="total-container"> 
-            <text>-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount)}}：<block wx:if="{{userInfo}}">{{userInfo.vip_level.current_discount + '折'}}</block></text> 
+            <text>-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount).result}}：<block wx:if="{{userInfo}}">{{userInfo.vip_level.current_discount + '折'}}</block></text> 
           </view> 
         </view> 
         <view wx:if="{{ shipmentExpenses != null  }}" class="shipment-expenses"> 
@@ -310,8 +310,8 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="total">
     <text class="total-desc">应付款: </text>
-    <text wx:if="{{ orderTotal != null }}" class="price">￥{{couponAfter.calculatePrice( orderTotal , checkCoupon , userInfo.vip_level.current_discount)}}</text> 
-    <text wx:else class="price">
+    <!-- <text wx:if="{{ orderTotal != null }}" class="price">￥{{couponAfter.calculatePrice( orderTotal , checkCoupon , userInfo.vip_level.current_discount)}}</text>  -->
+    <text class="price">
       <!-- <block>￥{{couponAfter.calculatePrice(price.tos(  ) , checkCoupon )}}</block> --> 
       <block>￥{{price.discountTotal(storeCart, lineItems, userInfo, userInfo.vip_level.current_discount , shipmentExpenses,checkCoupon.value)}}</block> 
     </text>
