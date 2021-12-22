@@ -17,6 +17,7 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+    console.log(this)
   },
 
 

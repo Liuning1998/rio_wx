@@ -6,6 +6,7 @@ var checkPhonePage = [
   // "/pages/products/show/index",
   "/pages/coupons/list/index",
   // "/pages/coupons/dashboard/index",
+  "/pages/member/index/index",
   "/pages/orders/show/index",
   "/pages/products/buy/index",
   "/pages/orders/confirm/index",

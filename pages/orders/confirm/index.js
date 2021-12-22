@@ -53,10 +53,12 @@ Page({
 
     if (options.buyType == 'now') {
       var storeCart = this.params.cart
+      console.log(storeCart)
       this.setData({ buyType: 'now' })
     } else {
       var cart = cartApi.getCartCache()
       var storeCart = cart.data['store_' + store_id]
+      console.log(storeCart)
     }
 
     this.setData({

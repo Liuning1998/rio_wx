@@ -20,7 +20,7 @@ function priceInt (price) {
   return priceStr.slice(0, length-3)
 }
 
-// lineItems 购物车中已勾选的商品（选中所有商品（总和 - 优惠券） * 折扣 - 优惠）
+// lineItems 购物车中已勾选的商品（选中所有商品（总和 - 优惠券） * 折扣 + 邮费）
 function discountTotal (storeCart, lineItems, user=null, current_discount=10, shipmentExpenses=0,couponValue=0) {
   if (user == null) {
     var total = storeCart.total - couponValue + shipmentExpenses

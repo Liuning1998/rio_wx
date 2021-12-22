@@ -40,7 +40,6 @@ function addCart (lineItem) {
     _line.vip_total = Math.round(_line.quantity*_line.vip_price * 100)/100.0
     _line.origin_total = Math.round(_line.quantity*_line.origin_price * 100)/100.0
     _line.selectStatus = true
-    console.log(_line)
   } else {
     let _line = Object.assign({
       total: Math.round(lineItem.price * lineItem.quantity * 100)/100.0,
