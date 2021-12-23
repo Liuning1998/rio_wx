@@ -33,7 +33,7 @@ function discountTotal (storeCart, lineItems, user=null, current_discount=10, sh
     return total
   }
   
-  //非特殊商品算一遍总和 特殊商品算一遍总和 ->非特殊商品减优惠券*折扣 + 特殊商品总和 = 打了多少折 （返回true false用于判断会员专享是否展示 <= 0 为false）
+  //非特殊商品算一遍总和 特殊商品算一遍总和 ->非特殊商品减优惠券*折扣 + 特殊商品总和 = 打了多少钱折 （返回true false用于判断会员专享是否展示 <= 0 为false）
   // if (user.kzx_user_identification == 1 && user.discount != null) 
   var no_special_goods = 0;
   var special_goods = 0;
@@ -47,12 +47,18 @@ function discountTotal (storeCart, lineItems, user=null, current_discount=10, sh
       no_special_goods += item_total
     }
   }
-  if(no_special_goods - couponValue <= 0){
-    no_special_goods = 0 - couponValue + shipmentExpenses;
-    result = no_special_goods + special_goods
-    console.log(no_special_goods,special_goods,couponValue)
-    return Math.round(result * 100)/100
-  }else{
+
+  if(no_special_goods == 0){//非特殊商品
+    special_goods = special_goods - couponValue + shipmentExpenses;
+    return Math.round(special_goods * 100)/100
+  }else if(special_goods == 0){//特殊商品
+    no_special_goods = (no_special_goods - couponValue) * current_discount / 10 + shipmentExpenses;
+    return Math.round(no_special_goods * 100)/100
+  }else{//混合下单
+    if(no_special_goods - couponValue < 0){
+      couponValue = 0;
+      no_special_goods = 0;
+    }
     no_special_goods = (no_special_goods - couponValue) * current_discount / 10 + shipmentExpenses;
     result = no_special_goods + special_goods
     return Math.round(result * 100)/100
@@ -64,13 +70,13 @@ function vipDiscount(lineItems, user=null, couponValue=0, current_discount=10){
   if (user == null) {
     return 0
   }
-
+  console.log(lineItems,user,couponValue,current_discount)
   var result = 0;
   var discount = 1 - current_discount / 10;
   for(var i=0; i < lineItems.length; i++) {
     var item = lineItems[i]
     var item_total = item.price * item.quantity
-    if(item.product.tags == null || item.product.tags.indexOf('特殊商品') == -1){
+    if(item.product.tags == null || item.product.tags.indexOf('特殊商品') == -1){//非特殊商品
       result += item_total
     }
   }
@@ -80,14 +86,15 @@ function vipDiscount(lineItems, user=null, couponValue=0, current_discount=10){
       result:0,
       isShow:false
     }
+  }else{
+    result = (result - couponValue) * discount.toFixed(2);
+  
+    return {
+      result:Math.round(result * 100)/100,
+      isShow:true
+    } 
   }
 
-  result = (result - couponValue) * discount.toFixed(2);
-
-  return {
-    result:Math.round(result * 100)/100,
-    isShow:true
-  } 
 }
 
 module.exports = {
