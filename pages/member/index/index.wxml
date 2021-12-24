@@ -40,7 +40,7 @@
 <view class="member-rule">
   <view class="member-title">
     <text class="main">会员升级规则</text>
-    <text class="vice">本月实付金额计算次月会员等级</text>
+    <text class="vice">本月实付金额决定下月会员等级</text>
   </view>
   <view class="right-box member-breadth">
     <view class="rule-box">
@@ -69,30 +69,30 @@
   </view>
   <view class="right-box member-breadth">
     <view class="grade-box">
-      <view class="info">您本月购物的实际支付金额（不含优惠券、折扣等）将计算次月会员等级，不同会员等级享受对应权益。</view>
+      <view class="info">您本月购物的实际支付金额（不含优惠券、折扣等）将决定下月会员等级，不同会员等级享受对应权益。</view>
       <view class="tabel">
         <view class="th">
           <view class="td">本月累计实付额</view>
-          <view class="td">次月会员等级</view>
+          <view class="td">下月会员等级</view>
           <view class="td">会员权益</view>
         </view>
         <view class="tr">
-          <view class="td">V1 {{'<'}} 500</view>
+          <view class="td">不满500元</view>
           <view class="td">V1</view>
           <view class="td">全场9.8折</view>
         </view>
         <view class="tr">
-          <view class="td">500 ≤ V2 {{'<'}} 1000</view>
+          <view class="td">满500元</view>
           <view class="td">V2</view>
           <view class="td">全场9.7折</view>
         </view>
         <view class="tr">
-          <view class="td">1000 ≤ V3 {{'<'}} 2000</view>
+          <view class="td">满1000元</view>
           <view class="td">V3</view>
           <view class="td">全场9.6折</view>
         </view>
         <view class="tr">
-          <view class="td">v4 ≥ 2000</view>
+          <view class="td">满2000元</view>
           <view class="td">V4</view>
           <view class="td">全场9.5折</view>
         </view>
