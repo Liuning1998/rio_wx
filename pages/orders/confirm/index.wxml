@@ -118,21 +118,23 @@
         <view class="product-expenses" bindtap="openCoupon"> 
           <view class="view-two">
             <text class="label">优惠券:</text>
-            <text class="can-use">{{couponNew ? couponNew.length : 0}}</text>
+            <text class="can-use-name"> {{checkCoupon.name}}</text>
+            <text class="can-use">{{couponNew ? couponNew.length : 0}} </text>
           </view>
           <view class="total-container">
-            <text>-￥{{checkCoupon != null ? (price.tos(checkCoupon.value) + '：' + checkCoupon.name) : price.tos(0)}} </text>
+            <text>-￥{{checkCoupon != null ? price.tos(checkCoupon.value) : price.tos(0)}} </text>
             <!-- <text class='origin-price'>￥{{price.tos(storeCart.origin_total)}}</text> -->
             <image class="arrow" src="/images/arrow_o_black_01.png"></image>
           </view>
         </view>
 
         <view class="product-expenses" wx:if="{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount).result}}"> 
-          <view class="view-two"> 
-            <text class="label">会员专享:{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount).result}}</text> 
+          <view class="view-two">
+            <text class="label">会员专享:</text> 
+            <text class="can-use vip" wx:if="{{userInfo}}">{{userInfo.vip_level.current_discount + '折'}}</text>
           </view> 
           <view class="total-container"> 
-            <text>-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount).result}}：<block wx:if="{{userInfo}}">{{userInfo.vip_level.current_discount + '折'}}</block></text> 
+            <text>-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value,userInfo.vip_level.current_discount).result}}</text> 
           </view> 
         </view> 
         <view wx:if="{{ shipmentExpenses != null  }}" class="shipment-expenses"> 
