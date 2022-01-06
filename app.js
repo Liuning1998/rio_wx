@@ -16,6 +16,7 @@ App({
     params: {},
     backParams: {},
     authLoginStatus: false,
+    showChannel:null,//新用户扫码进到商品详情的参数
   }),
 
   onLaunch: function () {

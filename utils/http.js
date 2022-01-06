@@ -73,6 +73,7 @@ function httpFail (res, reject) {
       storage.delSync('session')
       getApp().globalData.params['reLogin'] = true
       if (currentPage != '/pages/index/index') {
+        reject(res)
         wx.reLaunch({
           url: '/pages/index/index',
         })

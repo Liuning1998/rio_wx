@@ -615,7 +615,6 @@ Page({
         page:page
       },
       success: res => {
-        console.log(this.data.newBrandPage)
         if(res.data != null && res.data.length > 0) {
           res.data.forEach((item,index)=>{
             newBrandData.push(item)

@@ -2,6 +2,7 @@
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 var helper = require('../../../utils/helper.js')
+var storage = require("../../../utils/storage.js")
 
 Page({
 
@@ -38,8 +39,21 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
-    this.getProductDetail(options.id)
+    this.getProductDetail(options.id,options.channel)
     // this.getProductDetail('wkm3')
+
+    //全局添加channel参数re_login使用
+    if(!!options.channel && options.channel.trim() != ''){
+      getApp().globalData.showChannel = options.channel;
+      var session = storage.getSyncWithExpire("session")
+      if(session){ // 老
+        this.postChannel()
+      }else{
+        getApp().callbackChannel = ()=>{
+          this.postChannel()
+        }
+      }                                                                                                                              
+    }
 
     // 获取优惠券数据
     this.canReceive()
@@ -109,14 +123,40 @@ Page({
 
   // 判断是否展示优惠券领取
   canReceive:function(){
-    http.get({
-      url: 'api/promotions/can_receive_promotion',
+      http.get({
+        url: 'api/promotions/can_receive_promotion',
+        success: res => {
+          if(res.data.status != null && res.data.status == true){
+            this.setData({
+              isShowCoupon:res.data.status
+            })
+            this.getData()
+          }
+        },
+        fail: err => {
+
+        }
+      })
+  },
+
+  // 取到channel传到后台
+  postChannel:function () {
+    var channel = getApp().globalData.showChannel;
+    http.post({
+      url: 'api/user_channels/update_user_source',
+      data:{
+        channel: channel
+      },
       success: res => {
-        if(res.data.status != null && res.data.status == true){
-          this.setData({
-            isShowCoupon:res.data.status
-          })
-          this.getData()
+        if(getApp().callbackChannel){
+          delete getApp().callbackChannel
+        }
+      },
+      fail: err => {
+        if(err.statusCode == 401){
+          getApp().callbackChannel = ()=>{
+            this.postChannel()
+          }
         }
       }
     })
@@ -180,10 +220,12 @@ Page({
   },
   
 
-  getProductDetail: function (id) {
+  getProductDetail: function (id,channel='') {
     http.get({
-      url: "api/products/" + id,
+      url: "api/products/" + id + '?channel=' + channel,
       success: (res) => {
+
+
         var _product = res.data.product
         let _currentVariant
         let optionIds = []

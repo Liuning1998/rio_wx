@@ -5,12 +5,13 @@ var storage = require("./storage.js")
 function login() {
   var p = new Promise((resolve, reject) => {
     console.log('login回调')
+
     wx.login({
       success: function(res) {
         http.post({
           url: 'api/wx_login',
           data: {
-            code: res.code
+            code : res.code
           },
           success: res => {
             if (res.statusCode >= 200 && res.statusCode < 300) {
@@ -20,6 +21,10 @@ function login() {
                 updateUserInfo()
               }
               resolve(res.data)
+              // 登录后判断是否有扫码跳商品详情页携带参数的回调（if token过期）
+              if (getApp().callbackChannel){
+                getApp().callbackChannel();
+              }
             } else {
               reject(res)
             } 

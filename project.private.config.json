@@ -21,6 +21,12 @@
             "appId": "1231231",
             "extraData": "{}"
           }
+        },
+        {
+          "name": "",
+          "pathName": "pages/products/show/index",
+          "query": "id=lzef&channel=test1",
+          "scene": null
         }
       ]
     }
