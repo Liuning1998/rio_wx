@@ -114,6 +114,12 @@
     </view> -->
   </view>
 
+    <!-- 年货节 -->
+    <view class="group-product" wx:if="{{ newYearProducts != null }}" bindtap="gotoBrand" data-item="{{newYearProducts}}">
+      <image src="{{newYearProducts.background_image}}" class=""></image>
+    </view>
+    <!-- 年货节 -->
+
     <!-- 团购商品 -->
     <view class="group-product" wx:if="{{ groupProducts != null }}" bindtap="gotoGroupProduct" data-item="{{groupProducts}}">
       <image src="{{groupProducts.background_image}}" class=""></image>
@@ -164,10 +170,10 @@
   </view>
   <!-- 三 -->
 
-  <view class="brand-transverse"  wx:if="{{newBrandData.length > 0}}">
+  <view class="brand-transverse"  wx:if="{{newBrandData.length > 0 && todayProducts != null}}">
     <view class="brand-title">
-      <text class="left">{{homeBrands[0].title}}</text>
-      <text class="right" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">{{homeBrands[0].subtitle}} ></text>
+      <text class="left">{{todayProducts.title}}</text>
+      <text class="right" bindtap="gotoBrand" data-item="{{todayProducts}}">{{todayProducts.subtitle}} ></text>
     </view>
     <scroll-view class="brand-scroll" scroll-x="true">
       <view class="brand-scroll-container">

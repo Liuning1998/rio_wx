@@ -357,7 +357,7 @@ page {
   width: 702rpx;
   margin: 36rpx auto 0 auto;
   /* display: flex; */
-  display: none;
+  /* display: none; */
   flex-direction: column;
   background: #ffffff;
   padding: 24rpx;

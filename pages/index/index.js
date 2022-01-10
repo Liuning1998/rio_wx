@@ -14,7 +14,7 @@ Page({
     specialAreas: [], // 专区
     pageNo: 1,
     ads: [],
-    todayProducts: [],
+    todayProducts: null,
     ctpIndex: 1,
     cartAnimations: {},
     canScroll: true,
@@ -33,8 +33,9 @@ Page({
     slideLeft:0 ,//滑块位置
     totalLength:'',//当前滚动列表总长
     slideShow:false,
-    slideRatio:''
+    slideRatio:'',
     //导航滚动条
+    newYearProducts:[]
   },
 
   /**
@@ -132,33 +133,35 @@ Page({
     http.get({
       url: '/api/home_brands',
       success: res => {
+        if(res.data != null && res.data.length > 0) {
+          let _tryProduct = null
+          let _todayProducts = null
+          let _newYearProducts = null
+          let _data = []
+          let _groupProducts = null
+          for(let i=0; i < res.data.length; i++) {
+            let item = res.data[i]
+            if(item.tags.indexOf('试用商品') >= 0) {
+              _tryProduct = item
+            } else if (item.tags.indexOf('热门精选') >= 0) { //原今日特惠
+              _todayProducts = item
+            } else if (item.tags.indexOf('团购商品') >= 0) {
+              _groupProducts = item
+            } else if (item.tags.indexOf('年货节') >= 0) {
+              _newYearProducts = item
+            }
+            //  else {
+            //   _data.push(item)
+            // }
+          }
           this.setData({
-            homeBrands: res.data,
+            // homeBrands: res.data,
+            tryProduct: _tryProduct,
+            todayProducts: _todayProducts,
+            groupProducts: _groupProducts,
+            newYearProducts: _newYearProducts
           })
-        // if(res.data != null && res.data.length > 0) {
-        //   let _tryProduct = null
-        //   let _todayProducts = null
-        //   let _data = []
-        //   let _groupProducts = null
-        //   for(let i=0; i < res.data.length; i++) {
-        //     let item = res.data[i]
-        //     if(item.tags.indexOf('试用商品') >= 0) {
-        //       _tryProduct = item
-        //     // } else if (item.tags.indexOf('今日特惠') >= 0) {
-        //     //   _todayProducts = item
-        //     } else if (item.tags.indexOf('团购商品') >= 0) {
-        //       _groupProducts = item
-        //     } else {
-        //       _data.push(item)
-        //     }
-        //   }
-        //   this.setData({
-        //     homeBrands: _data,
-        //     tryProduct: _tryProduct,
-        //     todayProducts: _todayProducts,
-        //     groupProducts: _groupProducts
-        //   })
-        // }
+        }
       }
     })
   },
