@@ -1263,3 +1263,38 @@ page {
   flex-wrap: nowrap;
 }
 /* 横向推荐 */
+
+
+/* 点击添加小程序遮罩层 S */
+.add-program-mask{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  /* display: none; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.add-program-mask .add-program-img{
+  width: 556rpx;
+  height: 728rpx;
+  margin-top: 140rpx;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.add-program-mask .btn{
+  width: 456rpx;
+  line-height: 88rpx;
+  text-align: center;
+  border-radius: 48rpx;
+  border: 4rpx solid #FFFFFF;
+  text-align: center;
+  margin: 52.8rpx auto 0;
+  color: #fff;
+  font-size: 32rpx;
+}
+/* 点击添加小程序遮罩层 E */

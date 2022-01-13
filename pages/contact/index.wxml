@@ -16,7 +16,8 @@
     </view>
   </view>
 
-  <text class="time-desc">工作时间：周一至周五 10:00 - 18:00 (非工作时间将于下一工作日反馈您)</text>
+  <text class="time-desc">工作时间：周一至周五 9:30 - 18:30</text>
+  <text class="time-desc">(非工作时间将于下一工作日反馈您)</text>
 </view>
 
 <!-- <view class='carousels'>

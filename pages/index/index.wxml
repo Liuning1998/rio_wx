@@ -318,3 +318,9 @@
     </view>
   </view>
 </view>
+
+<!-- 点击添加到我的小程序遮罩 -->
+<view class="add-program-mask" wx:if="{{ isAddProgram }}" catchtap="addProgramTips">
+    <image class="add-program-img" src="/images/add_program.png"></image>
+    <view class="btn">我知道了</view>
+</view>

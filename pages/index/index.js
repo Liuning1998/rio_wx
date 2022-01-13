@@ -35,7 +35,7 @@ Page({
     slideShow:false,
     slideRatio:'',
     //导航滚动条
-    newYearProducts:[]
+    newYearProducts:[],
   },
 
   /**
@@ -43,6 +43,7 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+
     // 获取手机信息
 
     var systemInfo = wx.getSystemInfoSync() ;
@@ -90,6 +91,16 @@ Page({
     this.cancelSearch()
 
     wx.stopPullDownRefresh()
+  },
+  
+  getIndexIsAddCallBack:function() {
+    // 获取是否展示遮罩层(点击添加小程序) S
+    var isAddProgram = store.getSync('isAddProgram') || false;
+    var authLoginStatus = this.data.authLoginStatus;
+    if(authLoginStatus && !isAddProgram && !this.data.isAddProgram){
+      this.setData({ isAddProgram: true })
+    }
+    // 获取是否展示遮罩层(点击添加小程序) E
   },
 
   getRecommendProducts: function (pageNo) {
@@ -419,7 +430,7 @@ Page({
   },
 
   gotoVips: function (e) {
-    wx.navigateTo({ url: '/pages/member/index/index' })
+    this.navigateTo('/pages/member/index/index')
   },
 
   getNotice: function () {
@@ -523,6 +534,7 @@ Page({
         if (res.data != null && res.data.phone != null) {
           getApp().globalData.userInfo = res.data
           this.setData({ userInfo: res.data, authLoginStatus: res.data.check_wx_auth })
+          this.getIndexIsAddCallBack()
         }
       },
       fail: res => {
@@ -632,6 +644,12 @@ Page({
         }
       }
     })
+  },
+
+  // 点击添加小程序遮罩层
+  addProgramTips:function() {
+    this.setData({isAddProgram:false})
+    store.setSyncWithExpire('isAddProgram', true, 360 * 24 * 60 * 60)
   }
 
 })
