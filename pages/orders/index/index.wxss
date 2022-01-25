@@ -189,6 +189,10 @@ page {
   margin-right: 40rpx;
 }
 
+.products .product-item .product-name  .pre_name{
+  color: #F64C47;
+}
+
 .products .product-item .go-detail {
   height: 20rpx;
   width: 10rpx;

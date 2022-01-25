@@ -91,7 +91,7 @@
         <view bindtap="gotoProduct" data-item="{{item}}" class="product-item" wx:for="{{fineProducts}}" wx:key="index">
           <image class="avatar" src="{{item.avatar}}"></image>
           <view class="product-content">
-            <text class="name">{{item.name || ''}}</text>
+            <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name || ''}}</text>
             <view class="pbadges">
               <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
             </view>
@@ -119,7 +119,7 @@
             <image class="avatar" src="{{item.avatar}}"></image>
             <view class="product-content">
               <view class="name-and-badges">
-                <text class="name">{{ item.name || '' }}</text>
+                <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{ item.name || '' }}</text>
                 <view class="pbadges">
                   <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
                 </view>

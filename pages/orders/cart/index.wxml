@@ -72,7 +72,7 @@
             <image bindtap="gotoProduct" data-item="{{item.product}}" class="avatar" src="{{ avatars[item.product.id] || item.product.avatar}}"></image>
             <view class="line-item-info">
               <view bindtap="gotoProduct" data-item="{{item.product}}" style="display: flex; flex-direction: column; flex: 1;">
-                <text class="name">{{item.product.name}}</text>
+                <text class="name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
                 <text class="variant-info">{{item.show_name}}</text>
               </view>
               <view class="price-and-quantity">
@@ -131,7 +131,7 @@
             </view>
           </view>
 
-          <text bindtap="gotoProduct" data-item="{{item}}" class="name">{{item.name}}</text>
+          <text bindtap="gotoProduct" data-item="{{item}}" class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
           <view class="pbadges" style="padding: 0 24rpx; box-sizing: border-box;">
             <text wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge" class="badge-item">{{ badge }}</text>
           </view>

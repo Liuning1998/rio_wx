@@ -56,7 +56,7 @@
           </view>
           <view class="product-info">
             <view class="name-and-badge" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
-              <text class="name">{{item.name}}</text>
+              <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
               <view class="pbadges">
                 <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
               </view>

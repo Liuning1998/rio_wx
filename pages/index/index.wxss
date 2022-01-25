@@ -618,6 +618,9 @@ page {
   -webkit-line-clamp: 2;
   display: -webkit-box;
 }
+.products-container .product-content .name .pre_name{
+  color: #F64C47;
+}
 
 .products-container .price-and-btn {
   width: 100%;

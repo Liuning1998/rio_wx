@@ -232,6 +232,10 @@ page {
   box-sizing: border-box;
 }
 
+.products-container .name .pre_name{
+  color: #F64C47;
+}
+
 .products-container .description {
   font-size: 24rpx;
   color: #D3B17D;

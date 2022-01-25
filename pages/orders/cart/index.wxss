@@ -241,6 +241,11 @@ page {
   -webkit-line-clamp: 2;
   display: -webkit-box;
 }
+
+.cart-container .name  .pre_name{
+  color: #F64C47;
+}
+
 .goto-store .name{
   flex: 1;
   -webkit-line-clamp: 1;
@@ -528,6 +533,10 @@ page {
   color: #333333;
   margin-top: 20rpx;
   flex: 1;
+}
+
+.product-list-container .name .pre_name{
+  color: #F64C47;
 }
 
 .product-list-container .bottom-info-container {

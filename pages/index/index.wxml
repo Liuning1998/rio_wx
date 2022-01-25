@@ -218,7 +218,8 @@
       <image src="{{item.avatar}}" class="avatar"></image>
       <view class="product-content">
         <view class="name-container">
-          <text class="name">{{item.name}}</text>
+          
+          <view class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</view>
           <view class="pbadges">
             <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
           </view>
@@ -266,6 +267,7 @@
   </view>
 </view>
 
+<!-- 通知 -->
 <view wx:if="{{ noticeText != null && noticeText.length > 0 }}" class="float-notice-container" style="top: {{pageMarginTop + 44}}px;">
   <view class="image-container">
     <image src="/images/message_icon_01.png"></image>

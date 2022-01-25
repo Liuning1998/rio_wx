@@ -307,6 +307,10 @@ page {
   margin-right: 8rpx;
 }
 
+.name-and-desc .name .pre_name{
+  color: #F64C47;
+}
+
 .name-and-desc .desc {
   margin-top: 16rpx;
   font-size: 24rpx;

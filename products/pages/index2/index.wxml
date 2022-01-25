@@ -47,7 +47,7 @@
 
       <view class="item-content">
         <view class="info">
-          <text class="name">{{item.name}}</text>
+          <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
           <view class="pbadges">
             <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
           </view>

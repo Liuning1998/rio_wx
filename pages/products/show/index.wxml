@@ -70,7 +70,7 @@
       </view>
 
       <view class="name-and-desc">
-        <text class="name"><text wx:if="{{product.is_postage.length > 0}}" class="postage">{{product.is_postage}}</text>{{ product.name }}</text>
+        <text class="name"><text wx:if="{{product.is_postage.length > 0}}" class="postage">{{product.is_postage}}</text><text class="pre_name" wx:if="{{!!product.pre_name}}">{{product.pre_name}}</text>{{ product.name }}</text>
         <view class="pbadges">
           <text wx:for="{{ product.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
         </view>

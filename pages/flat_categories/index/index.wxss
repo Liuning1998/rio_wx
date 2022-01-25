@@ -105,6 +105,10 @@ page {
   display: -webkit-box;
 }
 
+.product-container .name .pre_name{
+  color: #F64C47;
+}
+
 .badges .item {
   border: 1px solid #F64C47;
   border-radius: 2px;

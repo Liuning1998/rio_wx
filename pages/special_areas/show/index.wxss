@@ -402,6 +402,10 @@ page {
   flex: 1;
 }
 
+.hot-sale .product-item .name .pre_name{
+  color: #F64C47;
+}
+
 .hot-sale .product-item .price-and-cart {
   display: flex;
   justify-content: space-between;
@@ -519,6 +523,10 @@ page {
   display: -webkit-box;
   box-sizing: border-box;
   flex: 1;
+}
+
+.all-products .name .pre_name{
+  color: #F64C47;
 }
 
 .all-products .badges {
