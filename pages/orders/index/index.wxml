@@ -15,8 +15,8 @@
     <text  >待支付</text>
     <view class="border"></view>
   </view>
-  <view class="tab-item {{ active == 'completed' && 'active' }}" bindtap="changeTab" data-state="completed">
-    <text >已完成</text>
+  <view class="tab-item {{ active == 'shipping' && 'active' }}" bindtap="changeTab" data-state="shipping">
+    <text >待收货</text>
     <view class="border"></view>
   </view>
 

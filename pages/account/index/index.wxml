@@ -74,9 +74,9 @@
         <image class="btn-icon" src="/images/account/order/icon_001.png"></image>
         <text class="label">待支付</text>
       </view>
-      <view class="btn-item" bindtap="gotoOrder" data-state="completed">
+      <view class="btn-item" bindtap="gotoOrder" data-state="shipping">
         <image class="btn-icon" src="/images/account/order/icon_003.png"></image>
-        <text class="label">已完成</text>
+        <text class="label">待收货</text>
       </view>
       <view class="btn-item" bindtap="gotoOrder" data-state="saleService">
         <image class="btn-icon" src="/images/account/order/icon_002.png"></image>

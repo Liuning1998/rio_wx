@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    active: "all", // 'all', 'completed', 'new', 'paid', 'shipping', 'completed'
+    active: "all", // 'all', 'completed', 'new', 'paid', 'shipping', 'completed' ,'padding'(待收货)
     orders: {
       allOrders: [],
       completedOrders: [],
@@ -67,7 +67,12 @@ Page({
           this.setData({ emptyStatus: false })
         } else {
           if (params['page'] == 1) {
-            this.setData({ emptyStatus: true })
+            let key = `orders.${state}Orders`
+            this.setData({ 
+              emptyStatus: true,
+              [key]: []
+            })
+
           }
         }
       },
@@ -86,11 +91,13 @@ Page({
     let params = {q: { order_type_not_in:[ '1'] }}
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
+      params.q.payment_state_not_eq = 'refunded'
       params.q.order_type_eq = 2
       delete params.q.order_type_not_in
-    } else if ( state == 'completed' ) {
+    } else if ( state == 'padding' || state == 'shipping' ) {
       params.q.sale_state_blank = true
-      params.q.state_eq = state
+      params.q.ship_state_in = ['padding', 'shipping']
+      params.q.payment_state_eq = 'completed'
     } else if (state != 'all') {
       params.q.state_eq = state
     }
@@ -302,12 +309,14 @@ Page({
 
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
+      params.q.payment_state_not_eq = 'refunded'
       params.q.order_type_eq = 2
       delete params.q.order_type_not_in
-    } else if ( state == 'completed' ) {
+    } else if ( state == 'padding' || state == 'shipping' ) {
       params.q.sale_state_blank = true
-      params.q.state_eq = state
-    }  else if (state != 'all') {
+      params.q.ship_state_in = ['padding', 'shipping']
+      params.q.payment_state_eq = 'completed'
+    } else if (state != 'all') {
       params.q.state_eq = state
     }
     params.page = 1
