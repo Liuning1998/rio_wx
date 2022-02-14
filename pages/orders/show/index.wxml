@@ -265,7 +265,7 @@
   </view>
 
   <view wx:else class="btn-content">
-    <text bindtap="deleteOrder" class="btn delete" >删除订单</text>
+    <text wx:if="{{order.state == 'completed' || order.state == 'canceled' || order.state == 'handle_canceled'}}" bindtap="deleteOrder" class="btn delete" >删除订单</text>
     <block wx:if="{{helper.canService(order)}}">
       <text class="btn cancel" wx:if="{{orderServiceStatus.click == 'on'}}" bindtap="orderService" >申请售后</text>
       <!-- <text class="btn cancel" wx:else bindtap="orderService">查看售后</text> -->
