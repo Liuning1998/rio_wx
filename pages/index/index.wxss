@@ -128,14 +128,18 @@ page {
 .swiper-and-user .user-info .avatar-container {
   height: 76rpx;
   width: 76rpx;
+  padding: 0;
   overflow: hidden;
   border-radius: 38rpx;
   margin-right: 10rpx;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .swiper-and-user .user-info .avatar-image {
   height:  76rpx;
   width: 76rpx;
+  border-radius: 50%;
+  overflow: hidden;
   display: flex;
 }
 

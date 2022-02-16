@@ -214,6 +214,8 @@ page {
   /* border: 1px solid #ffffff; */
   flex-shrink: 0;
   margin-right: 24rpx;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
 .avatar-containe-parent  .pendant{
   width: 36rpx;
@@ -226,8 +228,10 @@ page {
   position: relative;
 }
 .user-content .avatar-container .avatar-image {
-  height: 99.6rpx;
-  width: 99.6rpx;
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .action-container .icon-01{

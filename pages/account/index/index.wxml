@@ -20,9 +20,12 @@
         <view wx:if="{{ authLoginStatus }}" class="user-content">
           <view class="avatar-containe-parent">
             <image class="pendant" wx:if="{{userInfo.vip_level}}" src="/pages/member/images/member_pendant.png"></image>
-            <view class="avatar-container" >
+            <!-- <view class="avatar-container" >
               <open-data class='avatar-image' type="userAvatarUrl"></open-data>
-            </view>
+            </view> -->
+            <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+                <image class="avatar-image" src="{{userAvatar}}"></image>
+            </button>
           </view>
           <view class="welcome-info">
             <!-- <view class="user-name">

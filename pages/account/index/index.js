@@ -1,5 +1,6 @@
 // pages/account/index/index.js
 var http = require('../../../utils/http.js')
+var store = require('../../../utils/storage')
 Page({
 
   /**
@@ -9,7 +10,9 @@ Page({
     authLoginStatus: false,
     scollStatus: false,
     // userBalance: 0,
-    orderQuantity: {}
+    orderQuantity: {},
+    //用户头像
+    userAvatar: ''
   },
 
   /**
@@ -96,6 +99,11 @@ Page({
     // this.resetUerInfo()
     this.getUserInfo()
     this.getOrderQauntity()
+    
+    // 更新头像
+    this.setData({
+      userAvatar: store.getSync('userAvatar') ||'/images/default_avatar_003.png'
+    })
   },
 
   login: function () {

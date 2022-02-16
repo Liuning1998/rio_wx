@@ -1,6 +1,7 @@
 var msgToast = require('./pages/components/message/api.js')
 var cartApi = require('./utils/cart.js');
 const storage = require('./utils/storage.js');
+const http = require('./utils/http.js');
 
 var checkPhonePage = [
   // "/pages/products/show/index",
@@ -333,6 +334,54 @@ function beforeOnload (context) {
         url: '/pages/orders/cart/index',
       })
     }
+
+    function postChannelFun(channel) {
+      http.post({
+        url: 'api/user_channels/update_user_source',
+        data:{
+          channel: channel
+        },
+        success: res => {
+          if(getApp().callbackChannel){
+            delete getApp().callbackChannel
+          }
+        },
+        fail: err => {
+          if(err.statusCode == 401){
+            getApp().callbackChannel = ()=>{
+              this.postChannel()
+            }
+          }
+        }
+      })
+    }
+
+    // 携带参数扫码入口调用
+    this.postChannel = function (channel) {
+      var session = storage.getSyncWithExpire("session")
+      if(session){
+        postChannelFun(channel)
+      }else{
+        getApp().callbackChannel = ()=>{
+          postChannelFun(channel)
+        }
+      }
+
+    }
+
+    //更换头像
+    this.onChooseAvatar = function (e) {
+      const { avatarUrl } = e.detail;
+      if(!!avatarUrl){
+        this.setData({
+          userAvatar:avatarUrl
+        })
+        storage.setSync('userAvatar',avatarUrl)
+      }else{
+        this.errorToast('更换头像错误,请重试')
+      }
+    }
+
     // end 定义公用方法
 
     // 处理 session

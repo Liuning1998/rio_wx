@@ -17,9 +17,12 @@ function login() {
             if (res.statusCode >= 200 && res.statusCode < 300) {
               storage.setSyncWithExpire('session', res.data, 7 * 24 * 60 * 60)
               storage.delSync('userInfo')
-              if (res.data.need_user_info) {
-                updateUserInfo()
-              }
+              
+              // need_user_info暂时无意义
+              // if (res.data.need_user_info) {
+              //   updateUserInfo()
+              // }
+
               resolve(res.data)
               // 登录后判断是否有扫码跳商品详情页携带参数的回调（if token过期）
               if (getApp().callbackChannel){

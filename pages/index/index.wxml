@@ -39,9 +39,14 @@
       <view wx:else class="user-info">
         <view class="avatar-and-name">
           <image wx:if="{{userInfo.vip_level}}" class="pendant" src="/pages/member/images/member_pendant.png"></image>
-          <view class="avatar-container" >
+          <!-- <view class="avatar-container" >
             <open-data class='avatar-image' type="userAvatarUrl"></open-data>
-          </view>
+          </view> -->
+
+          <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+              <image class="avatar-image" src="{{userAvatar}}"></image>
+          </button>
+
           <!-- <open-data class="name" type="userNickName"></open-data> -->
           <view class="user-member-leval" wx:if="{{userInfo.vip_level}}">
             <!-- <image class="bg" src="/pages/member/images/level_bg.png"></image> -->

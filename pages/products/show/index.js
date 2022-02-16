@@ -44,15 +44,7 @@ Page({
 
     //全局添加channel参数re_login使用
     if(!!options.channel && options.channel.trim() != ''){
-      getApp().globalData.showChannel = options.channel;
-      var session = storage.getSyncWithExpire("session")
-      if(session){ // 老
-        this.postChannel()
-      }else{
-        getApp().callbackChannel = ()=>{
-          this.postChannel()
-        }
-      }                                                                                                                              
+      this.postChannel(options.channel)
     }
 
     // 获取优惠券数据
@@ -137,29 +129,6 @@ Page({
 
         }
       })
-  },
-
-  // 取到channel传到后台
-  postChannel:function () {
-    var channel = getApp().globalData.showChannel;
-    http.post({
-      url: 'api/user_channels/update_user_source',
-      data:{
-        channel: channel
-      },
-      success: res => {
-        if(getApp().callbackChannel){
-          delete getApp().callbackChannel
-        }
-      },
-      fail: err => {
-        if(err.statusCode == 401){
-          getApp().callbackChannel = ()=>{
-            this.postChannel()
-          }
-        }
-      }
-    })
   },
 
   // 下一页

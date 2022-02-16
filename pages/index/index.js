@@ -36,6 +36,8 @@ Page({
     slideRatio:'',
     //导航滚动条
     newYearProducts:[],
+    //用户头像
+    userAvatar: '',
   },
 
   /**
@@ -50,6 +52,11 @@ Page({
     this.setData({
       windowWidth: systemInfo.windowWidth,
     })
+
+    //携带参数扫码入口（channel）
+    if(!!options.channel && options.channel.trim() != ''){
+      this.postChannel(options.channel)
+    }
 
     // 获取手机信息
     let _reLogin = this.getParamsFromGlobal('reLogin')
@@ -91,8 +98,14 @@ Page({
     this.cancelSearch()
 
     wx.stopPullDownRefresh()
+
+    // 更新头像
+    this.setData({
+      userAvatar: store.getSync('userAvatar') ||'/images/default_avatar_003.png'
+    })
   },
   
+
   getIndexIsAddCallBack:function() {
     // 获取是否展示遮罩层(点击添加小程序) S
     var isAddProgram = store.getSync('isAddProgram') || false;
@@ -371,17 +384,21 @@ Page({
   },
 
   reLogin: function () {
-    sessionApi.login().then(res => {
-      // this.globalData.session = res
-      // getUser()
-      // if (this.CallbackForSession) {
-      //   this.CallbackForSession(res)
-      // }
-      getApp().globalData.session = res
-      this.setData({ session: res })
-      this.reGetUserInfo()
-    })
+    //防止新用户首页同时login()导致后台写数据库操作报错
+    setTimeout(()=>{
 
+      sessionApi.login().then(res => {
+        // this.globalData.session = res
+        // getUser()
+        // if (this.CallbackForSession) {
+        //   this.CallbackForSession(res)
+        // }
+        getApp().globalData.session = res
+        this.setData({ session: res })
+        this.reGetUserInfo()
+      })
+
+    },100)
 
   },
 

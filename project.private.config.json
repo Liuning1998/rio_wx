@@ -25,7 +25,7 @@
         {
           "name": "",
           "pathName": "pages/products/show/index",
-          "query": "id=lzef&channel=test1",
+          "query": "id=lzef&channel=test1234",
           "scene": null
         }
       ]
