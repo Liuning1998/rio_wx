@@ -349,7 +349,7 @@ function beforeOnload (context) {
         fail: err => {
           if(err.statusCode == 401){
             getApp().callbackChannel = ()=>{
-              this.postChannel()
+              postChannelFun(channel)
             }
           }
         }

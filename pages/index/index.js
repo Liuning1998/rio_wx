@@ -54,7 +54,7 @@ Page({
     })
 
     //携带参数扫码入口（channel）
-    if(!!options.channel && options.channel.trim() != ''){
+    if(!!options && !!options.channel && options.channel.trim() != ''){
       this.postChannel(options.channel)
     }
 
@@ -63,6 +63,8 @@ Page({
 
     if (_reLogin) {
       this.reLogin()
+      //重新登录情况下不重复请求show_user接口
+      this.setData({_reLogin:true})
     }
     
     this.getRecommendProducts()
@@ -83,7 +85,7 @@ Page({
     // 获取新推荐板块
     this.getBrandNew(this.data.newBrandPage)
 
-    if (typeof(options.sources) != 'undefined') {
+    if (!!options && typeof(options.sources) != 'undefined') {
       this.yanglaoApi(options)
     }
   },
@@ -94,7 +96,9 @@ Page({
   onShow: function () {
     this.loadCartInfo()
     this.setData({ canScroll: true })
-    this.getUserInfo()
+    //如果relogin()正在执行就不执行this.getUserInfo()
+    if(!this.data._reLogin) this.getUserInfo()
+
     this.cancelSearch()
 
     wx.stopPullDownRefresh()
@@ -406,7 +410,10 @@ Page({
     sessionApi.getUserInfo().then(res => {
       if (res != null && res.phone != null) {
         getApp().globalData.userInfo = res
-        this.setData({ userInfo: res })
+        this.setData({ userInfo: res,authLoginStatus: res.check_wx_auth})
+        // 重新登录完成 删除this.data._reLogin
+        delete this.data._reLogin
+        this.getIndexIsAddCallBack()
         // if (this.CallbackForUserInfo) {
         //   this.CallbackForUserInfo(res)
         // }
@@ -532,6 +539,7 @@ Page({
   },
 
   getUserInfo: function () {
+
     var isToken =  store.getSyncWithExpire('session')
     if(isToken.access_token){//如果token存在
       this.getUserInfoFunc()
