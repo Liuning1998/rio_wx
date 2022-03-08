@@ -118,6 +118,10 @@ page {
   text-align: center;
 }
 
+.products .product-item .avatar-container .sale-service-status.back-green{
+  background-color: #77D9BD;
+}
+
 .products .product-item .avatar {
   height: 112rpx;
   width: 112rpx;
@@ -960,7 +964,7 @@ page {
 }
 
 .sale-services-container .sale-services-label {
-  color: #2B2424;
+  color: #F64C47;
   font-size: 32rpx;
   width: 100%;
   border-bottom: 2rpx solid #f7f7f7;
@@ -994,6 +998,18 @@ page {
   min-height: 112rpx;
 }
 
+.sale-services-container .product-item .goto{
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.sale-services-container .product-item .goto .arrow{
+  height: 20rpx;
+  width: 10rpx;
+}
+
 .sale-services-container .product-item .name {
   font-size: 24rpx;
   color: #5B5454;
@@ -1001,7 +1017,7 @@ page {
   text-overflow: ellipsis;
   word-wrap: break-word;
   max-height: 80rpx;
-  width: 560rpx;
+  width: 540rpx;
   display: -webkit-box;
   white-space: normal !important;
   -webkit-line-clamp: 2;
@@ -1018,6 +1034,15 @@ page {
   font-size: 24rpx;
   margin-top: 10rpx;
 }
+
+.sale-services-container .product-item .date-and-status .status{
+  color: #F64C47;
+}
+
+.sale-services-container .product-item .date-and-status .status.back-green{
+  color: #77D9BD;
+}
+
 
 .sale-services-container .product-item .date-and-status .date {
   color: #999999;

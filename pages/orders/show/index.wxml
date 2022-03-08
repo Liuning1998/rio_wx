@@ -133,7 +133,7 @@
         <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item" bindtap="gotoProduct" data-url="/pages/products/show/index?id={{ item.product.id }}">
           <view class="avatar-container">
             <image class="avatar" src="{{ item.product.avatar }}"></image>
-            <text wx:if="{{orderServiceStatus['item_' + item.variant_id].state != null && orderServiceStatus['item_' + item.variant_id].state.length > 0 }}" class="sale-service-status">{{orderServiceStatus['item_' + item.variant_id].state}}</text>
+            <text wx:if="{{orderServiceStatus['item_' + item.variant_id].state != null && orderServiceStatus['item_' + item.variant_id].state.length > 0 }}" class="sale-service-status {{orderServiceStatus['item_' + item.variant_id].state == '拒绝售后' || orderServiceStatus['item_' + item.variant_id].state == '同意售后' ? 'back-green' : ''}}">{{orderServiceStatus['item_' + item.variant_id].state}}</text>
           </view>
 
           <view class="product-info">
@@ -248,8 +248,11 @@
             <text class="name">{{ item.product_info }}</text>
             <view class="date-and-status">
               <text class="date">{{item.created_at}}</text>
-              <text class="status">{{ item.state.title }}</text>
+              <text class="status {{item.state.title == '申请被拒' || item.state.title == '审核通过' ? 'back-green' : ''}}">{{ item.state.title }}</text>
             </view>
+          </view>
+          <view class="goto">
+            <image class="arrow" src="/images/arrow_o_black_01.png"></image>
           </view>
         </view>
       </view>
@@ -265,7 +268,7 @@
   </view>
 
   <view wx:else class="btn-content">
-    <text wx:if="{{order.state == 'completed' || order.state == 'canceled' || order.state == 'handle_canceled'}}" bindtap="deleteOrder" class="btn delete" >删除订单</text>
+    <text wx:if="{{order.sale_state != 'new' && order.state == 'completed' || order.state == 'canceled' || order.state == 'handle_canceled' }}" bindtap="deleteOrder" class="btn delete" >删除订单</text>
     <block wx:if="{{helper.canService(order)}}">
       <text class="btn cancel" wx:if="{{orderServiceStatus.click == 'on'}}" bindtap="orderService" >申请售后</text>
       <!-- <text class="btn cancel" wx:else bindtap="orderService">查看售后</text> -->

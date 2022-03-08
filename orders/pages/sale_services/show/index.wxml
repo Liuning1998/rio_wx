@@ -3,7 +3,6 @@
 <view style='margin-top: {{pageMarginTop+44}}px;'></view>
 
 <scroll-view scroll-y class='page-container'>
-  <text class="state-remark">{{ saleService.state.content }}</text>
   <view class="state-container">
     <view class="state-desc">{{ saleService.state.title }}</view>
     <view class="state-list">
@@ -47,6 +46,12 @@
           <text class="quantity">数量：<text class="content">{{ saleService.quantity }}</text></text>
         </view>
       </view>
+    </view>
+
+    <view class="sale-service-container">
+      <text class="name">审核进度：</text>
+
+      <text class="state-remark">【{{saleService.state.title}}】{{ saleService.state.content }}</text>
     </view>
 
     <view class="sale-service-container">

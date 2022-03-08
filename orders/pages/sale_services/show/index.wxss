@@ -9,8 +9,10 @@ page {
   display: inline-block;
   height: 60rpx;
   line-height: 60rpx;
-  width: 750rpx;
-  text-align: center;
+  width: 100%;
+}
+.sale-service-container .name{
+  font-weight: 500;
 }
 
 .state-container {

@@ -56,15 +56,22 @@ Page({
     if(this.data.shown == null) {
       this.setData({ shown: true })
     } else {
-      http.get({
-        url: 'api/orders/' + this.data.order.number,
-        success: res => {
-          console.log(res)
-          if (res.data != null && Object.keys(res.data).length > 0) {
-            this.setData({ order: res.data })
-          }
-        }
-      })
+      // 调用onload重新渲染页面
+      console.log('重新渲染页面')
+      var params = {
+        id:this.data.order.number
+      }
+      this.onLoad(params);
+      // http.get({
+      //   url: 'api/orders/' + this.data.order.number,
+      //   success: res => {
+      //     console.log('onShow-------',res)
+      //     if (res.data != null && Object.keys(res.data).length > 0) {
+      //       console.log('res.data != null && Object.keys(res.data).length > 0',)
+      //       this.setData({ order: res.data })
+      //     }
+      //   }
+      // })
     }
   },
 
