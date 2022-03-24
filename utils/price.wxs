@@ -70,7 +70,7 @@ function vipDiscount(lineItems, user=null, couponValue=0, current_discount=10){
   if (user == null) {
     return 0
   }
-  console.log(lineItems,user,couponValue,current_discount)
+  
   var result = 0;
   var discount = 1 - current_discount / 10;
   for(var i=0; i < lineItems.length; i++) {

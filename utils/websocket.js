@@ -29,6 +29,7 @@ class WebSocket {
   }
 
   listen () {
+    console.log('listen')
     if (this.task == null) {
       console.error('rio error: no websocket connection, listen error')
       return
@@ -78,6 +79,7 @@ class WebSocket {
       }
 
       socketTask.onMessage((res) => {
+        // console.log(res)
         var data = JSON.parse(res.data)
         // data.reconnect，重连
         // 这里不执行重连动作，需要重连则在外面调用 reconnect 重连

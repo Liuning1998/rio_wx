@@ -2,6 +2,7 @@
 <wxs module="helper" src="./helper.wxs"></wxs>
 <wxs module="rhelper" src="../../../utils/helper.wxs"></wxs>
 <wxs module="price" src="../../../utils/price.wxs"></wxs>
+<wxs module="couponAfter" src="../confirm/coupon.wxs"></wxs>
 
 <navbar appendStyle="background: #ffffff;" textStyle="color: #342F27; font-weight: 600;" title="订单详情" />
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
@@ -200,7 +201,7 @@
       <!-- <view class="label">订单信息</view> -->
       <view class="info">
         <view class="item">
-          <text class="item-label">订单号码:</text>
+          <text class="item-label">订单编号:</text>
           <text class="text">{{ order.number }}</text>
           <text class="copy-btn" bindtap="copyNumber">复制</text>
         </view>
@@ -212,9 +213,22 @@
           <text class="item-label">支付时间:</text>
           <text wx:if="{{ order.paid_at_t != null }}" class="text">{{ order.paid_at_t }}</text>
         </view>
-        <view class="item">
-          <text class="item-label">支付金额:</text>
-          <text wx:if="{{ order.pay_amount != null }}" class="text">¥ {{ order.pay_amount }}</text>
+        <view class="item pay-method" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
+          <text class="item-label">现金支付金额:</text>
+          <text class="text">¥ {{ order.pay_method.pay_cash_total }}</text>
+        </view>
+        <view class="item pay-method" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
+          <text class="item-label">余额支付金额:</text>
+          <text class="text">¥ {{ order.pay_method.pay_balance_total }}</text>
+        </view>
+
+
+        <view class="item balance-pay" wx:if="{{ order.state == 'new' && balance > 0}}">
+          <text class="item-label">账户余额: <text>{{balance}}元</text></text>
+          <view class="balance-switch">
+            <text>是否使用余额抵扣</text>
+            <switch checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/>
+          </view>
         </view>
 
         <view wx:if="{{order.state == 'completed' && helper.productType(order) == 1}}" class="item">
@@ -307,7 +321,26 @@
 
 <!-- 选择支付方式 -->
 <view wx:if="{{ showPayMethodLayer }}" class="pay-method-layer">
-  <view class="pay-method-container">
+  <!-- 纯余额支付 -->
+  <view class="pay-method-container balance" wx:if="{{couponAfter.balance_total(order.discount_total,balance) == 0 && isBalance}}">
+    <view class="pm-header">
+      <!-- <image class="close" src="/images/close_white.png"></image> -->
+      <text>余额支付</text>
+      <!-- <text bindtap="hidePayMethod" class="close">x</text> -->
+      <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
+    </view>
+    <view class="pay-method-content">
+      <text class="total">￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
+    </view>
+
+    <view class="name">江海千里（北京）科技有限公司</view>
+    <view class="number">订单编号：{{order.number}}</view>
+
+    <view class="bottom-btns {{ isIphoneX && 'iphone-x' }}">
+      <text class="pay-method-confirm" bindtap="getBalancePayInfo">确定</text>
+    </view>
+  </view>
+  <view class="pay-method-container" wx:else>
     <view class="pm-header">
       <!-- <image class="close" src="/images/close_white.png"></image> -->
       <text>选择支付方式</text>
@@ -315,7 +348,8 @@
       <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
     </view>
     <view class="pay-method-content">
-      <text class="total">￥{{order.discount_total}}</text>
+      <text class="total">￥{{ isBalance ? couponAfter.balance_total(order.discount_total,balance) : order.discount_total }}</text>
+      <text wx:if="{{isBalance}}" class="balance">余额已抵扣￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
       <view bindtap="selectBrcbPay" class="pay-method-item">
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" src="/images/yanglaozhucanka_icon.png"></image>
@@ -345,5 +379,34 @@
   </view>
 </view>
 <!-- 选择支付方式 -->
+
+<!-- 纯余额支付结果弹窗 -->
+<view class="balance-result" wx:if="{{balancePayResult != null}}" style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'>
+  <view class="subject">
+    <block wx:if="{{balancePayResult}}">
+      <image class="img" src="/images/pay_success.png"></image>
+      <view class="result">支付成功</view>
+    </block>
+    <block wx:else>
+      <image class="img" src="/images/pay_fail.png"></image>
+      <view class="result">支付失败</view>
+    </block>
+    <view class="money">¥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</view>
+    <view class="info">
+      <view class="info-l">
+        <view>订单编号</view>
+        <view>{{order.number}}</view>
+      </view>
+      <view class="info-l">
+        <view>下单时间</view>
+        <view>{{order.created_at_t}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="btn-box">
+    <view class="btn btn-home" bindtap="goHome">返回首页</view>
+    <view class="btn btn-order" bindtap="detailGoOrder">查看订单</view>
+  </view>
+</view>
 
 <msgToast msg-data="{{ _msgData }}"/>

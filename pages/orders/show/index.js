@@ -7,6 +7,7 @@
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 var storage = require('../../../utils/storage.js')
+var balancePay = require('../../../utils/balance_pay.js')
 
 var submitStatus = false
 
@@ -22,6 +23,9 @@ Page({
     payMethod: 'brcb_pay',
     showPayMethodLayer: false,
     couponShow:false,
+    isBalance:null,//是否开启余额支付
+    balance:0,//平台余额
+    balancePayResult:null,//纯余额支付结果
   },
 
   /**
@@ -29,6 +33,8 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+    //余额支付通用方法
+    balancePay.extend(this)
 
     let number = options.id
     // let number = "J1495708935655979834"
@@ -37,6 +43,10 @@ Page({
       success: res => {
         if (res.data != null && Object.keys(res.data).length >0) {
           this.setData({ order: res.data })
+          if(res.data.payment_state == 'new'){
+              // 获取余额
+              this.getAccountBalance('detail')
+          }
         } else {
           this.errorToast('该订单不存在')
           wx.navigateBack({})
@@ -75,7 +85,27 @@ Page({
     }
   },
 
+  //是否启用余额支付
+  switchBalance: function(e) {
+    this.setData({
+      isBalance: e.detail.value
+    })
+  },
 
+  onUnload: function () {
+    this.closeSubscription()
+  },
+
+  // 修改submitStatus
+  modifySubmitStatus:function(status) {
+    submitStatus = status
+  },
+
+  //获取submitStatus
+  getSubmitStatus:function() {
+    return submitStatus
+  },
+  
   // 优惠券下拉
   couponDown:function(){
     var couponShow = this.data.couponShow
@@ -279,6 +309,10 @@ Page({
         //   cash_ids: [1]
         // }
       }
+    }
+
+    if(this.data.isBalance){
+      paramsData = this.calculateTotal(this.data.order.discount_total,this.data.balance);
     }
     
     try {
@@ -570,10 +604,15 @@ Page({
     this.hidePayMethod()
     this.errorToast('支付取消', 800)
     this.setData({ submitStatus: submitStatus })
+    // 关闭websokect监听
+    this.closeSubscription()
   },
 
   showPayMethod: function () {
     this.setData({ showPayMethodLayer: true })
+    if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
+      this.subscriptionOrder()
+    }
   },
 
   confirmPayMethod: function () {
@@ -609,6 +648,11 @@ Page({
         },
       }
     }
+
+    if($this.data.isBalance){
+      paramsData = $this.calculateTotal(order.discount_total,$this.data.balance);
+    }
+
     try {
       var data = { }
       http.post({

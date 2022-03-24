@@ -125,6 +125,12 @@
     </view>
     <!-- 年货节 -->
 
+    <!-- 临时活动 -->
+    <view class="group-product" wx:if="{{ temporaryProducts != null }}" bindtap="gotoBrand" data-item="{{temporaryProducts}}">
+      <image src="{{temporaryProducts.background_image}}" class=""></image>
+    </view>
+    <!-- 临时活动 -->
+
     <!-- 团购商品 -->
     <view class="group-product" wx:if="{{ groupProducts != null }}" bindtap="gotoGroupProduct" data-item="{{groupProducts}}">
       <image src="{{groupProducts.background_image}}" class=""></image>

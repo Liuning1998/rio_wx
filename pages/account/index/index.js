@@ -99,7 +99,7 @@ Page({
     // this.resetUerInfo()
     this.getUserInfo()
     this.getOrderQauntity()
-    
+    this.getBalance()
     // 更新头像
     this.setData({
       userAvatar: store.getSync('userAvatar') ||'/images/default_avatar_003.png'
@@ -157,6 +157,16 @@ Page({
       success: res => {
         console.log(res)
         this.setData({ userInfo: res.data })
+      }
+    })
+  },
+
+  //获取余额
+  getBalance: function () {
+    http.get({
+      url: 'api/accounts/fetch_account_balance',
+      success: res => {
+        this.setData({ balance: res.data.balance })
       }
     })
   },

@@ -58,10 +58,17 @@ function checkRepeat(arr,arr1){
   return arr1
 }
 
+// 生成n位随机数
+function getRandom (n) {
+  //返回值: 字符串
+  return Math.random().toString().slice(-n);
+}
+
 module.exports = {
   getShipAddress: getShipAddress,
   cacheShipAddress: cacheShipAddress,
   hidePhone: hidePhone,
   cacheShipAddressReal:cacheShipAddressReal,
-  checkRepeat:checkRepeat
+  checkRepeat:checkRepeat,
+  getRandom:getRandom
 }

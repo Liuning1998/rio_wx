@@ -155,9 +155,17 @@
         <switch checked='{{ true }}' color="#F64C47" bindchange="switchBalance"></switch>
       </view> -->
 
-      <view class="pay-methods">
+      <!-- <view class="pay-methods">
         <text>支付方式:</text>
         <text class="content">在线支付</text>
+      </view> -->
+
+      <view class="pay-methods balance" wx:if="{{balance > 0}}">
+        <text class="left">账户余额: <text>{{balance}}元</text></text>
+        <view class="balance-switch">
+          <text>是否使用余额抵扣</text>
+          <switch checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/>
+        </view>
       </view>
 
       <!-- 本单优惠 -->
@@ -312,10 +320,9 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="total">
     <text class="total-desc">应付款: </text>
-    <!-- <text wx:if="{{ orderTotal != null }}" class="price">￥{{couponAfter.calculatePrice( orderTotal , checkCoupon , userInfo.vip_level.current_discount)}}</text>  -->
     <text class="price">
-      <!-- <block>￥{{couponAfter.calculatePrice(price.tos(  ) , checkCoupon )}}</block> --> 
-      <block>￥{{price.discountTotal(storeCart, lineItems, userInfo, userInfo.vip_level.current_discount , shipmentExpenses,checkCoupon.value)}}</block> 
+      <block wx:if="{{!isBalance}}">￥{{price.discountTotal(storeCart, lineItems, userInfo, userInfo.vip_level.current_discount , shipmentExpenses,checkCoupon.value)}}</block> 
+      <block wx:else>￥{{ (price.discountTotal(storeCart, lineItems, userInfo, userInfo.vip_level.current_discount , shipmentExpenses,checkCoupon.value) - balance) < 0 ? 0 : price.tos(price.discountTotal(storeCart, lineItems, userInfo, userInfo.vip_level.current_discount , shipmentExpenses,checkCoupon.value) - balance) }}</block>
     </text>
   </view>
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap="{{canReceiveCoupon ? 'openCanReceive':'createOrder'}}" data-state='addCart'>立即支付</button>
@@ -407,7 +414,27 @@
 
 <!-- 选择支付方式 -->
 <view wx:if="{{ showPayMethodLayer }}" class="pay-method-layer">
-  <view class="pay-method-container">
+  <!-- 纯余额支付 -->
+  <view class="pay-method-container balance" wx:if="{{couponAfter.balance_total(order.discount_total,balance) == 0 && isBalance}}">
+    <view class="pm-header">
+      <!-- <image class="close" src="/images/close_white.png"></image> -->
+      <text>余额支付</text>
+      <!-- <text bindtap="hidePayMethod" class="close">x</text> -->
+      <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
+    </view>
+    <view class="pay-method-content">
+      <text class="total">￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
+    </view>
+
+    <view class="name">江海千里（北京）科技有限公司</view>
+    <view class="number">订单编号：{{order.number}}</view>
+
+    <view class="bottom-btns {{ isIphoneX && 'iphone-x' }}">
+      <text class="pay-method-confirm" bindtap="getBalancePayInfo">确定</text>
+    </view>
+  </view>
+  <!-- 组合支付或单个方式支付 -->
+  <view class="pay-method-container" wx:else>
     <view class="pm-header">
       <!-- <image class="close" src="/images/close_white.png"></image> -->
       <text>选择支付方式</text>
@@ -415,7 +442,9 @@
       <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
     </view>
     <view class="pay-method-content">
-      <text class="total">￥{{order.discount_total}}</text>
+      <text class="total">￥{{ isBalance ? couponAfter.balance_total(order.discount_total,balance) : order.discount_total }}</text>
+      <text wx:if="{{isBalance}}" class="balance">余额已抵扣￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
+      
       <view bindtap="selectBrcbPay" class="pay-method-item" style="position: relative;height: 196rpx;">
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" style="position: relative;top: -26rpx;" src="/images/yanglaozhucanka_icon.png"></image>
@@ -456,6 +485,35 @@
       <view class="not-coupon-toast-b-l" hover-stay-time="100" hover-class="hover-btn" bindtap="giveUp">放弃优惠</view>
       <view class="not-coupon-toast-b-r" hover-stay-time="100" hover-class="hover-btn" bindtap="toReceive">去领券</view>
     </view>
+  </view>
+</view>
+
+<!-- 纯余额支付结果弹窗 -->
+<view class="balance-result" wx:if="{{balancePayResult != null}}" style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'>
+  <view class="subject">
+    <block wx:if="{{balancePayResult}}">
+      <image class="img" src="/images/pay_success.png"></image>
+      <view class="result">支付成功</view>
+    </block>
+    <block wx:else>
+      <image class="img" src="/images/pay_fail.png"></image>
+      <view class="result">支付失败</view>
+    </block>
+    <view class="money">¥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</view>
+    <view class="info">
+      <view class="info-l">
+        <view>订单编号</view>
+        <view>{{order.number}}</view>
+      </view>
+      <view class="info-l">
+        <view>下单时间</view>
+        <view>{{order.created_at_t}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="btn-box">
+    <view class="btn btn-home" bindtap="goHome">返回首页</view>
+    <view class="btn btn-order" bindtap="goOrder">查看订单</view>
   </view>
 </view>
 

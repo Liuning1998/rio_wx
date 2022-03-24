@@ -11,7 +11,10 @@ var storage = require('../../../utils/storage.js')
 var jdHelper = require('./jd_helper.js')
 var couponJs = require('./coupon.js')
 
+var balancePay = require('../../../utils/balance_pay.js')
+
 var submitStatus = false
+
 Page({
 
   /**
@@ -39,6 +42,9 @@ Page({
     freeNotice:'',// 本单京东商品符合免邮费条件
     canReceiveCoupon:false,//检查是否可以领取优惠券
     notCouponShow:false,//未领取优惠券弹窗
+    isBalance:null,//是否开启余额支付
+    balance:0,//平台余额
+    balancePayResult: null,//纯余额支付结果弹窗
   },
 
   /**
@@ -47,6 +53,8 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
     jdHelper.extend(this)
+    //余额支付通用方法
+    balancePay.extend(this)
 
     var store_id = options.store_id || 0
     // var store_id = 1
@@ -58,7 +66,6 @@ Page({
     } else {
       var cart = cartApi.getCartCache()
       var storeCart = cart.data['store_' + store_id]
-      console.log(storeCart)
     }
 
     this.setData({
@@ -88,6 +95,9 @@ Page({
     }
 
     this.setLineItems(storeCart)
+
+    // 获取余额
+    this.getAccountBalance('pay')
     // this.setData({
     //   product: this.params.product,
     //   quantity: this.params.quantity,
@@ -114,12 +124,12 @@ Page({
     
     this.getShipAddress()
  
+    if(this.data.couponLoading == false){
+      this.getCouponCount()
+    }
+
     // 检查是否可以领取优惠券
     this.canReceiveCoupon()
-  },
-
-  onUnload:function(){
-    storage.delSync('ship_address_real')
   },
 
   // 跳转领优惠券页面
@@ -328,6 +338,11 @@ Page({
         if($this.data.buyType != 'now') {
           cartApi.removeStoreLineOfSelect($this.data.storeCart)
         }
+
+        if($this.data.isBalance && res.data.discount_total - $this.data.balance <= 0){//如果余额支付开启调用websocket
+          $this.subscriptionOrder()
+        }
+
         $this.showPayMethod()
         // $this.getPayInfo(res.data)
         // if ($this.data.payMethod == 'brcb_pay') {
@@ -355,31 +370,27 @@ Page({
     });
   },
 
+  // 修改submitStatus
+  modifySubmitStatus:function(status) {
+    submitStatus = status
+  },
+
+  onUnload: function () {
+    storage.delSync('ship_address_real')
+    this.closeSubscription()
+  },
+
+  //是否启用余额支付
+  switchBalance: function(e) {
+    this.setData({
+      isBalance: e.detail.value
+    })
+  },
+
   getPayInfo: function (order) {
     var $this = this
-    // params[:pay_params] = {
-    //   wx_pay_params: {
-    //     total: 100
-    //   },
-    //   cash_params: {
-    //     total: 100
-    //     cash_ids: [1,2]
-    //   }
-    // }
-    var _total = order.discount_total
-    
-    // if (this.data.orderTotal != null) {
-    //   if(this.data.checkCoupon != null) {
-    //     _total = this.data.orderTotal - parseFloat(this.data.checkCoupon.value)
-    //   }else{
-    //     _total = this.data.orderTotal
-    //   }
-    // }
-
-    // 如果_total为负数 ， 置为0
-    // if(_total <= 0){
-    //   _total=0
-    // }
+    var _total = order.discount_total;
+    var _balance = $this.data.balance;
     
     var paramsData = {
       pay_params: {
@@ -389,11 +400,14 @@ Page({
         },
         // cash_params: {
         //   total: '1',
-        //   cash_ids: [1]
         // }
       }
     }
-    
+
+    if($this.data.isBalance){
+      paramsData = $this.calculateTotal(_total,_balance);
+    }
+
     try {
       var data = { }
       http.post({
@@ -428,6 +442,7 @@ Page({
       return false
     }
   },
+
 
   wxPay: function (pay_params, pay_sign, order) {
     console.log('开始微信支付')
@@ -743,6 +758,7 @@ Page({
     //   }
     // }
     var _total = order.discount_total
+    var _balance = $this.data.balance;
 
     // if (this.data.orderTotal != null) {
     //   if(this.data.checkCoupon != null) {
@@ -764,6 +780,10 @@ Page({
           total: _total,
         },
       }
+    }
+
+    if($this.data.isBalance){
+      paramsData = $this.calculateTotal(_total,_balance);
     }
 
     try {

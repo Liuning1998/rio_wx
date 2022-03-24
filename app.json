@@ -13,6 +13,7 @@
     "products/pages/index2/index",
     "live/pages/index/index",
     "pages/account/phone/validate",
+    "pages/account/balance/index",
     "pages/addresses/index/index",
     "pages/special_areas/show/index",
     "pages/account/index/index",

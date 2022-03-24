@@ -7,7 +7,6 @@ function isExpire(nowDtae,oldDate){
 
 //计算还剩*天过期
 function surplusDay(nowDtae,oldDate){
-  // console.log((oldDate - nowDtae) / (3600 * 24))
   var surNumber = (oldDate - nowDtae) / (3600 * 24); 
   return Math.ceil(surNumber)
 }
@@ -39,7 +38,6 @@ var dateFormat = function(timestamp,format){
     ["S+", realDate.getMilliseconds()],
   ];
   var reg1 = regYear.exec(format);
-  // console.log(reg1[0]);
   if (reg1) {
     
     format = format.replace(reg1[1], (realDate.getFullYear() + '').substring(4 - reg1[1].length));
@@ -54,7 +52,6 @@ var dateFormat = function(timestamp,format){
         ? v : ("00" + v).substring(("" + v).length));
     }
   }
-  // console.log(format)
   return format;
 }
 

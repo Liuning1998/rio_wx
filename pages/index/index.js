@@ -165,6 +165,7 @@ Page({
           let _tryProduct = null
           let _todayProducts = null
           let _newYearProducts = null
+          let _temporaryProducts = null
           let _data = []
           let _groupProducts = null
           for(let i=0; i < res.data.length; i++) {
@@ -177,17 +178,21 @@ Page({
               _groupProducts = item
             } else if (item.tags.indexOf('年货节') >= 0) {
               _newYearProducts = item
+            } else if (item.tags.indexOf('临时活动') >= 0) {
+              _temporaryProducts = item
             }
-            //  else {
-            //   _data.push(item)
-            // }
+             else {
+              _data.push(item)
+            }
           }
           this.setData({
             // homeBrands: res.data,
             tryProduct: _tryProduct,
             todayProducts: _todayProducts,
             groupProducts: _groupProducts,
-            newYearProducts: _newYearProducts
+            newYearProducts: _newYearProducts,
+            temporaryProducts:_temporaryProducts,
+            elseProduct:_data
           })
         }
       }

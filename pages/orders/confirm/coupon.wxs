@@ -16,9 +16,31 @@ function  calculatePrice(price,checkCoupon=null,current_discount=10) {
     return price
   }
 }
+// 订单返回金额减去余额
+function  balance_total(total,balance){
+  var total = parseFloat(total)
+  var balance = parseFloat(balance)
+  if(total - balance <= 0){
+    return 0.0
+  }else{
+    return (total - balance).toFixed(2)
+  }
+}
+// 订单返回金额余额已抵扣
+function  balance_deduct(total,balance){
+  var total = parseFloat(total)
+  var balance = parseFloat(balance)
+  if(total - balance <= 0){
+    return total.toFixed(2)
+  }else{
+    return balance.toFixed(2)
+  }
+}
 
 
 
 module.exports = {
   calculatePrice: calculatePrice,
+  balance_total: balance_total,
+  balance_deduct: balance_deduct
 }

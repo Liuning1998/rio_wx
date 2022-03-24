@@ -205,6 +205,9 @@ var jd_functions = {
   },
   // 优惠券请求和优惠券筛选
   getCouponCount:function(){
+    this.setData({
+      couponLoading: true
+    })
     http.get({
       url: '/api/promotions/select_promotions',
       success: res => {
@@ -220,17 +223,22 @@ var jd_functions = {
             }
           })
           this.setData({
+            couponLoading:false,
             coupon:res.data.data
           })
           couponJs.couponSort(this.data.coupon,( parseFloat(this.data.orderTotal) || this.data.storeCart.total),this)
         }else{
           console.log('优惠券请求结果为空,没可用优惠券')
+          this.setData({
+            couponLoading:false
+          })
         }
       },
       fail: res=>{
         console.log(res);
         this.setData({
           coupon:[],
+          couponLoading:false,
           couponNew:[],
           checkCoupon:null
         })

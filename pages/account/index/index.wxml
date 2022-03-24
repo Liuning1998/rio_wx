@@ -107,7 +107,7 @@
         <text class="label">优惠券(张)</text>
       </view>
       <view data-url="/pages/account/balance/index" bindtap="gotoLink" class="info-item">
-        <text class="desc">{{userInfo.account_balance || '0.0'}}</text>
+        <text class="desc">{{balance || '0.0'}}</text>
         <text class="label">平台余额(元)</text>
       </view>
     </view>
