@@ -4,6 +4,12 @@ function priceTos (price) {
   return price.toFixed(2)
 }
 
+function priceRound (price) {
+  if (price == null) {return ''}
+  price = parseFloat(price)
+  return Math.round(price * 100)/100
+}
+
 function priceDecimal (price) {
   if (price == null) { return '' }
   price = parseFloat(price)
@@ -21,7 +27,7 @@ function priceInt (price) {
 }
 
 // lineItems 购物车中已勾选的商品（选中所有商品（总和 - 优惠券） * 折扣 + 邮费）
-function discountTotal (storeCart, lineItems, user=null, current_discount=10, shipmentExpenses,couponValue=0) {
+function discountTotal (storeCart, lineItems, user, shipmentExpenses,couponValue=0) {
 
   if(shipmentExpenses == null){
     shipmentExpenses = 0
@@ -38,6 +44,12 @@ function discountTotal (storeCart, lineItems, user=null, current_discount=10, sh
   var no_special_goods = 0;
   var special_goods = 0;
   var result = 0;
+  var current_discount;
+  if(!!user.vip_level && !!user.vip_level.current_discount){
+    current_discount= user.vip_level.current_discount;
+  }else{
+    current_discount = 10;
+  }
   for(var i=0; i < lineItems.length; i++) {
     var item = lineItems[i]
     var item_total = item.price * item.quantity
@@ -66,13 +78,20 @@ function discountTotal (storeCart, lineItems, user=null, current_discount=10, sh
 
 }
 
-function vipDiscount(lineItems, user=null, couponValue=0, current_discount=10){
+function vipDiscount(lineItems, user=null, couponValue=0){
   if (user == null) {
     return 0
   }
   
   var result = 0;
+  var current_discount;
+  if(!!user.vip_level && !!user.vip_level.current_discount){
+    current_discount = user.vip_level.current_discount;
+  }else{
+    current_discount = 10;
+  }
   var discount = 1 - current_discount / 10;
+
   for(var i=0; i < lineItems.length; i++) {
     var item = lineItems[i]
     var item_total = item.price * item.quantity
@@ -82,17 +101,11 @@ function vipDiscount(lineItems, user=null, couponValue=0, current_discount=10){
   }
 
   if(result - couponValue <= 0){
-    return {
-      result:0,
-      isShow:false
-    }
+    return 0
   }else{
     result = (result - couponValue) * discount.toFixed(2);
   
-    return {
-      result:Math.round(result * 100)/100,
-      isShow:true
-    } 
+    return Math.round(result * 100)/100
   }
 
 }
@@ -102,5 +115,6 @@ module.exports = {
   int: priceInt,
   decimal: priceDecimal,
   discountTotal: discountTotal,
-  vipDiscount:vipDiscount
+  vipDiscount:vipDiscount,
+  priceRound:priceRound
 }

@@ -609,10 +609,33 @@ Page({
   },
 
   showPayMethod: function () {
-    this.setData({ showPayMethodLayer: true })
-    if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
-      this.subscriptionOrder()
+    if(this.data.isBalance != null){
+      this.setData({ showPayMethodLayer: true })
+      if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
+        this.subscriptionOrder()
+      }
+    }else{
+      var overtime = setTimeout(() => {
+        if(getBalanceTimer){
+          clearInterval(getBalanceTimer)
+        }
+        this.setData({ showPayMethodLayer: true })
+        if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
+          this.subscriptionOrder()
+        }
+      }, 2000);
+      var getBalanceTimer = setInterval(() => {
+        if(this.data.isBalance != null){
+          clearInterval(getBalanceTimer)
+          clearTimeout(overtime)
+          this.setData({ showPayMethodLayer: true })
+          if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
+            this.subscriptionOrder()
+          }
+        }
+      }, 500);
     }
+
   },
 
   confirmPayMethod: function () {

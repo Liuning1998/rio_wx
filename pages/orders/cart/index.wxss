@@ -22,9 +22,9 @@ page {
   box-sizing: border-box;
 }
 
-.page-content {
+/* .page-content { */
   /* padding-bottom: 100rpx; */
-}
+/* } */
 
 .top-actions {
   height: 64rpx;

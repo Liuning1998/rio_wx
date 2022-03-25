@@ -49,7 +49,7 @@ var payFun = {
         this.setData({
           balance: res.data.balance
         })
-        if(res.data.balance <= 0){
+        if(res.data.balance <= 0 && this.data.showPayMethodLayer == true){
           this.setData({ isBalance: false })
         }else{
           this.setData({ isBalance: true })
@@ -274,6 +274,12 @@ var payFun = {
     }
     catch (e) {
       console.log(e)
+    }
+  },
+  //关闭定时器(加自动跳转代码的页面都要关闭---onUnload)
+  closeTimer:function() {
+    if(pageTimer != ''){
+      clearTimeout(pageTimer)
     }
   }
     

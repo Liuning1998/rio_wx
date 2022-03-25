@@ -378,6 +378,7 @@ Page({
   onUnload: function () {
     storage.delSync('ship_address_real')
     this.closeSubscription()
+    this.closeTimer()
   },
 
   //是否启用余额支付
@@ -731,8 +732,26 @@ Page({
   },
 
   showPayMethod: function () {
-    this.hideCreateLoading()
-    this.setData({ showPayMethodLayer: true })
+    if(this.data.isBalance != null){
+      this.hideCreateLoading()
+      this.setData({ showPayMethodLayer: true })
+    }else{
+      var overtime = setTimeout(() => {
+        if(getBalanceTimer){
+          clearInterval(getBalanceTimer)
+        }
+        this.hideCreateLoading()
+        this.setData({ showPayMethodLayer: true })
+      }, 2000);
+      var getBalanceTimer = setInterval(() => {
+        if(this.data.isBalance != null){
+          clearInterval(getBalanceTimer)
+          clearTimeout(overtime)
+          this.hideCreateLoading()
+          this.setData({ showPayMethodLayer: true })
+        }
+      }, 500);
+    }
   },
 
   confirmPayMethod: function () {

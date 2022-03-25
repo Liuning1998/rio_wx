@@ -956,7 +956,7 @@ page {
   z-index: 305;
 }
 
-.coupon-layer .btn .btn-background {
+/* .coupon-layer .btn .btn-background { */
   /* height: 72rpx;
   width: 344rpx;
   border-radius: 36rpx;
@@ -965,7 +965,7 @@ page {
   bottom: 0;
   left: 0;
   z-index: 303; */
-}
+/* } */
 
 .member-container {
   background: #ffffff;
