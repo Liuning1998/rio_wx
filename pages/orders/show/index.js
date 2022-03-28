@@ -23,6 +23,8 @@ Page({
     payMethod: 'brcb_pay',
     showPayMethodLayer: false,
     couponShow:false,
+    isBalance:null,
+    balance:0,
     balancePayResult:null,//纯余额支付结果
   },
 
@@ -41,6 +43,9 @@ Page({
       success: res => {
         if (res.data != null && Object.keys(res.data).length >0) {
           this.setData({ order: res.data })
+          if(res.data.payment_state == 'new' && res.data.balance_expend.status == 'unlock'){
+            this.getAccountBalance('detail')
+          }
         } else {
           this.errorToast('该订单不存在')
           wx.navigateBack({})
@@ -298,8 +303,14 @@ Page({
       }
     }
 
-    if(this.data.order.balance_expend > 0){
-      paramsData = this.calculateTotal(this.data.order.discount_total,this.data.order.balance_expend);
+    if(this.data.order.balance_expend.status == 'lock'){
+      if(this.data.order.balance_expend.cash_pre_total > 0){
+        paramsData = this.calculateTotal(this.data.order.discount_total,this.data.order.balance_expend.cash_pre_total);
+      }
+    }else{
+      if(this.data.isBalance){
+        paramsData = this.calculateTotal(this.data.order.discount_total,this.data.balance);
+      }
     }
     
     try {
@@ -596,9 +607,36 @@ Page({
   },
 
   showPayMethod: function () {
-    this.setData({ showPayMethodLayer: true })
-    if(this.data.order.balance_expend > 0 && this.data.order.balance_expend == this.order.discount_total){//如果余额支付开启调用websocket
-      this.subscriptionOrder()
+    var order = this.data.order;
+    if(order.balance_expend.status == 'lock'){
+      this.setData({ showPayMethodLayer: true })
+    }else{
+      if(this.data.isBalance != null){ 
+        this.setData({ showPayMethodLayer: true }) 
+        if(this.data.isBalance && order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket 
+          this.subscriptionOrder() 
+        } 
+      }else{ 
+        var overtime = setTimeout(() => { 
+          if(getBalanceTimer){ 
+            clearInterval(getBalanceTimer) 
+          } 
+          this.setData({ showPayMethodLayer: true }) 
+          if(this.data.isBalance && order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket 
+            this.subscriptionOrder() 
+          } 
+        }, 2000); 
+        var getBalanceTimer = setInterval(() => { 
+          if(this.data.isBalance != null){ 
+            clearInterval(getBalanceTimer) 
+            clearTimeout(overtime) 
+            this.setData({ showPayMethodLayer: true }) 
+            if(this.data.isBalance && order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket 
+              this.subscriptionOrder() 
+            } 
+          } 
+        }, 500);
+      }
     }
   },
 
@@ -612,6 +650,13 @@ Page({
     }
     this.hidePayMethod()
   },
+
+  //是否启用余额支付 
+  switchBalance: function(e) { 
+    this.setData({ 
+      isBalance: e.detail.value 
+    }) 
+  }, 
 
   getBrcbPayInfo: function (order) {
     // 重要，支付
@@ -636,8 +681,14 @@ Page({
       }
     }
 
-    if(order.balance_expend >0){
-      paramsData = $this.calculateTotal(order.discount_total,order.balance_expend);
+    if(order.balance_expend.status == 'lock'){
+      if( order.balance_expend.cash_pre_total > 0 ){
+        paramsData = $this.calculateTotal(order.discount_total,order.balance_expend.cash_pre_total);
+      }
+    }else {
+      if($this.data.isBalance){
+        paramsData = $this.calculateTotal(order.discount_total,this.data.balance);
+      }
     }
 
     try {

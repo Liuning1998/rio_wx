@@ -223,19 +223,19 @@
         </view>
 
         <!-- 余额已抵扣*元 -->
-        <view class="item pay-method" wx:if="{{ order.balance_expend != null &&  order.balance_expend > 0 }}">
+        <view class="item balance" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'lock' && order.balance_expend.cash_pre_total > 0 }}">
           <text class="item-label">余额已抵扣:</text>
-          <text class="text">¥ {{ order.balance_expend }}</text>
+          <text class="text">¥ {{ order.balance_expend.cash_pre_total }}</text>
         </view>
 
 
-        <!-- <view class="item balance-pay" wx:if="{{ order.state == 'new' && balance > 0}}">
+        <view class="item balance-pay" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'unlock' && balance > 0}}">
           <text class="item-label">账户余额: <text>{{balance}}元</text></text>
           <view class="balance-switch">
             <text>是否使用余额抵扣</text>
             <switch checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/>
           </view>
-        </view> -->
+        </view>
 
         <view wx:if="{{order.state == 'completed' && helper.productType(order) == 1}}" class="item">
           <text class="item-label">查看卡券:</text>
@@ -328,7 +328,7 @@
 <!-- 选择支付方式 -->
 <view wx:if="{{ showPayMethodLayer }}" class="pay-method-layer">
   <!-- 纯余额支付 wx:if="{{couponAfter.balance_total(order.discount_total,balance) == 0 && isBalance}}" -->
-  <view class="pay-method-container balance" wx:if="{{ order.balance_expend > 0 && order.balance_expend == order.discount_total}}">
+  <view class="pay-method-container balance" wx:if="{{ order.balance_expend.status == 'unlock' && isBalance && couponAfter.balance_total(order.discount_total,balance) <= 0 }}">
     <view class="pm-header">
       <!-- <image class="close" src="/images/close_white.png"></image> -->
       <text>余额支付</text>
@@ -354,8 +354,17 @@
       <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
     </view>
     <view class="pay-method-content">
-      <text class="total">￥{{ order.balance_expend > 0 ? couponAfter.balance_total(order.discount_total,order.balance_expend) : order.discount_total }}</text>
-      <text wx:if="{{order.balance_expend > 0}}" class="balance">余额已抵扣￥{{ order.balance_expend }}</text>
+      <!-- 订单被锁 -->
+      <block wx:if="{{order.balance_expend.status == 'lock'}}">
+        <text class="total">￥{{ order.balance_expend.cash_pre_total > 0 ? couponAfter.balance_total(order.discount_total,order.balance_expend.cash_pre_total) : order.discount_total }}</text>
+        <text wx:if="{{order.balance_expend.cash_pre_total > 0}}" class="balance">余额已抵扣￥{{ order.balance_expend.cash_pre_total }}</text>
+      </block>
+      <!-- 订单没被锁 -->
+      <block wx:else>
+        <text class="total">￥{{ isBalance ? couponAfter.balance_total(order.discount_total,balance) : order.discount_total }}</text>
+        <text wx:if="{{isBalance}}" class="balance">余额已抵扣￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
+      </block>
+
       <view bindtap="selectBrcbPay" class="pay-method-item">
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" src="/images/yanglaozhucanka_icon.png"></image>
@@ -397,7 +406,7 @@
       <image class="img" src="/images/pay_fail.png"></image>
       <view class="result">支付失败</view>
     </block>
-    <view class="money">¥{{ order.balance_expend }}</view>
+    <view class="money">¥{{ order.discount_total }}</view>
     <view class="info">
       <view class="info-l">
         <view>订单编号</view>

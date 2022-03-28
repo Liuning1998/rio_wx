@@ -554,6 +554,14 @@ page {
   width: 180rpx;
 }
 
+.order-info .info .item.balance{
+  justify-content: space-between;
+}
+
+.order-info .info .item.balance .text{
+  color: #F64C47;
+}
+
 .order-info .copy-btn {
   width: 56rpx;
   height: 28rpx;
