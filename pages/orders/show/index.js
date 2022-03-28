@@ -23,8 +23,6 @@ Page({
     payMethod: 'brcb_pay',
     showPayMethodLayer: false,
     couponShow:false,
-    isBalance:null,//是否开启余额支付
-    balance:0,//平台余额
     balancePayResult:null,//纯余额支付结果
   },
 
@@ -43,10 +41,6 @@ Page({
       success: res => {
         if (res.data != null && Object.keys(res.data).length >0) {
           this.setData({ order: res.data })
-          if(res.data.payment_state == 'new'){
-              // 获取余额
-              this.getAccountBalance('detail')
-          }
         } else {
           this.errorToast('该订单不存在')
           wx.navigateBack({})
@@ -83,13 +77,6 @@ Page({
       //   }
       // })
     }
-  },
-
-  //是否启用余额支付
-  switchBalance: function(e) {
-    this.setData({
-      isBalance: e.detail.value
-    })
   },
 
   onUnload: function () {
@@ -311,8 +298,8 @@ Page({
       }
     }
 
-    if(this.data.isBalance){
-      paramsData = this.calculateTotal(this.data.order.discount_total,this.data.balance);
+    if(this.data.order.balance_expend > 0){
+      paramsData = this.calculateTotal(this.data.order.discount_total,this.data.order.balance_expend);
     }
     
     try {
@@ -609,33 +596,10 @@ Page({
   },
 
   showPayMethod: function () {
-    if(this.data.isBalance != null){
-      this.setData({ showPayMethodLayer: true })
-      if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
-        this.subscriptionOrder()
-      }
-    }else{
-      var overtime = setTimeout(() => {
-        if(getBalanceTimer){
-          clearInterval(getBalanceTimer)
-        }
-        this.setData({ showPayMethodLayer: true })
-        if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
-          this.subscriptionOrder()
-        }
-      }, 2000);
-      var getBalanceTimer = setInterval(() => {
-        if(this.data.isBalance != null){
-          clearInterval(getBalanceTimer)
-          clearTimeout(overtime)
-          this.setData({ showPayMethodLayer: true })
-          if(this.data.isBalance && this.data.order.discount_total - this.data.balance <= 0){//如果余额支付开启调用websocket
-            this.subscriptionOrder()
-          }
-        }
-      }, 500);
+    this.setData({ showPayMethodLayer: true })
+    if(this.data.order.balance_expend > 0 && this.data.order.balance_expend == this.order.discount_total){//如果余额支付开启调用websocket
+      this.subscriptionOrder()
     }
-
   },
 
   confirmPayMethod: function () {
@@ -672,8 +636,8 @@ Page({
       }
     }
 
-    if($this.data.isBalance){
-      paramsData = $this.calculateTotal(order.discount_total,$this.data.balance);
+    if(order.balance_expend >0){
+      paramsData = $this.calculateTotal(order.discount_total,order.balance_expend);
     }
 
     try {

@@ -43,18 +43,18 @@ var payFun = {
     })
   },
   getAccountBalance: function (page){
+    pagePath = page
     http.get({
       url: 'api/accounts/fetch_account_balance',
       success: res => {
         this.setData({
           balance: res.data.balance
         })
-        if(res.data.balance <= 0 && this.data.showPayMethodLayer == true){
+        if(res.data.balance <= 0 || this.data.showPayMethodLayer == true){
           this.setData({ isBalance: false })
         }else{
           this.setData({ isBalance: true })
         }
-        pagePath = page
       },
     })
   },
