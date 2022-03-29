@@ -5,7 +5,7 @@
 <scroll-view scroll-y class='page-container {{ isIphoneX && "iphone-x" }}'>
   <view class="empty-container" wx:if="{{lists.length == 0}}">
     <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_coupon_icon.png"></image>
-    <text>暂无余额~</text>
+    <text>暂无平台余额~</text>
   </view>
   <view wx:else>
     <view class="balance-list" wx:for="{{lists}}" wx:key="index">

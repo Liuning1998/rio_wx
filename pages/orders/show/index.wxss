@@ -554,8 +554,15 @@ page {
   width: 180rpx;
 }
 
+.order-info .info .item.balance-number .item-label{
+  width: 230rpx;
+}
+
 .order-info .info .item.balance{
   justify-content: space-between;
+}
+.order-info .info .item.balance .item-label{
+  width: auto;
 }
 
 .order-info .info .item.balance .text{

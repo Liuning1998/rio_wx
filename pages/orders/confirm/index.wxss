@@ -1435,6 +1435,17 @@ page {
 }
 .expenses .product-expenses .view-two .can-use-name{
   color: #F64C47;
+  max-width: 340rpx;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 8rpx;
+}
+
+.expenses .product-expenses .view-two{
+  display: flex;
+  align-items: center;
 }
 
 .balance-result{
