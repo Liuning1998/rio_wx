@@ -168,9 +168,9 @@
     </view>
 
     <!-- 优惠券 -->
-    <view  class="shipment-expenses coupon-box">
+    <view  class="shipment-expenses coupon-box" wx:if="{{order.promotions.length > 0}}">
       <view class="content">
-        <text class="label">优惠券：</text>
+        <text class="label">优惠券</text>
         <view class="coupon-box-down {{couponShow ? 'show' : ''}}" bindtap="{{ order.promotions.length > 0 ? 'couponDown' : ''}}">
           <text>-￥{{helper.couponAfter(order.promotions)}}</text>
           <image wx:if="{{order.promotions.length > 0}}" src="/images/arrow.png"></image>
@@ -182,6 +182,17 @@
           <text>{{item.name}}</text>
           <text>￥{{item.value}}</text>
         </view>
+      </view>
+    </view>
+
+    <!-- 会员专享 -->
+    <view class="product-expenses vip-info" wx:if="{{ !!order.vip_info && order.vip_info.name > 0 && order.vip_info.value > 0 }}">
+      <view class="content">
+        <view class="label">
+          <text>会员专享</text>
+          <text class="name">{{order.vip_info.name + '折'}}</text>
+        </view>
+        <text>-￥{{ order.vip_info.value }}</text>
       </view>
     </view>
 
@@ -213,14 +224,16 @@
           <text class="item-label">支付时间:</text>
           <text wx:if="{{ order.paid_at_t != null }}" class="text">{{ order.paid_at_t }}</text>
         </view>
-        <view class="item pay-method" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
-          <text class="item-label">现金支付金额:</text>
-          <text class="text">¥ {{ order.pay_method.pay_cash_total }}</text>
-        </view>
+        
         <view class="item balance-number" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
           <text class="item-label">平台余额支付金额:</text>
           <text class="text">¥ {{ order.pay_method.pay_balance_total }}</text>
         </view>
+        <view class="item pay-method" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
+          <text class="item-label">现金支付金额:</text>
+          <text class="text">¥ {{ order.pay_method.pay_cash_total }}</text>
+        </view>
+
 
         <!-- 余额已抵扣*元 -->
         <view class="item balance" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'lock' && order.balance_expend.cash_pre_total > 0 }}">

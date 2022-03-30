@@ -43,7 +43,7 @@ Page({
       success: res => {
         if (res.data != null && Object.keys(res.data).length >0) {
           this.setData({ order: res.data })
-          if(res.data.payment_state == 'new' && res.data.balance_expend.status == 'unlock'){
+          if(res.data.payment_state == 'new' && res.data.balance_expend != null && res.data.balance_expend.status == 'unlock'){
             this.getAccountBalance('detail')
           }
         } else {
@@ -303,7 +303,7 @@ Page({
       }
     }
 
-    if(this.data.order.balance_expend.status == 'lock'){
+    if(this.data.order.balance_expend != null && this.data.order.balance_expend.status == 'lock'){
       if(this.data.order.balance_expend.cash_pre_total > 0){
         paramsData = this.calculateTotal(this.data.order.discount_total,this.data.order.balance_expend.cash_pre_total);
       }
@@ -608,7 +608,7 @@ Page({
 
   showPayMethod: function () {
     var order = this.data.order;
-    if(order.balance_expend.status == 'lock'){
+    if(order.balance_expend != null && order.balance_expend.status == 'lock'){
       this.setData({ showPayMethodLayer: true })
     }else{
       if(this.data.isBalance != null){ 
@@ -681,7 +681,7 @@ Page({
       }
     }
 
-    if(order.balance_expend.status == 'lock'){
+    if(order.balance_expend != null && order.balance_expend.status == 'lock'){
       if( order.balance_expend.cash_pre_total > 0 ){
         paramsData = $this.calculateTotal(order.discount_total,order.balance_expend.cash_pre_total);
       }
@@ -697,17 +697,20 @@ Page({
         url: `api/orders/${order.number}/pay`,
         data: paramsData,
         success: function (res) {
+          console.log(res)
           if (res.data && res.data.Signature != null) {
             // $this.wxPay(res.data.pay_p, res.data.pay_sign, order)
             $this.gotoBrcbPay(order, res.data)
           } else {
             $this.errorToast("支付失败, 请稍后再试", 1500)
+            $this.reflashOrder()
             submitStatus = false
             $this.setData({ submitStatus: submitStatus })
           }
         },
         fail: function (res) {
           $this.errorToast("支付失败, 请稍后再试", 1500)
+          $this.reflashOrder()
           submitStatus = false
           $this.setData({ submitStatus: submitStatus })
         }
@@ -717,7 +720,7 @@ Page({
     catch (e) {
       console.log(e)
       $this.errorToast("支付失败, 请稍后再试", 1500)
-      
+      $this.reflashOrder()
       submitStatus = false
       $this.setData({ submitStatus: submitStatus })
       return false

@@ -215,6 +215,20 @@ page {
   border-top: 1rpx solid #f7f7ff;
 }
 
+.product-expenses.vip-info .name{
+  padding: 0 12rpx;
+  border-radius: 4rpx;
+  background-color: #F64C47;
+  color: #fff;
+  font-size: 22rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  display: inline-block;
+  margin-left: 8rpx;
+  position: relative;
+  top: -1rpx;
+}
+
 .quantity-and-total {
   height: 100rpx;
   width: 750rpx;
