@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    webUrl: ''
+    webUrl: '',
+    showWebView:false
   },
 
   /**
@@ -17,9 +18,27 @@ Page({
     if (options.url == null && options.url.length <= 0) {
       wx.navigateBack({})
     }
-
+    var $this = this;
     var url = decodeURIComponent(options.url)
-    this.setData({ webUrl: url })
+    $this.setData({ webUrl: url })
+    
+    wx.showModal({
+      title: '提示',
+      content: '即将打开北京农商银行“凤凰乡村游”商城',
+      confirmColor: '#F64C47',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          $this.setData({
+            showWebView: true
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+          wx.navigateBack({})
+        }
+      }
+    })
+    
   },
 
   /**
