@@ -3,6 +3,7 @@ var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 var helper = require('../../../utils/helper.js')
 var storage = require("../../../utils/storage.js")
+var sessionApi = require('../../../utils/session.js')
 
 Page({
 
@@ -44,6 +45,9 @@ Page({
 
     //全局添加channel参数re_login使用
     if(!!options.channel && options.channel.trim() != ''){
+      this.setData({
+        channel: options.channel
+      })
       this.postChannel(options.channel)
     }
 
@@ -115,6 +119,7 @@ Page({
 
   // 判断是否展示优惠券领取
   canReceive:function(){
+      var _logIng = storage.getSync('logIng')//判断是否正在登录
       http.get({
         url: 'api/promotions/can_receive_promotion',
         success: res => {
@@ -126,9 +131,33 @@ Page({
           }
         },
         fail: err => {
-
+          console.log(err)
+          if(err.statusCode == 401 && err.data.code == 100400){
+            if(!_logIng){
+              this.reLogin()
+            }
+          }
         }
       })
+  },
+
+  reLogin: function () {
+    sessionApi.login().then(res => {
+      getApp().globalData.session = res
+      this.setData({ session: res })
+      this.reGetUserInfo()
+      // 重新登录完成 
+      this.postChannel(this.data.channel)
+    })
+  },
+
+  reGetUserInfo: function () {
+    sessionApi.getUserInfo().then(res => {
+      if (res != null && res.phone != null) {
+        getApp().globalData.userInfo = res
+        this.setData({ userInfo: res,authLoginStatus: res.check_wx_auth})
+      }
+    })
   },
 
   // 下一页

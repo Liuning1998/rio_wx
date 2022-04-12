@@ -5,6 +5,8 @@ var storage = require("./storage.js")
 function login() {
   var p = new Promise((resolve, reject) => {
     console.log('login回调')
+    
+    storage.setSync('logIng',true)//正在登录 登录完成删除
 
     wx.login({
       success: function(res) {
@@ -23,12 +25,15 @@ function login() {
               //   updateUserInfo()
               // }
 
+              storage.delSync('logIng')
+
               resolve(res.data)
               // 登录后判断是否有扫码跳商品详情页携带参数的回调（if token过期）
               if (getApp().callbackChannel){
                 getApp().callbackChannel();
               }
             } else {
+              storage.delSync('logIng')
               reject(res)
             } 
           }

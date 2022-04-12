@@ -71,13 +71,17 @@ function httpFail (res, reject) {
     if (res.data.code == 100400) {
       // 100400 错误 pages/index/index 页面做特例处理，其他页面不执行 fail
       storage.delSync('session')
-      getApp().globalData.params['reLogin'] = true
-      if (currentPage != '/pages/index/index') {
+
+      if(currentPage != '/pages/products/show/index'){
+        getApp().globalData.params['reLogin'] = true
+      }
+
+      if (currentPage != '/pages/index/index' && currentPage != '/pages/products/show/index') {
         reject(res)
         wx.reLaunch({
           url: '/pages/index/index',
         })
-      } else {
+      }else {
         reject(res)
       }
     } else if (currentPage == "/pages/index/index") {

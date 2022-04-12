@@ -1,3 +1,2 @@
 <!--web/pages/common/index.wxml-->
-
-<web-view wx:if="{{showWebView}}" src="{{webUrl}}"></web-view>
+<web-view src="{{webUrl}}"></web-view>

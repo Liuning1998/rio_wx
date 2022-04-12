@@ -27,6 +27,13 @@
           "pathName": "pages/products/show/index",
           "query": "id=lzef&channel=test1234",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/products/show/index",
+          "query": "id=g5bf&channel=test1",
+          "scene": 1011,
+          "launchMode": "default"
         }
       ]
     }

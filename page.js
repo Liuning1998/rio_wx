@@ -145,15 +145,25 @@ function beforeOnload (context) {
 
     this.checkPhone = function (url) {
       var phoneReg = getApp().globalData.phoneReg
+      var pages = getCurrentPages()
+      var currentPage = '/' + pages[pages.length - 1].route
 
       if (!checkPhonePage.includes(url.split('?')[0])) {
         return true
       }
 
       if (getApp().globalData.userInfo == null || !phoneReg.test(getApp().globalData.userInfo.phone)) {
-        wx.redirectTo({
-          url: "/pages/account/phone/validate",
-        })
+        
+        if(url.split('?')[0] == '/pages/orders/confirm/index'){
+          wx.navigateTo({
+            url:'/pages/account/phone/validate?back=true'
+          })
+        }else{
+          wx.redirectTo({
+            url: '/pages/account/phone/validate',
+          })
+        }
+
         return false
       } else {
         return true
