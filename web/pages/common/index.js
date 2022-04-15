@@ -1,4 +1,7 @@
 // web/pages/common/index.js
+const t = require('../../../utils/md5');
+var storage = require('../../../utils/storage')
+
 Page({
 
   /**
@@ -6,7 +9,6 @@ Page({
    */
   data: {
     webUrl: '',
-    showWebView:false
   },
 
   /**
@@ -18,26 +20,28 @@ Page({
     if (options.url == null && options.url.length <= 0) {
       wx.navigateBack({})
     }
+
+    getApp().globalData.webviewUrl = options //跳转rural_pay页面必须设置
+
     var $this = this;
     var url = decodeURIComponent(options.url)
-    $this.setData({ webUrl: url })
+    var session = storage.getSyncWithExpire('session');
     
-    wx.showModal({
-      title: '提示',
-      content: '即将打开北京农商银行“凤凰乡村游”商城',
-      confirmColor: '#F64C47',
-      success (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          $this.setData({
-            showWebView: true
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-          wx.navigateBack({})
-        }
+    if(!!session){
+      if(url.indexOf('?') >= 0) {
+        url = url + `&openid=${session.openid}&appid=wx45ddcf8d9ade8e9f`
+      } else {
+        url = url + `?openid=${session.openid}&appid=wx45ddcf8d9ade8e9f`
       }
-    })
+      $this.setData({
+        webUrl: url,
+      })
+    }else{
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+    }
+    
     
   },
 
@@ -52,7 +56,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
