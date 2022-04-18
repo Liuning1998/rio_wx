@@ -186,7 +186,7 @@
     </view>
 
     <!-- 会员专享 -->
-    <view class="product-expenses vip-info" wx:if="{{ !!order.vip_info && order.vip_info.name > 0 && order.vip_info.value > 0 }}">
+    <view class="product-expenses vip-info" wx:if="{{ !!order.vip_info && order.vip_info.name > 0 && order.vip_info.value > 0 && price.vipDiscount(order.line_items, userInfo,order.promotions[0].value)}}">
       <view class="content">
         <view class="label">
           <text>会员专享</text>
@@ -230,7 +230,7 @@
           <text class="text">¥ {{ order.pay_method.pay_balance_total }}</text>
         </view>
         <view class="item pay-method" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
-          <text class="item-label">现金支付金额:</text>
+          <text class="item-label">实际支付金额:</text>
           <text class="text">¥ {{ order.pay_method.pay_cash_total }}</text>
         </view>
 
