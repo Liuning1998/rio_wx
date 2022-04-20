@@ -82,7 +82,7 @@
           </view>
 
           <view wx:if="{{ order.state != 'new' }}" class="actions">
-            <view  bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">查看详情</view>
+            <view wx:if="{{ order.order_type != 4 && order.order_type != 5 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">查看详情</view>
             <!-- 原 wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}"  -->
             <view wx:if="{{order.state == 'completed' || order.state == 'canceled' || order.state == 'handle_canceled'}}" bindtap='deleteOrder' data-order='{{ order }}' class="btn delete-btn">删除订单</view>
             <!-- 已支付未完成 -->
