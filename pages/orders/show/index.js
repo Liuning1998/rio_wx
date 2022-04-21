@@ -162,7 +162,7 @@ Page({
     for(var i=0; i < order.line_items.length; i++) {
       let line_item = order.line_items[i]
       let product = line_item.product
-      if (product.tags.length <= 0 || product.tags.indexOf('虚拟卡券') >= 0 || product.tags.indexOf('一元购') >= 0) {
+      if (product.tags.length <= 0 || product.tags.indexOf('虚拟卡券') >= 0 || product.tags.indexOf('一元购') >= 0 || product.tags.indexOf('特殊商品') >= 0) {
         this.navigateTo('/pages/products/show/index?id=' + product.id)
         return false
       }

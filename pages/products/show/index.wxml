@@ -256,14 +256,14 @@
 <!-- 选择型号蒙层 -->
 
 
-<view wx:if="{{productType == 1 || productType == 3}}" class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
+<view wx:if="{{productType == 1 || productType == 3 || productType == 4}}" class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <!-- <view class='disabled-mark' wx:if='{{ !available }}'>该商品已下架</view> -->
   <view class="btn-container">
     <button class="btn btn-lg buy-btn {{ available == true ? ' ' : 'disabled'  }}" bindtap='showSelectContainer' style="width: 400rpx;" data-state='buyNow'>立即购买</button>
   </view>
 </view>
 
-<view wx:if="{{productType != null && productType != 1 && productType != 3}}" class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
+<view wx:if="{{productType != null && productType != 1 && productType != 3 && productType != 4}}" class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <!-- <view class='disabled-mark' wx:if='{{ !available }}'>该商品已下架</view> -->
   <view class="btn-container">
     <view bindtap="gotoCart" class="cart-container">

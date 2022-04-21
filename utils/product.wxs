@@ -9,7 +9,7 @@ function virtualCard (product) {
 
 function canAddCart (product) {
   if (product.tags == null || product.tags.length <= 0) { return true }
-  if (product.tags.indexOf('虚拟卡券') >= 0 || product.tags.indexOf('一元购') >= 0) {
+  if (product.tags.indexOf('虚拟卡券') >= 0 || product.tags.indexOf('一元购') >= 0 || product.tags.indexOf('特殊商品') >= 0) {
     return false
   } else {
     return true

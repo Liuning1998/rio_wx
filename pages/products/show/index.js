@@ -274,6 +274,8 @@ Page({
       this.setData({ productType: 1 })
     } else if (product.tags.includes('一元购')) {
       this.setData({ productType: 3 })
+    } else if (product.tags.includes('特殊商品')) {
+      this.setData({ productType: 4 })
     } else if (product.tags.includes('实物')) {
       this.setData({ productType: 2 })
     }
@@ -558,6 +560,10 @@ Page({
 
   addCart: function () {
     if (this.data.product.tags != null && this.data.product.tags.indexOf('团购商品') >= 0) {
+      return false
+    }
+    
+    if (this.data.product.tags != null && this.data.product.tags.indexOf('特殊商品') >= 0) {
       return false
     }
 

@@ -104,6 +104,11 @@ Page({
       return false
     }
 
+    if (item.tags != null && item.tags.indexOf('特殊商品') >= 0) {
+      this.navigateTo("/pages/products/show/index?id=" + item.id)
+      return false
+    }
+
     let master = item.master
     if (master == null) {
       return
