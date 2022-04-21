@@ -1,5 +1,4 @@
 // web/pages/common/index.js
-const t = require('../../../utils/md5');
 var storage = require('../../../utils/storage')
 
 Page({
