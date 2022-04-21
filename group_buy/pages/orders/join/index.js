@@ -159,6 +159,8 @@ Page({
       this.setData({ productType: 1 })
     } else if (product.tags.includes('一元购')) {
       this.setData({ productType: 3 })
+    } else if (product.tags.includes('特殊商品')) {
+      this.setData({ productType: 4 })
     } else if (product.tags.includes('实物')) {
       this.setData({ productType: 2 })
     }
