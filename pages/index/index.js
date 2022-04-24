@@ -165,6 +165,9 @@ Page({
           let _tryProduct = null
           let _todayProducts = null
           let _newYearProducts = null
+          let _discountProducts = null
+          let _promotionProducts = null
+          let _benefitPeopleProducts = null
           let _temporaryProducts = null
           let _data = []
           let _groupProducts = null
@@ -178,6 +181,12 @@ Page({
               _groupProducts = item
             } else if (item.tags.indexOf('年货节') >= 0) {
               _newYearProducts = item
+            } else if (item.tags.indexOf('特惠专场') >= 0) {
+              _discountProducts = item
+            } else if (item.tags.indexOf('促销专场') >= 0) {
+              _promotionProducts = item
+            } else if (item.tags.indexOf('惠民折扣小商铺') >= 0) {
+              _benefitPeopleProducts = item
             } else if (item.tags.indexOf('临时活动') >= 0) {
               _temporaryProducts = item
             }
@@ -191,6 +200,9 @@ Page({
             todayProducts: _todayProducts,
             groupProducts: _groupProducts,
             newYearProducts: _newYearProducts,
+            discountProducts: _discountProducts,
+            promotionProducts: _promotionProducts,
+            benefitPeopleProducts: _benefitPeopleProducts,
             temporaryProducts:_temporaryProducts,
             elseProduct:_data
           })

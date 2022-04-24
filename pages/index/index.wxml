@@ -131,6 +131,24 @@
     </view>
     <!-- 临时活动 -->
 
+    <!-- 特惠专场 -->
+    <view class="group-product" wx:if="{{ discountProducts != null }}" bindtap="gotoBrand" data-item="{{discountProducts}}">
+      <image src="{{discountProducts.background_image}}" class=""></image>
+    </view>
+    <!-- 特惠专场 -->
+
+    <!-- 促销专场 -->
+    <view class="group-product" wx:if="{{ promotionProducts != null }}" bindtap="gotoBrand" data-item="{{promotionProducts}}">
+      <image src="{{promotionProducts.background_image}}" class=""></image>
+    </view>
+    <!-- 促销专场 -->
+
+    <!-- 惠民折扣小商铺 -->
+    <view class="group-product" wx:if="{{ benefitPeopleProducts != null }}" bindtap="gotoBrand" data-item="{{benefitPeopleProducts}}">
+      <image src="{{benefitPeopleProducts.background_image}}" class=""></image>
+    </view>
+    <!-- 惠民折扣小商铺 -->
+
     <!-- 团购商品 -->
     <view class="group-product" wx:if="{{ groupProducts != null }}" bindtap="gotoGroupProduct" data-item="{{groupProducts}}">
       <image src="{{groupProducts.background_image}}" class=""></image>
