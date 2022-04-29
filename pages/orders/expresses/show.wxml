@@ -8,10 +8,10 @@
     <view class="express-info-content">
       <view class="state">
         <text class="state-label">物流状态:</text>
-        <text class="state-content">{{expressInfo.express_state}}</text>
+        <text class="state-content"> {{expressInfo.express_state}}</text>
       </view>
-      <text class="company">物流公司:{{expressInfo.company}}</text>
-      <text class="number">物流单号:{{number}}</text>
+      <text class="company">物流公司: {{expressInfo.company}}</text>
+      <text class="number">物流单号: {{number}}</text>
     </view>
   </view>
 

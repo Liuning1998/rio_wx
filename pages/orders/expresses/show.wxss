@@ -46,6 +46,7 @@ page {
   font-size: 24rpx;
   color: #999999;
   text-align: justify;
+  margin-top: 3rpx;
 }
 
 .express-list {
