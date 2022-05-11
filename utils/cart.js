@@ -93,9 +93,16 @@ function removeFromCart (lineItem) {
   let cartData = cart.data || {}
   let storeCart = cartData['store_' + lineItem.store_id]
 
-  delete storeCart.lineItems['variant_' + lineItem.variant_id]
-
-  return setCartToCache(cartData)
+  try { 
+ 
+    delete storeCart.lineItems['variant_' + lineItem.variant_id] 
+    return setCartToCache(cartData) 
+ 
+  } catch (error) { 
+     
+    return false 
+ 
+  } 
 }
 
 // 删除 storeCart 中选中的 lineItem
@@ -104,13 +111,21 @@ function removeStoreLineOfSelect (storeData) {
   let cartData = cart.data || {}
   let storeCart = cartData['store_' + storeData.store_id]
 
-  for (let line in storeCart.lineItems) {
-    if (storeCart.lineItems[line].selectStatus) {
-      delete storeCart.lineItems[line]
-    }
-  }
+  try { 
+ 
+    for (let line in storeCart.lineItems) { 
+      if (storeCart.lineItems[line].selectStatus) { 
+        delete storeCart.lineItems[line] 
+      } 
+    } 
+    return setCartToCache(cartData) 
+ 
+  } catch (error) { 
 
-  return setCartToCache(cartData)
+    return false 
+    
+  } 
+    
 }
 
 // 修改购物车中 lineItem 的 quantity

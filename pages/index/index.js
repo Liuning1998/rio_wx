@@ -458,7 +458,7 @@ Page({
       return true
     }
 
-    if (item.tags != null && item.tags.length > 0 && item.tags[0] != null) {
+    if (item != null && item.tags != null && item.tags.length > 0 && item.tags[0] != null) {
       this.navigateTo(
         `/products/pages/index2/index?id=${item.id}&tag_name=${item.tags[0]}`,
         { brand: item }

@@ -371,14 +371,14 @@ page {
 /* 标签位置 */
 .top-label{
   width: 566rpx;
-  padding: 0 24rpx 24rpx;
+  padding: 5rpx 24rpx 24rpx;
   position: relative;
   box-sizing: border-box;
   background-color: #fff;
 }
 .top-label.fixed{
   position: fixed;
-  z-index: 1;
+  z-index: 32;
 }
 .products-title{
   font-size: 24rpx;
@@ -468,7 +468,7 @@ page {
   z-index: 1;
 }
 .top-label .label-down .img-box{
-  padding: 23rpx 0;
+  padding: 25rpx 0;
   background-color: #fff;
   position: relative;
   z-index: 1;

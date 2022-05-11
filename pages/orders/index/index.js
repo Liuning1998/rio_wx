@@ -129,7 +129,7 @@ Page({
   changeTab: function (e) {
     var targetState = e.currentTarget.dataset.state
     this.setData({ active: targetState, emptyStatus: false })
-    if (this.data.orders[targetState + 'Orders'].filter(item => item != 'deleted').length <= 4) {
+    if (this.data.orders != null && this.data.orders[targetState + 'Orders'] != null && this.data.orders[targetState + 'Orders'].filter(item => item != 'deleted').length <= 4) {
       this.fetchOrders(targetState)
     }
   },

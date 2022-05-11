@@ -237,7 +237,6 @@ Page({
     var key = `id_${this.data.currentCategory.id}`;
     
     var bottomKey = `pageBottom.${key}`;
-    var bottomkeyVal = this.data.pageBottom[key];
     
     if (orderType == 'price') {
       if (this.data.orderType == 'price down') {
