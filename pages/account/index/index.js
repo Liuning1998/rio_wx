@@ -12,7 +12,8 @@ Page({
     // userBalance: 0,
     orderQuantity: {},
     //用户头像
-    userAvatar: ''
+    userAvatar: '',
+    csTop:460
   },
 
   /**
@@ -202,6 +203,23 @@ Page({
     }
 
   },
+
+  // v1.2 s
+  csTouch: function(e){
+    var csTop = e.touches[0].clientY;
+    var maxtop = wx.getSystemInfoSync().screenHeight;
+    if (timer) return
+    var timer = setTimeout(() => {
+      console.log(maxtop)
+      if(csTop >= 100 && csTop <= (maxtop - 150)){
+        this.setData({
+          csTop: csTop
+        })
+      }
+      timer = null;
+    }, 150)
+  },
+  // v1.2 e
 
   /**
    * 用户点击右上角分享

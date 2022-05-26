@@ -43,7 +43,7 @@ Component({
         })
       }
       
-    }
+    },
   },
 
   attached: function () {
