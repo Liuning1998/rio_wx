@@ -2,6 +2,8 @@
 <!-- <navbar textStyle="color: #8E662F; font-weight: 600;" returnAble="{{false}}" appendStyle="background: rgba(0,0,0,0)" return-able="{{true}}" title="我的"/> -->
 <!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
 
+
+<!-- ----------------------version1.0---------------------- -->
 <view class="navbar" style="height: {{pageMarginTop+44}}px;">
   <image class="{{!scollStatus && 'hidden'}}" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/account_index_background_002.png"></image>
   <text style="margin-top: {{pageMarginTop}}px;"></text>
@@ -178,3 +180,70 @@
 </scroll-view>
 
 <msgToast msg-data="{{ _msgData }}"/>
+
+<!-- ----------------------version1.0---------------------- -->
+
+<navbar returnAble="{{false}}" appendStyle="background: rgba(0,0,0,0);" title="个人中心" textStyle="font-weight: 600;"/>
+<view class="header" style="padding-top: {{pageMarginTop+44}}px;">
+  <view class="information">
+    <view class="avatar">
+      <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          <image class="avatar-image" src="{{userAvatar}}"></image>
+      </button>
+      <image class="pendant" wx:if="{{userInfo.vip_level}}" src="/pages/member/images/member_pendant.png"></image>
+    </view>
+    <view class="phone">
+      <view class="phone_number">{{ userInfo.phone }}</view>
+      <view class="discount" wx:if="{{userInfo.vip_level}}">
+        <image src="/images/v1.2/mine_v1.2.png"></image>
+        <text>{{userInfo.vip_level.current_vip_level}}会员享{{userInfo.vip_level.current_discount}}折</text>
+      </view>
+    </view>
+  </view>
+  <view class="balance">
+    <view class="balance_l">
+      <view class="title">账户余额 (元)</view>
+      <view class="number">{{balance || '0.0'}}</view>
+    </view>
+    <view class="balance_r">
+      <view class="todetail" data-url="/pages/account/balance/index" bindtap="gotoLink">查看详情</view>
+    </view>
+  </view>
+</view>
+<view class="order">
+  <view class="order_list">
+    <image class="order_icon" src="/images/v1.2/mine_order_01.png"></image>
+    <text>待支付</text>
+  </view>
+  <view class="order_list">
+    <image class="order_icon" src="/images/v1.2/mine_order_03.png"></image>
+    <text>待收货</text>
+  </view>
+  <view class="order_list">
+    <image class="order_icon" src="/images/v1.2/mine_order.png"></image>
+    <text>售后订单</text>
+  </view>
+  <view class="division">
+    <view class="line_top"></view>
+    <view class="arrow"></view>
+    <view class="line_bottom"></view>
+  </view>
+  <view class="order_list">
+    <image class="order_icon" src="/images/v1.2/mine_order_02.png"></image>
+    <text>全部订单</text>
+  </view>
+</view>
+
+<view class="discount">
+  <view class="member">
+    <view class="member_l">
+      <view class="top">会员中心</view>
+      <view class="bottom">享最高95折</view>
+    </view>
+    <view class="member_r">
+      <image src=""></image>
+    </view>
+  </view>
+</view>
+
+<view class=""></view>

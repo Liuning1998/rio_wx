@@ -9,6 +9,9 @@ page {
   position: fixed;
   z-index: 90;
   overflow: hidden;
+  /* version1.2 s */
+  display: none; 
+  /* version1.2 e */
 }
 
 .navbar image {
@@ -53,6 +56,9 @@ page {
   position: relative;
   display: flex;
   flex-direction: column;
+  /* version1.2 s */
+  display: none;
+  /* version1.2 e */
 }
 
 .page-header .header-background-container {
@@ -255,6 +261,9 @@ page {
   margin-left: 24rpx;
   margin-top: 40rpx;
   margin-bottom: 32rpx;
+  /* version1.2 s */
+  display: none;
+  /* version1.2 e */
 }
 
 .action-container .label {
@@ -292,6 +301,9 @@ page {
   display: flex;
   height: 160rpx;
   width: 750rpx;
+  /* version1.2 s */
+  display: none;
+  /* version1.2 e */
 }
 
 .order-btn-container .btn-group {
@@ -347,6 +359,9 @@ page {
   height: 160rpx;
   width: 750rpx;
   display: flex;
+  /* version1.2 */
+  display: none;
+  /* version1.2 */
 }
 
 .account-info .account-content {
@@ -430,3 +445,171 @@ page {
   margin-left: 11rpx;
 }
 /* 会员权益 end */
+
+
+
+/* -----------------------------------------------------version1.2--------------------------------------- */
+page {
+  background: rgba(216, 216, 216, 0.4);
+}
+.header{
+  background-color: #fff;
+}
+.information{
+  width: 702rpx;
+  display: flex;
+  margin: 0 auto;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.information .avatar{
+  position: relative;
+}
+.information .avatar .avatar-container{
+  width: 170.8rpx;
+  height: 170.8rpx;
+  border-radius: 50%;
+  padding: 0;
+}
+.information .avatar .avatar-container image{
+  width: 100%;
+  height: 100%;
+}
+.information .avatar .pendant{
+  position: absolute;
+  width: 44rpx;
+  height: 42.58rpx;
+  top: 0;
+  left: 0;
+}
+.information .phone{
+  margin-left: 25.6rpx;
+  display: flex;
+  padding-top: 20rpx;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.information .phone .phone_number{
+  font-size: 40rpx;
+  color: #332B2B;
+  font-weight: 500;
+}
+.information .phone .discount{
+  position: relative;
+  background: #FFc252;
+  border-radius: 24rpx 24rpx 24rpx 0px;
+  width: 228rpx;
+  height: 44rpx;
+}
+.information .phone .discount image{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.information .phone .discount text{
+  line-height: 44rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #662914;
+  font-weight: 600;
+  width: 100%;
+  display: block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.balance{
+  width: 702rpx;
+  margin: 20rpx auto 0;
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
+  background:#FF3344;
+  padding: 15rpx 0 20px 50rpx;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.balance .balance_l{
+  padding-top: 20rpx;
+}
+.balance .balance_l .title{
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+.balance .balance_l .number{
+  font-size: 56rpx;
+  color: #FFFFFF;
+  line-height: 1;
+  font-weight: 600;
+  margin-top: 10rpx;
+}
+.balance .balance_r{
+  display: flex;
+  justify-content: flex-end;
+}
+.balance .balance_r .todetail{
+  padding: 6rpx 18rpx 6rpx 36rpx;
+  background: #CC0300;
+  border-radius: 100rpx 0px 0px 100rpx;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+  height: 56rpx;
+}
+.order{
+  width: 702rpx;
+  background-color: #fff;
+  padding: 0 36rpx;
+  height: 228rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 24rpx auto 0;
+  border-radius: 12rpx;
+}
+.order .order_list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.order .order_list text{
+  font-size: 36rpx;
+  color: #332B2B;
+  text-align: center;
+  font-weight: 400;
+  margin-top: 12rpx;
+}
+.order_icon{
+  width: 72rpx;
+  height: 72rpx;
+}
+.order .division{
+  width: 6rpx;
+  height: 132rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.order .division .arrow{
+  width: 6rpx;
+  height: 6rpx;
+  border-top: 1px solid #E6E6E6;
+  border-right: 1px solid #E6E6E6;
+  transform: rotate(45deg);
+}
+.order .division .line_top{
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(rgba(230,230,230,0),rgba(230,230,230,0.8),rgba(230,230,230,1));
+}
+.order .division .line_bottom{
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(rgba(230,230,230,1),rgba(230,230,230,0.8),rgba(230,230,230,0));
+}
+/* .information  */
