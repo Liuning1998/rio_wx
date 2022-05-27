@@ -1,44 +1,155 @@
-<navbar appendStyle="background: #fff;" title="联系我们"/>
+<navbar appendStyle="background: #fff;" title="客服中心"/>
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
 <view class="banner-container">
-  <image class="banner" src="{{adImages[0]}}"></image>
+  <view class="dialog">
+    <image class="img" src="/images/coupon/coupon-card1.png"></image>
+    <text class="dialog-text">下午好，158****7947！</text>
+    <text class="dialog-text">客服小安很高兴为您服务！</text>
+  </view>
+  <image class="banner-bg" src="/images/activity_pro_left.png"></image>
 </view>
 
-<view class="main-content">
-  <view class="contact-content">
-    <text class="description">我们将会全心全意为您提供满意周到的咨询服务，也希望您能信任与支持我们的服务。</text>
-    <view class="btn-container">
-      <text class="desc">使用微信联系客服</text>
-      <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover'>
-        联系客服
-      </button>
+<view class="title">
+  <text>热门问题</text>
+</view>
+
+<view class="tab">
+
+  <view class="tab-scroll">
+    <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
+      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <text>账户安全</text>
     </view>
-  </view>
-
-  <text class="time-desc">工作时间：周一至周五 9:30 - 18:30</text>
-  <text class="time-desc">(非工作时间将于下一工作日反馈您)</text>
-</view>
-
-<!-- <view class='carousels'>
-  <swiper autoplay='true' indicator-dots="{{false}}" indicator-active-color='#f7f7f7' indicator-color='#ffffff' bindchange='changeSwiperCurrent' circular previous-margin='30rpx' next-margin='30rpx'>
-    <block wx:for="{{ adImages }}" wx:key="*index">
-      <swiper-item class='{{ swiperCurrent == index ? "active" : "" }}'>
-        <image src="{{item}}" class="slide-image" />
-      </swiper-item>
-    </block>
+    <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">
+      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <text>交易安全</text>
+    </view>
+    <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">
+      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <text>账户安全</text>
+    </view>
+    <view class="tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">
+      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <text>账户安全</text>
+    </view>
+	</view>
+  <view class="line"></view>
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange"  style="width: 750rpx;height: 500rpx;">
+    <swiper-item>
+      <scroll-view scroll-y="true" class="tab-content">
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请1</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view scroll-y="true" class="tab-content">
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请2</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view scroll-y="true" class="tab-content">
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请3</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view scroll-y="true" class="tab-content">
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请4</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
   </swiper>
+
 </view>
 
-<view class='weixin'>
-  <text class='item text-xl'>咨询客服</text>
-  <text class='item text-muted'>周一至周五：10：00~18：00</text>
-  <text class='item text-xs text-muted'>（非工作时间联系客服，将于下一工作日反馈您）</text>
-  <view class='item'>
-    <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover'>
-      客服
-    </button>
-  </view>
+<view class="tokefu {{ isIphoneX && 'iphone-x' }}">
+  <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover'>
+    其他问题，点此咨询
+  </button>
+  <text>工作时间：工作日9:30-18:30</text>
 </view>
-
-<msgToast msg-data="{{ _msgData }}"/> -->

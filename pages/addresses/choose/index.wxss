@@ -36,19 +36,6 @@ page {
   margin-bottom: 44rpx;
 }
 
-/* .empty-list .add-address {
-  font-size: 36rpx;
-  color: #967039;
-  height: 88rpx;
-  border: 1px solid #8E662F;
-  border-radius: 8rpx;
-  line-height: 88rpx;
-  box-sizing: border-box;
-  width: 630rpx;
-  text-align: center;
-  margin-bottom: 160rpx;
-} */
-
 
 
 .add-address {
@@ -80,43 +67,57 @@ page {
   font-family: PingFangSC-Medium;
 }
 
-
-/* 地址列表 */
-.address-list .edit image {
-  width: 31.08rpx;
-  height: 31.08rpx;
-}
-
-.address-list .delete image {
-  width: 29.22rpx;
-  height: 31.44rpx;
-}
-
-.address-item-container {
-  width: 100%;
-  background: #ffffff;
+/* ------------v1.2---------------- */
+.address-item-container{
+  margin-top: 28rpx;
   display: flex;
-  flex-direction: column;
-  margin-top: 24rpx;
-  padding: 0 24rpx;
+  justify-content: space-between;
+  width: 750rpx;
+  background-color: #fff;
+  align-items: center;
+}
+.address-item-container .checkbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28rpx;
+  width: 28rpx;
+  border: 1px solid #B4AFAF;
+  border-radius: 50%;
+  margin-right: 24rpx;
+  margin-left: 24rpx;
+  overflow: hidden;
+}
+.address-item-container .checkbox image {
+  display: none;
+  width: 35.96rpx;
+  height: 35.96rpx;
+}
+
+.address-item-container .checkbox.selected {
+  background: #FF3633;
+  border-color: #FF3633;
+}
+
+.address-item-container .checkbox.selected image {
+  display: flex;
+}
+.address-item-container .info{
+  width: 544rpx;
+  position: relative;
   box-sizing: border-box;
+  padding: 36rpx 24rpx 25rpx 0;
+  min-height: 238rpx;
 }
-
-.address-item-container .item-content {
-  display: flex;
-  flex-direction: column;
-  padding: 36rpx 0;
-  border-bottom: 1rpx solid #f7f7f7;
-}
-
-.address-item-container .name-and-phone {
+.address-item-container .info .name-and-phone {
   display: flex;
   align-items: center;
   line-height: 1;
+  margin-bottom: 25rpx;
 }
 
-.address-item-container .name {
-  margin-right: 32rpx;
+.address-item-container .info .name {
+  margin-right: 36rpx;
   font-size: 40rpx;
   color: #332B2B;
   font-weight: 500;
@@ -130,15 +131,15 @@ page {
   font-family: PingFangSC-Medium;
 }
 
-.address-item-container .phone {
+.address-item-container .info .phone {
   font-size: 40rpx;
   color: #332B2B;
   font-weight: 500;
-  margin-right: 36rpx;
+  margin-right: 12rpx;
   font-family: PingFangSC-Medium;
 }
 
-.address-item-container .default-badge {
+.address-item-container .info .default-badge {
   height: 40rpx;
   line-height: 40rpx;
   text-align: center;
@@ -151,83 +152,34 @@ page {
   box-sizing: border-box;
   border-radius: 6rpx;
   font-family: PingFangSC-Medium;
+  flex: none;
 }
 
-.address-item-container .address-info {
+.address-item-container .info .address-info {
   font-size: 36rpx;
   color: #332B2B;
-  margin-top: 28rpx;
   font-weight: 400;
   font-family: PingFangSC-Regular;
 }
-
-.address-item-container .actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 108rpx;
+.address-item-container .info::after{
+  content: "";
+  position: absolute;
+  width: 1rpx;
+  height: 96rpx;
+  background-color: rgba(230,230,230,1);
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
 }
-
-.edit-and-delete {
-  display: flex;
-  color: #332B2B;
-  font-size: 32rpx;
-  font-family: PingFangSC-Regular;
-  font-weight: 400;
-}
-
-.edit-and-delete .edit, .edit-and-delete .delete {
-  display: flex;
-  align-items: center;
-}
-
-.edit-and-delete .edit {
-  margin-right: 49.4rpx;
-}
-
-.edit-and-delete image {
-  margin-right: 12.4rpx;
-  margin-top: -4rpx;
-}
-
-.actions .select {
-  font-size: 32rpx;
-  color: #332B2B;
-  display: flex;
-  font-family: PingFangSC-Regular;
-  align-items: center;
-  font-weight: 400;
-}
-
-.actions .select .checkbox {
+.address-item-container  .edit{
+  flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 28rpx;
-  width: 28rpx;
-  border: 1px solid #B4AFAF;
-  border-radius: 50%;
-  margin-right: 10rpx;
-  overflow: hidden;
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #807474;
+  font-weight: 400;
 }
-
-.actions .select .checkbox image {
-  display: none;
-  width: 35.96rpx;
-  height: 35.96rpx;
-}
-
-.actions .select .checkbox.selected {
-  background: #F64C47;
-  border-color: #F64C47;
-}
-
-.actions .select .checkbox.selected image {
-  display: flex;
-}
-/* 地址列表 */
-
-/* 空白 */
 
 .loading-icon {
   position: fixed;

@@ -34,6 +34,7 @@
     "products/pages/search/index",
     "products/pages/search_all/index",
     "pages/addresses/edit/index",
+    "pages/addresses/choose/index",
     "pages/products/buy/index",
     "pages/coupons/protocol/index",
     "pages/activity_rule/index",

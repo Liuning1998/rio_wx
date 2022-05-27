@@ -538,7 +538,7 @@ Page({
   },
 
   selectAddress: function () {
-    this.navigateTo('/pages/addresses/index/index?referrer=confirm_order')
+    this.navigateTo('/pages/addresses/choose/index?referrer=confirm_order')
   },
 
   /**
