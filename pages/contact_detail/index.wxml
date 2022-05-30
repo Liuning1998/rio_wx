@@ -1,0 +1,9 @@
+<navbar appendStyle="background: #fff;" title="常见问题"/>
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<view class="question">{{qa[id].question}}</view>
+<view class="answer">
+  <rich-text class="text" wx:for="{{qa[id].answer}}" nodes="{{item}}"></rich-text>
+</view>
+
+

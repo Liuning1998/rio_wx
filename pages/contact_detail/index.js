@@ -11,6 +11,10 @@ Page({
     swiperCurrent: 0,
     nomal: true,
     currentTab: 0,
+    qa:{
+      "eq_1":{question:'去哪里看商品物流信息？',answer:['1. 您可以登录app,<span class="dark">【我的】-【我的订单】-【待收货】【查看物流】</span>，点击查看物流信息。','2. 如未有显示，也可以根据物流信息中的快递单号，登录第三方快递官网查询。','3. 您可以点击<span class="dark">【联系客服】</span>可以进行物流相关问。']},
+      "eq_2":{question:'去哪里看商品物流信息？1',answer:['1. 您可以登录app,<span class="dark">【我的】-【我的订单】-【待收货】【查看物流】</span>，点击查看物流信息。','2. 如未有显示，也可以根据物流信息中的快递单号，登录第三方快递官网查询。','3. 您可以点击<span class="dark">【联系客服】</span>可以进行物流相关问。']},
+    }
   },
 
   /**
@@ -18,7 +22,12 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
-    this.getAds()
+    this.getAds();
+    if(!!options.id){
+      this.setData({
+        id: 'eq_'+options.id
+      })
+    }
   },
 
   /**
@@ -69,14 +78,6 @@ Page({
           this.setData({adImages: images})
         }
       }
-    })
-  },
-
-  // 跳转问题详情
-  toAnswer:function(e){
-    var id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '/pages/contact_detail/index?id='+id,
     })
   },
 

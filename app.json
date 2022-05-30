@@ -21,6 +21,7 @@
     "pages/coupons/dashboard/index",
     "pages/orders/index/index",
     "pages/contact/index",
+    "pages/contact_detail/index",
     "pages/orders/expresses/show",
     "products/pages/yiyuangou/index",
     "agreement/pages/yiyuangou/index",

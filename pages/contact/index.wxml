@@ -3,11 +3,11 @@
 
 <view class="banner-container">
   <view class="dialog">
-    <image class="img" src="/images/coupon/coupon-card1.png"></image>
+    <image class="img" src="/images/v1.2/contact_06.png"></image>
     <text class="dialog-text">下午好，158****7947！</text>
     <text class="dialog-text">客服小安很高兴为您服务！</text>
   </view>
-  <image class="banner-bg" src="/images/activity_pro_left.png"></image>
+  <image class="banner-bg" src="/images/v1.2/contact_05.png"></image>
 </view>
 
 <view class="title">
@@ -18,19 +18,19 @@
 
   <view class="tab-scroll">
     <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
-      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <image class="tab-list-img" src="/images/v1.2/contact_03.png"></image>
       <text>账户安全</text>
     </view>
     <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">
-      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <image class="tab-list-img" src="/images/v1.2/contact_02.png"></image>
       <text>交易安全</text>
     </view>
     <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">
-      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <image class="tab-list-img" src="/images/v1.2/contact_04.png"></image>
       <text>账户安全</text>
     </view>
     <view class="tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">
-      <image class="tab-list-img" src="/images/pay_success.png"></image>
+      <image class="tab-list-img" src="/images/v1.2/contact_01.png"></image>
       <text>账户安全</text>
     </view>
 	</view>
@@ -38,14 +38,14 @@
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange"  style="width: 750rpx;height: 500rpx;">
     <swiper-item>
       <scroll-view scroll-y="true" class="tab-content">
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="1">
           <view class="dot"></view>
           <view class="text">如何提交售后申请1</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
         </view>
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="2">
           <view class="dot"></view>
           <view class="text">如何提交售后申请</view>
           <view class="arrow">

@@ -1,0 +1,31 @@
+page {
+  background: #fff;
+}
+
+.question{
+  padding: 40rpx 32rpx;
+  font-family: PingFangSC-Semibold;
+  font-size: 36rpx;
+  color: #333333;
+  letter-spacing: 0;
+  font-weight: 600;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 0px 0px rgba(229,229,229,1);
+}
+
+.answer{
+  padding: 36rpx 32rpx;
+}
+
+.answer .text{
+  margin-bottom: 48rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #666666;
+  letter-spacing: 0;
+  font-weight: 400;
+  display: block;
+}
+.dark{
+  color: #333333;
+}

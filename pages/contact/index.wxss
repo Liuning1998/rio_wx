@@ -35,6 +35,7 @@ page {
 .banner-container .banner-bg{
   width: 284rpx;
   height: 198rpx;
+  margin-right: 28rpx;
 }
 .title{
   width: 750rpx;
