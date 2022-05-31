@@ -32,6 +32,7 @@ Page({
       } else {
         url = url + `?openid=${session.openid}&appid=wx45ddcf8d9ade8e9f`
       }
+      
       $this.setData({
         webUrl: url,
       })

@@ -394,6 +394,7 @@ Page({
     this.navigateTo("/products/pages/today/index?pageType=" + 'youxuan')
   },
 
+
   gotoUrl: function (e) {
     console.log(e)
     var url = e.currentTarget.dataset.url
@@ -401,7 +402,10 @@ Page({
       return
     }
 
-    this.navigateTo(url)
+    var query = url.substring(url.indexOf("=")+1)
+    url = url.substring(0,url.indexOf("=")+1)
+
+    this.navigateTo(url + encodeURIComponent(query))
   },
 
   reLogin: function () {
