@@ -9,37 +9,51 @@
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
 
+    <view class="header">
+      <image class="bg-img" src="/images/v1.2/order_bg_01.png"></image>
+      <!-- <image class="bg-img-noexpress" src="/images/v1.2/order_detailbg_01.png"></image> -->
 
-    <view style='padding-top: {{pageMarginTop + 44}}px;'></view>
+      <view style='padding-top: {{pageMarginTop + 44}}px;'></view>
 
-    <view class="slogan">
-      <block>商家还未发货，请耐心等待~</block>
-    </view>
-
-    <view class="state">
-      <view class="state-text">
-        <view class="text">已下单</view>
-        <view class="text">已付款</view>
-        <view class="text">待收货</view>
-        <view class="text">已完成</view>
+      <view class="slogan">
+        <block>商家还未发货，请耐心等待~</block>
       </view>
-      <view class="state-icon">
-        <view class="icon active">
-          <view class="icon-round"><view>1</view></view>
+
+      <view class="state">
+        <view class="state-text">
+          <view class="text">已下单</view>
+          <view class="text">已付款</view>
+          <view class="text">待收货</view>
+          <view class="text">已完成</view>
         </view>
-        <view class="icon active">
-          <view class="icon-round"><view>2</view></view>
+        <view class="state-icon">
+          <view class="icon active">
+            <view class="icon-round"><image src="/images/v1.2/order_02.png"></image></view>
+          </view>
+          <view class="icon active">
+            <view class="icon-round"><image src="/images/v1.2/order_01.png"></image></view>
+          </view>
+          <view class="icon active">
+            <view class="icon-round"><image src="/images/v1.2/order_04.png"></image></view>
+          </view>
+          <view class="icon ">
+            <view class="icon-round"><image src="/images/v1.2/order_03.png"></image></view>
+          </view>
         </view>
-        <view class="icon active">
-          <view class="icon-round"><view>3</view></view>
-        </view>
-        <view class="icon ">
-          <view class="icon-round"><view>4</view></view>
+      </view>
+
+      <view class="express">
+        <view class="express-box">
+          <view class="express-l">
+            <view class="text">
+              <text class="title">最新物流</text>您的订单在公主坟由快递员（张某某电话：18523456621）正在派件…
+            </view>
+            <view class="time">2021-01-01 12:22</view>
+          </view>
+          <image class="express-r" src="/images/v1.2/arrow.png"></image>
         </view>
       </view>
     </view>
-
-    <view class=""></view>
  
   </view>
 </scroll-view>
