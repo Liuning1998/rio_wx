@@ -26,6 +26,13 @@ Page({
     isBalance:null,
     balance:0,
     balancePayResult:null,//纯余额支付结果
+    nowTime: Math.ceil((new Date).getTime()/1000),
+    navStyle:{
+      appendStyle: 'background: rgba(0,0,0,0);',
+      navbarStyle: 'dark',
+      textStyle: 'color: #fff;'
+    },
+    showProductQuantity:2,
   },
 
   /**
@@ -43,6 +50,28 @@ Page({
       success: res => {
         if (res.data != null && Object.keys(res.data).length >0) {
           this.setData({ order: res.data })
+          if(res.data.refund_state != null || res.data.state == 'canceled' || res.data.state == 'handle_canceled'){
+            this.setData({orderStep: 'step4'})
+          }else if(res.data.state == 'new'){
+            this.setData({orderStep: 'step1'})
+          }else if(res.data.state == 'padding'){
+            this.setData({orderStep: 'step2'})
+          }else if(res.data.state == 'shipping'){
+            this.setData({orderStep: 'step3'})
+            if(res.data.expresses.length <= 1){
+              this.getExpress(res.data.expresses[0].express_number, res.data.number)
+            }
+          }else if(res.data.state){
+            this.setData({orderStep: 'step4'})
+            if(res.data.expresses.length <= 1){
+              this.getExpress(res.data.expresses[0].express_number, res.data.number)
+            }
+          }
+
+          if(res.data.payment_state == 'new'){
+            this.setNowTime()
+          }
+
           if(res.data.payment_state == 'new' && res.data.balance_expend != null && res.data.balance_expend.status == 'unlock'){
             this.getAccountBalance('detail')
           }
@@ -81,6 +110,64 @@ Page({
       //     }
       //   }
       // })
+    }
+  },
+
+  seeAll: function (e){
+    var number = e.target.dataset.length;
+    var showProductQuantity = this.data.showProductQuantity
+    if(number <= showProductQuantity){
+      return
+    }else if(showProductQuantity == 2){
+      this.setData({
+        showProductQuantity: number
+      })
+    }else{
+      this.setData({
+        showProductQuantity: 2
+      })
+    }
+  },
+
+  getExpress: function (number, order_number) {
+    http.get({
+      url: `/api/expresses/${number}/search_express`,
+      data: { order_number: order_number },
+      success: res => {
+        if (res.statusCode == 200 && res.data != null) {
+          this.setData({ expressInfo: res.data })
+          console.log(res.data)
+        }
+      },
+      fail: res => {
+
+      }
+    })
+  },
+
+  setNowTime: function () {
+    this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
+    setTimeout( res => 
+      this.setNowTime(), 1000)
+  },
+  
+  onPageScroll: function (res){
+    if(res.scrollTop > 50){
+      this.setData({
+        navStyle:{
+          appendStyle: '',
+          navbarStyle: '',
+          textStyle: ''
+        },
+      })
+    }else{
+      this.setData({
+        navStyle:{
+          appendStyle: 'background: rgba(0,0,0,0);',
+          navbarStyle: 'dark',
+          textStyle: 'color: #fff;'
+        },
+      })
     }
   },
 

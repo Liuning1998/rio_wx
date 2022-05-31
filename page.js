@@ -132,7 +132,7 @@ function beforeOnload (context) {
         return
       }
 
-      this.setParamsToGlobal('params', params)
+    this.setParamsToGlobal('params', params)
       wx.redirectTo({
         url: url
       })

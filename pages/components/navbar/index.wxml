@@ -4,7 +4,7 @@
   <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
   <view class='navbar-content'>
     <view wx:if='{{returnAble}}' bindtap='goback' class='return-image-container'>
-      <image wx:if="{{returnAble && navbarStyle == 'dark'}}" class='return-image' src='../../../images/arrow_o_white.png'></image>
+      <image wx:if="{{returnAble && navbarStyle == 'dark'}}" class='return-image' src='../../../images/arrow_o_white_01.png'></image>
       <image wx:if="{{returnAble && navbarStyle != 'dark'}}" class='return-image' src='../../../images/arrow_o_black.png'></image>
     </view>
     <text style="{{textStyle}}" class='navbar-title {{navbarStyle == "dark" && "text-white"}}'>{{ title }}</text>
