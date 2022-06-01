@@ -60,9 +60,8 @@
             <!-- 多个包裹 -->
             <block wx:if="{{order.expresses.length > 1}}">
               <view class="text">
-                <text class="title">多个包裹</text>当前订单已拆分为{{order.expresses.length}}个包裹，1个包裹已发出 
+                <text class="title">多个包裹</text>当前订单已拆分为{{order.expresses.length}}个包裹 
               </view>
-              <view class="time">2022-02-02 11:11:11</view>
             </block>
             <!-- 一个包裹 -->
             <block wx:else>
@@ -97,7 +96,7 @@
             </view>
           </view>
           <view class="item-btnbox">
-            <view class="btn">申请售后</view>
+            <view class="btn" wx:if="{{order.refund_state == null && order.state != 'canceled' && order.state != 'handle_canceled' && order.state != 'new' }}">申请售后</view>
           </view>
         </view>
         <view class="show-all {{showProductQuantity > 2 && 'shou'}}" data-length="{{order.line_items.length}}" bindtap="seeAll" wx:if="{{order.line_items.length > 2}}">
@@ -139,17 +138,37 @@
         <view class="info"><text>{{order.ship_address.real_name || ''}}，{{rhelper.hidePhone(order.ship_address.phone) || ''}}</text><text>{{order.ship_address.province || ''}}{{order.ship_address.city || ''}}{{order.ship_address.district || ''}}{{order.ship_address.town || ''}}{{order.ship_address.address_info || ''}}</text></view>
       </view>
       <view class="item copy-box">
-        <view class="name">订单编号：</view>
+        <view class="name">订单编号:</view>
         <view class="info">{{ order.number }}</view>
         <view class="copy" bindtap="copyNumber">复制</view>
       </view>
       <view class="item">
-        <view class="name">下单时间：</view>
+        <view class="name">下单时间:</view>
         <view class="info">{{ order.created_at_t }}</view>
       </view>
       <view class="item">
-        <view class="name">支付时间：</view>
+        <view class="name">支付时间:</view>
         <view class="info" wx:if="{{ order.paid_at_t != null }}">{{ order.paid_at_t }}</view>
+      </view>
+      <view class="item" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
+        <view class="name">平台余额支付金额:</view>
+        <view class="info">¥ {{ order.pay_method.pay_balance_total }}</view>
+      </view>
+      <view class="item" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
+        <view class="name">实际支付金额:</view>
+        <view class="info">¥ {{ order.pay_method.pay_cash_total }}</view>
+      </view>
+      <view class="item" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'lock' && order.balance_expend.cash_pre_total > 0 }}">
+        <view class="name">平台余额已抵扣:</view>
+        <view class="info">¥ {{ order.balance_expend.cash_pre_total }}</view>
+      </view>
+      <view class="item" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'unlock' && balance > 0}}">
+        <view class="name">平台余额:{{balance}}元</view>
+        <view class="switch">
+          <text>是否使用平台余额抵扣</text>
+          <switch checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/> 
+        </view>
+        
       </view>
     </view>
 
@@ -161,7 +180,7 @@
     <view class="total">
       <text>合计:</text>
       <text>¥</text>
-      <text>1000.00</text>
+      <text>{{order.discount_total}}</text>
     </view>
     <text bindtap="cancelOrder" class="btn cancel" >取消订单</text>
     <text  bindtap="showPayMethod" class="btn pay" >支付{{utilsHelper.getM(helperTime.payLeftTime(order, nowTime)) }}:{{ utilsHelper.getS(helperTime.payLeftTime(order, nowTime)) }}</text>

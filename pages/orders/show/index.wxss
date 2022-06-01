@@ -323,7 +323,7 @@ page {
 }
 
 .pay-method-layer .bottom-btns .pay-method-confirm {
-  background-image: linear-gradient(118deg, #FF524E 0%, #FB2C2A 100%);
+  background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
   border-radius: 42rpx;
   border-radius: 42rpx;
   height: 84rpx;
@@ -333,6 +333,8 @@ page {
   text-align: center;
   font-size: 36rpx;
   color: #ffffff;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
 }
 /* 选择支付方式 */
 
@@ -615,7 +617,7 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 500;
-  height: 112rpx;
+  max-height: 112rpx;
   overflow:hidden;
   text-overflow: ellipsis;
   display:-webkit-box;
@@ -736,7 +738,6 @@ page {
   font-weight: 400;
 }
 .product .item .item-btnbox{
-  margin-top: 24rpx;
   display: flex;
   justify-content: flex-end;
 }
@@ -753,6 +754,7 @@ page {
   text-align: center;
   font-weight: 500;
   margin-left: 24rpx;
+  margin-top: 24rpx;
 }
 .product{
   padding-bottom: 44rpx;
@@ -858,6 +860,7 @@ page {
 }
 .order-info .item.copy-box .info{
   flex: none;
+  font-size: 34rpx;
 }
 .order-info .item.copy-box .copy{
   width: 120rpx;
@@ -879,9 +882,27 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
+  flex:none;
+  margin-right: 12rpx;
 }
 .order-info .item .info{
   flex: 1;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #332B2B;
+  font-weight: 500;
+}
+.order-info .item .switch{
+  display: flex;
+  justify-content: flex-end;
+  flex:1;
+  align-items: center;
+}
+.order-info .item .switch switch{
+  zoom: 0.65;
+  margin-left: 12rpx;
+}
+.order-info .item .switch text{
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #332B2B;
@@ -917,6 +938,8 @@ page {
 }
 .bottom-btn-group .btn-content .total{
   flex: 1;
+  display: flex;
+  align-items: center;
 }
 .bottom-btn-group .btn-content .total text:nth-child(1){
   font-family: PingFangSC-Medium;
@@ -930,7 +953,7 @@ page {
 }
 .bottom-btn-group .btn-content .total text:nth-child(3){
   font-family: PingFangSC-Medium;
-  font-size: 40rpx;
+  font-size: 36rpx;
   color: #FF3633;
 }
 .bottom-btn-group .btn-content .btn{
