@@ -23,6 +23,7 @@
     "pages/contact/index",
     "pages/contact_detail/index",
     "pages/orders/expresses/show",
+    "pages/orders/expresses_list/index",
     "products/pages/yiyuangou/index",
     "agreement/pages/yiyuangou/index",
     "orders/pages/service/index",

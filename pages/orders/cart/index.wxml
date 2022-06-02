@@ -54,13 +54,23 @@
           <text bindtap="deleteStoreItem" data-item="{{storeCart}}" class="delete">删除</text>
         </view>
         
-        <view class="collect-orders" wx:if="{{storeCart.store_short_name && storeCart.store_short_name == '京东'}}">
-          <text class="icon">凑单</text>
-          <text class="content">再买56元可享包邮</text>
-          <view class="go" bindtap="gotoStore" data-item="{{storeCart}}">
-            <text>去凑单</text>
-            <image src="/images/v1.2/arrow_01.png"></image>
-          </view>
+        <view class="collect-orders">
+          <block wx:if="{{storeCart.store_short_name && storeCart.store_short_name == '京东' && storeCart.total < 149}}">
+            <text class="icon">凑单</text>
+            <text class="content">再买{{price.tos(149 - storeCart.total)}}元可享包邮</text>
+            <view class="go" bindtap="gotoStore" data-item="{{storeCart}}">
+              <text>去凑单</text>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
+          </block>
+          <block wx:else>
+            <text class="icon">包邮</text>
+            <text class="content">已享受包邮！</text>
+            <view class="go" bindtap="gotoStore" data-item="{{storeCart}}">
+              <text>再逛逛</text>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
+          </block>
         </view>
 
         <view wx:for="{{ storeCart.lineItems }}" wx:for-item="item" wx:key="index" class="line-item-container">
@@ -145,12 +155,10 @@
 
           <view class="bottom-info-container">
             <view class="info-content">
-              <!-- <view class="badges">
-                <text wx:for="{{item.badges}}" wx:for-item="badge" wx:key="index">{{badge}}</text>
-              </view> -->
               <view class="price">
-                <text class="">￥{{item.price}}</text>
-                <text class="origin-price">￥{{item.origin_price}}</text>
+                <text class="unit">￥</text>
+                <text class="money">{{item.price}}</text>
+                <!-- <text class="origin-price">￥{{item.origin_price}}</text> -->
               </view>
             </view>
             <view bindtap="addCart" data-item="{{item}}" class="cart-icon">

@@ -54,7 +54,7 @@
         </view>
       </view>
 
-      <view class="express" wx:if="{{order.refund_state == null &&  order.state != 'canceled' && order.state != 'handle_canceled' &&  order.state != 'new' &&  order.state != 'padding' }}">
+      <view class="express" wx:if="{{order.refund_state == null &&  order.state != 'canceled' && order.state != 'handle_canceled' &&  order.state != 'new' &&  order.state != 'padding' }}" bindtap="gotoExpress" data-expresses="{{order.expresses}}">
         <view class="express-box">
           <view class="express-l">
             <!-- 多个包裹 -->
@@ -82,7 +82,7 @@
       </view>
 
       <view class="product">
-        <view class="item" wx:if="{{index < showProductQuantity}}" wx:for="{{order.line_items}}" wx:for-item="item" wx:key="index">
+        <view class="item" wx:if="{{index < showProductQuantity}}"  bindtap="gotoProduct" data-url="/pages/products/show/index?id={{ item.product.id }}" wx:for="{{order.line_items}}" wx:for-item="item" wx:key="index">
           <view class="item-top">
             <view class="avatar">
               <image src="{{item.product.avatar}}"></image>

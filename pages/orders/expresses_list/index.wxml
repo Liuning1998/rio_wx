@@ -1,0 +1,34 @@
+<!--pages/orders/expresses/show.wxml-->
+<navbar return-able="{{true}}" title="我的包裹"/>
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+  <view class="tips">
+    <image src="/images/pay_success.png"></image>
+    <text>当前订单已拆分为{{expressesArr.length}}个包裹</text>
+  </view>
+
+  <view class="express" wx:for="{{expressesArr}}" wx:for-item="item" wx:key="index">
+    <view class="title">
+      <image class="icon" src="/images/v1.2/shops.png"></image>
+      <text class="index">包裹 {{index + 1}}</text>
+      <view class="state">
+        <text>{{item.express_state}}</text>
+      </view>
+      <view class="detail" bindtap="gotoExpress" data-item="{{expresses[index]}}">
+        <text>查看详情</text>
+        <image src="/images/v1.2/arrow.png"></image>
+      </view>
+    </view>
+    <view class="content">
+      <view class="item">
+        <text class="name">物流公司:</text>
+        <text class="info">{{item.company}}</text>
+      </view>
+      <view class="item">
+        <text class="name">最新进度:</text>
+        <text class="info">{{item.data[item.data.length-1].context}}</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>

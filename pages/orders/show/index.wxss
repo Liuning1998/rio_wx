@@ -891,6 +891,7 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 500;
+  word-break: break-all
 }
 .order-info .item .switch{
   display: flex;

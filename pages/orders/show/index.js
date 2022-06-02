@@ -136,7 +136,6 @@ Page({
       success: res => {
         if (res.statusCode == 200 && res.data != null) {
           this.setData({ expressInfo: res.data })
-          console.log(res.data)
         }
       },
       fail: res => {
@@ -581,13 +580,16 @@ Page({
   },
 
   gotoExpress: function (e) {
-    let item = e.currentTarget.dataset.item
-    if (item.express_number == null) {
+    let expresses = e.currentTarget.dataset.expresses
+    if (expresses == null) {
       this.errorToast('获取快递信息出错')
       return
     }
-
-    this.navigateTo(`/pages/orders/expresses/show?id=${item.express_number}&order_number=${this.data.order.number}`)
+    if(expresses.length > 1){
+      this.navigateTo(`/pages/orders/expresses_list/index?expresses=${JSON.stringify(expresses)}&order_number=${this.data.order.number}`)
+    }else{
+      this.navigateTo(`/pages/orders/expresses/show?id=${expresses[0].express_number}&order_number=${this.data.order.number}`)
+    }
   },
   
   gotoBuyGroup: function () {
