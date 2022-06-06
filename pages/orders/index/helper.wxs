@@ -50,9 +50,22 @@ function payLeftTime (order, now) {
   }
 }
 
+function payLeftTimeConfirm (start, now) {
+  if(typeof(start) != 'number') { return -1 }
+  
+  var expireTime = start + 60 * 30;
+  var leftTime = now - start
+  if(now > expireTime) {
+    return -1
+  } else {
+    return (expireTime - now)
+  }
+}
+
 module.exports = {
   vip_total: vip_total,
   origin_total: origin_total,
   payLeftTime: payLeftTime,
-  cutDate: cutDate
+  cutDate: cutDate,
+  payLeftTimeConfirm:payLeftTimeConfirm
 }

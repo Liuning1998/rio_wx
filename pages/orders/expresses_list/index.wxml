@@ -4,13 +4,13 @@
 
 <scroll-view scroll-y class='page-container'>
   <view class="tips">
-    <image src="/images/pay_success.png"></image>
+    <image src="/images/v1.2/express_01.png"></image>
     <text>当前订单已拆分为{{expressesArr.length}}个包裹</text>
   </view>
 
   <view class="express" wx:for="{{expressesArr}}" wx:for-item="item" wx:key="index">
     <view class="title">
-      <image class="icon" src="/images/v1.2/shops.png"></image>
+      <image class="icon" src="/images/v1.2/express_02.png"></image>
       <text class="index">包裹 {{index + 1}}</text>
       <view class="state">
         <text>{{item.express_state}}</text>

@@ -45,6 +45,14 @@ Page({
     isBalance:null,//是否开启余额支付
     balance:0,//平台余额
     balancePayResult: null,//纯余额支付结果弹窗
+    navStyle:{
+      appendStyle: 'background: rgba(0,0,0,0);',
+      navbarStyle: 'dark',
+      textStyle: 'color: #fff;'
+    },
+    startTime: Math.ceil((new Date).getTime()/1000),
+    nowTime: Math.ceil((new Date).getTime()/1000),
+    showProductQuantity:2,
   },
 
   /**
@@ -70,9 +78,11 @@ Page({
 
     this.setData({
       store_id: store_id,
+      startTime: Math.ceil((new Date).getTime()/1000),
       storeCart: storeCart
     })
     this.setCartLength(storeCart)
+    this.setNowTime()
 
     if (options.store_short_name == '京东') {
       this.setData({ store_short_name: '京东' })
@@ -130,6 +140,29 @@ Page({
 
     // 检查是否可以领取优惠券
     this.canReceiveCoupon()
+    
+  },
+
+
+  seeAll: function (e){
+    var number = e.target.dataset.length;
+    var showProductQuantity = this.data.showProductQuantity
+    if(number <= showProductQuantity){
+      this.setData({
+        showProductQuantity: 2
+      })
+    }else if(showProductQuantity == 2){
+      console.log('2')
+      this.setData({
+        showProductQuantity: number
+      })
+    }
+  },
+
+  setNowTime: function () {
+    this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
+    setTimeout( res => 
+      this.setNowTime(), 1000)
   },
 
   // 跳转领优惠券页面

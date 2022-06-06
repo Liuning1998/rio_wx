@@ -1,77 +1,75 @@
 <!--pages/products/buy/index.wxml-->
 <wxs module="price" src="../../../utils/price.wxs"></wxs>
 <wxs module="helper" src="../../../utils/helper.wxs"></wxs>
-<wxs module="time" src="../index/helper.wxs"></wxs>
 
 <wxs module="helperTime" src="../../coupons/list/helper.wxs"></wxs>
 
 <!-- 计算使用优惠券后价格 -->
 <wxs module="couponAfter" src="./coupon.wxs"></wxs>
 
-<navbar appendStyle="{{navStyle.appendStyle}}" navbarStyle="{{navStyle.navbarStyle}}"  textStyle="{{navStyle.textStyle}}" title="订单确认" />
+<navbar appendStyle="background: #ffffff;" textStyle="color: #333333; font-weight: 600;" title="订单确认" />
+<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="main-container">
-      <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
-      <image class="page-background" src="/images/v1.2/order_bg_01.png"></image>
       <view class="time-remark">
-        <text>剩余支付时间{{helper.getM(time.payLeftTimeConfirm(startTime, nowTime)) }}分{{ helper.getS(time.payLeftTimeConfirm(startTime, nowTime))}}秒</text>
+        <text>下单后请在30分钟内完成支付</text>
       </view>
       <view bindtap="selectAddress" wx:if="{{shipAddress == null || shipAddress.phone == null || shipAddress.phone.length <= 0}}" class="select-address-empty">
-        <view class="title">配送地址</view>
-        <view class="btn"><text>+</text>选择收货地址</view>
+        <image class="location" src="/images/location_icon_001.png"></image>
+        <text>选择收货地址</text>
+        <image class="arrow" src="/images/arrow_o_black.png"></image>
       </view>
 
       <view wx:else class="select-address-container">
+        <image class="address-icon" src="/images/address_icon_003.png"></image>
+        
         <view bindtap="selectAddress" class="address-content">
-          <view class="address-info">
-            <text wx:if="{{ shipAddress.default_address }}" class="default">默认地址</text>
-            <text>
-              <block wx:if="{{ shipAddress.province }}">{{ shipAddress.province || ''}}</block>
-              <block wx:if="{{ shipAddress.city }}">{{ shipAddress.city || ''}}</block>
-              <block wx:if="{{ shipAddress.district }}">{{ shipAddress.district || '' }}</block>
-              <block wx:if="{{ shipAddress.town }}">{{ shipAddress.town || '' }}</block>
-              <block wx:if="{{ shipAddress.address_info }}">{{ shipAddress.address_info || '' }}</block>
-            </text>
-          </view>
           <view class="user-info">
             <text class="user-name">{{shipAddress.real_name}}</text>
             <text class="phone">{{helper.hidePhone(shipAddress.phone)}}</text>
           </view>
+          <view class="address-info">
+            <text wx:if="{{shipAddress.default_address}}" class="address-label">地址: </text>
+            <text wx:if="{{ shipAddress.province }}">{{ shipAddress.province || ''}}</text>
+            <text wx:if="{{ shipAddress.city }}">{{ shipAddress.city || ''}}</text>
+            <text wx:if="{{ shipAddress.district }}">{{ shipAddress.district || '' }}</text>
+            <text wx:if="{{ shipAddress.town }}">{{ shipAddress.town || '' }}</text>
+            <text wx:if="{{ shipAddress.address_info }}">{{ shipAddress.address_info || '' }}</text>
+          </view>
         </view>
 
-        <image class="arrow" src="/images/v1.2/arrow.png"></image>
+        <image class="arrow" src="/images/arrow_o_black.png"></image>
       </view>
 
-      <view class="products">
-        <view wx:for="{{ lineItems }}" wx:for-item="item" wx:key="index"  class="product-item" wx:if="{{item.selectStatus && index < showProductQuantity}}">
-          <image class="avatar" src="{{avatars[item.product.id] || item.product.avatar}}"></image>
+      <image class="split-line" src="/images/split_line_001.png"></image>
+
+      <view class="content-title">
+        <image class="store-icon" src="/images/store_icon.png"></image>
+        <text>{{storeCart.store_name}}</text>
+      </view>
+      <view wx:if="{{ lineItemsLength <= 1}}" class="products one-item">
+        <view wx:for="{{ storeCart.lineItems }}" wx:for-item="item" wx:key="index"  class="product-item" wx:if="{{item.selectStatus}}">
+          <image mode="heightFix" class="avatar" src="{{avatars[item.product.id] || item.product.avatar}}"></image>
 
           <view class="product-info">
             <view class='name-variant'>
               <text class="name">{{item.product.name}}</text>
-              <!-- <text wx:if="{{ item.show_name != '' }}" class="variant-desc">已选: {{item.show_name}}</text>   -->
+              <text wx:if="{{ item.show_name != '' }}" class="variant-desc">已选: {{item.show_name}}</text>  
             </view>
             <view class="quantity-price">
               <view class="price-container">
-                <text class="unit">￥</text>
-                <text class="price">{{price.tos(item.price)}}</text>
-                <!-- <text class="origin-price">￥{{price.tos(item.origin_price)}}</text> -->
+                <text class="price">￥{{price.tos(item.price)}}</text>
+                <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
               </view>
-              <!-- <text class="quantity">x{{item.quantity}}</text> -->
+              <text class="quantity">x{{item.quantity}}</text>
             </view>
           </view>
         </view>
-        <view class="show-all {{showProductQuantity > 2 && 'shou'}}" data-length="{{lineItemsLength}}" bindtap="seeAll" wx:if="{{lineItemsLength > 2}}">
-          <block wx:if="{{showProductQuantity == 2}}">查看全部</block>
-          <block wx:else>收起</block>
-          <image src="/images/v1.2/arrow_01.png"></image>
-        </view>
       </view>
 
-      <!-- 改版前多个商品样式 -->
-      <!-- <veiw wx:else class="products more-items" bindtap="triggerVariantLayer">
+      <veiw wx:else class="products more-items" bindtap="triggerVariantLayer">
         <view class="avatars">
           <block wx:for="{{ storeCart.lineItems }}" wx:for-item="item" wx:key="index"  class="product-item" wx:if="{{item.selectStatus}}">
             <image src="{{ avatars[item.product.id] || item.product.avatar }}"></image>
@@ -84,65 +82,65 @@
             <image src="/images/arrow_o_black.png"></image>
           </view>
         </view>
-      </veiw> -->
+      </veiw>
 
       <view class="expenses">
-        <!-- 原合计 -->
         <view class="product-expenses">
-          <text class="label">商品总价</text>
+          <text class="label">商品金额:</text>
           <view class="total-container">
-            <text class="unit">+￥</text>
-            <text wx:if="{{ orderTotal != null }}" class="price">{{price.tos( orderTotal)}}</text>
-            <text wx:else class="price">{{ price.tos(storeCart.total) }}</text> 
+            <text>+￥{{price.tos(storeCart.total)}}</text>
+            <!-- <text class='origin-price'>￥{{price.tos(storeCart.origin_total)}}</text> -->
           </view>
         </view>
 
-        <view class="product-expenses" wx:if="{{ shipmentExpenses != null  }}">
-          <text class="label">运费(快递)</text>
-          <view class="total-container">
-            <text class="unit">+￥</text>
-            <text class="price">{{price.tos(shipmentExpenses)}}</text>
-          </view>
-        </view>
 
+
+        <!-- <view class="discount-shipment-expenses">
+          <text class="label">减免运费:</text>
+          <text class="price">-￥8.00</text>
+        </view> -->
       </view>
 
-      <view class="icon-view">
-        
-        <view class="item" data-url="/pages/member/index/index" bindtap="gotoLink" wx:if="{{userInfo && price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}">
-          <view class="left">
-            <image class="icon" src="/images/v1.2/order_confirm_03.png"></image>
-            <text class="name">{{current_vip_level}}会员专享{{userInfo.vip_level.current_discount}}折</text>
+      <view class="amount">
+        <view class="remark">
+          <!-- <image src="/images/info_icon.png"></image>
+          <text>养老用户享受优惠</text> -->
+        </view>
+        <view class="total-container">
+          <text class="label">合计:</text>
+          <text wx:if="{{ orderTotal != null }}" class="price">￥{{price.tos( orderTotal)}}</text>
+          <text wx:else class="price">￥{{ price.tos(storeCart.total) }}</text> 
+        </view>
+      </view>
+
+      <!-- 优惠券 -->
+      <view class="expenses coupon-text"> 
+        <view class="product-expenses" bindtap="openCoupon"> 
+          <view class="view-two">
+            <text class="label">优惠券:</text>
+            <text class="can-use-name"> {{checkCoupon.name}}</text>
+            <text class="can-use">{{couponNew ? couponNew.length : 0}} </text>
           </view>
-          <view class="right">
-            <text class="price">-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}</text>
+          <view class="total-container">
+            <text>-￥{{checkCoupon != null ? price.tos(checkCoupon.value) : price.tos(0)}} </text>
+            <!-- <text class='origin-price'>￥{{price.tos(storeCart.origin_total)}}</text> -->
             <image class="arrow" src="/images/arrow_o_black_01.png"></image>
           </view>
         </view>
 
-        <view class="item"  bindtap="openCoupon">
-          <view class="left">
-            <image class="icon" src="/images/v1.2/order_confirm_02.png"></image>
-            <text class="name">优惠券</text>
-            <text class="describe">{{checkCoupon.name}}</text>
-          </view>
-          <view class="right">
-            <text class="price">-￥{{checkCoupon != null ? price.tos(checkCoupon.value) : price.tos(0)}} </text>
-            <image class="arrow" src="/images/arrow_o_black_01.png"></image>
-          </view>
-        </view>
-
-        <view class="item">
-          <view class="left">
-            <image class="icon" src="/images/v1.2/order_confirm_01.png"></image>
-            <text class="name">账户余额</text>
-            <text class="describe">9.0元</text>
-          </view>
-          <view class="right">
-            <text class="balance">是否使用平台余额抵扣</text>
-            <switch class="balance-switch" checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/>
-          </view>
-        </view>
+        <view class="product-expenses" wx:if="{{price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}"> 
+          <view class="view-two">
+            <text class="label">会员专享:</text> 
+            <text class="can-use vip" wx:if="{{userInfo}}">{{userInfo.vip_level.current_discount + '折'}}</text>
+          </view> 
+          <view class="total-container"> 
+            <text>-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}</text> 
+          </view> 
+        </view> 
+        <view wx:if="{{ shipmentExpenses != null  }}" class="shipment-expenses"> 
+          <text class="label">基础运费:</text> 
+          <text class="price">+￥{{ price.tos(shipmentExpenses) }}</text> 
+        </view> 
 
       </view>
 
@@ -162,11 +160,18 @@
         <text class="content">在线支付</text>
       </view> -->
 
+      <view class="pay-methods balance" wx:if="{{balance > 0}}">
+        <text class="left">平台余额: <text>{{balance}}元</text></text>
+        <view class="balance-switch">
+          <text>是否使用平台余额抵扣</text>
+          <switch checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/>
+        </view>
+      </view>
 
       <!-- 本单优惠 -->
-      <!-- <view class="time-remark" style="color: #F64C47;background: #fff;border-top: 1px solid #f7f7f7;" wx:if="{{freeNotice != ''}}">
+      <view class="time-remark" style="color: #F64C47;background: #fff;border-top: 1px solid #f7f7f7;" wx:if="{{freeNotice != ''}}">
         <text>{{freeNotice}}</text>
-      </view> -->
+      </view>
       
 
       <!-- <view class="secret-container" wx:if="{{ productType == 3 }}">
@@ -315,17 +320,12 @@
 <view class="bottom-tools  {{ isIphoneX && 'iphone-x' }}">
   <view class="total">
     <text class="total-desc">应付款: </text>
-    <text class="unit">￥</text>
     <text class="price">
-      <block wx:if="{{!isBalance}}">{{price.int(price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value))}}</block> 
-      <block wx:else>{{ (price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value) - balance) < 0 ? 0 : price.int(price.priceRound(price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value) - balance)) }}</block>
-    </text>
-    <text class="decimal">
-      <block wx:if="{{!isBalance}}">{{price.decimal(price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value))}}</block> 
-      <block wx:else>{{ (price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value) - balance) < 0 ? 0 : price.decimal(price.priceRound(price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value) - balance)) }}</block>
+      <block wx:if="{{!isBalance}}">￥{{price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value)}}</block> 
+      <block wx:else>￥{{ (price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value) - balance) < 0 ? 0 : price.priceRound(price.discountTotal(storeCart, lineItems, userInfo, shipmentExpenses,checkCoupon.value) - balance) }}</block>
     </text>
   </view>
-  <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap="{{canReceiveCoupon ? 'openCanReceive':'createOrder'}}" data-state='addCart'>提交订单</button>
+  <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap="{{canReceiveCoupon ? 'openCanReceive':'createOrder'}}" data-state='addCart'>立即支付</button>
 </view>
 
 <view class="variants-layer {{ !showVariantLayer && 'hide'}}" catchtap="triggerVariantLayer">

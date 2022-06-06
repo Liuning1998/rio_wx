@@ -117,14 +117,12 @@ Page({
     var number = e.target.dataset.length;
     var showProductQuantity = this.data.showProductQuantity
     if(number <= showProductQuantity){
-      return
+      this.setData({
+        showProductQuantity: 2
+      })
     }else if(showProductQuantity == 2){
       this.setData({
         showProductQuantity: number
-      })
-    }else{
-      this.setData({
-        showProductQuantity: 2
       })
     }
   },

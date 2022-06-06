@@ -1,6 +1,7 @@
 <!--pages/components/navbar/index.wxml-->
 
 <view style="{{ appendStyle }}" class='{{navbarStyle == "dark" ? "navbar-container-dark" : "navbar-container"}}'>
+  <image class="dark_bg" wx:if="{{navbarStyle == 'dark'}}" src="/images/v1.2/nav_bg.png"></image>
   <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
   <view class='navbar-content'>
     <view wx:if='{{returnAble}}' bindtap='goback' class='return-image-container'>
