@@ -46,27 +46,35 @@ Page({
     const query = wx.createSelectorQuery();
     query.select(".scroll").boundingClientRect((res) => {
         this.setData({
-            parentTop: res.top
+            parentTop: this.data.pageMarginTop + 44 + 56
         })
     }).exec()
   },
   // 置顶方法
   topShow:function(){
     const query = wx.createSelectorQuery();
+    var labelTop = 0;
     query.select("#fixedTop").boundingClientRect((res) => {
-      this.setData({
-        labelTop: res.top
-      })
+      try {
+        labelTop = res.top 
+        if(this.data.parentTop >= labelTop){ 
+          if(!this.data.topShow){ 
+            this.setData({ 
+              topShow:true, 
+              labelTop:labelTop 
+            }) 
+          } 
+        }else{ 
+          if(!!this.data.topShow){ 
+            this.setData({ 
+              topShow:false 
+            }) 
+          } 
+        } 
+      } catch (error) {
+        console.log(error)
+      }
     }).exec()
-    if(this.data.parentTop >= this.data.labelTop){
-      this.setData({
-        topShow:true
-      })
-    }else{
-      this.setData({
-        topShow:false
-      })
-    }
 
   },
   onPageScroll: function (e) {
@@ -276,15 +284,13 @@ Page({
     var id = e.currentTarget.dataset.item.id;
     var currentidKey = `currentCategory.secondId`
     var key = `id_${id}`;
+    var dataObject = {}; 
     if(!this.data.products[key]){
-      setTimeout(res=>{
-        this.setData({topShow:false})
-      },50)
+      dataObject['topShow'] = false 
     }
-    this.setData({
-      [currentidKey]:id,
-      productsTitle:e.currentTarget.dataset.item.name,
-    });
+    dataObject['productsTitle'] = e.currentTarget.dataset.item.name; 
+    dataObject[currentidKey] = id; 
+    this.setData(dataObject);
     this.getRect('#'+ele);
     this.fetchProducts(id)
   },

@@ -394,6 +394,7 @@ Page({
     this.navigateTo("/products/pages/today/index?pageType=" + 'youxuan')
   },
 
+
   gotoUrl: function (e) {
     console.log(e)
     var url = e.currentTarget.dataset.url
@@ -401,7 +402,10 @@ Page({
       return
     }
 
-    this.navigateTo(url)
+    var query = url.substring(url.indexOf("=")+1)
+    url = url.substring(0,url.indexOf("=")+1)
+
+    this.navigateTo(url + encodeURIComponent(query))
   },
 
   reLogin: function () {
@@ -458,7 +462,7 @@ Page({
       return true
     }
 
-    if (item.tags != null && item.tags.length > 0 && item.tags[0] != null) {
+    if (item != null && item.tags != null && item.tags.length > 0 && item.tags[0] != null) {
       this.navigateTo(
         `/products/pages/index2/index?id=${item.id}&tag_name=${item.tags[0]}`,
         { brand: item }

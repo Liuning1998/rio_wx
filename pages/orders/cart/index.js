@@ -288,6 +288,16 @@ Page({
     var item = e.currentTarget.dataset.item
     let _cartData = cartApi.removeFromCart(item)
 
+    //如果removeFromCart返回false 说明删除失败（一般为缓存过期）手动触发onShow更新商品 
+    if(_cartData == false){ 
+      wx.showToast({ 
+        title: '购物车商品过期', 
+        icon: 'none', 
+        duration: 2000 
+      }) 
+      this.onShow() 
+    } 
+
     this.setData({ cartData: _cartData, touchMoveList: {}, deleteButtonShowId: -1 })
   },
 
@@ -300,6 +310,16 @@ Page({
         if (res.confirm) {
           var item = e.currentTarget.dataset.item
           let _cartData = cartApi.removeStoreLineOfSelect(item)
+
+          //如果removeStoreLineOfSelect返回false 说明删除失败（一般为缓存过期）手动触发onShow更新商品 
+          if(_cartData == false){ 
+            wx.showToast({ 
+              title: '购物车商品过期', 
+              icon: 'none', 
+              duration: 2000 
+            }) 
+            this.onShow() 
+          } 
 
           this.setData({ cartData: _cartData })
         }
