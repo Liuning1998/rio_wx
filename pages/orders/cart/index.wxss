@@ -582,22 +582,9 @@ page {
 }
 
 .product-list-container .item-container .pbadges{
-  margin-top: 14rpx;
+  margin-top: 30rpx;
 }
 
-.product-list-container .item-container .pbadges  .badge-icon{
-    width: 70rpx;
-    height: 24rpx;
-    background-color: #FF3633;
-    border-radius: 6rpx;
-    margin-right: 6rpx;
-    padding: 7.16rpx 11.26rpx;
-    margin-top: 10rpx;
-}
-
-.product-list-container .item-container .pbadges  .badge-icon.butie{
-  width: 94rpx;
-}
 
 .product-list-container .avatar-container {
   width: 338rpx;

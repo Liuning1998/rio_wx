@@ -20,7 +20,7 @@ Page({
    },
    labelShow:false,
    topShow:false,
-   productsTitle:'全部分类'
+   productsTitle:'全部商品'
   },
 
   /**
@@ -88,7 +88,7 @@ Page({
       url: 'api/platform_categories',
       success: res => {
         res.data.forEach(function(ele,i){
-          ele.labelArr = [{id:ele.id,name:'全部分类',sort_value:false}]
+          ele.labelArr = [{id:ele.id,name:'全部商品',sort_value:false}]
           ele.secondId = ele.id
         })
         this.setData({ categories: res.data })
@@ -178,7 +178,7 @@ Page({
       return false
     }
 
-    this.setData({ currentCategory: category,productsTitle:'全部分类',topShow:false})
+    this.setData({ currentCategory: category,productsTitle:'全部商品',topShow:false})
     setTimeout(res=>{
       this.topShow()
     },50)

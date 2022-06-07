@@ -110,21 +110,33 @@
 .pbadges {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 8rpx;
 }
-.pbadges .badge-item {
-  font-size: 20rpx;
-  color: #F64C47;
-  height: 28rpx;
-  line-height: 28rpx;
-  border: 1px solid #F64C47;
-  padding: 0 4rpx;
-  border-radius: 4rpx;
-  display: inline-block;
-  position: relative;
-  top: -2rpx;
-  margin-right: 4rpx;
-  margin-bottom: 4rpx;
+.pbadges  .badge-icon{
+  width: 70rpx;
+  height: 24rpx;
+  background-color: #FF3633;
+  border-radius: 6rpx;
+  margin-right: 6rpx;
+  padding: 7.16rpx 11.26rpx;
+  margin-bottom: 10rpx;
+}
+
+.pbadges  .badge-icon.butie{
+  width: 94rpx;
+}
+
+.pbadges .badge-item{
+  height: 48rpx;
+  background: #FF3633;
+  border-radius: 6rpx;
+  display: flex;
+  align-items: center;
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+  padding: 0 16rpx;
+  margin-right: 12rpx;
 }
 /* 徽标 */
 

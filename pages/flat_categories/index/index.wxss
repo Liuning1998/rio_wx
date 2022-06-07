@@ -82,10 +82,10 @@ page {
 }
 
 .products-container .avatar {
-  width: 160rpx;
-  height: 160rpx;
+  width: 216rpx;
+  height: 216rpx;
   display: flex;
-  margin-right: 14rpx;
+  margin-right: 12rpx;
 }
 
 .product-container {
@@ -94,20 +94,27 @@ page {
 }
 
 .product-container .name {
-  width: 336rpx;
-  font-size: 28rpx;
-  color: #2B2424;
+  width: 288rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   display: -webkit-box;
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  font-weight: 400;
 }
 
 .product-container .name .pre_name{
   color: #F64C47;
 }
+
+.product-container .pbadges{
+  height: 45rpx;
+  overflow: hidden;
+} 
 
 .badges .item {
   border: 1px solid #F64C47;
@@ -142,27 +149,32 @@ page {
 
 .price-and-btn {
   display: flex;
-  width: 336rpx;
+  width: 288rpx;
   justify-content: space-between;
   align-items: center;
+  line-height: 1;
 }
 
 .product-container .price-int {
-  font-size: 32rpx;
-  color: #F64C47;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #FF3633;
   font-weight: 500;
 }
 
 .product-container .price-int::before {
   content: '￥';
-  font-size: 24rpx;
-  color: #F64C47;
   font-weight: 400;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FF3633;
 }
 
 .product-container .price-decimal {
-  font-size: 24rpx;
-  color: #F64C47;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #FF3633;
+  font-weight: 500;
 }
 
 .product-container .price-decimal::before {
@@ -173,15 +185,8 @@ page {
 }
 
 .product-container .add-cart {
-  background: #F64C47;
-  display: inline-block;
-  height: 48rpx;
-  width: 48rpx;
-  border-radius: 24rpx;
-  color: #ffffff;
-  line-height: 40rpx;
-  text-align: center;
-  font-size: 42rpx;
+  height: 60rpx;
+  width: 60rpx;
 }
 
 .product-container .line {
@@ -260,8 +265,10 @@ page {
 .category-list-container .category-item-container text {
   height: 112rpx;
   line-height: 112rpx;
-  font-size: 28rpx;
-  color: #5B5454;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #807474;
+  font-weight: 400;
 }
 
 .category-list-container .category-item-container .line {
@@ -319,8 +326,10 @@ page {
 
 .search-layer .input-group input {
   flex: 1;
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #2B2424;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
 }
 
 .search-layer .input-group .clear{
@@ -348,10 +357,12 @@ page {
 }
 
 .search-layer .cancel-btn {
-  font-size: 28rpx;
-  color: #5B5454;
   flex-shrink: 0;
   padding-left: 24rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #5B5454;
+  font-weight: 400;
 }
 /* 搜索层 */
 
@@ -381,38 +392,29 @@ page {
   z-index: 32;
 }
 .products-title{
-  font-size: 24rpx;
-  color: #5B5454;
-  text-align: center;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #FF3633;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.products-title view{
-  width: 6rpx;
-  height: 6rpx;
-  position: relative;
-  background-color: #D8D8D8;
-  border-radius: 50%;
+.products-title image{
+  width: 14rpx;
+  height: 26rpx;
   display: inline-block;
   vertical-align: middle;
+  margin: 0 12rpx;
 }
-.products-title view.left::after{
+.products-title .icon{
   content: "";
-  position: absolute;
-  width: 38rpx;
-  height: 2rpx;
-  background-color: #D8D8D8;
-  top: 50%;
-  left: -47rpx;
-  transform: translateY(-50%);
-}
-.products-title view.right::after{
-  content: "";
-  position: absolute;
-  width: 38rpx;
-  height: 2rpx;
-  background-color: #D8D8D8;
-  top: 50%;
-  right: -47rpx;
-  transform: translateY(-50%);
+  width: 8rpx;
+  display: inline-block;
+  height: 8rpx;
+  border-radius: 50%;
+  background-color: #FF3633;
+  margin: 0 12rpx;
 }
 .top-label .label-box{
   width: 100%;
@@ -425,18 +427,20 @@ page {
   margin-right: 50rpx;
 }
 .label-text{
-  padding: 0 12rpx;
+  padding: 0 16rpx;
   box-sizing: border-box;
-  min-width: 112rpx;
-  line-height: 52rpx;
+  min-width: 102rpx;
+  line-height: 48rpx;
   border-radius: 60rpx;
   background-color: #F7F7F7;
   text-align: center;
-  font-size: 22rpx;
-  color: #2B2424;
   margin-right: 5rpx;
   display: inline-block;
   border: 1px solid #F7F7F7;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #807474;
+  font-weight: 400;
 }
 .label-many{
   position: absolute;
@@ -452,13 +456,15 @@ page {
 .label-many .label-text{
   margin-bottom: 12rpx;
 }
-.label-many .label-text:nth-child(4n){
+/* .label-many .label-text:nth-child(4n){
   margin-right: 0;
-}
+} */
 .label-text.active{
-  background-color: rgba(246,76,71,0.2);
-  border: 1px solid rgba(246,76,71,0.50);
-  color: #f64c47;
+  background: #FFF0F0;
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #FF3633;
+  font-weight: 500;
 }
 .top-label .label-down{
   position: absolute;
