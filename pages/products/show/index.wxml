@@ -216,7 +216,10 @@
       <view class='product'>
         <image src="{{ product.carousels[0] }}"></image>
         <view class='info'>
-          <text class="price">{{ currentVariant.price || '' }}</text>
+          <text class="price">
+            <text class="int">{{ price.int(currentVariant.price) || '' }}</text>
+            <text class="decimal">{{ price.decimal(currentVariant.price) || '' }}</text>
+          </text>
           <text class="name">{{ product.name || '' }}</text>
         </view>
       </view>
