@@ -1496,8 +1496,8 @@ page {
   font-weight: 500;
 }
 .icon-view .item .right .arrow{
-  width: 12rpx;
-  height: 24rpx;
+  width: 16rpx;
+  height: 28rpx;
   margin-left: 22rpx;
 }
 .icon-view .item .right .balance-switch{

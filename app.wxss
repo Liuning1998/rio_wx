@@ -121,10 +121,6 @@
   margin-bottom: 10rpx;
 }
 
-.pbadges  .badge-icon.butie{
-  width: 94rpx;
-}
-
 .pbadges .badge-item{
   height: 48rpx;
   background: #FF3633;

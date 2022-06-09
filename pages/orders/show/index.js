@@ -27,11 +27,6 @@ Page({
     balance:0,
     balancePayResult:null,//纯余额支付结果
     nowTime: Math.ceil((new Date).getTime()/1000),
-    navStyle:{
-      appendStyle: 'background: rgba(0,0,0,0);',
-      navbarStyle: 'dark',
-      textStyle: 'color: #fff;'
-    },
     showProductQuantity:2,
   },
 
@@ -149,23 +144,7 @@ Page({
   },
   
   onPageScroll: function (res){
-    if(res.scrollTop > 50){
-      this.setData({
-        navStyle:{
-          appendStyle: '',
-          navbarStyle: '',
-          textStyle: ''
-        },
-      })
-    }else{
-      this.setData({
-        navStyle:{
-          appendStyle: 'background: rgba(0,0,0,0);',
-          navbarStyle: 'dark',
-          textStyle: 'color: #fff;'
-        },
-      })
-    }
+
   },
 
   onUnload: function () {

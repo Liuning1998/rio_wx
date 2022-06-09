@@ -47,9 +47,9 @@
       <view class="products-container" style="padding-top:{{topShow ? 40 : 0}}px">
         <view wx:if="{{categories[currentIndex].labelArr.length > 1}}" class="products-title">
           <text class="icon"></text>
-          <image class="left" src="/images/v1.2/order_confirm_01.png"></image>
+          <image class="left" src="/images/v1.2/class_icon_01.png"></image>
           {{productsTitle}}
-          <image class="right" src="/images/v1.2/order_confirm_01.png"></image>
+          <image class="right" src="/images/v1.2/class_icon_01.png"></image>
           <text class="icon"></text>
         </view>
         <view class="product-container" wx:for="{{ products['id_'+currentCategory.secondId]}}" wx:key="index">
@@ -61,8 +61,7 @@
               <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
               <view class="pbadges">
                 <block wx:for="{{ item.badges }}" wx:for-item="badge">
-                  <image class="badge-icon" wx:if="{{badge == '养老券'}}" src="/images/v1.2/product_icon_03.png"></image>
-                  <image class="badge-icon butie" wx:if="{{badge == '护理补贴'}}" src="/images/v1.2/product_icon_02.png"></image>
+                  <text class="badge-item">{{badge}}</text>
                 </block>
               </view>
               <!-- <view class="badges">
@@ -75,7 +74,7 @@
                 <text class="price-int">{{price.int(item.price)}}</text>
                 <text class="price-decimal">{{price.decimal(item.price)}}</text>
               </view>
-              <image class="add-cart" catchtap="addCartAndAnimation" data-item="{{item}}" src="/images/v1.2/order_confirm_03.png"></image>
+              <image class="add-cart" catchtap="addCartAndAnimation" data-item="{{item}}" src="/images/v1.2/add_cart.png"></image>
             </view>
           </view>
 

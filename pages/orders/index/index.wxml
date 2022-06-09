@@ -42,7 +42,6 @@
             </view>
             <text wx:if="{{order.refund_state != null}}">{{order.refund_state}}</text>
             <text wx:else>{{ order.state_t }}</text>
-            <!-- <image wx:else mode="heightFix" src="../../../images/order_completed.png"></image> -->
           </view>
 
           <view wx:if="{{order.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">

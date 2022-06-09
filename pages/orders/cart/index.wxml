@@ -147,8 +147,7 @@
 
           <view class="pbadges" style="padding: 0 24rpx; box-sizing: border-box;">
             <block wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge">
-              <image class="badge-icon" wx:if="{{badge == '养老券'}}" src="/images/v1.2/product_icon_03.png"></image>
-              <image class="badge-icon butie" wx:if="{{badge == '护理补贴'}}" src="/images/v1.2/product_icon_02.png"></image>
+              <text class="badge-item">{{badge}}</text>
             </block>
           </view>
           <text bindtap="gotoProduct" data-item="{{item}}" class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
@@ -166,7 +165,7 @@
                 <text>GO</text>
                 <image src="/images/store/go_arrow_002.png"></image>
               </view>
-              <image wx:else src="/images/cart_icon_007.png"></image>
+              <image wx:else src="/images/v1.2/add_cart.png"></image>
             </view>
           </view>
         </view>

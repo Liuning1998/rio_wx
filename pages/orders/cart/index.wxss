@@ -681,10 +681,8 @@ page {
 }
 
 .product-list-container .cart-icon {
-  height: 48rpx;
-  width: 48rpx;
-  border-radius: 28rpx;
-  background: rgba(216, 216, 216, 0.4);
+  height: 60rpx;
+  width: 60rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -708,8 +706,8 @@ page {
 
 .product-list-container .cart-icon image {
   display: flex;
-  width: 22rpx;
-  height: 22rpx;
+  width: 60rpx;
+  height: 60rpx;
 }
 
 .product-list-container .price {

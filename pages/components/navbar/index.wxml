@@ -1,13 +1,13 @@
 <!--pages/components/navbar/index.wxml-->
 
-<view style="{{ appendStyle }}" class='{{navbarStyle == "dark" ? "navbar-container-dark" : "navbar-container"}}'>
-  <image class="dark_bg" wx:if="{{navbarStyle == 'dark'}}" src="/images/v1.2/nav_bg.png"></image>
+<view style="{{ appendStyle }}" class='{{navbarStyle == "custom" ? "navbar-container-dark" : "navbar-container"}}'>
+  <image class="dark_bg" wx:if="{{navbarStyle == 'custom'}}" src="{{customImgSrc}}" mode="widthFix"></image>
   <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
   <view class='navbar-content'>
     <view wx:if='{{returnAble}}' bindtap='goback' class='return-image-container'>
-      <image wx:if="{{returnAble && navbarStyle == 'dark'}}" class='return-image' src='../../../images/arrow_o_white_01.png'></image>
-      <image wx:if="{{returnAble && navbarStyle != 'dark'}}" class='return-image' src='../../../images/arrow_o_black.png'></image>
+      <image wx:if="{{returnAble && navbarStyle == 'custom'}}" class='return-image' src='/images/v1.2/return_white.png'></image>
+      <image wx:if="{{returnAble && navbarStyle != 'custom'}}" class='return-image' src='/images/v1.2/return_black.png'></image>
     </view>
-    <text style="{{textStyle}}" class='navbar-title {{navbarStyle == "dark" && "text-white"}}'>{{ title }}</text>
+    <text style="{{textStyle}}" class='navbar-title {{navbarStyle == "custom" && "text-white"}}'>{{ title }}</text>
   </view>
 </view>

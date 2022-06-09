@@ -8,13 +8,13 @@
 <!-- 计算使用优惠券后价格 -->
 <wxs module="couponAfter" src="./coupon.wxs"></wxs>
 
-<navbar appendStyle="{{navStyle.appendStyle}}" navbarStyle="{{navStyle.navbarStyle}}"  textStyle="{{navStyle.textStyle}}" title="订单确认" />
+<navbar navbarStyle="{{navStyle.navbarStyle}}" customImgSrc="{{navStyle.imgSrc}}" title="订单确认" />
 
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="main-container">
       <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
-      <image class="page-background" src="/images/v1.2/order_bg_01.png"></image>
+      <image class="page-background" src="/images/v1.2/order_detailbg_01.png"></image>
       <view class="time-remark">
         <text>剩余支付时间{{helper.getM(time.payLeftTimeConfirm(startTime, nowTime)) }}分{{ helper.getS(time.payLeftTimeConfirm(startTime, nowTime))}}秒</text>
       </view>
@@ -116,7 +116,7 @@
           </view>
           <view class="right">
             <text class="price">-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}</text>
-            <image class="arrow" src="/images/arrow_o_black_01.png"></image>
+            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
 
@@ -128,7 +128,7 @@
           </view>
           <view class="right">
             <text class="price">-￥{{checkCoupon != null ? price.tos(checkCoupon.value) : price.tos(0)}} </text>
-            <image class="arrow" src="/images/arrow_o_black_01.png"></image>
+            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
 

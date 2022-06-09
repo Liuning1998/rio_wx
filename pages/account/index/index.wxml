@@ -121,6 +121,8 @@
   </view>
 </view>
 
+<view style="width: 100%;height: 100rpx;"></view>
+
 <view class="cs" catchtouchmove="csTouch" style="top:{{csTop}}px;" data-url="/pages/contact/index" bindtap="gotoLink">
   <image class="cs_img" src="/images/v1.2/mine_kf_01.png"></image>
   <text>联系客服</text>

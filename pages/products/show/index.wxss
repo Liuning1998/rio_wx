@@ -38,7 +38,7 @@ page {
   height: 44rpx;
   width: 44rpx;
   border-radius: 50%;
-  background: rgba(1, 1, 1, 0.5);
+  background: rgba(1, 1, 1, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -297,7 +297,6 @@ page {
   -webkit-line-clamp: 2;
   display: -webkit-box;
   width: 100%;
-  border-top: 1px solid #f7f7f7;
   font-family: PingFangSC-Medium;
   font-size: 48rpx;
   color: #2B2424;
@@ -401,10 +400,9 @@ page {
 
 .ellipsis {
   flex-shrink: 0;
-  width: 24rpx;
-  height: 12rpx;
+  width: 16rpx;
+  height: 28rpx;
   flex: none;
-  transform: rotate(-90deg);
 }
 
 .variant-info {
@@ -664,7 +662,7 @@ page {
   width: 272rpx;
   text-align: center;
   line-height: 80rpx;
-  border-radius: 36rpx;
+  border-radius: 40rpx;
   background-image: linear-gradient(134deg, #FFA14F 0%, #FF542B 100%);
   padding: 0;
   position: relative;
@@ -860,12 +858,10 @@ page {
 }
 
 .select-variant-layer .select-variant-container .close image {
-  height: 18rpx;
-  width: 18rpx;
-  background: rgba(1, 1, 1, 0.3);
+  height: 28rpx;
+  width: 28rpx;
   padding: 12rpx;
   border-radius: 50%;
-  border: 1rpx solid #97979755;
   margin-left: 30rpx;
   margin-bottom: 30rpx;
 }
@@ -1204,11 +1200,8 @@ page {
 }
 
 .area-limit-container .icon{
-  height: 40rpx;
-  width: 40rpx;
-  margin-right: 12rpx;
-  position: relative;
-  top: 4rpx;
+  height: 32rpx;
+  width: 66rpx;
   flex-shrink: 0;
 }
 
@@ -1247,10 +1240,9 @@ page {
 }
 
 .area-limit .areas .arrow{
-  width: 24rpx;
-  height: 12rpx;
+  width: 16rpx;
+  height: 28rpx;
   flex: none;
-  transform: rotate(-90deg);
   margin-top: 22rpx;
 }
 /* 区域限制 */
@@ -1631,6 +1623,10 @@ page {
 .share .right{
   display: flex;
   flex-direction: column;
+  padding: 0;
+  background: none;
+  width: auto;
+  margin: 0;
 }
 .share .right image{
   width: 60rpx;

@@ -46,9 +46,8 @@ Page({
     balance:0,//平台余额
     balancePayResult: null,//纯余额支付结果弹窗
     navStyle:{
-      appendStyle: 'background: rgba(0,0,0,0);',
-      navbarStyle: 'dark',
-      textStyle: 'color: #fff;'
+      navbarStyle: 'custom',
+      imgSrc: '/images/v1.2/order_detailbg_01.png'
     },
     startTime: Math.ceil((new Date).getTime()/1000),
     nowTime: Math.ceil((new Date).getTime()/1000),

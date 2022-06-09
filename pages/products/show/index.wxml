@@ -83,10 +83,10 @@
               <text>转发宝贝给他人</text>
               <text>可分享给他人帮忙看看</text>
             </view>
-            <view class="right">
-              <image class="img" src="/images/v1.2/order_confirm_03.png"></image>
+            <button open-type="share" class="right">
+              <image class="img" src="/images/v1.2/share.png"></image>
               <text>分享</text>
-            </view>
+            </button>
         </view>
       </view>
 
@@ -94,7 +94,7 @@
         <view class="area-limit" wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
           <view class="area-limit-container">
             <view class="left">
-              <image class="icon" src="/images/area_limit.png"></image>
+              <image class="icon" src="/images/v1.2/product_detail_01.png"></image>
             </view>
             <view class="right">
               <text class="label">不可售区域</text>
@@ -103,7 +103,7 @@
               <text>
                 <block wx:for="{{product.area_limit.area_limit}}">{{item}} </block>
               </text>
-              <image class="arrow" src="/images/arrow_o_bottom_green.png"></image>
+              <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
             </view>
           </view>
         </view>
@@ -111,7 +111,7 @@
         <view wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}" class="area-limit">
           <view class="area-limit-container">
             <view class="left">
-              <image class="icon" src="/images/area_limit.png"></image>
+              <image class="icon" src="/images/v1.2/product_detail_01.png"></image>
             </view>
             <view class="right">
               <text class="label">不可售区域</text>
@@ -120,7 +120,7 @@
               <text>
                 <block wx:for="{{product.area_limit.area_only}}">{{item}} </block>
               </text>
-              <image class="arrow" src="/images/arrow_o_bottom_green.png"></image>
+              <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
             </view>
           </view>
         </view>
@@ -145,7 +145,7 @@
             <text class="desc">{{ currentVariant.show_name }}</text>
           </view>
 
-          <image class="ellipsis" src="/images/arrow_o_bottom_green.png"></image>
+          <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
         </view>
         <!--领券 -->
         <view class="variant-info" wx:if="{{isShowCoupon}}" bindtap="openCoupon">
@@ -160,17 +160,17 @@
             </view>
           </view>
 
-          <image class="ellipsis" src="/images/arrow_o_bottom_green.png"></image>
+          <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
         </view>
         <!-- 赠品 -->
-        <view class="variant-info">
+        <view class="variant-info" wx:if="{{product.free_product}}">
           
           <view class="main-info">
             <text class="label">赠品</text>
             <text class="desc">输入文本输入文本输入文本...</text>
           </view>
 
-          <image class="ellipsis" src="/images/arrow_o_bottom_green.png"></image>
+          <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
         </view>
       </view>
 
@@ -212,7 +212,7 @@
       <i class="fa fa-close"></i>
     </view>
     <scroll-view scroll-y class='variant-scroll'>
-      <view bindtap='hideSelectContainer' class="close"><image src="/images/close_white.png"></image></view>
+      <view bindtap='hideSelectContainer' class="close"><image src="/images/v1.2/close.png"></image></view>
       <view class='product'>
         <image src="{{ product.carousels[0] }}"></image>
         <view class='info'>

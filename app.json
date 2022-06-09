@@ -16,6 +16,7 @@
     "pages/account/balance/index",
     "pages/addresses/index/index",
     "pages/special_areas/show/index",
+    "pages/special_areas/show1.2/index",
     "pages/account/index/index",
     "pages/account/show/index",
     "pages/coupons/dashboard/index",

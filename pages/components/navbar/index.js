@@ -20,6 +20,9 @@ Component({
     },
     textStyle: {
       type: String
+    },
+    customImgSrc: {
+      type: String,
     }
   },
 

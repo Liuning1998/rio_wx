@@ -374,7 +374,7 @@ Page({
       this.navigateTo(url)
       return
     }
-    this.navigateTo(`/pages/special_areas/show/index?item_id=${item.id}&name=${item.name}`)
+    this.navigateTo(`/pages/special_areas/show1.2/index?item_id=${item.id}&name=${item.name}`)
   },
 
   gotoProduct: function (e) {

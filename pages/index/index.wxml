@@ -223,7 +223,7 @@
                 <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
               </view>
               <view class="add-cart-image-box">
-                <image catchtap="addCartAndAnimation" data-item="{{item}}" class="add-cart-image" src="../../images/cart_icon_007_red.png"></image>
+                <image catchtap="addCartAndAnimation" data-item="{{item}}" class="add-cart-image" src="../../images/v1.2/add_cart.png"></image>
               </view>
             </view>
           </view>
