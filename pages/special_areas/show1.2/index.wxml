@@ -32,7 +32,7 @@
     </block>
   </swiper>
 
-  <view class="content">  
+  <view class="content" style="height: calc(100vh - {{pageMarginTop+44}}px);">  
     <!-- 专区种类 -->
     <view class="label">
       <view bindtap="gotoCategory" class="item active" wx:for="{{categories}}" wx:key="index">
@@ -57,7 +57,160 @@
         <view class="name">全部商品</view>
         <view class="screen-box">
           <view class="default">综合</view>
-          <view class="price">价格</view>
+          <view class="price">
+            价格
+            <image class="up" src="/images/v1.2/special_02.png"></image>
+            <image class="down" src="/images/v1.2/special_01.png"></image>
+          </view>
+        </view>
+      </view>
+      <view scroll-y class='products'>
+        <view class="product">
+          <view class="avatar-container">
+            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">犟鲁牛蹄</text>
+              <view class="pbadges">
+                <text class="badge-item">养老券</text>
+                <text class="badge-item">护理补贴</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">1000.00</text>
+              </view>
+              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="product">
+          <view class="avatar-container">
+            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">犟鲁牛蹄</text>
+              <view class="pbadges">
+                <text class="badge-item">养老券</text>
+                <text class="badge-item">护理补贴</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">1000.00</text>
+              </view>
+              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="product">
+          <view class="avatar-container">
+            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">犟鲁牛蹄</text>
+              <view class="pbadges">
+                <text class="badge-item">养老券</text>
+                <text class="badge-item">护理补贴</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">1000.00</text>
+              </view>
+              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="product">
+          <view class="avatar-container">
+            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">犟鲁牛蹄</text>
+              <view class="pbadges">
+                <text class="badge-item">养老券</text>
+                <text class="badge-item">护理补贴</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">1000.00</text>
+              </view>
+              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="product">
+          <view class="avatar-container">
+            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">犟鲁牛蹄</text>
+              <view class="pbadges">
+                <text class="badge-item">养老券</text>
+                <text class="badge-item">护理补贴</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">1000.00</text>
+              </view>
+              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="product">
+          <view class="avatar-container">
+            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">犟鲁牛蹄</text>
+              <view class="pbadges">
+                <text class="badge-item">养老券</text>
+                <text class="badge-item">护理补贴</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">1000.00</text>
+              </view>
+              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="product">
+          <view class="avatar-container">
+            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">犟鲁牛蹄</text>
+              <view class="pbadges">
+                <text class="badge-item">养老券</text>
+                <text class="badge-item">护理补贴</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">1000.00</text>
+              </view>
+              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
         </view>
       </view>
     </view>
