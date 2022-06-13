@@ -1,5 +1,6 @@
 // pages/store/home/index.js
 var http = require('../../../utils/http.js')
+var canLoadMore = true;//触底函数控制变量(是否可以触发加载)
 
 Page({
 
@@ -138,11 +139,11 @@ Page({
     })
   },
 
-  //分类商品
+  //加载商品
   getProducts: function (category_id, orderType, refresh) {
     let _data = {}; 
     let _url;
-    console.log(category_id)
+    canLoadMore = false;
     if(category_id == 'all'){
       _url= `api/special_areas/${this.data.currentStore.id}/products`
     }else{
@@ -175,6 +176,7 @@ Page({
       data: _data,
       success: res => {
         if (res.data != null && res.data.constructor.name == 'Array') {
+          canLoadMore = true;
           this.appendProduct(res.data,category_id)
         }
       }
@@ -214,7 +216,7 @@ Page({
       orderType: orderType,
     })
 
-    if(this.data.products[key].length > 1){
+    if(this.data.products[key] && this.data.products[key].length > 1){
       this.setData({
         [`products.${key}`]:[],
         [bottomKey]:false,
@@ -227,7 +229,19 @@ Page({
 
   },
 
+  // 显示搜索弹框
+  showSearchLayer: function () {
+    wx.setNavigationBarColor({
+      backgroundColor: '#ffffff',
+      frontColor: '#000000',
+    })
+    this.setData({ showSearch: true, focus: true })
+  },
 
+  // 取消搜索
+  hideSearch: function () {
+    this.setData({ showSearch: false, searchText: '' })
+  },
 
   gotoProduct: function (e) {
     var item = e.currentTarget.dataset.item
@@ -304,7 +318,14 @@ Page({
   },
 
   onReachBottom: function () {
-    this.getProducts(this.data.currentCategory.id, this.data.orderType, false)
+
+  },
+
+  //上拉加载更多
+  loadMore: function(){
+    if(!canLoadMore || this.data.pageBottom['id_'+this.data.currentLabel.id]) return;
+    console.log('上拉加载')
+    this.getProducts(this.data.currentLabel.id, this.data.orderType, false)
   },
 
   goback: function () {
@@ -330,6 +351,10 @@ Page({
         allowScroll: false
       })
     }
+  },
+
+  onHide(){
+    this.hideSearch()
   },
 
 })

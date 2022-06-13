@@ -30,6 +30,7 @@ Page({
     cNoData:false, //加载完全部数据
     canUseGetCoupon:true,//是否可以再次请求优惠券
     isShow:false,//优惠券弹框
+    giftShow:false,//赠品弹框
     loadErr:false,//加载错误
     couponsList:[],
   },
@@ -75,6 +76,18 @@ Page({
   closePopup:function(){
     this.setData({
       isShow:false
+    })
+  },
+
+  // 打开优惠券弹窗
+  openGift:function(){
+    this.setData({
+      giftShow:true
+    })
+  },
+  closeGift:function(){
+    this.setData({
+      giftShow:false
     })
   },
 

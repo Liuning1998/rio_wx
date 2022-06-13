@@ -227,6 +227,7 @@ Page({
   },
 
   onReachBottom: function () {
+    console.log('触底')
     this.getProducts(this.data.currentStore.id)
   },
 

@@ -28,7 +28,8 @@ Page({
     emptyStatus: false,
     secondLoad: false,
     showLoading: false,
-    nowTime: Math.ceil((new Date).getTime()/1000)
+    nowTime: Math.ceil((new Date).getTime()/1000),
+    urgeShow:false,//催发货弹窗
   },
 
   /**
@@ -92,6 +93,7 @@ Page({
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
       params.q.payment_state_not_eq = 'refunded'
+      params.q.sale_state_present = true
       params.q.order_type_eq = 2
       delete params.q.order_type_not_in
     } else if ( state == 'padding' || state == 'shipping' ) {
@@ -424,7 +426,14 @@ Page({
     this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
     setTimeout( res => 
       this.setNowTime(), 1000)
-  }
+  },
+
+  //催发货
+  urgeOrder: function(){
+    this.setData({
+      urgeShow: !this.data.urgeShow
+    })
+  },
 
   /**
    * 用户点击右上角分享

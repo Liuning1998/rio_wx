@@ -163,11 +163,13 @@
           <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
         </view>
         <!-- 赠品 -->
-        <view class="variant-info" wx:if="{{product.free_product}}">
+        <view class="variant-info" wx:if="{{product.free_product.name}}" bindtap="openGift">
           
           <view class="main-info">
             <text class="label">赠品</text>
-            <text class="desc">输入文本输入文本输入文本...</text>
+            <text class="desc">
+              <block wx:for="{{ product.free_product.desc.info }}"></block>
+            </text>
           </view>
 
           <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
@@ -330,6 +332,38 @@
     </scroll-view>
     <view class="popup-btn">
       <view bindtap="closePopup" hover-class="hove-btn" hover-stay-time="100" >完成</view>
+    </view>
+  </view>
+</view>
+
+<!-- 赠品弹窗 -->
+<view class="gift-p" hidden="{{!giftShow}}">
+  <view class="gift-mask" bindtap="closeGift"></view>
+  <view class='popup'>
+    <view class="popup-title">
+      <text>优惠</text>
+      <view class="close" bindtap="closeGift">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="popup-ask" wx:if="{{product.free_product.desc.rule}}">
+      <view class="icon">
+        <image class="bg" src="/images/v1.2/gift.png"></image>
+      </view>
+      <view class="rule">{{product.free_product.desc.rule}}</view>
+    </view>
+
+    <view class="pupup-scroll">
+      <scroll-view class="pupup-scroll-box" scroll-y>
+        <view class="item" wx:for="{{product.free_product.desc.info}}" wx:key="index">
+          <view class="title"><text>赠品</text></view>
+          <view class="content">{{item}}</view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <view class="popup-btn {{ isIphoneX && 'iphone-x' }}">
+      <view bindtap="closePopup" bindtap="closeGift">确定</view>
     </view>
   </view>
 </view>

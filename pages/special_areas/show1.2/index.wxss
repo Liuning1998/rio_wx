@@ -66,36 +66,13 @@ page {
   height: 28rpx;
   margin-right: 8rpx;
 }
-.navbar-container .navbar-content .nav-search input{
+.navbar-container .navbar-content .nav-search .input-view{
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #999999;
   font-weight: 400;
   flex: 1;
   padding-right: 32rpx;
-}
-.navbar-container .navbar-content .nav-search .delete{
-  height: 60rpx;
-  width: 40rpx;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-}
-.navbar-container .navbar-content .nav-search .delete text{
-  display: inline-block;
-  width: 28rpx;
-  height: 28rpx;
-  background: #B4AFAF;
-  color: #ffffff;
-  font-size: 20rpx;
-  line-height: 28rpx;
-  text-align: center;
-  border-radius: 50%;
-  margin-right: 10rpx;
 }
 
 /* nav bar */
@@ -221,6 +198,7 @@ page {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 34rpx;
 }
 .screen .name{
   flex: 1;
@@ -277,17 +255,19 @@ page {
 /* 商品列表 */
 .products{
   width: 100%;
-  flex-grow: 1;
-  overflow-y: hidden;
+  flex-grow: 1; 
+  overflow: auto;
 }
-.products.active{
-  overflow-y: auto;
-}
+
 .products .product{
   display: flex;
+  padding-top: 24rpx;
+}
+.products .product:first-child{
+  padding-top: 0rpx;
 }
 .products .product .avatar-container{
-  padding: 24rpx 0 24rpx;
+  padding: 0 0 24rpx;
 }
 .products .product .avatar-container image{
   width: 272rpx;
@@ -301,7 +281,7 @@ page {
   flex-direction: column;
   justify-content: space-between;
   border-bottom: 1rpx solid rgba(230,230,230,1);
-  padding: 24rpx 0 8rpx;
+  padding: 0 0 8rpx;
 }
 .products .product .product-info .name-and-badge .name{
   width: 360rpx;
@@ -413,3 +393,103 @@ page {
   height: 100vh;
 }
 
+
+/* 搜索层 */
+
+.search-layer-1 {
+  position: fixed;
+  background: rgba(0,0,0,0.15);
+  width: 750rpx;
+  height: 100%;
+  z-index: 9951;
+}
+
+.search-layer-1 .search-container-01 {
+  width: 750rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 32rpx;
+  overflow: hidden;
+}
+
+.search-layer-1 .search-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 36rpx;
+  color: #2B2424;
+  font-weight: 600;
+  font-size: 36rpx;
+  height: 44px;
+  line-height: 44px;
+  box-sizing: border-box;
+}
+
+.search-layer-1 .icon {
+  height: 28rpx;
+  width: 28rpx;
+  display: flex;
+  margin-right: 8rpx;
+}
+
+.search-layer-1 .search-container {
+  width: 750rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  height: 112rpx;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+}
+
+.search-layer-1 .input-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 622rpx;
+  height: 64rpx;
+  background: #f7f7f7;
+  border-radius: 32rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.search-layer-1 .input-group input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #2B2424;
+}
+
+.search-layer-1 .input-group .clear{
+  height: 60rpx;
+  width: 60rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  right: -10rpx;
+}
+
+.search-layer-1 .input-group .clear text {
+  display: inline-block;
+  width: 28rpx;
+  height: 28rpx;
+  background: #B4AFAF;
+  color: #ffffff;
+  font-size: 20rpx;
+  line-height: 26rpx;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+.search-layer-1 .cancel-btn {
+  font-size: 28rpx;
+  color: #5B5454;
+  flex-shrink: 0;
+  padding-left: 24rpx;
+}
+/* 搜索层 */

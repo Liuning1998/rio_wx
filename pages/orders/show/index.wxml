@@ -19,19 +19,30 @@
 
       <view class="slogan">
         <block wx:if="{{order.refund_state != null}}">此订单已退款，欢迎再次购买~</block>
-        <block wx:elif="{{ order.state == 'canceled' || order.state == 'handle_canceled' }}">此订单已取消，欢迎再次购买~</block>
+        <block wx:elif="{{ order.state == 'canceled' || order.state == 'handle_canceled' }}">此订单已取消</block>
         <block wx:elif="{{ order.state == 'new' }}">等待支付( {{utilsHelper.getM(helperTime.payLeftTime(order, nowTime)) }}分{{ utilsHelper.getS(helperTime.payLeftTime(order, nowTime))}}秒 )</block>
 
         <block wx:elif="{{ order.state == 'padding' }}" >
           <block wx:if="{{ order.order_type == 4 || order.order_type == 5 }}">已付款等待商家发货~</block>
-          <block wx:else>此订单已支付，正在发货~</block>
+          <block wx:else>
+            <block  wx:if="{{ order.sale_state == 'new' }}">订单售后中</block>
+            <block  wx:elif="{{ order.sale_state == 'completed' }}">售后完成</block>
+            <block wx:else>此订单已支付，正在发货~</block>
+          </block>
         </block>
 
-        <block wx:elif="{{ order.state == 'shipping' }}">您的快递正在飞奔向您~</block>
+        <block wx:elif="{{ order.state == 'shipping' }}">
+          <block wx:if="{{ order.order_type != 4 && order.order_type != 5 }}">
+            <block  wx:if="{{ order.sale_state == 'new' }}">订单售后中</block>
+            <block  wx:elif="{{ order.sale_state == 'completed' }}">售后完成</block>
+            <block wx:else>您的快递正在飞奔向您~</block>
+          </block>
+          <block wx:else>您的快递正在飞奔向您~</block>
+        </block>
         <block wx:else>订单完成，感谢您的支持~~</block>
       </view>
 
-      <view class="state">
+      <view class="state" wx:if="{{order.state != 'canceled' && order.state != 'handle_canceled' && order.sale_state == null}}">
         <view class="state-text">
           <view class="text">已下单</view>
           <view class="text">已付款</view>

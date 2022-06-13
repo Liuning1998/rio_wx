@@ -10,12 +10,27 @@
       <image class="return-image" src="/images/v1.2/return_black.png"></image>
     </view>
     <view class="navbar-title">{{pageTitle}}</view>
-    <view class="nav-search">
+    <view class="nav-search" bindtap="showSearchLayer">
       <image class="search" src="/images/search_icon_003.png"></image>
-      <input bindconfirm="searchProducts" catchinput="inputChange" focus="{{focus}}" confirm-type="search" data-name='searchText' value='{{ searchText }}' type="text" placeholder="你想买些什么？"/>
-      <view class="delete" catchtap="clearSearchText" wx:if="{{searchText}}">
-        <text>x</text>
+      <view class="input-view">你想买些什么？</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{ showSearch }}" bindtap="hideSearch" class="search-layer-1" style="top: 0;">
+  <view catchtap="{{false}}" class="search-title" style="height: {{pageMarginTop + 44}}px; padding-top: {{pageMarginTop}}px; width: 750rpx; background: #fff;">
+    <text>搜索商品</text>
+  </view>
+  <view catchtap="{{false}}" class="search-container">
+    <view class="search-container-01">
+      <view class="input-group">
+        <image class="icon" src="/images/search_icon_003.png"></image>
+        <input bindinput='inputChange' data-name='searchText' value='{{ searchText }}' focus="{{focus}}" confirm-type="search" bindconfirm="searchProducts" />
+        <view bindtap="clearSearchText" class="clear">
+          <text>x</text>
+        </view>
       </view>
+      <text bindtap="hideSearch" class="cancel-btn">取消</text>
     </view>
   </view>
 </view>
@@ -63,32 +78,34 @@
         <image src="/images/products_empty_icon_001.png"></image>
         <text>商品上架中，敬请期待</text>
       </view>
-      <view wx:else class="products {{allowScroll && 'active'}}">
-        <view class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
-          <view class="avatar-container">
-            <image class="avatar" src="{{item.avatar}}"></image>
-          </view>
-          <view class="product-info">
-            <view class="name-and-badge">
-              <text class="name">{{item.name}}</text>
-              <view class="pbadges">
-                <text class="badge-item" wx:for="{{item.badges}}"  wx:for-item="badge">{{badge}}</text>
+      <view class="products" wx:else>
+        <scroll-view scroll-y="{{allowScroll}}" style="height: 100%;" bindscrolltolower="loadMore">
+          <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
+            <view class="avatar-container">
+              <image class="avatar" src="{{item.avatar}}"></image>
+            </view>
+            <view class="product-info">
+              <view class="name-and-badge">
+                <text class="name">{{item.name}}</text>
+                <view class="pbadges">
+                  <text class="badge-item" wx:for="{{item.badges}}"  wx:for-item="badge">{{badge}}</text>
+                </view>
+              </view>
+              <view class="price-and-btn">
+                <view class="price-container">
+                  <text class="unit">¥</text>
+                  <text class="price">{{price.tos(item.price)}}</text>
+                </view>
+                <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
               </view>
             </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <text class="unit">¥</text>
-                <text class="price">{{price.tos(item.price)}}</text>
-              </view>
-              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
-            </view>
           </view>
-        </view>
-        <view class="page-bottom" wx:if="{{pageBottom['id_'+currentLabel.id]}}">
-          <image src="/images/bottom_icon_001.png"></image>
-          <text>已经到底啦</text>
-          <image src="/images/bottom_icon_001.png" class="right"></image>
-        </view>
+          <view class="page-bottom" wx:if="{{pageBottom['id_'+currentLabel.id]}}">
+            <image src="/images/bottom_icon_001.png"></image>
+            <text>已经到底啦</text>
+            <image src="/images/bottom_icon_001.png" class="right"></image>
+          </view>
+        </scroll-view>
       </view>
     </view>
   </view>
@@ -99,16 +116,19 @@
 
 <msgToast msg-data="{{ _msgData }}"/>
 
-<view catchtap="gotoCart" class="page-cart-container">
+
+<!-- 1.2取消加入商品列表页加入购物车  -->
+<!-- <view catchtap="gotoCart" class="page-cart-container">
   <view class="white-background">
     <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
     <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
     <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
   </view>
-</view>
+</view> -->
 
-<view class="cart-animation-container">
+<!-- 1.2取消加入商品列表页加入购物车  -->
+<!-- <view class="cart-animation-container">
   <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
     <text>+1</text>
   </view>
-</view>
+</view> -->
