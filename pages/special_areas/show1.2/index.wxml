@@ -9,18 +9,18 @@
     <view bindtap='goback' class="return-image-container">
       <image class="return-image" src="/images/v1.2/return_black.png"></image>
     </view>
-    <view class="navbar-title">肉禽蛋奶</view>
+    <view class="navbar-title">{{pageTitle}}</view>
     <view class="nav-search">
       <image class="search" src="/images/search_icon_003.png"></image>
-      <input type="text" placeholder="你想买些什么？"/>
-      <view class="delete">
+      <input bindconfirm="searchProducts" catchinput="inputChange" focus="{{focus}}" confirm-type="search" data-name='searchText' value='{{ searchText }}' type="text" placeholder="你想买些什么？"/>
+      <view class="delete" catchtap="clearSearchText" wx:if="{{searchText}}">
         <text>x</text>
       </view>
     </view>
   </view>
 </view>
   
-<scroll-view bindtouchstart='changeNavbar' scroll-y class='page-container'>
+<scroll-view enhanced="{{true}}" bounces="{{false}}" bindscrolltoupper="changeScroll" bindscrolltolower="changeScroll" scroll-y class='page-container'>
 
   <view style="height: {{pageMarginTop+44}}px;width: 100%;"></view>
 
@@ -35,182 +35,59 @@
   <view class="content" style="height: calc(100vh - {{pageMarginTop+44}}px);">  
     <!-- 专区种类 -->
     <view class="label">
-      <view bindtap="gotoCategory" class="item active" wx:for="{{categories}}" wx:key="index">
-        <image class="item-icon" src="{{item.icon}}"></image>
-        <text class="item-name">{{item.name}}</text>
-      </view>
-      <view bindtap="gotoCategory" class="item active" wx:for="{{categories}}" wx:key="index">
+      <view bindtap="changeCategorie" data-item="{{item}}" class="item {{currentCategory.id == item.id && 'active'}}" wx:for="{{categories}}" wx:key="index">
         <image class="item-icon" src="{{item.icon}}"></image>
         <text class="item-name">{{item.name}}</text>
       </view>
     </view>
     <!-- 内容区域 -->
     <view class="container">
-      <view class="classify">
-        <view class="item active">全部商品</view>
-        <view class="item">猪肉</view>
-        <view class="item">猪肉</view>
-        <view class="item">猪肉</view>
-        <view class="item">猪肉</view>
+      <view class="classify" wx:if="{{labelArr['category_'+currentCategory.id].length > 1}}">
+        <view bindtap="changeLabel" data-item="{{item}}" class="item {{item.id == currentLabel.id && 'active'}}" wx:for="{{labelArr['category_'+currentCategory.id]}}" wx:key="index">{{item.name}}</view>
       </view>
       <view class="screen">
-        <view class="name">全部商品</view>
+        <view class="name">{{currentLabel.name}}</view>
         <view class="screen-box">
-          <view class="default">综合</view>
-          <view class="price">
+          <view class="default {{orderType == null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="auto">综合</view>
+          <view class="price {{orderType != null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="price">
             价格
-            <image class="up" src="/images/v1.2/special_02.png"></image>
-            <image class="down" src="/images/v1.2/special_01.png"></image>
+            <image class="up" wx:if="{{orderType == 'price down'}}" src="/images/v1.2/special_02.png"></image>
+            <image class="up" wx:else src="/images/v1.2/special_01.png"></image>
+
+            <image class="down" wx:if="{{orderType == 'price up'}}" src="/images/v1.2/special_02.png"></image>
+            <image class="down" wx:else src="/images/v1.2/special_01.png"></image>
           </view>
         </view>
       </view>
-      <view scroll-y class='products'>
-        <view class="product">
+      <view wx:if="{{ products['id_'+currentLabel.id] == null || products['id_'+currentLabel.id].length <= 0 }}" class="product-empty">
+        <image src="/images/products_empty_icon_001.png"></image>
+        <text>商品上架中，敬请期待</text>
+      </view>
+      <view wx:else class="products {{allowScroll && 'active'}}">
+        <view class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
           <view class="avatar-container">
-            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
+            <image class="avatar" src="{{item.avatar}}"></image>
           </view>
           <view class="product-info">
             <view class="name-and-badge">
-              <text class="name">犟鲁牛蹄</text>
+              <text class="name">{{item.name}}</text>
               <view class="pbadges">
-                <text class="badge-item">养老券</text>
-                <text class="badge-item">护理补贴</text>
+                <text class="badge-item" wx:for="{{item.badges}}"  wx:for-item="badge">{{badge}}</text>
               </view>
             </view>
             <view class="price-and-btn">
               <view class="price-container">
                 <text class="unit">¥</text>
-                <text class="price">1000.00</text>
+                <text class="price">{{price.tos(item.price)}}</text>
               </view>
               <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
             </view>
           </view>
         </view>
-        <view class="product">
-          <view class="avatar-container">
-            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
-          </view>
-          <view class="product-info">
-            <view class="name-and-badge">
-              <text class="name">犟鲁牛蹄</text>
-              <view class="pbadges">
-                <text class="badge-item">养老券</text>
-                <text class="badge-item">护理补贴</text>
-              </view>
-            </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <text class="unit">¥</text>
-                <text class="price">1000.00</text>
-              </view>
-              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
-            </view>
-          </view>
-        </view>
-        <view class="product">
-          <view class="avatar-container">
-            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
-          </view>
-          <view class="product-info">
-            <view class="name-and-badge">
-              <text class="name">犟鲁牛蹄</text>
-              <view class="pbadges">
-                <text class="badge-item">养老券</text>
-                <text class="badge-item">护理补贴</text>
-              </view>
-            </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <text class="unit">¥</text>
-                <text class="price">1000.00</text>
-              </view>
-              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
-            </view>
-          </view>
-        </view>
-        <view class="product">
-          <view class="avatar-container">
-            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
-          </view>
-          <view class="product-info">
-            <view class="name-and-badge">
-              <text class="name">犟鲁牛蹄</text>
-              <view class="pbadges">
-                <text class="badge-item">养老券</text>
-                <text class="badge-item">护理补贴</text>
-              </view>
-            </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <text class="unit">¥</text>
-                <text class="price">1000.00</text>
-              </view>
-              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
-            </view>
-          </view>
-        </view>
-        <view class="product">
-          <view class="avatar-container">
-            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
-          </view>
-          <view class="product-info">
-            <view class="name-and-badge">
-              <text class="name">犟鲁牛蹄</text>
-              <view class="pbadges">
-                <text class="badge-item">养老券</text>
-                <text class="badge-item">护理补贴</text>
-              </view>
-            </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <text class="unit">¥</text>
-                <text class="price">1000.00</text>
-              </view>
-              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
-            </view>
-          </view>
-        </view>
-        <view class="product">
-          <view class="avatar-container">
-            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
-          </view>
-          <view class="product-info">
-            <view class="name-and-badge">
-              <text class="name">犟鲁牛蹄</text>
-              <view class="pbadges">
-                <text class="badge-item">养老券</text>
-                <text class="badge-item">护理补贴</text>
-              </view>
-            </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <text class="unit">¥</text>
-                <text class="price">1000.00</text>
-              </view>
-              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
-            </view>
-          </view>
-        </view>
-        <view class="product">
-          <view class="avatar-container">
-            <image class="avatar" src="https://file-download.jhqli.com/202206091543/be0bf1452ef50b23910115d2829be179/rio_api/vcaefrdt968gj7rw9hi7ktozhmjz"></image>
-          </view>
-          <view class="product-info">
-            <view class="name-and-badge">
-              <text class="name">犟鲁牛蹄</text>
-              <view class="pbadges">
-                <text class="badge-item">养老券</text>
-                <text class="badge-item">护理补贴</text>
-              </view>
-            </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <text class="unit">¥</text>
-                <text class="price">1000.00</text>
-              </view>
-              <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
-            </view>
-          </view>
+        <view class="page-bottom" wx:if="{{pageBottom['id_'+currentLabel.id]}}">
+          <image src="/images/bottom_icon_001.png"></image>
+          <text>已经到底啦</text>
+          <image src="/images/bottom_icon_001.png" class="right"></image>
         </view>
       </view>
     </view>

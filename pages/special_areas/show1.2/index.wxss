@@ -92,7 +92,7 @@ page {
   background: #B4AFAF;
   color: #ffffff;
   font-size: 20rpx;
-  line-height: 26rpx;
+  line-height: 28rpx;
   text-align: center;
   border-radius: 50%;
   margin-right: 10rpx;
@@ -135,6 +135,7 @@ page {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 10rpx;
   position: relative;
 }
 .label .item:last-child{
@@ -227,6 +228,13 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  margin-right: 24rpx;
 }
 .screen .screen-box{
   display: flex;
@@ -237,8 +245,11 @@ page {
 .screen .screen-box .default{
   font-family: PingFangSC-Medium;
   font-size: 32rpx;
-  color: #FF3633;
+  color: #807474;
   font-weight: 500;
+}
+.screen .screen-box .default.active{
+  color: #FF3633;
 }
 .screen .screen-box .price{
   font-family: PingFangSC-Regular;
@@ -267,6 +278,9 @@ page {
 .products{
   width: 100%;
   flex-grow: 1;
+  overflow-y: hidden;
+}
+.products.active{
   overflow-y: auto;
 }
 .products .product{
@@ -279,6 +293,7 @@ page {
   width: 272rpx;
   height: 272rpx;
   display: flex;
+  border-radius: 6rpx;
   margin-right: 24rpx;
 }
 .products .product .product-info{
@@ -328,6 +343,55 @@ page {
   height: 72rpx;
 }
 
+/* 到底提示 */
+.page-bottom image {
+  width: 46rpx;
+  height: 28rpx;
+  display: flex;
+}
+
+.page-bottom image.right {
+  transform: rotate(180deg);
+}
+
+.page-bottom {
+  height: 160rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-bottom text {
+  font-size: 28rpx;
+  color: #B4AFAF;
+  margin: 0 20rpx;
+}
+/* 到底提示 */
+
+/* 空列表样式 */
+.product-empty {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  height: 100%;
+}
+
+.product-empty image {
+  width: 336rpx;
+  height: 270rpx;
+  margin-top: 150rpx;
+}
+
+.product-empty text {
+  font-size: 28rpx;
+  color: #333333;
+  margin-top: 30rpx;
+}
+/* 空列表样式 */
+
 
 .loading-icon {
   position: fixed;
@@ -346,5 +410,6 @@ page {
 .page-container {
   position: relative;
   z-index: 11;
+  height: 100vh;
 }
 

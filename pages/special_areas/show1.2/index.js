@@ -8,18 +8,15 @@ Page({
    */
   data: {
     categories: [],
-    products: [],
+    products: {},
     ads: [],
-    searchInputStatus: false,
-    fineProducts: [],
-    navbarOpacity: false, 
-    navbarBackgroundcolor: 'rgba(0,0,0,0.6)',
     pageTitle: '',
-    pageNo: 1,
     currentStore: {},
-    searchStyle: "",
     pageBottom: false,
-    specialArea: null
+    specialArea: null,
+    allowScroll:false,//是否允许内层scrollview滚动
+    labelArr: {},//子标签
+    currentLabel:{}//当前选中的子标签
   },
 
   /**
@@ -31,8 +28,6 @@ Page({
     // let item_id = 3
 
     this.getCategories(item_id)
-    this.getProducts(item_id)
-    this.getFineProducts(item_id)
     this.getAds(item_id)
 
     this.setData({
@@ -42,7 +37,6 @@ Page({
         name: decodeURI(options.name)
       },
       statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-      searchStatus: 2
     })
   },
 
@@ -50,7 +44,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.checkNavbar()
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#ff0000',
+    })
     this.loadCartInfo()
   },
 
@@ -62,7 +59,22 @@ Page({
       },
       success: res => {
         if (res.data != null && res.data.constructor.name == 'Array') {
-          this.setData({ categories: res.data })
+          res.data.unshift({
+            icon: "https://file-download.jhqli.com/202206101643/a485b87bbc902865577c4e7650c8975c/rio_api/38qyc5fz0ra8v8yhikl6a0mlhalz",
+            id:"all",
+            name: "精选",
+          })
+          this.setData({
+            currentCategory: res.data[0],
+            categories: res.data,
+            currentLabel: {
+              id: 'all',
+              name: '全部商品',
+              icon: null,
+            }
+          })
+          //默认先加载专区的全部商品
+          this.getProducts(this.data.currentCategory.id, this.data.orderType, false)
         }
       }
     })
@@ -77,11 +89,8 @@ Page({
 
   refreshData: function () {
     this.getCategories(this.data.currentStore.id)
-    this.getFineProducts(this.data.currentStore.id)
     this.getAds(this.data.currentStore.id)
-    this.setData({ products: [], pageNo: 1 })
-    this.getProducts(this.data.currentStore.id, 1)
-    this.hideSearchInput()
+    this.setData({ products: {}})
   },
 
   stopPDRefresh: function () {
@@ -91,26 +100,33 @@ Page({
     }, 800)
   },
 
-  appendProducts: function (data) {
-    let products = this.data.products
-    let offset = products.length
-
-    data.forEach(item => {
-      if (products.filter(i => i.id == item.id).length <= 0) {
-        products.push(item)
-        let key = `products.[${offset}]`
-        this.setData({ [key]: item })
-        offset += 1
-      }
-    })
+  // 页数判断
+  appendProduct: function (resProducts, categoryId) {
     
-    if (data.length >= getApp().globalData.perPage) {
-      this.setData({ pageNo: this.data.pageNo + 1, pageBottom: false })
-    } else {
-      this.setData({ pageBottom: true })
+    var key = `id_${categoryId}`
+    var products = this.data.products[key] || [];
+
+    var currentIndex = products.length
+    for(var i in resProducts) {
+      var product = resProducts[i]
+      if (product == null) { continue }
+      let exist_flag = 5//允许重复次数)
+      if (resProducts.length < getApp().globalData.perPage) {
+        exist_flag = 0
+      }
+      if (products.length <= 0 || products.filter(item => item.id == product.id).length <= exist_flag) {//判断每一条商品id是否存在
+        var dataKey = `products.${key}[${currentIndex}]`
+        this.setData({ [dataKey]: product })
+        currentIndex += 1
+      }
     }
 
-    this.stopPDRefresh()
+    var bottomKey = `pageBottom.${key}`
+    if (resProducts.length < 10) {
+      this.setData({ [bottomKey]: true })
+    } else {
+      this.setData({ [bottomKey]: false })
+    }
   },
 
   getAds: function (special_area_id) {
@@ -122,70 +138,96 @@ Page({
     })
   },
 
-  getProducts: function (special_area_id, pageNo) {
+  //分类商品
+  getProducts: function (category_id, orderType, refresh) {
+    let _data = {}; 
+    let _url;
+    console.log(category_id)
+    if(category_id == 'all'){
+      _url= `api/special_areas/${this.data.currentStore.id}/products`
+    }else{
+      _url= `api/special_areas/${this.data.currentStore.id}/category_products`
+      _data = {
+        category_id: category_id,
+      }
+    }
+
+    let key = `id_${category_id}`
+    let length = 0
+    if (this.data.products[key] != null) {
+      length = this.data.products[key].length
+    }
+
+    var page = Math.floor(length/getApp().globalData.perPage) + 1
+
+    if (refresh) {//if要刷新清空数据时
+      _data.page = 1
+    }else{
+      _data.page = page
+    }
+
+    if (orderType != null) {
+      _data.order = orderType
+    }
+
     http.get({
-      url: `api/special_areas/${special_area_id}/products`,
-      data: {
-        page: pageNo || this.data.pageNo,
-      },
+      url: _url,
+      data: _data,
       success: res => {
         if (res.data != null && res.data.constructor.name == 'Array') {
-          // this.setData({ products: res.data })
-          this.appendProducts(res.data)
+          this.appendProduct(res.data,category_id)
         }
       }
     })
   },
 
-  getFineProducts: function (special_area_id) {
-    http.get({
-      url: `api/special_areas/${special_area_id}/fine_products`,
-      success: res => {
-        if (res.data != null && res.data.constructor.name == 'Array') {
-          this.setData({ fineProducts: res.data })
-        }
-      }
+  // 点击子标签
+  changeLabel: function(e){
+    var item = e.currentTarget.dataset.item
+    this.setData({
+      currentLabel: item
     })
-  },
-
-  showSearchInput: function () {
-    this.setData({ searchInputStatus: true})
-    setTimeout(res => {
-      this.setData({ focus: true })
-    }, 50)
     
+    this.getProducts(item.id, this.data.orderType, false)
   },
 
-  hideSearchInput: function () {
-    this.setData({ searchInputStatus: false, focus: false, searchText: null })
-  },
+  // 筛选
+  changeOrder: function (e) {
+    var orderType = e.currentTarget.dataset.orderType
 
-  changeNavbar: function () {
-    this.checkNavbar()
-    setTimeout(res => {
-      this.changeNavbar()
-    }, 500)
-  },
-
-  checkNavbar: function () {
-    wx.createSelectorQuery().select('.ads-container').boundingClientRect(res => {
-      if (res != null) {
-        if (res.top < 0) {
-          if (!this.data.navbarOpacity) {
-            this.setData({ 
-              navbarOpacity: true, navbarBackgroundcolor: '#666666',
-              searchStatus: 1
-            })
-          }
-        } else {
-          this.setData({ 
-            navbarOpacity: false, navbarBackgroundcolor: 'rgba(0,0,0,0.6)',
-            searchStatus: 2
-          })
-        }
+    var key = `id_${this.data.currentCategory.id}`;
+    console.log(key)
+    
+    var bottomKey = `pageBottom.${key}`;
+    
+    if (orderType == 'price') {
+      if (this.data.orderType == 'price down') {
+        orderType = "price up"
+      } else {
+        orderType = "price down"
       }
-    }).exec()
+    } else {
+      orderType = null
+    }
+
+    this.setData({
+      orderType: orderType,
+    })
+
+    if(this.data.products[key].length > 1){
+      this.setData({
+        [`products.${key}`]:[],
+        [bottomKey]:false,
+      })  
+    
+      
+      this.getProducts(this.data.currentLabel.id, orderType, false)
+    }
+
+
   },
+
+
 
   gotoProduct: function (e) {
     var item = e.currentTarget.dataset.item
@@ -196,17 +238,52 @@ Page({
     this.navigateTo("/pages/products/show/index?id=" + item.id)
   },
 
-  gotoCategory: function (e) {
+  changeCategorie: function (e) {
     var item = e.currentTarget.dataset.item
+    var labelArr = this.data.labelArr;
+    console.log(item)
+    this.setData({
+      currentCategory: item,
+      currentLabel: {
+        id: item.id,
+        name: '全部商品',
+        icon: null,
+      }
+    })
+
     if (item.id == null) {
       return
     }
 
-    this.navigateTo(`/products/pages/index/index?pageType=category&special_area_id=${this.data.currentStore.id}`,
-      {
-        'category': item
+    if(labelArr[`category_${item.id}`] != null){
+      return
+    }
+
+    this.getLabel(this.data.currentStore.id,item.id)
+
+  },
+
+  //获取标签
+  getLabel:function(special_area_id,category_id){
+    var categoryKey = `labelArr.category_${category_id}`
+    http.get({
+      url: `api/special_areas/${special_area_id}/categories?q[father_id_eq]=${category_id}`,
+      // data: _data,
+      success: res => {
+        res.data.unshift({
+          id: category_id,
+          name: '全部商品',
+          icon: null,
+        })
+        this.setData({
+          [categoryKey]:res.data,
+          currentLabel:res.data[0]
+        })
+
+        this.getProducts(this.data.currentLabel.id, this.data.orderType, true)
+
       }
-    )
+    })
   },
 
   searchProducts: function () {
@@ -227,7 +304,7 @@ Page({
   },
 
   onReachBottom: function () {
-    this.getProducts(this.data.currentStore.id)
+    this.getProducts(this.data.currentCategory.id, this.data.orderType, false)
   },
 
   goback: function () {
@@ -239,5 +316,20 @@ Page({
       })
     }
 
-  }
+  },
+
+  // 改变商品列表scroll-view是否可滚动
+  changeScroll: function(e) {
+    var direction = e.detail.direction;
+    if(direction == 'bottom'){
+      this.setData({
+        allowScroll: true
+      })
+    }else{
+      this.setData({
+        allowScroll: false
+      })
+    }
+  },
+
 })

@@ -148,7 +148,7 @@
 </view>
 
 <view class="tokefu {{ isIphoneX && 'iphone-x' }}">
-  <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover'>
+  <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover' bindcontact="abc" show-message-card="{{true}}">
     其他问题，点此咨询
   </button>
   <text>工作时间：工作日9:30-18:30</text>
