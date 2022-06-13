@@ -85,6 +85,31 @@
           <image class="express-r" src="/images/v1.2/arrow.png"></image>
         </view>
       </view>
+
+      <!-- 取消和售后 -->
+      <view class="express" wx:if="{{ order.state == 'canceled' || order.state == 'handle_canceled' || order.order.sale_state != null }}" bindtap="gotoExpress" data-expresses="{{order.expresses}}">
+        <view class="express-box">
+          <view class="express-l">
+            <!-- 售后 -->
+            <block wx:if="{{order.state == 'canceled' || order.state == 'handle_canceled'}}">
+              <view class="text">
+                <text class="title">取消进度</text>订单超时未支付，系统自动取消订单，若有需要您可再次购买。
+              </view>
+            </block>
+            <!-- 一个包裹 -->
+            <block wx:else>
+              <block wx:if="{{order.order.sale_state == 'new'}}">
+              </block>
+              <block wx:else></block>
+              <view class="text">
+                <text class="title">最新物流</text>{{expressInfo.data[expressInfo.data.length - 1].context}}
+              </view>
+              <view class="time">{{expressInfo.data[expressInfo.data.length - 1].time}}</view>
+            </block>
+          </view>
+          <image class="express-r" src="/images/v1.2/arrow.png"></image>
+        </view>
+      </view>
       
       <view class="order-title">
         <image class="icon" src="/images/v1.2/shops.png"></image>
