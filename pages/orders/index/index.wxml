@@ -50,7 +50,7 @@
                 <image wx:if="{{ index < 2 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
               </view>
 
-              <view  wx:if="{{ orders[active + 'Orders'].length <= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
+              <view  wx:if="{{ order.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
                 <view class="quantity-container">
                   <text></text>
                   <text></text>

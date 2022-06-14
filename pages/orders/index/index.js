@@ -53,6 +53,7 @@ Page({
 
   fetchOrders: function (state) {
     state = state || this.data.active
+    console.log(state)
 
     var params = this.queryParams(state)
     http.get({
@@ -312,6 +313,7 @@ Page({
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
       params.q.payment_state_not_eq = 'refunded'
+      params.q.sale_state_present = true
       params.q.order_type_eq = 2
       delete params.q.order_type_not_in
     } else if ( state == 'padding' || state == 'shipping' ) {

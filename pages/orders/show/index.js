@@ -28,6 +28,7 @@ Page({
     balancePayResult:null,//纯余额支付结果
     nowTime: Math.ceil((new Date).getTime()/1000),
     showProductQuantity:2,
+    showServiceQuantity:2,
   },
 
   /**
@@ -118,6 +119,21 @@ Page({
     }else if(showProductQuantity == 2){
       this.setData({
         showProductQuantity: number
+      })
+    }
+  },
+
+  //售后商品
+  seeServicesAll: function (e){
+    var number = e.target.dataset.length;
+    var showServiceQuantity = this.data.showServiceQuantity
+    if(number <= showServiceQuantity){
+      this.setData({
+        showServiceQuantity: 2
+      })
+    }else if(showServiceQuantity == 2){
+      this.setData({
+        showServiceQuantity: number
       })
     }
   },
