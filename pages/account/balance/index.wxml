@@ -1,29 +1,110 @@
 <!--pages/account/balance/index.wxml-->
-<navbar appendStyle="background: #ffffff;" return-able="{{true}}" title="平台余额"/>
-<view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+<wxs module="price" src="/utils/price.wxs"></wxs>
 
-<scroll-view scroll-y class='page-container {{ isIphoneX && "iphone-x" }}'>
-  <view class="empty-container" wx:if="{{lists.length == 0}}">
-    <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_coupon_icon.png"></image>
-    <text>暂无平台余额~</text>
+<navbar navbarStyle="{{navStyle.navbarStyle}}" customImgSrc="{{navStyle.imgSrc}}" title="平台余额" />
+
+
+<scroll-view scroll-y   class='page-container' bindscroll="scrollEvent" bindscrolltolower="reachBottom">
+  <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+  <image class="page-back-img" src="/images/v1.2/order_detailbg_01.png"></image>
+  <view class="header">
+    <view class="title">账户余额(元)</view>
+    <view class="money">{{ price.tos(balance) || 0.00 }}</view>
   </view>
-  <view wx:else>
-    <view class="balance-list" wx:for="{{lists}}" wx:key="index">
-      <view class="balance-list-top">
-        <view class="balance {{item.sources == '收入' ? 'yellow' : ''}}">
-          <text class="l">{{item.sources}}</text>
-          <text>: </text>
-          <text class="r">{{item.sources == '收入' ? '+' : '-'}} {{item.balance}}</text>
-        </view>
-        <text class="description">{{item.description}}</text>
-        <text class="created_at">{{item.created_at}}</text>
+
+  <!-- 筛选 -->
+  <view class="screen {{screenSticky && 'sticky'}}">
+    <view class="screen-box" style="top:{{screenSticky ? (pageMarginTop + 44) : 0}}px">
+      <view class="title">余额明细</view>
+      <view class="label {{timeShow && 'active'}}" bindtap="screenTimeOpen">
+        <text wx:if="{{time_type == null }}">全部</text>
+        <text wx:elif="{{time_type == 'week'}}">近一周</text>
+        <text wx:elif="{{time_type == 'month'}}">近一月</text>
+        <text wx:else>近三月</text>
+        <image class="icon" src="/images/v1.2/special_01.png"></image>
+      </view>
+      <view class="label {{typeShow && 'active'}}" bindtap="screenTypeOpen">
+        <text wx:if="{{trade_type == null }}">交易类型</text>
+        <text wx:elif="{{trade_type == 'income'}}">收入</text>
+        <text wx:elif="{{trade_type == 'expend'}}">支出</text>
+        <image class="icon" src="/images/v1.2/special_01.png"></image>
       </view>
     </view>
-    <view class="finished" wx:if="{{finished}}">
-      <text>没有更多了~</text>
+  </view>
+
+  <!-- --内容区域-- -->
+  <view class="content">
+    <view class="empty-container" wx:if="{{ lists && lists.length <= 0}}">
+      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_coupon_icon.png"></image>
+      <text>暂无平台余额~</text>
+    </view>
+    <view wx:else>
+      <view class="item {{ item.sources == '支出' ? 'pay' : '' }} {{ item.sources == '收入' ? 'refund' : '' }}" wx:for="{{lists}}" wx:key="index">
+        <view class="circle"></view>
+        <view class="left">
+          <view class="type">余额{{item.sources}}</view>
+          <view class="time">{{item.created_at}}</view>
+        </view>
+        <view class="right">
+          <view class="money">
+            <text wx:if="{{item.sources == '支出'}}">-</text>
+            <text wx:else>+</text>
+            {{item.balance}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="page-bottom" hidden="{{!finished}}">
+      <image src="/images/bottom_icon_001.png"></image>
+      <text>已经到底啦</text>
+      <image class="right" src="/images/bottom_icon_001.png"></image>
     </view>
   </view>
-  
+
+  <view class="placeholder" style="width: 100%;height: {{ isIphoneX ? '200' : '0'}}rpx;"></view>
 </scroll-view>
+
+
+<!-- 时间筛选 -->
+<view class="balance-popup" hidden="{{!timeShow}}">
+  <view class="mask" bindtap="screenTimeClose"></view>
+  <view class="popup">
+    <view class="title">选择交易时间 
+      <view class="close" bindtap="screenTimeClose">
+        <image class="" src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="popup-content">
+      <view class="item {{time_type == null && 'active'}}" data-type="{{null}}" bindtap="changeTime">全部时间</view>
+      <view class="item {{time_type == 'week' && 'active'}}" data-type="week" bindtap="changeTime">近一周</view>
+      <view class="item {{time_type == 'month' && 'active'}}" data-type="month" bindtap="changeTime">近一月</view>
+      <view class="item {{time_type == 'months' && 'active'}}" data-type="months" bindtap="changeTime">近三月</view>
+    </view>
+    <view class="btn-box">
+      <view class="btn">确定</view>
+    </view>
+  </view>
+</view>
+
+<!-- 类型筛选 -->
+<view class="balance-popup" hidden="{{!typeShow}}">
+  <view class="mask" bindtap="screenTimeClose"></view>
+  <view class="popup">
+    <view class="title">选择交易类型
+      <view class="close" bindtap="screenTimeClose">
+        <image class="" src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="popup-content">
+      <view class="item {{trade_type == null && 'active'}}" data-type="{{null}}" bindtap="changeType">全部交易类型</view>
+      <view class="item {{trade_type == 'income' && 'active'}}" data-type="income" bindtap="changeType">收入</view>
+      <view class="item {{trade_type == 'expend' && 'active'}}" data-type="expend" bindtap="changeType">支出</view>
+    </view>
+    <view class="btn-box">
+      <view class="btn">确定</view>
+    </view>
+  </view>
+</view>
 
 <msgToast msg-data="{{ _msgData }}"/>

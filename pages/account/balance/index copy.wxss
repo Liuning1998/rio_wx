@@ -1,0 +1,100 @@
+/* pages/account/balance/index.wxss */
+
+page {
+  background: #f7f7f7;
+}
+
+.empty-container {
+  margin-top: 304rpx;
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28rpx;
+  color: #2B2424;
+}
+
+.empty-container image {
+  width: 480rpx;
+  height: 244rpx;
+  margin-bottom: 44rpx;
+}
+
+.page-container{
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.page-container.iphone-x{
+  padding-bottom: 120rpx;
+}
+
+.finished{
+  font-size: 28rpx;
+  color: #2B2424;
+  margin: 44rpx 0;
+  text-align: center;
+}
+
+.balance-list{
+  width: 100%;
+  /* background-color: #fff; */
+  box-sizing: border-box;
+  padding: 15rpx 30rpx;
+}
+
+.balance-list .balance-list-top{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 16rpx;
+  box-sizing: border-box;
+  /* border: 1px solid #505050; */
+  border-radius: 15rpx;
+  background-color: #fff;
+}
+
+.balance-list .balance-list-top .description{
+  font-size: 26rpx;
+  color: #5B5454;
+}
+
+.balance-list .balance-list-top .created_at{
+  font-size: 26rpx;
+  font-weight: 300;
+  color: #5B5454;
+}
+
+.balance-list .balance-list-top {
+  font-weight: 500;
+}
+
+.balance-list .balance-list-top .balance.yellow text{
+  color: #F64C47;
+}
+
+.balance-list .balance-list-top .balance{
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  color: #000;
+  margin-bottom: 15rpx;
+}
+
+.balance-list .balance-list-top .balance .l{
+  max-width: 251rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.balance-list .balance-list-top .balance .r{
+  flex: 1;
+  text-align: right;
+  margin-left: 15rpx;
+}
+
+.balance-list .balance-list-bottom{
+  display: flex;
+  justify-content: space-between;
+}
