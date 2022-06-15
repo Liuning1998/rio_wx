@@ -15,7 +15,7 @@
         <text class="text">处理中</text>
         <text class="text">售后完成</text>
       </view>
-      <view class="step-icon {{ (saleService.state.title == '申请被拒' || saleService.state.title == '审核通过') ? 'step3' : ''}} {{saleService.state.title != '等待审核' ? 'step2' : ''}}">
+      <view class="step-icon {{ (saleService.state.title == '申请被拒' || saleService.state.title == '审核通过' || saleService.state.title == '售后完成') ? 'step3' : ''}} {{saleService.state.title != '等待审核' ? 'step2' : ''}}">
         <view class="icon">
           <view class="icon-round"><image src="/images/v1.2/order_02.png"></image></view>
         </view>

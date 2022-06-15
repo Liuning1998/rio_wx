@@ -82,7 +82,7 @@
           <view wx:if="{{ order.state != 'new' }}" class="actions">
 
             <!-- 已支付待发货 -->
-            <view wx:if="{{ order.state == 'padding' }}" bindtap='urgeOrder' data-order='{{ order }}' class="btn delete-btn">催发货</view>
+            <view wx:if="{{ order.state == 'padding' || order.state == 'shipping' }}" bindtap='urgeOrder' data-order='{{ order }}' class="btn delete-btn">催发货</view>
 
             <view wx:if="{{ order.order_type != 4 && order.order_type != 5 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">查看详情</view>
             <!-- 原 wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}"  -->
