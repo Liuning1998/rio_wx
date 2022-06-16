@@ -42,7 +42,9 @@ Page({
   },
 
   onShow: function () {
-    this.getSkityHeight();
+    if(!this.data.skityHeight){
+      this.getSkityHeight();
+    }
   },
 
   //获取余额
@@ -111,7 +113,6 @@ Page({
 
   // 时间筛选
   changeTime: function(e){
-    console.log(e)
     var type = e.currentTarget.dataset.type;
     this.setData({
       time_type:type,
@@ -135,7 +136,6 @@ Page({
   },
 
   reachBottom: function() {
-    console.log(this.data.finished , loading)
     if(!this.data.finished && !loading){
       this.getBalanceInfo()
     }

@@ -14,7 +14,7 @@
 
   <!-- 筛选 -->
   <view class="screen {{screenSticky && 'sticky'}}">
-    <view class="screen-box" style="top:{{screenSticky ? (pageMarginTop + 44) : 0}}px">
+    <view class="screen-box" style="top:{{screenSticky ? (pageMarginTop + 44) : '0'}}px">
       <view class="title">余额明细</view>
       <view class="label {{timeShow && 'active'}}" bindtap="screenTimeOpen">
         <text wx:if="{{time_type == null }}">全部</text>
@@ -39,7 +39,7 @@
       <text>暂无平台余额~</text>
     </view>
     <view wx:else>
-      <view class="item {{ item.sources == '支出' ? 'pay' : '' }} {{ item.sources == '收入' ? 'refund' : '' }}" wx:for="{{lists}}" wx:key="index">
+      <view class="item {{ item.sources == '支出' ? 'pay' : '' }} {{ item.sources == '收入' ? 'refund' : '' }}" wx:for="{{lists}}"  bindtap="gotoLink" data-url="/pages/account/balance_detail/index?id={{item.id}}&sources={{item.sources}}" wx:key="index">
         <view class="circle"></view>
         <view class="left">
           <view class="type">余额{{item.sources}}</view>
@@ -62,7 +62,7 @@
     </view>
   </view>
 
-  <view class="placeholder" style="width: 100%;height: {{ isIphoneX ? '200' : '0'}}rpx;"></view>
+  <view class="placeholder" style="width: 100%;height: {{ isIphoneX ? '200' : '100'}}rpx;"></view>
 </scroll-view>
 
 
@@ -81,7 +81,7 @@
       <view class="item {{time_type == 'month' && 'active'}}" data-type="month" bindtap="changeTime">近一月</view>
       <view class="item {{time_type == 'months' && 'active'}}" data-type="months" bindtap="changeTime">近三月</view>
     </view>
-    <view class="btn-box">
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
       <view class="btn">确定</view>
     </view>
   </view>
@@ -89,10 +89,10 @@
 
 <!-- 类型筛选 -->
 <view class="balance-popup" hidden="{{!typeShow}}">
-  <view class="mask" bindtap="screenTimeClose"></view>
+  <view class="mask" bindtap="screenTypeClose"></view>
   <view class="popup">
     <view class="title">选择交易类型
-      <view class="close" bindtap="screenTimeClose">
+      <view class="close" bindtap="screenTypeClose">
         <image class="" src="/images/v1.2/close.png"></image>
       </view>
     </view>
@@ -101,7 +101,7 @@
       <view class="item {{trade_type == 'income' && 'active'}}" data-type="income" bindtap="changeType">收入</view>
       <view class="item {{trade_type == 'expend' && 'active'}}" data-type="expend" bindtap="changeType">支出</view>
     </view>
-    <view class="btn-box">
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
       <view class="btn">确定</view>
     </view>
   </view>

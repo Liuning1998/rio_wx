@@ -296,6 +296,10 @@ page {
   color: #FFFFFF;
 }
 
+.balance-popup .popup .btn-box.iphone-x{
+  padding-bottom: 40rpx;
+}
+
 .empty-container {
   margin: 304rpx 0;
   width: 100%;
