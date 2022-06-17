@@ -110,6 +110,7 @@
 .pbadges {
   display: flex;
   flex-wrap: wrap;
+  padding-top: 14rpx;
 }
 .pbadges  .badge-icon{
   width: 70rpx;
@@ -122,17 +123,18 @@
 }
 
 .pbadges .badge-item{
-  height: 48rpx;
+  height: 36rpx;
   background: #FF3633;
   border-radius: 6rpx;
   display: flex;
   align-items: center;
   font-family: PingFangSC-Medium;
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #FFFFFF;
   font-weight: 500;
-  padding: 0 16rpx;
-  margin-right: 12rpx;
+  padding: 0 8rpx;
+  margin-right: 6rpx;
+  margin-top: 10rpx;
 }
 /* 徽标 */
 

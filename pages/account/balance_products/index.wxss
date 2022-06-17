@@ -1,0 +1,100 @@
+/* pages/account/balance/index.wxss */
+
+page {
+  background: #fff;
+}
+
+.page-container{
+  height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.products{
+  width: 702rpx;
+  margin: 24rpx auto;
+  display: flex;
+  justify-content: space-between;
+}
+.products .avatar{
+  height: 216rpx;
+}
+.products .avatar image{
+  width: 216rpx;
+  height: 216rpx;
+  border-radius: 6rpx;
+  border: 1rpx solid #E6E6E6;
+  margin-right: 18rpx;
+}
+.products .info{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.products .info .name{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.products .info .bottom{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  line-height: 1;
+}
+.products .info .bottom .price{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #332B2B;
+  margin-right: 24rpx;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.products .info .bottom .price::before{
+  content: '¥';
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #332B2B;
+}
+.products .info .bottom .quantity{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.order-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 260rpx;
+}
+
+.order-empty image {
+  width: 480rpx;
+  height: 244rpx;
+}
+
+.order-empty .title {
+  font-size: 28rpx;
+  color: #2B2424;
+  margin-top: 44rpx;
+  text-align: center;
+}

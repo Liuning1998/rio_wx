@@ -1,6 +1,7 @@
 // pages/orders/index/index.js
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
+var storage = require('../../../utils/storage.js')
 
 Page({
 
@@ -428,6 +429,37 @@ Page({
     this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
     setTimeout( res => 
       this.setNowTime(), 1000)
+  },
+
+
+  // 检查是否能催发货(24小时内可以催一次) 
+  inspectUrgeOrder: function(e){
+    let order_id = e.currentTarget.dataset.order.id
+    let canUrgeOrder = storage.getSyncWithExpire('canUrgeOrder') || {}
+    let key = `order_id_${order_id}`;
+    let now = Math.ceil((new Date).getTime()/1000);
+    if(canUrgeOrder && !!canUrgeOrder[key]){
+      let expireTime = canUrgeOrder[key].expire_t;
+      //如果过24小时了就可以再次摧货了
+      if( (now - expireTime) > 24 * 60 * 60 ){
+        canUrgeOrder[key].expire_t = now;
+        storage.setSyncWithExpire('canUrgeOrder', canUrgeOrder, 24 * 60 * 60)
+        this.urgeOrder()
+      }else{
+        wx.showToast({
+          title: '已催商家发货',
+          duration: 2000,
+          icon: 'none'
+        })        
+      }
+    }else{
+      this.urgeOrder()
+      canUrgeOrder[key] = {
+        id: order_id,
+        expire_t: now
+      }
+      storage.setSyncWithExpire('canUrgeOrder', canUrgeOrder, 24 * 60 * 60)
+    }
   },
 
   //催发货

@@ -41,7 +41,7 @@
       <view class="number">{{balance || '0.0'}}</view>
     </view>
     <view class="balance_r">
-      <view class="todetail" data-url="/pages/account/balance/index" bindtap="gotoLink">查看详情</view>
+      <view class="todetail" data-url="/pages/account/balance/index?balance={{balance}}" bindtap="gotoLink">查看详情</view>
     </view>
   </view>
 </view>

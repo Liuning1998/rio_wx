@@ -1,0 +1,91 @@
+<!--pages/account/balance/index.wxml-->
+<wxs module="price" src="/utils/price.wxs"></wxs>
+
+<navbar navbarStyle="{{navStyle.navbarStyle}}" customImgSrc="{{navStyle.imgSrc}}" title="平台余额" />
+
+<scroll-view scroll-y   class='page-container' >
+  <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+    <!-- 交易金额 -->
+    <view class="trade-content money">
+      <view class="name">交易金额</view>
+      <view class="trade-money">{{sources == '收入' ? '+' : '-'}}¥{{price.tos(entryData.price)}}</view>
+    </view>
+
+    <!-- 平台直接发放的余额 -->
+    <view class="substance" wx:if="{{ entryData.trade_type == 'plat_provide' }}">
+
+      <!-- 收款方式 -->
+      <view class="trade-content">
+        <view class="name">收款方式</view>
+        <view class="content">{{ entryData.pay_method_t }}</view>
+      </view>
+
+      <!-- 创建时间 -->
+      <view class="trade-content">
+        <view class="name">创建时间</view>
+        <view class="content">{{ entryData.created_at }}</view>
+      </view>
+
+      <!-- 付款商家 -->
+      <view class="trade-content">
+        <view class="name">付款商家</view>
+        <view class="content">{{ entryData.shop_name }}</view>
+      </view>
+
+      <!-- 付款备注 -->
+      <view class="trade-content">
+        <view class="name">付款备注</view>
+        <view class="content">{{ entryData.pay_mark }}</view>
+      </view>
+
+      <!-- 当前状态 -->
+      <view class="trade-content">
+        <view class="name">当前状态</view>
+        <view class="content">{{ entryData.trade_state }}</view>
+      </view>
+
+    </view>
+
+    <view class="substance" wx:else>
+      <!-- 交易商品 -->
+      <view class="trade-content product" wx:if="{{ entryData.products.length > 0 }}">
+        <view class="name">交易商品</view>
+        <view class="products" bindtap="goProductDetail" data-products="{{ entryData.products }}">
+          <image class="img" wx:for="{{ entryData.products }}" wx:key="index" src="{{item.avatar}}"></image>
+          <view class="arrow" wx:if="{{ entryData.products.length >= 3 }}">
+            <image src="/images/v1.2/arrow_02.png"></image>
+          </view>
+        </view>
+      </view>
+
+      <!-- 支付方式 -->
+      <view class="trade-content">
+        <view class="name">支付方式</view>
+        <view class="content">{{ entryData.pay_method_t }}</view>
+      </view>
+
+      <!-- 创建时间 -->
+      <view class="trade-content">
+        <view class="name">创建时间</view>
+        <view class="content">{{ entryData.created_at }}</view>
+      </view>
+
+      <!-- 订单编号 -->
+      <view class="trade-content">
+        <view class="name">订单编号</view>
+        <view class="content">{{ entryData.number }}</view>
+      </view>
+
+      <!-- 当前状态 -->
+      <view class="trade-content">
+        <view class="name">当前状态</view>
+        <view class="content">{{ entryData.trade_state }}</view>
+      </view>
+
+    </view>
+
+  <view class="placeholder" style="width: 100%;height: {{ isIphoneX ? '200' : '100'}}rpx;"></view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>

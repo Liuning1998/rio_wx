@@ -1,18 +1,15 @@
 <!--pages/store/index/index.wxml-->
-<!-- <view class="loading-background"></view> -->
 <wxs module="price" src="../../utils/price.wxs"></wxs>
 <wxs module="product" src="../../utils/product.wxs"></wxs>
 <wxs module="helper" src="./helper.wxs"></wxs>
 
-<!-- <navbar returnAble="{{false}}" appendStyle="background: {{ scollStatus ? '#ffffff' : '#ffffff00;'}}" textStyle="color: {{scollStatus ? '#333333' : '#ffffff'}}; font-weight: 600;" title="金色家园" /> -->
-<!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
 <view class="navbar" style='margin-top: {{pageMarginTop}}px;'>
   <view class="navbar-container">
     <text class="title">金色家园</text>
     <view class="search-btn-container">
       <view style="height: 64rpx; width: 100%;" >
         <view class="search-btn" bindtap="showSearchLayer">
-          <image src="/images/search_icon_002.png"></image>
+          <image src="/images/search_icon_003.png"></image>
           <text>搜索商品</text>
         </view>
       </view>
@@ -25,255 +22,168 @@
   <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_002.png"></image>    
 </view>
 
-<scroll-view scroll-y='{{canScroll}}' class='page-container' style="height: 100%; overflow-y: scroll; " bindtouchstart='changeNavbar'>
-  <view class="swiper-and-user" style="margin-top: {{pageMarginTop+44}}px;">
-    <image class="su-background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_002.png" style="top: {{-pageMarginTop-44}}px"></image>
-    <!-- 原url001 -->
-    <view class="su-container {{ noticeText != null && noticeText.length > 0 && 'padding-top-88' }}" >
-      <view wx:if="{{!authLoginStatus}}" class="defualt-user">
-        <image class="default-avatar" src="/images/default_avatar.png"></image>
-        <text>Hi~欢迎来到金色家园小程序</text>
-      </view>
+<scroll-view scroll-y='{{canScroll}}' class='page-container' style="height: 100vh; overflow-y: scroll; " bindtouchstart='changeNavbar' scroll-top='{{topNum}}' bindscroll="scrolltoupper">
 
-      <!-- 目前隐藏 -->
-      <view wx:else class="user-info">
-        <view class="avatar-and-name">
-          <image wx:if="{{userInfo.vip_level}}" class="pendant" src="/pages/member/images/member_pendant.png"></image>
-          <!-- <view class="avatar-container" >
-            <open-data class='avatar-image' type="userAvatarUrl"></open-data>
-          </view> -->
+  <image class="top-background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/home_background_002.png"></image>
 
-          <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
-              <image class="avatar-image" src="{{userAvatar}}"></image>
-          </button>
+  <view class="placeholder-top" style="padding-top: {{pageMarginTop+44}}px;"></view>
 
-          <!-- <open-data class="name" type="userNickName"></open-data> -->
-          <view class="user-member-leval" wx:if="{{userInfo.vip_level}}">
-            <!-- <image class="bg" src="/pages/member/images/level_bg.png"></image> -->
-            <text class="info">会员等级{{userInfo.vip_level.current_vip_level}}</text>
+  <view class="banner">
+    <swiper bindchange='changeSwiperCurrent' class="banner-swiper" circular autoplay="true" indicator-dots="{{false}}">
+      <block wx:for="{{ ads }}" wx:key="index">
+        <swiper-item wx:for="{{ item.images }}" wx:key="aindex" wx:for-item="image">
+          <view class="slide-image-container">
+            <image bindtap="gotoUrl" data-url="{{item.miniprogram_url}}" src="{{image}}" class="slide-image" />
           </view>
-        </view>
-        <!-- <view class="account-info">
-          <text class="balance">平台余额(元): {{ userInfo.account_balance || 0 }}</text>
-        </view> -->
-        <view class="goto-member" bindtap="gotoVips" wx:if="{{userInfo.vip_level}}">
-          <text>查看会员权益</text>
-          <image class="img" src="/images/arrow_o_white_01.png"></image>
-        </view>
-      </view>
-
-      <view class="swiper-container">
-        <view class="swiper-content">
-          <swiper bindchange='changeSwiperCurrent' class="ad-swiper" circular autoplay="true"
-            indicator-dots="{{false}}" 
-          >
-            <block wx:for="{{ ads }}" wx:key="index">
-              <swiper-item wx:for="{{ item.images }}" wx:key="aindex" wx:for-item="image">
-                <view class="slide-image-container">
-                  <image bindtap="gotoUrl" data-url="{{item.miniprogram_url}}" src="{{image}}" class="slide-image" />
-                </view>
-              </swiper-item>
-            </block>
-          </swiper>
-
-          <view class="swiper-dots-container">
-            <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < ads.length }}" class="dot {{ index == swiperCurrent && 'active' }}"></view>
-          </view>
-        </view>
-      </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="swiper-dots-container">
+      <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < ads.length }}" class="dot {{ index == swiperCurrent && 'active' }}"></view>
     </view>
   </view>
 
-  <view class="store-container">
-    <!-- <swiper indicator-dots="{{false}}" circular="{{false}}" class="{{ specialAreas[0].length > 4 ? 'tow-row' : '' }}" bindchange='changeSpecailAreaSwiperCurrent'>
-      <swiper-item wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
-        <view bindtap="gotoShow" data-item="{{item}}" class="store-item" wx:for="{{ group }}" wx:for-item="item" wx:key="index">
-          <view class="logo-container"><image src="{{item.logo}}"></image></view>
-          <text>{{item.name}}</text>
-        </view>
-      </swiper-item>
-    </swiper> -->
-    
-    <!-- 修改 start -->
-      <scroll-view scroll-x="true" class="new-store-container" scroll-with-animation="{true}" scroll-left='0' bindscroll="getleft">
-        <!--内容区域--> 
-        <view class="new-store-item-parent" wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
-          <view  bindtap="gotoShow" data-item="{{item}}" class="new-store-item" wx:for="{{group}}" wx:for-item="item">
-            <view class="new-logo-container">
+  <!-- 专区 -->
+  <view class="special">
+    <view class="notice" wx:if="{{ noticeText != null && noticeText.length > 0 }}">
+      <image class="img" src="/images/v1.2/notice.png"></image>
+      <view class="notice-content">
+        <view class="content" style="left: {{floatNoticeLeft}}px;">
+        <text class="notice-text">{{ noticeText }}</text>
+        <text class="notice-text">{{ noticeText }}</text>
+        <text class="notice-text">{{ noticeText }}</text>
+      </view>
+      </view>     
+    </view>
+
+    <!-- 专区滚动 s -->
+    <scroll-view scroll-x="true" class="special-area" scroll-with-animation="{true}" scroll-left='0' bindscroll="getleft">
+      <view class="item-box">
+        <view class="item-parent" wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
+          <view  bindtap="gotoShow" data-item="{{item}}" class="item" wx:for="{{group}}" wx:for-item="item">
+            <view class="avatar">
               <image src="{{item.logo}}"></image>
             </view>
-            <text>{{item.name}}</text>
+            <text class="name">{{item.name}}</text>
           </view>
         </view>
-      </scroll-view > 
-      <!--滚动条部分--> 
-      <view wx:if="{{slideShow}}" class="slide"> 
-        <view class='slide-bar' >
-          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view> 
-        </view> 
-       </view>
-    <!-- end -->
+      </view>
+    </scroll-view > 
+    <!--滚动条部分--> 
+    <view wx:if="{{slideShow}}" class="special-slide"> 
+      <view class='slide-bar' >
+        <view class="slide-show" style="width:{{slideWidth}}px; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'px'}};"></view> 
+      </view> 
+    </view>
+    <!-- 专区滚动 e -->
 
-    <!-- <view wx:if="{{ specialAreas.length > 1 }}" class="special-area-swiper-dots-container">
-      <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < specialAreas.length }}" class="dot {{ index == specialAreaSwiperCurrent && 'active' }}"></view>
-    </view> -->
   </view>
 
-    <!-- 年货节 -->
-    <view class="group-product" wx:if="{{ newYearProducts != null }}" bindtap="gotoBrand" data-item="{{newYearProducts}}">
-      <image src="{{newYearProducts.background_image}}" class=""></image>
-    </view>
-    <!-- 年货节 -->
-
-    <!-- 临时活动 -->
-    <view class="group-product" wx:if="{{ temporaryProducts != null }}" bindtap="gotoBrand" data-item="{{temporaryProducts}}">
-      <image src="{{temporaryProducts.background_image}}" class=""></image>
-    </view>
-    <!-- 临时活动 -->
-
-    <!-- 特惠专场 -->
-    <view class="group-product" wx:if="{{ discountProducts != null }}" bindtap="gotoBrand" data-item="{{discountProducts}}">
-      <image src="{{discountProducts.background_image}}" class=""></image>
-    </view>
-    <!-- 特惠专场 -->
-
-    <!-- 促销专场 -->
-    <view class="group-product" wx:if="{{ promotionProducts != null }}" bindtap="gotoBrand" data-item="{{promotionProducts}}">
-      <image src="{{promotionProducts.background_image}}" class=""></image>
-    </view>
-    <!-- 促销专场 -->
-
-    <!-- 惠民折扣小商铺 -->
-    <view class="group-product" wx:if="{{ benefitPeopleProducts != null }}" bindtap="gotoBrand" data-item="{{benefitPeopleProducts}}">
-      <image src="{{benefitPeopleProducts.background_image}}" class=""></image>
-    </view>
-    <!-- 惠民折扣小商铺 -->
-
-    <!-- 团购商品 -->
-    <view class="group-product" wx:if="{{ groupProducts != null }}" bindtap="gotoGroupProduct" data-item="{{groupProducts}}">
-      <image src="{{groupProducts.background_image}}" class=""></image>
-    </view>
-    <!-- 团购商品 -->
-
-  <!-- 三 换下方形式-->
-  <view class="section-2" wx:if="{{ homeBrands != null && homeBrands.length > 0 }}">
-    <view class="first-container">
-      <view wx:if="{{homeBrands[0] != null}}" class="card" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">
-        <image class="background" src="{{homeBrands[0].background_image}}"></image>
-        <view class="content">
-          <!-- <text class="title">{{homeBrands[0].title}}</text>
-          <text class="sub-title">{{homeBrands[0].subtitle}}</text> -->
-        </view>
-      </view>
-
-      <view class="left-container">
-        <view wx:if="{{homeBrands[1] != null}}" class="hot-container" bindtap="gotoBrand" data-item="{{homeBrands[1]}}">
-          <image class="background" src="{{homeBrands[1].background_image}}"></image>
-          <!-- <view class="content">
-            <view class="title-container">
-              <text class="title">{{homeBrands[1].title}}</text>
-            </view>
-            <text class="sub-title">{{homeBrands[1].subtitle}}</text>
-          </view> -->
-        </view>
-
-        <view wx:if="{{homeBrands[2] != null}}" class="sort-container" bindtap="gotoBrand" data-item="{{homeBrands[2]}}">
-          <image class="background" src="{{homeBrands[2].background_image}}"></image>
-          <!-- <view class="content">
-            <view class="title-container">
-              <text class="title">{{homeBrands[2].title}}</text>
-            </view>
-            <text class="sub-title">{{homeBrands[2].subtitle}}</text>
-          </view> -->
-        </view>
+  <!-- 排行榜 -->
+  <view class="ranking">
+    <view class="title">
+      <image class="img" src="/images/v1.2/ranking.png"></image>
+      <text class="sub">跟榜购好物</text>
+      <view class="arrow-box">
+        <text>更多好物</text>
+        <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>
-
-    <view class="second-container">
-      <view bindtap="gotoBrand" data-item="{{homeBrand}}" wx:for="{{homeBrands}}" wx:for-index="hindex" wx:key="key" wx:for-item="homeBrand" class="home-brand-item" wx:if="{{ hindex >= 3 }}">
-        <text class="title">{{homeBrand.title}}</text>
-        <text class="sub-title">{{homeBrand.subtitle}}</text>
-        <image class="icon" src="{{homeBrand.background_image}}"></image>
+    <view class="ranking-swiper-box">
+      <swiper class="ranking-swiper" indicator-dots="{{false}}" circular autoplay="{{true}}">
+        <block wx:for="{{ ads }}" wx:key="*this">
+          <swiper-item class="ranking-swiper-item">
+            <view class="ranking-item ">
+              <view class="border-box">
+                <image class="ranking-product" src="/images/v1.2/mine_menu_02.png"></image>
+                <view class="price">{{price.tos(10000.0)}}</view>
+              </view>
+            </view>
+            <view class="ranking-item active">
+              <view class="border-box">
+                <image class="ranking-product" src="/images/v1.2/mine_menu_02.png"></image>
+                <view class="price">{{price.tos(10000.0)}}</view>
+              </view>
+            </view>
+            <view class="ranking-item ">
+              <view class="border-box">
+                <image class="ranking-product" src="/images/v1.2/mine_menu_02.png"></image>
+                <view class="price">{{price.tos(10000.0)}}</view>
+              </view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="swiper-dots-container">
+        <view wx:for="0123456789012345" wx:key="index" wx:if="{{ index < ads.length }}" class="dot {{ index == swiperCurrent && 'active' }}"></view>
       </view>
     </view>
   </view>
-  <!-- 三 -->
 
-  <view class="brand-transverse"  wx:if="{{newBrandData.length > 0 && todayProducts != null}}">
-    <view class="brand-title">
-      <text class="left">{{todayProducts.title}}</text>
-      <text class="right" bindtap="gotoBrand" data-item="{{todayProducts}}">{{todayProducts.subtitle}} ></text>
+  <!-- 年货节 -->
+  <view class="group-product" wx:if="{{ newYearProducts != null }}" bindtap="gotoBrand" data-item="{{newYearProducts}}">
+    <image src="{{newYearProducts.background_image}}" class=""></image>
+  </view>
+  <!-- 年货节 -->
+
+  <!-- 临时活动 -->
+  <view class="group-product" wx:if="{{ temporaryProducts != null }}" bindtap="gotoBrand" data-item="{{temporaryProducts}}">
+    <image src="{{temporaryProducts.background_image}}" class=""></image>
+  </view>
+  <!-- 临时活动 -->
+
+  <!-- 特惠专场 -->
+  <view class="group-product" wx:if="{{ discountProducts != null }}" bindtap="gotoBrand" data-item="{{discountProducts}}">
+    <image src="{{discountProducts.background_image}}" class=""></image>
+  </view>
+  <!-- 特惠专场 -->
+
+  <!-- 促销专场 -->
+  <view class="group-product" wx:if="{{ promotionProducts != null }}" bindtap="gotoBrand" data-item="{{promotionProducts}}">
+    <image src="{{promotionProducts.background_image}}" class=""></image>
+  </view>
+  <!-- 促销专场 -->
+
+  <!-- 惠民折扣小商铺 -->
+  <view class="group-product" wx:if="{{ benefitPeopleProducts != null }}" bindtap="gotoBrand" data-item="{{benefitPeopleProducts}}">
+    <image src="{{benefitPeopleProducts.background_image}}" class=""></image>
+  </view>
+  <!-- 惠民折扣小商铺 -->
+
+  <view class="recommend" wx:if="{{products.length > 0}}">
+    <view class="title">
+      <text class="small left"></text>
+      <text class="medium left"></text>
+      <text class="big left"></text>
+      <text class="text">热门推荐</text>
+      <text class="big right"></text>
+      <text class="medium right"></text>
+      <text class="small right"></text>
     </view>
-    <scroll-view class="brand-scroll" scroll-x="true">
-      <view class="brand-scroll-container">
-        <view class="product-item-contaier" bindtap="gotoProduct" data-item="{{item}}" wx:key="index" wx:for="{{newBrandData}}">
+    <view  class="recommend-content">
+      <view class="item-container" bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index">
+        <view class="avatar-container">
           <image class="avatar" src="{{item.avatar}}"></image>
-          <view class="product-content">
-            <view class="name-container">
-              <view class="pbadges">
-                <text class="badge-item" wx:for="{{ item.badges }}" wx:for-item="badge">{{badge}}</text>
-              </view>
-            </view>
-            <view class="price-and-btn">
-              <view class="price-container">
-                <view class="price">
-                  <text class="price-int">{{price.int(item.price)}}</text>
-                  <text class="price-decimal">{{price.decimal(item.price)}}</text>
-                </view>
-                <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
-              </view>
-              <view class="add-cart-image-box">
-                <image catchtap="addCartAndAnimation" data-item="{{item}}" class="add-cart-image" src="../../images/v1.2/add_cart.png"></image>
-              </view>
-            </view>
+        </view>
+        <view class="pbadges" wx:if="{{item.badges.length >= 0}}">
+          <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{badge}}</text>
+        </view>
+        <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
+        <view class="bottom-info-container">
+          <view class="price">{{item.price}}</view>
+          <view class="cart-icon">
+            <image src="/images/v1.2/add_cart.png"></image>
           </view>
-        </view>
-        <view class="brand-more" bindtap="gotoBrand" data-item="{{homeBrands[0]}}">
-          <text class="brand-more-text">查看更多</text>
-          <image class="brand-more-icon" src="../../images/arrow_o_black.png"></image>
-        </view>
-      </view>
-    </scroll-view>
-  </view>
-
-  <!-- 商品列表 -->
-  <view wx:if="{{products.length > 0}}" class="products-label">
-    <image src="/images/home_split_001.png"></image>
-    <text  class="products-title">为你推荐</text>
-    <image class="right" src="/images/home_split_001.png"></image>
-  </view>
-  <view wx:if="{{products.length > 0}}" class="products-container">
-    <view class="product-item-contaier" bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index">
-      <image src="{{item.avatar}}" class="avatar"></image>
-      <view class="product-content">
-        <view class="name-container">
-          
-          <view class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</view>
-          <view class="pbadges">
-            <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
-          </view>
-        </view>
-        <view class="price-and-btn">
-          <vew class="price-container">
-            <view class="price">
-              <text class="price-int">{{price.int(item.price)}}</text>
-              <text class="price-decimal">{{price.decimal(item.price)}}</text>
-            </view>
-            <text class="origin-price">￥{{price.tos(item.origin_price)}}</text>
-          </vew>
-          
-          <text class="add-cart" catchtap="addCartAndAnimation" data-item="{{item}}">+</text>
         </view>
       </view>
     </view>
+    <view class="page-bottom" wx:if="{{pageBottom}}">
+      <image src="/images/bottom_icon_001.png"></image>
+      <text>已经到底啦</text>
+      <image src="/images/bottom_icon_001.png" class="right"></image>
+    </view>
   </view>
-  <!-- 商品列表 -->
 
-  <view class="page-bottom" wx:if="{{pageBottom}}">
-    <image src="/images/bottom_icon_001.png"></image>
-    <text>已经到底啦</text>
-    <image src="/images/bottom_icon_001.png" class="right"></image>
-  </view>
 </scroll-view>
 
 
@@ -281,55 +191,6 @@
 <image wx:else src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
 
 <msgToast msg-data="{{ _msgData }}"/>
-
-<view catchtap="gotoCart1" class="page-cart-container">
-  <view class="white-background">
-    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
-    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
-    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
-  </view>
-</view>
-
-<view class="cart-animation-container">
-  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
-    <text>+1</text>
-  </view>
-</view>
-
-<!-- 通知 -->
-<view wx:if="{{ noticeText != null && noticeText.length > 0 }}" class="float-notice-container" style="top: {{pageMarginTop + 44}}px;">
-  <view class="image-container">
-    <image src="/images/message_icon_01.png"></image>
-  </view>
-  <view class="line"></view>
-  <view class="scroll-container">
-    <view class="scroll-content">
-      <view class="float-notice-content" style="left: {{floatNoticeLeft}}px;">
-        <text class="float-notice-text">{{ noticeText }}</text>
-        <text class="float-notice-text">{{ noticeText }}</text>
-        <text class="float-notice-text">{{ noticeText }}</text>
-      </view>
-    </view>
-  </view>
-</view>
-
-
-<!-- <view wx:if="{{ showSearch }}" class="search-layer" style="top: 0;">
-  <view style="height: {{pageMarginTop + 44}}px; width: 750rpx;"></view>
-  <view wx:if="{{ noticeText != null && noticeText.length > 0 }}" style="height: 88rpx; width: 750rpx;"></view>
-  <view class="search-container">
-    <view class="search-container-01">
-      <view class="input-group">
-        <image class="icon" src="/images/search_icon_003.png"></image>
-        <input bindinput='inputChange' data-name='searchKey' value='{{ searchKey }}' focus="{{searchFocus}}" confirm-type="search" bindconfirm="search" />
-        <view bindtap="clearSearchInput" class="clear">
-          <text>x</text>
-        </view>
-      </view>
-      <text bindtap="cancelSearch" class="cancel-btn">取消</text>
-    </view>
-  </view>
-</view> -->
 
 <view wx:if="{{ showSearch }}" bindtap="hideSearch" class="search-layer-1" style="top: 0;">
   <view catchtap="{{false}}" class="search-title" style="height: {{pageMarginTop + 44}}px; padding-top: {{pageMarginTop}}px; width: 750rpx; background: #fff;">
@@ -354,4 +215,10 @@
 <view class="add-program-mask" wx:if="{{ isAddProgram }}" catchtap="addProgramTips">
     <image class="add-program-img" src="/images/add_program.png"></image>
     <view class="btn">我知道了</view>
+</view>
+
+<!-- 跳到顶部 -->
+<view class="to-top" hidden='{{!cangotop}}'catchtap="goTop">
+  <text class="line"></text>
+  <image src="/images/v1.2/return_black.png"></image>
 </view>

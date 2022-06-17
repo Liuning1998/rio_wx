@@ -1,0 +1,89 @@
+/* pages/account/balance/index.wxss */
+
+page {
+  background: #fff;
+}
+
+.page-container{
+  height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.trade-content{
+  display: flex;
+  justify-content: space-between;
+  width: 702rpx;
+  margin: 0 auto;
+  padding: 20rpx 12rpx;
+  box-sizing: border-box;
+  align-items: center;
+}
+.trade-content.money{
+  height: 252rpx;
+}
+.trade-content .name{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #807474;
+  margin-right: 84rpx;
+}
+.trade-content .trade-money{
+  font-family: PingFangSC-Semibold;
+  font-size: 72rpx;
+  color: #332B2B;
+}
+.trade-content .content{
+  flex: 1;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #332B2B;
+  text-align: right;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+/* 交易商品 */
+.trade-content.product{
+  align-items:flex-start;
+}
+.trade-content.product .products{
+  width: 448rpx;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  justify-content: flex-end;
+}
+.trade-content.product .products .img{
+  width: 168rpx;
+  height: 168rpx;
+  margin-right: 12rpx;
+  border: 1rpx solid #E6E6E6;
+  border-radius: 6rpx;
+}
+.trade-content.product .products .arrow{
+  position: absolute;
+  height: 100%;
+  background-color: #fff;
+  padding: 0 36rpx;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+.trade-content.product .products .arrow image{
+  width: 12rpx;
+  height: 24rpx;
+}
+/* 交易商品 */
+
+.substance{
+  padding: 28rpx 0;
+  border-top: 1rpx solid #E6E6E6;
+  border-bottom: 1rpx solid #E6E6E6;
+  width: 702rpx;
+  margin: 0 auto;
+}

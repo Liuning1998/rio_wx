@@ -281,19 +281,41 @@ Page({
     })
   },
   // 获取导航便宜比例
-  getRatio(){
+  async getRatio(){
     var that = this ;
-    if (!that.data.specialAreas || that.data.specialAreas.length<=4){
-      this.setData({
+    var obj=wx.createSelectorQuery();
+    var parentW,childrenW;
+
+    await new Promise((resolve, reject)=>{
+      obj.selectAll('.special-area').boundingClientRect(function (rect) {
+          parentW = rect[0].width
+          resolve()
+      }).exec()  
+    })
+
+    await new Promise((resolve, reject)=>{
+      obj.selectAll('.item-box').boundingClientRect(function (rect) {
+          childrenW = rect[0].width
+          resolve()
+      }).exec()  
+    })
+
+    console.log( parentW,childrenW)
+
+    if(childrenW <= parentW){
+      that.setData({
         slideShow:false
       })
     }else{
-      var _totalLength = that.data.specialAreas.length * 175; //分类列表总长度
-      var _ratio = 128 / _totalLength * (750 / this.data.windowWidth); //滚动列表长度与滑条长度比例
-      var _showLength = 750 / _totalLength * 128; //当前显示红色滑条的长度(保留两位小数)
-      this.setData({
+      // 142 * (this.data.windowWidth / 750) ---- 滚动条容器的px值
+      // 142 * (this.data.windowWidth / 750) / childrenW ---- 宽度比例
+      var _ratio = 142 * (this.data.windowWidth / 750) / childrenW ; 
+      // parentW / childrenW ---- 专区子元素与父元素的宽度比例
+      // parentW / childrenW  * 142 * (this.data.windowWidth / 750) ---- 再*滚动条容器px宽度
+      var _showLength = parentW / childrenW * 142 * (this.data.windowWidth / 750) ; 
+      that.setData({
         slideWidth: _showLength,
-        totalLength: _totalLength,
+        totalLength: childrenW,
         slideShow: true,
         slideRatio:_ratio
       })
@@ -496,7 +518,7 @@ Page({
 
   floatNotice: function () {
     this.setData({ floatNoticeStatus: true })
-    wx.createSelectorQuery().select('.float-notice-text').boundingClientRect(res => {
+    wx.createSelectorQuery().select('.notice-text').boundingClientRect(res => {
       if (res != null) {
         if (res.width > 0) {
           let left = this.data.floatNoticeLeft - 1
@@ -690,6 +712,26 @@ Page({
         }
       }
     })
+  },
+
+  // 获取滚动条当前位置
+  scrolltoupper:function(e){
+    if (e.detail.scrollTop > 100) {
+      this.setData({
+        cangotop: true
+      });
+    } else {
+      this.setData({
+        cangotop: false
+      });
+    }
+  },
+
+  //回到顶部
+  goTop: function (e) {  // 一键回到顶部
+    this.setData({
+      topNum:0
+    });
   },
 
   // 点击添加小程序遮罩层
