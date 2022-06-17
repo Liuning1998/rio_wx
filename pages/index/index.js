@@ -1,4 +1,4 @@
-// pages/store/index/index.js
+// pages/store/index/index.js cccddd
 var http = require('../../utils/http.js')
 var sessionApi = require('../../utils/session.js')
 var store = require('../../utils/storage.js')
