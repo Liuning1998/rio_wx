@@ -110,7 +110,7 @@
 .pbadges {
   display: flex;
   flex-wrap: wrap;
-  padding-top: 14rpx;
+  padding-top: 10rpx;
 }
 .pbadges  .badge-icon{
   width: 70rpx;
@@ -123,7 +123,7 @@
 }
 
 .pbadges .badge-item{
-  height: 36rpx;
+  line-height: 36rpx;
   background: #FF3633;
   border-radius: 6rpx;
   display: flex;

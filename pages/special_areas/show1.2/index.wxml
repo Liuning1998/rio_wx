@@ -66,10 +66,10 @@
           <view class="default {{orderType == null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="auto">综合</view>
           <view class="price {{orderType != null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="price">
             价格
-            <image class="up" wx:if="{{orderType == 'price down'}}" src="/images/v1.2/special_02.png"></image>
+            <image class="up" wx:if="{{orderType == 'price up'}}" src="/images/v1.2/special_02.png"></image>
             <image class="up" wx:else src="/images/v1.2/special_01.png"></image>
 
-            <image class="down" wx:if="{{orderType == 'price up'}}" src="/images/v1.2/special_02.png"></image>
+            <image class="down" wx:if="{{orderType == 'price down'}}" src="/images/v1.2/special_02.png"></image>
             <image class="down" wx:else src="/images/v1.2/special_01.png"></image>
           </view>
         </view>

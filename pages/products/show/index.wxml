@@ -295,12 +295,11 @@
 
 <view class="coupon-p" hidden="{{!isShow}}">
   <view class="coupon-mask" bindtap="closePopup"></view>
-  <view class='popup'>
+  <view class="popup {{ isIphoneX && 'iphone-x' }}">
     <view class="popup-title">
       <text>优惠</text>
       <view class="close" bindtap="closePopup">
-        <image src="/images/arrow_o_black.png"></image>
-        <image src="/images/arrow_o_black.png"></image>
+        <image src="/images/v1.2/close.png"></image>
       </view>
     </view>
     <view class="popup-brief">领券</view>

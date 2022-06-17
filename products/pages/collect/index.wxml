@@ -1,0 +1,104 @@
+<!--products/pages/index/index.wxml-->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<wxs module="product" src="../../../utils/product.wxs"></wxs>
+
+<navbar appendStyle="background: #ffffff;" title="{{pageTitle}}" />
+
+
+<scroll-view scroll-y class='page-container' enable-flex="true">
+
+  <view style='padding-top: {{ pageMarginTop + 44 }}px;'></view>
+
+  <view class="screen-box">
+    <view class="screen" style="top:{{pageMarginTop+44}}px">
+      <view class="item {{orderType == null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="auto">
+        <text class="words">综合推荐</text>
+        <image class="bottom-icon" src="/images/v1.2/collect_01.png"></image>
+      </view>
+      <view class="item {{orderType != null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="price" >
+        <text class="words">商品价格</text>
+        <view class="icon {{orderType}}">
+
+          <image wx:if="{{orderType == 'price up'}}" class="top trans" src="/images/v1.2/collect_03.png"></image>
+          <image wx:else class="top" src="/images/v1.2/collect_02.png"></image>
+
+          <image wx:if="{{orderType == 'price down'}}" class="bottom trans" src="/images/v1.2/collect_03.png"></image>
+          <image wx:else class="bottom" src="/images/v1.2/collect_02.png"></image>
+          
+        </view>
+        <image class="bottom-icon" src="/images/v1.2/collect_01.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="products-container">
+    <scroll-view scroll-y class="placeholder" bindscrolltolower="onReachBottom">
+      <!-- 提示 -->
+      <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.id].total < 149}}" class="tips">差￥{{ price.tos(149 - cartData.data['store_'+category.id].total) }}免运费</view>
+      <view wx:else class="tips">已免运费</view>
+
+      <view wx:if="{{ loaded && (products == null || products.length <= 0)}}" class="product-empty">
+        <image src="../../images/products_empty_icon_001.png"></image>
+        <text>商品上架中，敬请期待</text>
+      </view>
+
+      <block wx:else>
+        
+        <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products}}" wx:key="index">
+          <view class="avatar-container">
+            <image class="avatar" src="{{item.avatar}}"></image>
+          </view>
+          <view class="product-info">
+            <view class="name-and-badge">
+              <text class="name">{{item.name}}</text>
+              <view class="pbadges">
+                <text class="badge-item" wx:for="{{item.badges}}"  wx:for-item="badge">{{badge}}</text>
+              </view>
+            </view>
+            <view class="price-and-btn">
+              <view class="price-container">
+                <text class="unit">¥</text>
+                <text class="price">{{price.tos(item.price)}}</text>
+              </view>
+              <image class="add-cart" data-item="{{item}}" catchtap="addCart" src="/images/v1.2/add_cart.png"></image>
+            </view>
+          </view>
+        </view>
+
+      </block>
+
+      <view class="page-bottom" wx:if="{{pageBottom}}">
+        <image src="/images/bottom_icon_001.png"></image>
+        <text>已经到底啦</text>
+        <image src="/images/bottom_icon_001.png" class="right"></image>
+      </view>
+    </scroll-view>
+  </view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<view class="bottom-btn {{ isIphoneX && 'iphone-x' }}">
+  <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.id].total < 149}}" class="info">
+    <text class="black">还差</text>
+    <text class="red">{{ price.tos(149 - cartData.data['store_'+category.id].total) }}元</text>
+  </view>
+  <view wx:else class="info">
+    <text class="black">已免运费</text>
+  </view>
+  <view class="btn" bindtap="gotoCart">去购物车</view>
+</view>
+
+<view catchtap="gotoCart" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view>
+
+<view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view>

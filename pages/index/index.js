@@ -1,7 +1,8 @@
-// pages/store/index/index.js cccddd
+// pages/store/index/index.js
 var http = require('../../utils/http.js')
 var sessionApi = require('../../utils/session.js')
 var store = require('../../utils/storage.js')
+var helper = require('../../utils/helper.js')
 const app = getApp()
 
 Page({
@@ -19,13 +20,13 @@ Page({
     cartAnimations: {},
     canScroll: true,
     scorllViewHeight: 'auto',
-    homeBrands: null,
     tryProduct: null,
     noticeText: null,
     swiperCurrent: 0,
+    swiperRankCurrent: 0,
     specialAreaSwiperCurrent: 0,
     pageBottom: false,
-    // 新推荐板块
+    // 新推荐板块(改版1.2后排行榜)
     newBrandData:[],
     newBrandPage:1,
     // 导航滚动条
@@ -70,8 +71,8 @@ Page({
     this.getRecommendProducts()
     this.getspecialAreas()
     this.getAds()
+    this.getBannerBackground()
     this.getNotice()
-    // this.getTodayProduct()
 
     wx.getSystemInfo({
       success: (res) => {
@@ -195,7 +196,6 @@ Page({
             }
           }
           this.setData({
-            // homeBrands: res.data,
             tryProduct: _tryProduct,
             todayProducts: _todayProducts,
             groupProducts: _groupProducts,
@@ -300,8 +300,6 @@ Page({
       }).exec()  
     })
 
-    console.log( parentW,childrenW)
-
     if(childrenW <= parentW){
       that.setData({
         slideShow:false
@@ -344,6 +342,23 @@ Page({
     })
   },
 
+  //轮播图背景图
+  getBannerBackground: function () {
+    http.get({
+      url: "api/ads",
+      data: {
+        q: {
+          tags_name_eq: '广告背景图'
+        }
+      },
+      success: res => {
+        if (res.data != null && res.data.constructor.name == "Array") {
+          this.setData({ bannerBackground: res.data })
+        }
+      }
+    })
+  },
+
   refreshData: function () {
     this.setData({
       // pageNo: 1,
@@ -353,6 +368,7 @@ Page({
 
     this.getUserInfo()
     this.getAds()
+    this.getBannerBackground()
     this.getspecialAreas()
     // this.getRecommendProducts(1)
     this.refreshProducts()
@@ -418,7 +434,6 @@ Page({
 
 
   gotoUrl: function (e) {
-    console.log(e)
     var url = e.currentTarget.dataset.url
     if (url == null || url.length <= 0) {
       return
@@ -528,7 +543,6 @@ Page({
 
           this.setData({ floatNoticeLeft: left })
         }
-        // console.log(res)
       }
     }).exec()
 
@@ -540,6 +554,10 @@ Page({
 
   changeSwiperCurrent: function (e) {
     this.setData({ swiperCurrent: e.detail.current })
+  },
+
+  changeRankSwiperCurrent: function (e) {
+    this.setData({ swiperRankCurrent: e.detail.current })
   },
 
   changeSpecailAreaSwiperCurrent: function (e) {
@@ -685,7 +703,6 @@ Page({
       return
     }
 
-    // console.log('sss')
     this.navigateTo("/products/pages/search_all/index?searchKey="+this.data.searchKey)
   },
 
@@ -699,6 +716,7 @@ Page({
       },
       success: res => {
         if(res.data != null && res.data.length > 0) {
+          res.data = helper.splitArray(res.data,3)
           res.data.forEach((item,index)=>{
             newBrandData.push(item)
           })
@@ -715,8 +733,8 @@ Page({
   },
 
   // 获取滚动条当前位置
-  scrolltoupper:function(e){
-    if (e.detail.scrollTop > 100) {
+  onPageScroll:function(e){
+    if (e.scrollTop > 100) {
       this.setData({
         cangotop: true
       });
@@ -729,9 +747,9 @@ Page({
 
   //回到顶部
   goTop: function (e) {  // 一键回到顶部
-    this.setData({
-      topNum:0
-    });
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
   },
 
   // 点击添加小程序遮罩层

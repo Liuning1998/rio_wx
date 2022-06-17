@@ -582,7 +582,8 @@ page {
 }
 
 .product-list-container .item-container .pbadges{
-  margin-top: 30rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
 }
 
 

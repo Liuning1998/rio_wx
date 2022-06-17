@@ -41,7 +41,7 @@ page {
 
 .navbar-background image {
   width: 750rpx;
-  height: 372rpx;
+  height: 570rpx;
 }
 /* navbar background */
 
@@ -416,7 +416,7 @@ page {
 
 /* 头部banner背景 s */
 .top-background {
-  height: 568rpx;
+  height: 570rpx;
   width: 750rpx;
   position: absolute;
 }
@@ -556,6 +556,7 @@ page {
   height:8rpx;
   background:#DDD8D8;
   border-radius: 30rpx;
+  overflow: hidden;
 }
 .special-slide .slide-bar .slide-show{
   height:100%;
@@ -654,6 +655,7 @@ page {
 .ranking-swiper-box .ranking-swiper-item .ranking-item image{
   width: 186rpx;
   height: 186rpx;
+  border-radius: 6rpx;
 }
 .ranking-swiper-box .ranking-swiper-item .ranking-item .price{
   font-family: PingFangSC-Medium;
@@ -777,6 +779,7 @@ page {
   height: 338rpx;
   width: 338rpx;
   display: flex;
+  border-radius: 6rpx;
 }
 .recommend-content .item-container .name{
   width: 340rpx;
@@ -789,12 +792,12 @@ page {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   margin-top: 20rpx;
-  flex: none;
+  flex-grow: 1;
   font-family: PingFangSC-Regular;
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
-  max-height: 108rpx;
+  /* max-height: 108rpx; */
 }
 .recommend-content .item-container .bottom-info-container{
   display: flex;
@@ -815,7 +818,6 @@ page {
 .recommend-content .item-container .pbadges{
   padding-left: 24rpx;
   padding-right: 24rpx;
-  flex: 1;
 }
 .recommend-content .item-container .bottom-info-container .price::before{
   content: "¥";

@@ -350,7 +350,7 @@ Page({
   gotoStore: function (e) {
     var item = e.currentTarget.dataset.item
     if (item == null || item.store_id == null) { return }
-    this.navigateTo("/products/pages/index/index?store_id="+item.store_id+"&pageType=store&store_name="+item.store_name)
+    this.navigateTo(`/products/pages/collect/index?store_id=${item.store_id}&store_short_name=${item.store_short_name}&total=${item.total}`)
   },
 
   addCart: function (e) {

@@ -145,7 +145,7 @@
             </view>
           </view>
 
-          <view class="pbadges" style="padding: 0 24rpx; box-sizing: border-box;">
+          <view class="pbadges" wx:if="{{item.badges.length > 0}}">
             <block wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge">
               <text class="badge-item">{{badge}}</text>
             </block>

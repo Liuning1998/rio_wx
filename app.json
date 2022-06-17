@@ -47,6 +47,7 @@
     "pages/login/index",
     "products/pages/index3/index",
     "products/pages/index4/index",
+    "products/pages/collect/index",
     "products/pages/today/index",
     "agreement/pages/sale_service/show",
     "pages/card/index/index",

@@ -64,11 +64,26 @@ function getRandom (n) {
   return Math.random().toString().slice(-n);
 }
 
+// 将数组拆分成多个num数量的子数组 [a,b,c,d] ==> [[a,b],[c,d]]
+function splitArray (arr, num){
+  num = num*1 || 1;
+  var ret = [];
+  arr.forEach(function(item, i){
+    if(i % num === 0){
+      ret.push([]);
+    }
+    ret[ret.length - 1].push(item);
+  });
+  console.log(ret);
+  return ret;
+};
+
 module.exports = {
   getShipAddress: getShipAddress,
   cacheShipAddress: cacheShipAddress,
   hidePhone: hidePhone,
-  cacheShipAddressReal:cacheShipAddressReal,
-  checkRepeat:checkRepeat,
-  getRandom:getRandom
+  cacheShipAddressReal: cacheShipAddressReal,
+  checkRepeat: checkRepeat,
+  getRandom: getRandom,
+  splitArray: splitArray
 }
