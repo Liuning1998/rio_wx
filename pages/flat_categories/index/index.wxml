@@ -52,14 +52,20 @@
           <image class="right" src="/images/v1.2/class_icon_01.png"></image>
           <text class="icon"></text>
         </view>
-        <view class="product-container" wx:for="{{ products['id_'+currentCategory.secondId]}}" wx:key="index">
-          <view class="avatar-container" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
+        <view class="product-container" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink" wx:for="{{ products['id_'+currentCategory.secondId]}}" wx:key="index">
+          <view class="avatar-container">
             <image class="avatar" src="{{ item.avatar }}"></image>
           </view>
           <view class="product-info">
             <view class="name-and-badge" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
               <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
               <view class="pbadges">
+                <block wx:for="{{ item.badges }}" wx:for-item="badge">
+                  <text class="badge-item">{{badge}}</text>
+                </block>
+                <block wx:for="{{ item.badges }}" wx:for-item="badge">
+                  <text class="badge-item">{{badge}}</text>
+                </block>
                 <block wx:for="{{ item.badges }}" wx:for-item="badge">
                   <text class="badge-item">{{badge}}</text>
                 </block>
@@ -74,7 +80,7 @@
                 <text class="price-int">{{price.int(item.price)}}</text>
                 <text class="price-decimal">{{price.decimal(item.price)}}</text>
               </view>
-              <image class="add-cart" catchtap="addCartAndAnimation" data-item="{{item}}" src="/images/v1.2/add_cart.png"></image>
+              <image class="add-cart" data-item="{{item}}" src="/images/v1.2/add_cart.png"></image>
             </view>
           </view>
 
@@ -121,16 +127,16 @@
 
 <image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
 
-<view catchtap="gotoCart1" class="page-cart-container">
+<!-- <view catchtap="gotoCart1" class="page-cart-container">
   <view class="white-background">
     <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
     <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
     <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
   </view>
-</view>
+</view> -->
 
-<view class="cart-animation-container">
+<!-- <view class="cart-animation-container">
   <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
     <text>+1</text>
   </view>
-</view>
+</view> -->

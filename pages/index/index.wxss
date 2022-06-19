@@ -515,7 +515,7 @@ page {
 }
 .special-area .item-parent{
   display: inline-block;
-  margin: 0 12rpx;
+  margin: 0 13rpx;
   text-align: center;
   vertical-align: top;
 }

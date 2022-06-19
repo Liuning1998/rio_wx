@@ -1,4 +1,5 @@
 // products/pages/index/index.js
+// 排行榜页面、热门精选
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
 
@@ -10,8 +11,10 @@ Page({
   data: {
     products: [],
     pageNo: 1,
-    searchText: null,
-    pageTitle: null
+    loaded: false,
+    tagName: null,
+    tagID: null,
+    brand: null,
   },
 
   /**
@@ -19,15 +22,18 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
-    var pageTitle = '搜索商品'
 
-    this.setData({ 
-      searchText: options.searchKey, 
-      special_area_id: options.special_area_id,
-      pageTitle: pageTitle,
-      statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-    })
-    this.getProducts(options.searchKey, 1, null)
+    let brand = this.params.brand
+
+
+    if (brand == null) {
+      this.getBrand(options.id)
+    } else {
+      this.setData({ brand: brand })
+    }
+
+    this.setData({ tagName: decodeURI(options.tag_name), tagID: options.tag_id, sortBadge: options.sort_badge })
+    this.getProducts(decodeURI(options.tag_name), 1, null)
   },
 
   /**
@@ -37,20 +43,20 @@ Page({
     this.loadCartInfo()
   },
 
-  getProducts: function (searchKey, pageNo, orderType, refresh) {
+  getProducts: function (tagName, pageNo, orderType, refresh) {
     let _data = {
-      search_key: searchKey,
+      tags_name_eq: tagName,
       page: pageNo || 1
     }
 
     if (orderType != null) {
       _data.order = orderType
     }
+
     http.get({
-      url: 'api/search',
+      url: 'api/products/scope_tag',
       data: _data,
       success: res => {
-        
         if (res.data != null && res.data.constructor.name == 'Array') {
           if (refresh) {
             let pageNo = 1
@@ -59,7 +65,7 @@ Page({
           } else {
             this.appendProducts(res.data)
           }
-          // this.setData({ products: res.data })
+
           if (res.data.length < 10) {
             this.setData({ pageBottom: true })
           } else {
@@ -92,24 +98,38 @@ Page({
     // this.stopPDRefresh()
   },
 
-  inputChange: function (e) {
-    var options = {}
-    options[e.currentTarget.dataset.name] = e.detail.value
-    this.setData(options)
+  gotoProduct: function (e) {
+    var item = e.currentTarget.dataset.item
+    if (item.id == null) {
+      return
+    }
+
+    this.navigateTo("/pages/products/show/index?id=" + item.id)
   },
 
-  clearSearchText: function (e) {
-    this.setData({ searchText: null, focus: true })
-  },
+  addCart: function (e) {
+    var item = e.currentTarget.dataset.item
+    let master = item.variants.filter(variant => variant.is_master)[0]
+    if (master == null) {
+      return
+    }
 
-  searchProducts: function (e) {
-    this.setData({pageNo: 1, loaded: false})
-    this.getProducts(this.data.searchText, 1, this.data.orderType, true)
-    this.hideSearch()
-  },
+    let lineItem = {
+      quantity: 1,
+      variant_id: master.id,
+      price: master.price,
+      vip_price: master.vip_price,
+      origin_price: master.origin_price,
+      available_on: master.available_on,
+      stock: master.stock,
+      store_id: master.store_id || '0',
+      product: item,
+      // variant: master,
+      show_name: master.show_name
+    }
 
-  onReachBottom: function () {
-    this.getProducts(this.data.searchText, this.data.pageNo, this.data.orderType)
+    let cart = cartApi.addCart(lineItem)
+    this.setData({ cartData: cart })
   },
 
   changeOrder: function (e) {
@@ -129,44 +149,39 @@ Page({
       orderType: orderType
     })
 
-    this.getProducts(this.data.searchText, 1, orderType, true)
+    this.getProducts(this.data.tagName, 1, orderType, true)
   },
 
-  clearSearchText: function (e) {
-    this.setData({ searchText: null, focus: true })
+  onReachBottom: function () {
+    this.getProducts(this.data.tagName, this.data.pageNo, this.data.orderType)
   },
 
-  gotoProduct: function (e) {
-    var item = e.currentTarget.dataset.item
-    if (item.id == null) {
-      return
-    }
-
-    this.navigateTo("/pages/products/show/index?id=" + item.id)
+  getBrand: function(id) {
+    http.get({
+      url: `api/home_brands/${id}`,
+      success: res => {
+        if (res.data != null) {
+          this.setData({ brand: res.data })
+        }
+      }
+    })
   },
 
   goback: function () {
     if (getCurrentPages().length > 1) {
       wx.navigateBack({})
     } else {
-      wx.switchTab({
+      wx.reLaunch({
         url: '/pages/index/index',
       })
     }
-
   },
 
-  // 显示搜索弹框
-  showSearchLayer: function () {
-    wx.setNavigationBarColor({
-      backgroundColor: '#ffffff',
-      frontColor: '#000000',
-    })
-    this.setData({ showSearch: true, focus: true })
+  changeNavbar: function () {
+    this.checkNavbar()
+    setTimeout(res => {
+      this.changeNavbar()
+    }, 500)
   },
 
-  // 取消搜索
-  hideSearch: function () {
-    this.setData({ showSearch: false })
-  },
 })

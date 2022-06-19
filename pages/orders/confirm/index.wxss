@@ -321,7 +321,7 @@ page {
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
-  color: #F64C47;
+  color: #FF3633;
   font-size: 24rpx;
 }
 
@@ -541,7 +541,7 @@ page {
 
 .variants-layer .price-container .price {
   font-size: 28rpx;
-  color: #F64C47;
+  color: #FF3633;
   font-weight: 500;
   margin-right: 16rpx;
 }
@@ -713,7 +713,7 @@ page {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 9901;
+  z-index: 99991;
   background: rgba(0,0,0,0.20);
   height: 100%;
   width: 750rpx;
@@ -761,11 +761,12 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2B2424;
-  font-size: 32rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #F7F7F7;
   position: relative;
+  font-family: PingFangSC-Regular;
+  font-size: 40rpx;
+  color: #332B2B;
 }
 
 .pay-method-layer .pm-header .close {
@@ -776,6 +777,11 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.pay-method-layer .pm-header .close image{
+  width: 28rpx;
+  height: 28rpx;
 }
 
 .pay-method-layer .pm-header .close .close-icon {
@@ -816,11 +822,12 @@ page {
   display: inline-block;
   height: 192rpx;
   line-height: 192rpx;
-  font-size: 60rpx;
-  color: #2B2424;
   width: 100%;
   text-align: center;
   border-bottom: 1rpx solid #f7f7f7;
+  font-family: HelveticaNeue-Medium;
+  font-size: 72rpx;
+  color: #332B2B;
 }
 
 .pay-method-layer .pay-method-content .balance{
@@ -844,6 +851,9 @@ page {
   align-items: center;
   border-bottom: 1rpx solid #f7f7f7;
   height: 144rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #332B2B;
 }
 
 .pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox {
@@ -851,7 +861,7 @@ page {
   width: 44rpx;
   border-radius: 50%;
   box-sizing: border-box;
-  border: 1rpx solid #F64C47;
+  border: 1rpx solid #FF3633;
   margin-right: 48rpx;
   display: flex;
   align-items: center;
@@ -859,26 +869,30 @@ page {
 }
 
 .pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox.active {
-  background: #F64C47;
+  background: #FF3633;
 }
 
 .pay-method-layer .bottom-btns {
+  box-shadow: 0 0 2rpx 0 #E5E5E5;
   position: absolute;
   bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 14rpx 0;
+}
+.pay-method-layer .bottom-btns.iphone-x{
   padding-bottom: 64rpx;
 }
 
 .pay-method-layer .bottom-btns .pay-method-confirm {
-  background-image: linear-gradient(118deg, #FF524E 0%, #FB2C2A 100%);
+  background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
   border-radius: 42rpx;
   border-radius: 42rpx;
-  height: 84rpx;
-  width: 654rpx;
+  height: 72rpx;
+  width: 702rpx;
   display: inline-block;
-  line-height: 84rpx;
+  line-height: 72rpx;
   text-align: center;
   font-size: 36rpx;
   color: #ffffff;
@@ -1167,10 +1181,11 @@ page {
   position: absolute;
   bottom: 10rpx;
   left: 48rpx;
-  font-size: 26rpx;
-  line-height: 34rpx;
-  color: #999999;
+  line-height: 48rpx;
   padding-right: 42rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #807474;
 }
 
 .coupon-a{
@@ -1191,7 +1206,7 @@ page {
   z-index: 3;
 }
 .coupon-a.iphone-x{
-  bottom: 176rpx;
+  bottom: 168rpx;
 }
 .coupon-a .coupon-a-l {
   display: flex;
@@ -1229,7 +1244,7 @@ page {
 }
 .coupon-a .coupon-a-r text {
   font-size: 28rpx;
-  color: #F64C47;
+  color: #FF3633;
 }
 .coupon-a .coupon-a-r image {
   width: 16rpx;
@@ -1323,7 +1338,7 @@ page {
 }
 .not-coupon .not-coupon-toast .not-coupon-toast-b view.not-coupon-toast-b-r{
   font-size: 36rpx;
-  color: #F64C47;
+  color: #FF3633;
 }
 .hover-btn{
   opacity: .8;
@@ -1372,10 +1387,9 @@ page {
   color: #5B5454;
   display: flex;
   margin: 48rpx 0;
-  font-size: 24rpx;
+  font-size: 36rpx;
   justify-content: space-between;
   color: #666666;
-  line-height: 24rpx;
 }
 .balance-result .subject .info .info-l view:nth-child(1){
   margin-right: 20rpx;
@@ -1396,15 +1410,15 @@ page {
   line-height: 88rpx;
   text-align: center;
   border-radius: 48rpx;
-  border: 1px solid #F64C47;
-  font-size: 32rpx;
-  color: #F64C47;
+  border: 1px solid #FF3633;
+  font-size: 36rpx;
+  color: #FF3633;
   letter-spacing: 0;
   text-align: center;
   margin: 64rpx 0;
 }
 .balance-result .btn-box .btn.btn-order{
-  background-image: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
+  background-image: linear-gradient(90deg, #FF3633 0%, #FB2C2A 100%);
   border: none;
   color: #fff;
 }

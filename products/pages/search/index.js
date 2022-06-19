@@ -30,7 +30,8 @@ Page({
     this.setData({ 
       searchText: options.searchKey, 
       special_area_id: options.special_area_id,
-      pageTitle: pageTitle
+      pageTitle: pageTitle,
+      statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
     })
     this.getProducts(options.searchKey, 1, null)
   },
@@ -110,6 +111,7 @@ Page({
   searchProducts: function (e) {
     this.setData({pageNo: 1, loaded: false})
     this.getProducts(this.data.searchText, 1, this.data.orderType, true)
+    this.hideSearch()
   },
 
   onReachBottom: function () {
@@ -158,5 +160,19 @@ Page({
       })
     }
 
+  },
+
+  // 显示搜索弹框
+  showSearchLayer: function () {
+    wx.setNavigationBarColor({
+      backgroundColor: '#ffffff',
+      frontColor: '#000000',
+    })
+    this.setData({ showSearch: true, focus: true })
+  },
+
+  // 取消搜索
+  hideSearch: function () {
+    this.setData({ showSearch: false })
   },
 })

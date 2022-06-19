@@ -1,0 +1,94 @@
+<!--products/pages/index/index.wxml-->
+<!-- 排行榜页面、热门精选 -->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<wxs module="product" src="../../../utils/product.wxs"></wxs>
+
+<navbar navbarStyle="custom" customImgSrc="{{brand.banners[0]}}" title="{{tagName}}" />
+
+
+<scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
+  <image class="ad-image" src="{{brand.banners[0]}}"></image>
+  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
+    <image src="../../images/products_empty_icon_001.png"></image>
+    <text>商品上架中，敬请期待</text>
+  </view>
+  <view wx:else class="products-container">
+    <view class="ranking">
+      <view class="item" bindtap="gotoProduct" data-item="{{products[1]}}">
+        <view class="avatar">
+          <image class="avatar-img" src="{{products[1].avatar}}"></image>
+          <view class="background"></view>
+          <image class="icon" src="/images/v1.2/ranking_03.png"></image>
+        </view>
+        <view class="name"><text class="pre_name" wx:if="{{!!products[1].pre_name}}">{{products[1].pre_name}}</text>{{products[1].name}}</view>
+        <view class="price">{{price.tos(products[1].price)}}</view>
+        <view class="btn">去抢购</view>
+      </view>
+      <view class="item active" bindtap="gotoProduct" data-item="{{products[0]}}">
+        <view class="avatar">
+          <image class="avatar-img" src="{{products[0].avatar}}"></image>
+          <view class="background"></view>
+          <image class="icon" src="/images/v1.2/ranking_03.png"></image>
+        </view>
+        <view class="name"><text class="pre_name" wx:if="{{!!products[0].pre_name}}">{{products[0].pre_name}}</text>{{products[0].name}}</view>
+        <view class="price">{{price.tos(products[0].price)}}</view>
+        <view class="btn">去抢购</view>
+      </view>
+      <view class="item" bindtap="gotoProduct" data-item="{{products[2]}}">
+        <view class="avatar">
+          <image class="avatar-img" src="{{products[2].avatar}}"></image>
+          <view class="background"></view>
+          <image class="icon" src="/images/v1.2/ranking_03.png"></image>
+        </view>
+        <view class="name"><text class="pre_name" wx:if="{{!!products[2].pre_name}}">{{products[2].pre_name}}</text>{{products[2].name}}</view>
+        <view class="price">{{price.tos(products[2].price)}}</view>
+        <view class="btn">去抢购</view>
+      </view>
+    </view>
+    <view bindtap="gotoProduct" wx:if="{{index > 2}}" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
+      
+      <view class="sort">
+        {{price.addZero(index + 1)}}
+      </view>
+
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatar}}"></image>
+      </view>
+
+      <view class="item-content">
+        <view class="info">
+          <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
+        </view>
+
+        <view class="price-and-cart">
+          <view class="price-container">
+            <text class="price">{{price.tos(item.price)}}</text>
+          </view>
+          <view class="go-product">去抢购</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="page-bottom" wx:if="{{pageBottom}}">
+      <image src="/images/bottom_icon_001.png"></image>
+      <text>已经到底啦</text>
+      <image src="/images/bottom_icon_001.png" class="right"></image>
+    </view>
+  </view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<!-- <view catchtap="gotoCart" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view>
+
+<view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view> -->

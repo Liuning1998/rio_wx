@@ -11,7 +11,7 @@ Page({
     services: null,
     currentReason: null,
     currentService: null,
-    quantity: 1,
+    currentLineItem: null,
     submitDisable: true,
     orderServiceStatus: null
   },
@@ -32,6 +32,7 @@ Page({
    */
   onShow: function () {
     submiting = false
+    this.checkSubmitBtnStatus()
   },
 
   getServices: function () {
@@ -72,7 +73,7 @@ Page({
       return
     }
 
-    if (this.data.currentLineItem == null) { 
+    if (this.data.currentLineItem == null || this.data.currentLineItem.products.length <= 0) { 
       this.errorToast('请选择售后商品')
       return
     }
@@ -99,15 +100,17 @@ Page({
     if (submiting) { return false }
     submiting = true
 
+    let variant_ids = this.data.currentLineItem.products.map(item => item.id)
+
     let _data = {
-      quantity: this.data.quantity,
+      quantity: this.data.currentLineItem.quantity,
       link_phone: this.data.link_phone,
       link_name: this.data.link_name,
       service_type: this.data.currentService.service_type,
       apply_reason: this.data.currentReason,
       desc: this.data.reasonText,
       order_number: this.data.order.number,
-      variant_id: this.data.currentLineItem.variant_id
+      variant_ids: variant_ids
     }
 
     http.post({
@@ -127,8 +130,9 @@ Page({
     })
   },
 
-  showProducts: function () {
-    this.setData({ showLineItems: true })
+  toProducts: function () {
+    var parducts = this.data.order.line_items;
+    this.navigateTo(`/orders/pages/service_product/index?products=${JSON.stringify(parducts)}&number=${this.data.order.number}`)
   },
 
   showServices: function () {
@@ -145,7 +149,6 @@ Page({
 
   hideSelectLayer: function () {
     this.setData({
-      showLineItems: false,
       showReasonTypes: false,
       showServiceTypes: false
     })
@@ -171,35 +174,6 @@ Page({
     this.checkSubmitBtnStatus()
   },
 
-  selectProduct: function (e) {
-    var item = e.currentTarget.dataset.item
-
-    let _status = this.data.orderServiceStatus['' + item.variant_id]
-    if (_status == null || _status == 'err') {
-      return false
-    }
-
-    this.setData({
-      currentLineItem: item
-    })
-    this.hideSelectLayer()
-    this.checkSubmitBtnStatus()
-  },
-
-  subQuantity: function () {
-    if (this.data.quantity < 1) { return false}
-    let quantity = this.data.quantity - 1
-    if (quantity <= 1) { quantity = 1 }
-    this.setData({ quantity: quantity })
-  },
-
-  plusQuantity: function () {
-    if(this.data.currentLineItem == null) { return false }
-    if (this.data.quantity >= this.data.currentLineItem.quantity) { return false }
-    let quantity = this.data.quantity + 1
-    if (quantity >= this.data.currentLineItem.quantity) { quantity = this.data.currentLineItem.quantity }
-    this.setData({ quantity: quantity })
-  },
 
   reasonInput: function (e) {
     let text = e.detail.value
@@ -218,7 +192,7 @@ Page({
       return
     }
 
-    if (this.data.currentLineItem == null) { 
+    if (this.data.currentLineItem == null || this.data.currentLineItem.products.length <= 0) { 
       this.setData({ submitDisable: true })
       return
     }

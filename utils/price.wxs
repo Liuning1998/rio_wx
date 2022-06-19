@@ -1,8 +1,17 @@
+// 小于10补0
+function addZero (num) {
+  if (parseInt(num) < 10) {
+    num = '0' + num
+  }
+  return num
+}
+
 function priceTos (price) {
   if (price == null) {return ''}
   price = parseFloat(price)
   return price.toFixed(2)
 }
+
 
 function priceRound (price) {
   if (price == null) {return ''}
@@ -116,5 +125,6 @@ module.exports = {
   decimal: priceDecimal,
   discountTotal: discountTotal,
   vipDiscount:vipDiscount,
-  priceRound:priceRound
+  priceRound:priceRound,
+  addZero:addZero
 }

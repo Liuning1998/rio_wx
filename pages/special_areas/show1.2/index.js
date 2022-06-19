@@ -61,7 +61,7 @@ Page({
       success: res => {
         if (res.data != null && res.data.constructor.name == 'Array') {
           res.data.unshift({
-            icon: "https://file-download.jhqli.com/202206101643/a485b87bbc902865577c4e7650c8975c/rio_api/38qyc5fz0ra8v8yhikl6a0mlhalz",
+            icon: "/images/v1.2/special.png",
             id:"all",
             name: "精选",
           })

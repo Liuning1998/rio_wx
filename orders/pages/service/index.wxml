@@ -1,121 +1,126 @@
 <!--orders/pages/service/index.wxml-->
 <wxs module="price" src="../../../utils/price.wxs"></wxs>
-<navbar title="申请售后" />
+<navbar appendStyle="background:#fff" title="申请售后" />
 <view style='margin-top: {{pageMarginTop+44}}px;'></view>
 
 <scroll-view scroll-y class='page-container'>
-<view class="form-container">
-  <view class="form-item order-number">
-    <view class="number-label">
-      <image src="../../images/order_icon_001.png"></image>
-      <text>订单号码</text>
-    </view>
-    <text class="number-text">{{order.number}}</text>
-  </view>
-
-  <view class="form-item product-info">
-    <view class="field-group">
-      <text class="label">申请商品</text>
-      <view bindtap="showProducts" class="product-select-btn">
-        <text wx:if="{{currentLineItem == null}}" class="placeholder">请选择售后商品</text>
-        <text wx:else>{{currentLineItem.product.name}}</text>
-        <image src="../../../images/arrow_o_black_01.png"></image>
+  <view class="products">
+    <view class="title">
+      <text class="name">售后商品</text>
+      <view class="right" bindtap="toProducts">
+        <text>添加和编辑</text>
+        <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>
-
-    <view class="field-group">
-      <text class="label">申请数量</text>
-      <view class="quantity-container">
-        <text bindtap="subQuantity" class="sub btn {{quantity == 1 && 'disabled'}}">-</text>
-        <text class="quantity">{{quantity}}</text>
-        <text bindtap="plusQuantity" class="plus btn {{quantity >= currentLineItem.quantity && 'disabled'}}">+</text>
+    <view class="products-box" wx:if="{{currentLineItem.products.length > 0}}">
+      <view class="icon"></view>
+      <view class="content">
+        <image class="avatar" wx:for="{{currentLineItem.products}}" wx:key="index" src="{{item.product.avatar}}"></image>
+      </view>
+      <view class="info">
+        <view class="quantity">共{{currentLineItem.quantity}}件商品</view>
+        <view class="money">
+          <text class="price" wx:if="{{!!order.vip_info.name}}">{{price.tos(currentLineItem.total * order.vip_info.name * 0.1)}}</text>
+          <text class="price" wx:else>{{price.tos(currentLineItem.total)}}</text>
+          <text class="express" wx:if="{{order.shipment_expense <= 0}}">（包邮）</text>
+        </view>
       </view>
     </view>
   </view>
 
-  <view class="form-item service-info">
-    <view class="field-group bottom-border">
-      <text class="label">服务类型</text>
-      <view bindtap="showServices" class="product-select-btn">
-        <text wx:if="{{currentService == null}}"  class="placeholder">请选择服务类型</text>
+  <view class="type">
+    <view class="title">
+      <text class="name">服务类型</text>
+      <view class="right" bindtap="showServices">
+        <text wx:if="{{currentService == null}}" class="placeholder">请选择</text>
         <text wx:else>{{currentService.service_type}}</text>
-        <image src="../../../images/arrow_o_black_01.png"></image>
+        <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>
-
-    <view class="field-group bottom-border">
-      <text class="label">申请原因</text>
-      <view bindtap="showReasons" class="product-select-btn">
-        <text wx:if="{{currentReason == null}}" class="placeholder">请选择申请原因</text>
+    <view class="title">
+      <text class="name">售后原因</text>
+      <view class="right" bindtap="showReasons">
+        <text wx:if="{{currentReason == null}}" class="placeholder">请选择</text>
         <text wx:else>{{currentReason}}</text>
-        <image src="../../../images/arrow_o_black_01.png"></image>
+        <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>
-
-    <view class="field-group bottom-border">
-      <text class="label">联系人</text>
-      <input bindinput='inputChange' data-name='link_name' maxlength="20" class="input" placeholder-class="input-placeholder" placeholder="请输入联系人姓名"></input>
-    </view>
-
-    <view class="field-group bottom-border">
-      <text class="label">联系电话</text>
-      <input bindinput='inputChange' data-name='link_phone' maxlength="11" type="number" class="input" placeholder-class="input-placeholder" placeholder="请输入联系电话"></input>
-    </view>
-
-    <view class="description-group">
-      <text class="label">申请说明</text>
-      <view style="position: relative;">
-        <textarea maxlength="50" adjust-position="{{true}}" bindinput="reasonInput" class="description" placeholder-class="placeholder" placeholder="请描述申请售后服务的具体原因（必填）" value="{{reasonText}}"></textarea>
-        <text class="words-quantity">{{reasonText.length || 0}}/50</text>
+    <view class="title">
+      <text class="name">联系人</text>
+      <view class="right">
+        <input bindinput='inputChange' data-name='link_name' maxlength="20" class="input" placeholder-class="input-placeholder" placeholder="请输入联系人姓名"></input>
       </view>
-      <view bindtap="gotoAgreement" class="remark">
-        <text class="read">查看</text>
-        <text style="font-size: 28rpx; color: #F64C47;">《售后服务协议》</text>
+    </view>
+    <view class="title">
+      <text class="name">联系电话</text>
+      <view class="right">
+        <input bindinput='inputChange' data-name='link_phone' maxlength="11" type="number" class="input" placeholder-class="input-placeholder" placeholder="请输入联系电话"></input>
       </view>
     </view>
   </view>
 
-  <view bindtap="submitForm" class="submit-btn {{ submitDisable && 'disabled'}}">提交</view>
-</view>
+  <view class="describe">
+    <view class="title">
+      <text class="name">问题描述</text>
+    </view>
+    <view class="describe-box" style="position: relative;">
+      <textarea maxlength="50" adjust-position="{{true}}" bindinput="reasonInput" class="description" placeholder-class="placeholder" placeholder="请在此输入申请售后的具体原因 (必填)" value="{{reasonText}}"></textarea>
+      <text class="words-quantity">{{reasonText.length || 0}}/50</text>
+    </view>
+  </view>
+
+  <view class="agreement">
+    <view class="title" bindtap="gotoAgreement">
+      <text class="name">《售后服务协议》</text>
+      <view class="right">
+        <image src="/images/v1.2/arrow_02.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="view-placeholder"></view>
+
 </scroll-view>
 
-<view bindtap="hideSelectLayer" class="select-layer {{!showServiceTypes && 'hidden'}} service-type">
-  <view class="select-container {{ isIphoneX && 'iphone-x' }}" catchtap="false">
-    <view catchtap="hideSelectLayer" class="close"><image src="../../images/close_icon_001.png"></image></view>
-    <text class="title">服务类型</text>
-    <view class="select-items">
-      <view class="item-container" wx:for="{{services}}" wx:key="index" catchtap="selectServiceType" data-item="{{item}}">
-        <text class="description">{{item.service_type}}</text>
-        <view class="checkbox {{item.service_type == currentService.service_type && 'selected'}}"><view class="dot"></view></view>
+<view bindtap="submitForm" class="submit btn-box {{ isIphoneX && 'iphone-x' }}">
+  <view class="btn {{ submitDisable && 'disabled'}}">提交</view>
+</view>
+
+<!-- 服务类型 -->
+<view class="service-popup {{!showServiceTypes && 'hidden'}} service-type">
+  <view class="mask" bindtap="hideSelectLayer"></view>
+  <view class="popup">
+    <view class="title">选择服务类型 
+      <view class="close" bindtap="hideSelectLayer">
+        <image class="" src="/images/v1.2/close.png"></image>
       </view>
+    </view>
+    <view class="popup-content">
+      <view class="item {{item.service_type == currentService.service_type && 'selected'}} " wx:for="{{services}}" wx:key="index" catchtap="selectServiceType" data-item="{{item}}">{{item.service_type}}</view>
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <view class="btn">确定</view>
     </view>
   </view>
 </view>
 
-<view bindtap="hideSelectLayer" class="select-layer {{!showReasonTypes && 'hidden'}} reason-type">
-  <view class="select-container {{ isIphoneX && 'iphone-x' }}" catchtap="false">
-    <view catchtap="hideSelectLayer" class="close"><image src="../../images/close_icon_001.png"></image></view>
-    <text class="title">申请原因</text>
-    <view class="select-items">
-      <view class="item-container" wx:for="{{currentService.apply_reason}}" wx:key="index" catchtap="selectReasonType" data-item="{{item}}">
-        <text class="description">{{item}}</text>
-        <view class="checkbox {{item == currentReason && 'selected'}}"><view class="dot"></view></view>
+<!-- 申请原因 -->
+<view class="service-popup {{!showReasonTypes && 'hidden'}} reason-type">
+  <view class="mask" bindtap="hideSelectLayer"></view>
+  <view class="popup">
+    <view class="title">申请原因 
+      <view class="close" bindtap="hideSelectLayer">
+        <image class="" src="/images/v1.2/close.png"></image>
       </view>
+    </view>
+    <view class="popup-content">
+      <view class="item {{item == currentReason && 'selected'}}"  wx:for="{{currentService.apply_reason}}" wx:key="index" catchtap="selectReasonType" data-item="{{item}}">{{item}}</view>
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <view class="btn">确定</view>
     </view>
   </view>
 </view>
 
-<view bindtap="hideSelectLayer" class="select-layer {{!showLineItems && 'hidden'}} products">
-  <view class="select-container {{ isIphoneX && 'iphone-x' }}" catchtap="false">
-    <view catchtap="hideSelectLayer" class="close"><image src="../../images/close_icon_001.png"></image></view>
-    <text class="title">申请商品</text>
-    <view class="select-items">
-      <view class="item-container {{orderServiceStatus['' + item.variant_id] == 'err' && 'disabled'}}" wx:for="{{order.line_items}}" wx:key="index" catchtap="selectProduct" data-item="{{item}}">
-        <text class="description">{{item.product.name}}</text>
-        <view class="checkbox {{item.id == currentLineItem.id && 'selected'}}"><view class="dot"></view></view>
-      </view>
-    </view>
-  </view>
-</view>
 
 <msgToast msg-data="{{ _msgData }}"/>

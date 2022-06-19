@@ -439,13 +439,15 @@
       <!-- <image class="close" src="/images/close_white.png"></image> -->
       <text>选择支付方式</text>
       <!-- <text bindtap="hidePayMethod" class="close">x</text> -->
-      <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
+      <view class="close" bindtap="closePay">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
     </view>
     <view class="pay-method-content">
       <text class="total">￥{{ isBalance ? couponAfter.balance_total(order.discount_total,balance) : order.discount_total }}</text>
       <text wx:if="{{isBalance}}" class="balance">平台余额已抵扣￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
       
-      <view bindtap="selectBrcbPay" class="pay-method-item" style="position: relative;height: 196rpx;">
+      <view bindtap="selectBrcbPay" class="pay-method-item" style="position: relative;height: 280rpx;padding-bottom: 70rpx;">
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" style="position: relative;top: -26rpx;" src="/images/yanglaozhucanka_icon.png"></image>
         <view class="item-main" style="padding-bottom: 52rpx;">
@@ -470,7 +472,7 @@
     </view>
 
     <view class="bottom-btns {{ isIphoneX && 'iphone-x' }}">
-      <text class="pay-method-confirm" bindtap="confirmPayMethod">确定</text>
+      <text class="pay-method-confirm" bindtap="confirmPayMethod">确认支付</text>
     </view>
   </view>
 </view>
@@ -492,11 +494,11 @@
 <view class="balance-result" wx:if="{{balancePayResult != null}}" style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'>
   <view class="subject">
     <block wx:if="{{balancePayResult}}">
-      <image class="img" src="/images/pay_success.png"></image>
+      <image class="img" src="/images/v1.2/result.png"></image>
       <view class="result">支付成功</view>
     </block>
     <block wx:else>
-      <image class="img" src="/images/pay_fail.png"></image>
+      <image class="img" src="/images/v1.2/fail.png"></image>
       <view class="result">支付失败</view>
     </block>
     <view class="money">¥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</view>
