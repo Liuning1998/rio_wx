@@ -144,7 +144,7 @@ page {
 
 /* 占位符 */
 .placeholder{
-  flex: 1;
+  width: 100%;
   padding-bottom: 200rpx;
 }
 /* 占位符 */
@@ -199,6 +199,7 @@ page {
   justify-content: space-between;
   border-bottom: 1rpx solid rgba(230,230,230,1);
   padding: 0 0 8rpx;
+  flex: 1;
 }
 .product .product-info .name-and-badge .name{
   overflow: hidden;
@@ -211,6 +212,12 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
+}
+.product .product-info .name-and-badge .pbadges{
+  padding-top: 0;
+}
+.product .product-info .name-and-badge .pbadges .badge-item{
+  margin-top: 6rpx;
 }
 .product .product-info .price-and-btn{
   display: flex;

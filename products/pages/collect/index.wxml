@@ -32,7 +32,7 @@
   </view>
 
   <view class="products-container">
-    <scroll-view scroll-y class="placeholder" bindscrolltolower="onReachBottom">
+    <scroll-view scroll-y bindscrolltolower="onReachBottom">
       <!-- 提示 -->
       <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.id].total < 149}}" class="tips">差￥{{ price.tos(149 - cartData.data['store_'+category.id].total) }}免运费</view>
       <view wx:else class="tips">已免运费</view>
@@ -72,6 +72,9 @@
         <text>已经到底啦</text>
         <image src="/images/bottom_icon_001.png" class="right"></image>
       </view>
+
+      <view class="placeholder"></view>
+
     </scroll-view>
   </view>
 </scroll-view>

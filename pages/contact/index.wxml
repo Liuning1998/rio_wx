@@ -35,7 +35,7 @@
     </view>
 	</view>
   <view class="line"></view>
-  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange"  style="width: 750rpx;height: 500rpx;">
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange"  style="width: 750rpx;height: calc(100vh - {{ isIphoneX ? (pageMarginTop + 44 + 375) : (pageMarginTop + 44 + 341)}}px);">
     <swiper-item>
       <scroll-view scroll-y="true" class="tab-content">
         <view class="tab-content-list" bindtap="toAnswer" data-id="1">
@@ -71,6 +71,54 @@
           </view>
         </view>
         <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
+          <view class="dot"></view>
+          <view class="text">如何提交售后申请</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>        <view class="tab-content-list">
           <view class="dot"></view>
           <view class="text">如何提交售后申请</view>
           <view class="arrow">

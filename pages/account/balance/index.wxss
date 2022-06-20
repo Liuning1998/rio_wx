@@ -315,3 +315,7 @@ page {
   height: 244rpx;
   margin-bottom: 44rpx;
 }
+
+.content .page-bottom{
+  width: 100%;
+}

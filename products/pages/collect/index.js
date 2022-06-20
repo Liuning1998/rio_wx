@@ -160,6 +160,11 @@ Page({
     }
 
     let cart = cartApi.addCart(lineItem)
+    wx.showToast({
+      title: '添加成功',
+      icon: 'none',
+      duration: 1000
+    })
     this.setData({ cartData: cart })
   },
 

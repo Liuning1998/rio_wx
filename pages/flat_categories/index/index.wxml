@@ -63,12 +63,6 @@
                 <block wx:for="{{ item.badges }}" wx:for-item="badge">
                   <text class="badge-item">{{badge}}</text>
                 </block>
-                <block wx:for="{{ item.badges }}" wx:for-item="badge">
-                  <text class="badge-item">{{badge}}</text>
-                </block>
-                <block wx:for="{{ item.badges }}" wx:for-item="badge">
-                  <text class="badge-item">{{badge}}</text>
-                </block>
               </view>
               <!-- <view class="badges">
                 <text class="item">包邮</text>

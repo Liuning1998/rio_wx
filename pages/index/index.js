@@ -170,6 +170,7 @@ Page({
           let _promotionProducts = null
           let _benefitPeopleProducts = null
           let _temporaryProducts = null
+          let _rankingProducts = null
           let _data = []
           let _groupProducts = null
           for(let i=0; i < res.data.length; i++) {
@@ -190,6 +191,8 @@ Page({
               _benefitPeopleProducts = item
             } else if (item.tags.indexOf('临时活动') >= 0) {
               _temporaryProducts = item
+            } else if (item.tags.indexOf('排行榜') >= 0) {
+              _rankingProducts = item
             }
              else {
               _data.push(item)
@@ -204,6 +207,7 @@ Page({
             promotionProducts: _promotionProducts,
             benefitPeopleProducts: _benefitPeopleProducts,
             temporaryProducts:_temporaryProducts,
+            rankingProducts: _rankingProducts,
             elseProduct:_data
           })
         }

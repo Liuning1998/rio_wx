@@ -925,5 +925,12 @@ Page({
         this.getCouponCount()
       }
     })
-  }
+  },
+
+  // 关闭支付失败弹窗
+  closeFail: function(){
+    this.setData({
+      balancePayResult: null
+    })
+  },
 })

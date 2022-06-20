@@ -84,7 +84,7 @@
       <!-- 取消和售后 -->
       <view class="express" wx:if="{{ order.state == 'canceled' || order.state == 'handle_canceled' || saleServices.length != 0 }}">
         <view class="express-box">
-          <view class="express-l">
+          <view class="express-l" style="{{order.state == 'canceled' || order.state == 'handle_canceled' ? 'width: auto;' : ''}}">
             <!-- 取消 -->
             <block wx:if="{{order.state == 'canceled' || order.state == 'handle_canceled'}}">
               <view class="text">
@@ -101,7 +101,7 @@
               <view class="time">{{saleServices[saleServices.length - 1].updated_at}}</view>
             </block>
           </view>
-          <image wx:if="{{order.state == 'canceled' || order.state == 'handle_canceled'}}" class="express-r" src="/images/v1.2/arrow.png"></image>
+          <image wx:if="{{order.state != 'canceled' && order.state != 'handle_canceled'}}" class="express-r" src="/images/v1.2/arrow.png"></image>
         </view>
       </view>
       
@@ -168,28 +168,28 @@
         <view class="info"><text>{{order.ship_address.real_name || ''}}，{{rhelper.hidePhone(order.ship_address.phone) || ''}}</text><text>{{order.ship_address.province || ''}}{{order.ship_address.city || ''}}{{order.ship_address.district || ''}}{{order.ship_address.town || ''}}{{order.ship_address.address_info || ''}}</text></view>
       </view>
       <view class="item copy-box">
-        <view class="name">订单编号:</view>
+        <view class="name">订单编号：</view>
         <view class="info">{{ order.number }}</view>
         <view class="copy" bindtap="copyNumber">复制</view>
       </view>
       <view class="item">
-        <view class="name">下单时间:</view>
+        <view class="name">下单时间：</view>
         <view class="info">{{ order.created_at_t }}</view>
       </view>
       <view class="item">
-        <view class="name">支付时间:</view>
+        <view class="name">支付时间：</view>
         <view class="info" wx:if="{{ order.paid_at_t != null }}">{{ order.paid_at_t }}</view>
       </view>
       <view class="item" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
-        <view class="name">平台余额支付金额:</view>
+        <view class="name">平台余额支付金额：</view>
         <view class="info">¥ {{ order.pay_method.pay_balance_total }}</view>
       </view>
       <view class="item" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
-        <view class="name">实际支付金额:</view>
+        <view class="name">实际支付金额：</view>
         <view class="info">¥ {{ order.pay_method.pay_cash_total }}</view>
       </view>
       <view class="item" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'lock' && order.balance_expend.cash_pre_total > 0 }}">
-        <view class="name">平台余额已抵扣:</view>
+        <view class="name">平台余额已扣：</view>
         <view class="info">¥ {{ order.balance_expend.cash_pre_total }}</view>
       </view>
       <view class="item" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'unlock' && balance > 0}}">
@@ -324,7 +324,7 @@
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" src="/images/yanglaozhucanka_icon.png"></image>
         <view class="item-main">
-          <text class="label">养老助残卡支付</text>
+          <text class="label">养老助残卡支付<text class="recommend">推荐</text></text>
           <view class="pay-menthod-checkbox {{ payMethod == 'brcb_pay' && 'active' }}">
             <image class="checkbox-icon" src="/images/selected_icon_003.png"></image>
           </view>
@@ -351,31 +351,57 @@
 <!-- 选择支付方式 -->
 
 <!-- 纯余额支付结果弹窗 -->
-<view class="balance-result" wx:if="{{balancePayResult != null}}" style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'>
+<view class="balance-result" wx:if="{{balancePayResult == true}}" style='padding-top: {{pageMarginTop + 44}}px; '>
+  <view class="title" style="top: {{pageMarginTop}}px;">
+    <view class="return" bindtap="goOrder">
+      <image src="/images/v1.2/return_white.png"></image>
+    </view>
+    <view class="text">支付结果</view>
+  </view>
+  <view class="result-bg"></view>
   <view class="subject">
-    <block wx:if="{{balancePayResult}}">
-      <image class="img" src="/images/v1.2/result.png"></image>
-      <view class="result">支付成功</view>
-    </block>
-    <block wx:else>
-      <image class="img" src="/images/v1.2/fail.png"></image>
-      <view class="result">支付失败</view>
-    </block>
-    <view class="money">¥{{ order.discount_total }}</view>
+    <image class="img" src="/images/v1.2/result.png"></image>
+    <view class="money">{{ order.discount_total }}</view>
+    <view class="result">支付成功</view>
     <view class="info">
       <view class="info-l">
-        <view>订单编号</view>
-        <view>{{order.number}}</view>
+        <view>【订单编号】</view>
+        <view>{{ order.number }}</view>
       </view>
       <view class="info-l">
-        <view>下单时间</view>
-        <view>{{order.created_at_t}}</view>
+        <view>【下单时间】</view>
+        <view>{{ order.created_at_t }}</view>
+      </view>
+      <view class="btn-box">
+        <view class="btn btn-home" bindtap="goHome">返回首页</view>
+        <view class="btn btn-order" bindtap="detailGoOrder">查看订单</view>
       </view>
     </view>
   </view>
-  <view class="btn-box">
-    <view class="btn btn-home" bindtap="goHome">返回首页</view>
-    <view class="btn btn-order" bindtap="detailGoOrder">查看订单</view>
+</view>
+
+<!-- 纯余额支付结果弹窗(失败) -->
+<view class="balance-fail" wx:if="{{balancePayResult == false}}">
+  <view class="balance-fail-mask" bindtap="closeFail"></view>
+  <view class="popup">
+    <view class="title">
+      <view class="close" bindtap="closeFail">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="balance-fail-content">
+      <image class="fail-img" src="/images/v1.2/fail.png"></image>
+      <view class="fail-text">支付失败</view>
+      <view class="fail-text1">支付遇到问题，请重新尝试支付</view>
+      <view class="fail-text-conotent">
+        <view class="icon"></view>
+        该订单会为您保留30分钟 (从下单时间算起），30分钟之后如果还未付款，系统将自动取消该订单。如需帮助，请联系客服。
+      </view>
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <view class="btn" bindtap="detailGoOrder">查看订单</view>
+      <view class="btn red" bindtap="showPayMethod">重新支付</view>
+    </view>
   </view>
 </view>
 

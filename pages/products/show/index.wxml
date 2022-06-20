@@ -114,7 +114,7 @@
               <image class="icon" src="/images/v1.2/product_detail_01.png"></image>
             </view>
             <view class="right">
-              <text class="label">不可售区域</text>
+              <text class="label">仅可售区域</text>
             </view>
             <view class="areas">
               <text>

@@ -88,6 +88,10 @@ page {
   margin-right: 12rpx;
 }
 
+.products-container .avatar-container{
+  padding-bottom: 26rpx;
+}
+
 .product-container {
   display: flex;
   padding: 24rpx 0;
@@ -114,7 +118,12 @@ page {
 .product-container .pbadges{
   height: 48rpx;
   overflow: hidden;
+  padding-top: 0;
 } 
+
+.product-container .pbadges .badge-item{
+  margin-top: 6rpx;
+}
 
 .badges .item {
   border: 1px solid #F64C47;
@@ -153,6 +162,7 @@ page {
   justify-content: space-between;
   align-items: center;
   line-height: 1;
+  padding-bottom: 14rpx;
 }
 
 .product-container .price-int {

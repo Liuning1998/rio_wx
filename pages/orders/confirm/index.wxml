@@ -451,7 +451,7 @@
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" style="position: relative;top: -26rpx;" src="/images/yanglaozhucanka_icon.png"></image>
         <view class="item-main" style="padding-bottom: 52rpx;">
-          <text class="label">养老助残卡支付</text>
+          <text class="label">养老助残卡支付<text class="recommend">推荐</text></text>
           <view class="pay-menthod-checkbox {{ payMethod == 'brcb_pay' && 'active' }}">
             <image class="checkbox-icon" src="/images/selected_icon_003.png"></image>
           </view>
@@ -490,32 +490,61 @@
   </view>
 </view>
 
-<!-- 纯余额支付结果弹窗 -->
-<view class="balance-result" wx:if="{{balancePayResult != null}}" style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'>
+<!-- 纯余额支付结果弹窗(成功) -->
+<view class="balance-result" wx:if="{{balancePayResult == true}}" style='padding-top: {{pageMarginTop + 44}}px; '>
+  <view class="title" style="top: {{pageMarginTop}}px;">
+    <view class="return" bindtap="goOrder">
+      <image src="/images/v1.2/return_white.png"></image>
+    </view>
+    <view class="text">支付结果</view>
+  </view>
+  <view class="result-bg"></view>
   <view class="subject">
-    <block wx:if="{{balancePayResult}}">
-      <image class="img" src="/images/v1.2/result.png"></image>
-      <view class="result">支付成功</view>
-    </block>
-    <block wx:else>
-      <image class="img" src="/images/v1.2/fail.png"></image>
-      <view class="result">支付失败</view>
-    </block>
-    <view class="money">¥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</view>
+    <image class="img" src="/images/v1.2/result.png"></image>
+    <view class="money">{{ couponAfter.balance_deduct(order.discount_total,balance) }}</view>
+    <view class="result">支付成功</view>
     <view class="info">
       <view class="info-l">
-        <view>订单编号</view>
-        <view>{{order.number}}</view>
+        <view>【订单金额】</view>
+        <view>{{ couponAfter.balance_deduct(order.discount_total,balance) }}</view>
       </view>
       <view class="info-l">
-        <view>下单时间</view>
-        <view>{{order.created_at_t}}</view>
+        <view>【订单号码】</view>
+        <view>{{ order.number }}</view>
+      </view>
+      <view class="info-l">
+        <view>【下单时间】</view>
+        <view>{{ order.created_at_t }}</view>
+      </view>
+      <view class="btn-box">
+        <view class="btn btn-home" bindtap="goHome">返回首页</view>
+        <view class="btn btn-order" bindtap="goOrder">查看订单</view>
       </view>
     </view>
   </view>
-  <view class="btn-box">
-    <view class="btn btn-home" bindtap="goHome">返回首页</view>
-    <view class="btn btn-order" bindtap="goOrder">查看订单</view>
+</view>
+<!-- 纯余额支付结果弹窗(失败) -->
+<view class="balance-fail" wx:if="{{balancePayResult == false}}">
+  <view class="balance-fail-mask" bindtap="closeFail"></view>
+  <view class="popup">
+    <view class="title">
+      <view class="close" bindtap="closeFail">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="balance-fail-content">
+      <image class="fail-img" src="/images/v1.2/fail.png"></image>
+      <view class="fail-text">支付失败</view>
+      <view class="fail-text1">支付遇到问题，请重新尝试支付</view>
+      <view class="fail-text-conotent">
+        <view class="icon"></view>
+        该订单会为您保留30分钟 (从下单时间算起），30分钟之后如果还未付款，系统将自动取消该订单。如需帮助，请联系客服。
+      </view>
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <view class="btn" bindtap="goOrder">查看订单</view>
+      <view class="btn red" bindtap="goOrder">重新支付</view>
+    </view>
   </view>
 </view>
 

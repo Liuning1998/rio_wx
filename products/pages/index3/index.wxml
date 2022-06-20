@@ -48,14 +48,10 @@
         <view class="price-and-cart">
           <view class="price-container">
             <text class="price">{{price.tos(item.price)}}</text>
-            <text class="origin-price">原价<text>{{price.tos(item.origin_price)}}</text></text>
+            <!-- <text class="origin-price">原价<text>{{price.tos(item.origin_price)}}</text></text> -->
           </view>
-          <view catchtap="addCartAndAnimation" data-item="{{item}}" class="cart-container">
-            <view wx:if="{{!product.canAddCart(item)}}" class="go-product">
-              <text>GO</text>
-              <image src="/images/store/go_arrow_002.png"></image>
-            </view>
-            <image wx:else src="/images/cart_icon_001.png"></image>
+          <view data-item="{{item}}" class="cart-container">
+            <image src="/images/v1.2/add_cart.png"></image>
           </view>
         </view>
       </view>
@@ -71,7 +67,7 @@
 
 <msgToast msg-data="{{ _msgData }}"/>
 
-<view catchtap="gotoCart" class="page-cart-container">
+<!-- <view catchtap="gotoCart" class="page-cart-container">
   <view class="white-background">
     <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
     <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
@@ -83,4 +79,4 @@
   <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
     <text>+1</text>
   </view>
-</view>
+</view> -->

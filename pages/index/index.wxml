@@ -84,7 +84,7 @@
     <view class="title">
       <image class="img" src="/images/v1.2/ranking.png"></image>
       <text class="sub">跟榜购好物</text>
-      <view class="arrow-box" bindtap="gotoBrand" data-item="{{todayProducts}}">
+      <view class="arrow-box" bindtap="gotoBrand" data-item="{{rankingProducts}}">
         <text>更多好物</text>
         <image src="/images/v1.2/arrow_02.png"></image>
       </view>

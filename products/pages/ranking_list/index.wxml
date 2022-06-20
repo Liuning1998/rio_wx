@@ -28,7 +28,7 @@
         <view class="avatar">
           <image class="avatar-img" src="{{products[0].avatar}}"></image>
           <view class="background"></view>
-          <image class="icon" src="/images/v1.2/ranking_03.png"></image>
+          <image class="icon" src="/images/v1.2/ranking_02.png"></image>
         </view>
         <view class="name"><text class="pre_name" wx:if="{{!!products[0].pre_name}}">{{products[0].pre_name}}</text>{{products[0].name}}</view>
         <view class="price">{{price.tos(products[0].price)}}</view>
@@ -38,7 +38,7 @@
         <view class="avatar">
           <image class="avatar-img" src="{{products[2].avatar}}"></image>
           <view class="background"></view>
-          <image class="icon" src="/images/v1.2/ranking_03.png"></image>
+          <image class="icon" src="/images/v1.2/ranking_04.png"></image>
         </view>
         <view class="name"><text class="pre_name" wx:if="{{!!products[2].pre_name}}">{{products[2].pre_name}}</text>{{products[2].name}}</view>
         <view class="price">{{price.tos(products[2].price)}}</view>

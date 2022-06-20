@@ -91,11 +91,12 @@ page {
 }
 
 .products-container .avatar-container {
-  margin-right: 20rpx;
+  margin-right: 24rpx;
   flex-shrink: 0;
   border-radius: 8rpx;
   position: relative;
   /* overflow: hidden; */
+  padding-bottom: 24rpx;
 }
 
 .products-container .sort-badge {
@@ -108,10 +109,11 @@ page {
 }
 
 .products-container .avatar {
-  width: 224rpx;
-  height: 224rpx;
+  width: 272rpx;
+  height: 272rpx;
   display: flex;
-  border-radius: 8rpx;
+  border-radius: 6rpx;
+  border: 1rpx solid rgba(230,230,230,1);
 }
 
 .products-container .item-content {
@@ -119,13 +121,12 @@ page {
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  padding-bottom: 8rpx;
+  border-bottom: 1rpx solid #E6E6E6;
 }
 
 .products-container .name {
-  font-size: 28rpx;
-  line-height: 36rpx;
-  margin-top: 18rpx;
-  font-weight: 600;
+  /* line-height: 36rpx; */
   color: #666666;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -134,6 +135,10 @@ page {
   -webkit-line-clamp: 2;
   display: -webkit-box;
   box-sizing: border-box;
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  font-weight: 400;
 }
 
 .products-container .name .pre_name{
@@ -156,18 +161,22 @@ page {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
 }
 
 .product-item .price {
-  font-size: 44rpx;
-  color: #E76156;
   line-height: 44rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #FF3633;
   font-weight: 500;
 }
 
 .product-item .price::before {
   content: '￥';
-  font-size: 24rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FF3633;
   font-weight: 400;
 }
 
@@ -183,18 +192,17 @@ page {
 
 .product-item .cart-container {
   flex-shrink: 0;
-  height: 56rpx;
-  width: 56rpx;
+  height: 72rpx;
+  width: 72rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(216, 216, 216, 0.5);
   border-radius: 50%;
 }
 
 .product-item .cart-container image {
-  height: 22rpx;
-  width: 26rpx;
+  height: 72rpx;
+  width: 72rpx;
 }
 
 .product-item .cart-container .go-product {

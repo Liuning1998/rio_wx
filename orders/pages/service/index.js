@@ -73,7 +73,7 @@ Page({
       return
     }
 
-    if (this.data.currentLineItem == null || this.data.currentLineItem.products.length <= 0) { 
+    if (this.data.currentLineItem == null || this.data.currentLineItem.line_items.length <= 0) { 
       this.errorToast('请选择售后商品')
       return
     }
@@ -100,7 +100,16 @@ Page({
     if (submiting) { return false }
     submiting = true
 
-    let variant_ids = this.data.currentLineItem.products.map(item => item.id)
+    let variant_ids = new Array();
+
+    this.data.currentLineItem.line_items.forEach((ele,index)=>{
+      if(ele.variant_id){
+        variant_ids.push({
+          variant_id: ele.variant_id,
+          quantity: ele.selectedQuantity,
+        })
+      }
+    })
 
     let _data = {
       quantity: this.data.currentLineItem.quantity,
@@ -131,8 +140,8 @@ Page({
   },
 
   toProducts: function () {
-    var parducts = this.data.order.line_items;
-    this.navigateTo(`/orders/pages/service_product/index?products=${JSON.stringify(parducts)}&number=${this.data.order.number}`)
+    var line_items = this.data.order.line_items;
+    this.navigateTo(`/orders/pages/service_product/index?line_items=${JSON.stringify(line_items)}&number=${this.data.order.number}`)
   },
 
   showServices: function () {
@@ -192,7 +201,7 @@ Page({
       return
     }
 
-    if (this.data.currentLineItem == null || this.data.currentLineItem.products.length <= 0) { 
+    if (this.data.currentLineItem == null || this.data.currentLineItem.line_items.length <= 0) { 
       this.setData({ submitDisable: true })
       return
     }

@@ -690,6 +690,9 @@ Page({
 
   showPayMethod: function () {
     var order = this.data.order;
+    //关闭支付失败弹窗
+    this.closeFail()
+    
     if(order.balance_expend != null && order.balance_expend.status == 'lock'){
       this.setData({ showPayMethodLayer: true })
     }else{
@@ -829,6 +832,13 @@ Page({
     if (item.id == null) { return }
 
     this.navigateTo(`/orders/pages/sale_services/show/index?id=${item.id}`)
+  },
+
+  // 关闭支付失败弹窗
+  closeFail: function(){
+    this.setData({
+      balancePayResult: null
+    })
   },
   /**
    * 用户点击右上角分享

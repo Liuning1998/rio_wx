@@ -213,7 +213,7 @@ page {
   align-items: center;
   justify-content: center;
   color: #2B2424;
-  font-size: 32rpx;
+  font-size: 40rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #F7F7F7;
   position: relative;
@@ -230,8 +230,8 @@ page {
 }
 
 .pay-method-layer .pm-header .close .close-icon {
-  width: 25rpx;
-  height: 25rpx;
+  width: 28rpx;
+  height: 28rpx;
   position: relative;
 }
 
@@ -297,6 +297,21 @@ page {
   height: 144rpx;
 }
 
+.pay-method-layer .pay-method-item .item-main .recommend{
+  background: #FFF0F0;
+  border: 1rpx solid #FFAFAD;
+  border-radius: 6rpx;
+  width: 80rpx;
+  height: 40rpx;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  color: #FF3633;
+  margin-left: 12rpx;
+}
+
 .pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox {
   height: 44rpx;
   width: 44rpx;
@@ -314,27 +329,29 @@ page {
 }
 
 .pay-method-layer .bottom-btns {
+  box-shadow: 0 0 2rpx 0 #E5E5E5;
   position: absolute;
   bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 14rpx 0;
+}
+
+.pay-method-layer .bottom-btns.iphone-x{
   padding-bottom: 64rpx;
 }
 
 .pay-method-layer .bottom-btns .pay-method-confirm {
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
   border-radius: 42rpx;
-  border-radius: 42rpx;
-  height: 84rpx;
-  width: 654rpx;
+  height: 72rpx;
+  width: 702rpx;
   display: inline-block;
-  line-height: 84rpx;
+  line-height: 72rpx;
   text-align: center;
   font-size: 36rpx;
   color: #ffffff;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
 }
 /* 选择支付方式 */
 
@@ -388,13 +405,54 @@ page {
   top: 0;
   left: 0;
   background-color: #f7f7f7;
-  z-index: 200;
+  z-index: 99991;
+}
+.balance-result .result-bg{
+  width: 100%;
+  height: 708rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-image: linear-gradient(118deg, #E61728 0%, #FF3633 39%, #FF5940 79%, #FF7C4D 96%);
 }
 .balance-result .subject{
   width: 100%;
-  background-color: #fff;
   overflow: hidden;
   padding: 96rpx 0 0;
+}
+.balance-result  .title{
+  width: 100%;
+  margin: 0 auto;
+  height: 44px;
+  line-height: 44px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.balance-result  .title .return{
+  left: 0;
+  top: 0rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding-left: 30rpx;
+  padding-right: 60rpx;
+  z-index: 2;
+  position: absolute;
+}
+.balance-result  .title .return image{
+  height: 36rpx;
+  width: 20rpx;
+}
+.balance-result  .title .text{
+  font-size: 40rpx;
+  height: 44px;
+  line-height: 44px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
 }
 .balance-result .subject .img{
   width: 127.6rpx;
@@ -404,59 +462,219 @@ page {
 }
 .balance-result .subject .result{
   text-align: center;
-  margin: 24.4rpx 0 0;
-  font-size: 36rpx;
-  color: #342F27;
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  text-shadow: 0 2rpx 2rpx #D41324;
 }
 .balance-result .subject .money{
-  font-size: 60rpx;
   text-align: center;
-  color: #2B2424;
+  font-family: HelveticaNeue-Medium;
+  font-size: 72rpx;
+  color: #FFFFFF;
+}
+.balance-result .subject .money::before{
+  content: "¥";
+  font-family: PingFangSC-Medium;
+  font-size: 44rpx;
+  color: #FFFFFF;
 }
 .balance-result .subject .info{
-  padding: 0 24rpx;
+  padding: 20rpx 24rpx;
   margin-top: 66rpx;
-  border-top: 1px solid #f7f7f7;
+  background: #FFFFFF;
+  border: 1rpx solid #EEEBE8;
+  border-radius: 12rpx 12rpx 0 0;
 }
 .balance-result .subject .info .info-l{
   color: #5B5454;
   display: flex;
-  margin: 48rpx 0;
+  padding: 20rpx 0;
   font-size: 36rpx;
   justify-content: space-between;
   color: #666666;
+  border-bottom: 1rpx solid #E6E6E6;
 }
-.balance-result .subject .info .info-l view:nth-child(1){
-  margin-right: 20rpx;
+.balance-result .subject .info .info-l > view:nth-child(1){
+  margin-right: 12rpx;
   flex: none;
 }
-.balance-result .subject .info .info-l view:nth-child(2){
+.balance-result .subject .info .info-l > view:nth-child(2){
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.balance-result .subject .info .info-l .right{
+  flex: 1;
+}
+.balance-result .subject .info .info-l .right .right-view{
+  display: flex;
+  justify-content: space-between;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  margin-bottom: 10rpx;
+}
+.balance-result .subject .info .info-l .right .right-view.red{
+  color: #FF3633;
+}
 .balance-result .btn-box{
   display: flex;
   justify-content: space-between;
-  padding: 0 32rpx;
+  margin: 48rpx 0 28rpx;
 }
 .balance-result .btn-box .btn{
-  width: 328rpx;
-  line-height: 88rpx;
-  text-align: center;
-  border-radius: 48rpx;
-  border: 1px solid #FF3633;
+  border: 2rpx solid rgba(51,43,43,0.50);
+  border-radius: 44rpx;
+  width: 341rpx;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: PingFangSC-Medium;
   font-size: 36rpx;
-  color: #FF3633;
-  letter-spacing: 0;
-  text-align: center;
-  margin: 64rpx 0;
+  color: #332B2B;
 }
-.balance-result .btn-box .btn.btn-order{
-  background-image: linear-gradient(90deg, #FF3633 0%, #FB2C2A 100%);
+
+/* 支付失败弹窗 s */
+
+.balance-fail {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 99991;
+}
+.balance-fail .balance-fail-mask {
+  position: absolute;
+  top: 0;
+  height: 0;
+  background-color: rgba(0,0,0,.4);
+  width: 100%;
+  height: 100%;
+}
+.balance-fail .popup {
+  width: 100%;
+  height: 802rpx;
+  background-color: #fff;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+.balance-fail .popup .title {
+  height: 112rpx;
+  width: 702rpx;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PingFangSC-Regular;
+  font-size: 40rpx;
+  color: #332B2B;
+}
+.balance-fail .popup .title .close {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.balance-fail .popup .title .close image {
+  width: 28rpx;
+  height: 28rpx;
+}
+.balance-fail .popup .balance-fail-content {
+  width: 702rpx;
+  margin: 0 auto;
+  flex: 1;
+  padding: 36rpx 0;
+  overflow-y: auto;
+}
+.balance-fail .popup .balance-fail-content .fail-img{
+  width: 96rpx;
+  height: 96rpx;
+  margin: 0 auto;
+  display: block;
+}
+.balance-fail .popup .balance-fail-content .fail-text{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #332B2B;
+  text-align: center;
+  margin-bottom: 8rpx;
+  margin-top: 32rpx;
+}
+.balance-fail .popup .balance-fail-content .fail-text1{
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #332B2B;
+  text-align: center;
+}
+.balance-fail .popup .balance-fail-content  .fail-text-conotent{
+  width: 678rpx;
+  margin: 0 auto;
+  padding: 24rpx;
+  background-color: #F5F5F5;
+  border-radius: 12rpx;
+  position: relative;
+  margin-top: 48rpx;
+  box-sizing: border-box;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #807474;
+}
+.balance-fail .popup .balance-fail-content  .fail-text-conotent .icon{
+  width: 0;
+  height: 0;
+  border-left: 25rpx solid transparent;
+  border-right: 25rpx solid transparent;
+  border-bottom: 30rpx solid #F5F5F5;
+  position: absolute;
+  top: -30rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.balance-fail .popup .btn-box {
+  background: #FFFFFF;
+  box-shadow: 0 0 2rpx 0 #E5E5E5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14rpx 22rpx;
+  box-sizing: border-box;
+}
+.balance-fail .popup .btn-box.iphone-x {
+  padding-bottom: 82rpx;
+}
+.balance-fail .popup .btn-box .btn{
+  border: 2rpx solid #E6E6E6;
+  border-radius: 36rpx;
+  width: 341rpx;
+  height: 72rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #332B2B;
+  box-sizing: border-box;
+}
+.balance-fail .popup .btn-box .btn.red{
+  background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
   border: none;
   color: #fff;
 }
+
+/* 支付失败弹窗 e */
 /* 余额支付结果弹窗 end */
 
 
@@ -528,7 +746,7 @@ page {
 }
 .state .state-icon .icon::before{
   content: "";
-  width: 115rpx;
+  width: 116rpx;
   display: block;
   height: 4rpx;
   background-color: #FFAFAD;
@@ -730,6 +948,7 @@ page {
   font-size: 28rpx;
   color: #332B2B;
   font-weight: 400;
+  margin-right: 4rpx;
 }
 .product .item .item-top .money .bottom{
   font-family: PingFangSC-Regular;
@@ -791,7 +1010,7 @@ page {
 .product-info .item{
   display: flex;
   justify-content: space-between;
-  padding: 28rpx 0;
+  padding: 20rpx 0;
   align-items: center;
 }
 .product-info .item .text{
@@ -825,16 +1044,19 @@ page {
   font-size: 32rpx;
   color: #332B2B;
   font-weight: 400;
+  margin-right: 6rpx;
 }
 .product-info-all text.quantity{
   margin-right: 37rpx;
 }
 .product-info-all text.unit{
   font-size: 28rpx;
+  margin-right: 6rpx;
 }
 .product-info-all text.money{
   font-family: PingFangSC-Medium;
   font-weight: 500;
+  font-size: 40rpx;
 }
 .order-info{
   background: #FFFFFF;
@@ -842,7 +1064,7 @@ page {
   margin: 24rpx 0;
 }
 .order-info .title{
-    padding: 48rpx 0;
+    padding: 35.5rpx 0;
     width: 702rpx;
     margin: 0 auto;
     font-family: PingFangSC-Medium;
@@ -908,6 +1130,11 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .order-info .item .info text{
   display: block;

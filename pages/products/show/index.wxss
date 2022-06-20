@@ -35,8 +35,8 @@ page {
 }
 
 .return.simple {
-  height: 44rpx;
-  width: 44rpx;
+  height: 50rpx;
+  width: 50rpx;
   border-radius: 50%;
   background: rgba(1, 1, 1, 0.25);
   display: flex;
@@ -94,7 +94,7 @@ page {
 }
 
 .navbar.block .actions text{
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #666666;
   padding: 8rpx;
   margin-bottom: 10rpx;

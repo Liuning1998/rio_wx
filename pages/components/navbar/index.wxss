@@ -58,7 +58,7 @@
 }
 
 .navbar-content .navbar-title {
-  font-size: 36rpx;
+  font-size: 40rpx;
   height: 44px;
   line-height: 44px;
   font-weight: 500;

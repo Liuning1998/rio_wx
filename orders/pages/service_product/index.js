@@ -18,15 +18,15 @@ Page({
     getApp().commonBeforeOnLoad(this)
 
     console.log(options)
-    if(options.products && options.number){
-      var products = JSON.parse(options.products);
+    if(options.line_items && options.number){
+      var line_items = JSON.parse(options.line_items);
       
-      products.forEach((ele,index) => {
+      line_items.forEach((ele,index) => {
         ele.selected = false;
         ele.selectedQuantity = 1
       });
       
-      this.setData({ lineItem: products, orderNumber: options.number })
+      this.setData({ line_items: line_items, orderNumber: options.number })
     }
 
   },
@@ -39,8 +39,8 @@ Page({
   },
   subQuantity: function (e) {
     var index = e.currentTarget.dataset.index;
-    var selectedQuantity = this.data.lineItem[index].selectedQuantity;
-    var key = `lineItem[${index}].selectedQuantity`
+    var selectedQuantity = this.data.line_items[index].selectedQuantity;
+    var key = `line_items[${index}].selectedQuantity`
     if (selectedQuantity < 1) { return false}
     let quantity = selectedQuantity - 1
     if (selectedQuantity <= 1) { quantity = 1 }
@@ -49,9 +49,9 @@ Page({
 
   plusQuantity: function (e) {
     var index = e.currentTarget.dataset.index;
-    var selectedQuantity = this.data.lineItem[index].selectedQuantity;
-    var maxQuantity = this.data.lineItem[index].quantity;
-    var key = `lineItem[${index}].selectedQuantity`
+    var selectedQuantity = this.data.line_items[index].selectedQuantity;
+    var maxQuantity = this.data.line_items[index].quantity;
+    var key = `line_items[${index}].selectedQuantity`
     if (selectedQuantity >= maxQuantity) { return false }
     let quantity = selectedQuantity + 1
     if (quantity >= maxQuantity) { quantity = maxQuantity }
@@ -61,13 +61,13 @@ Page({
   // 全选
   selectALldata:function(){
     var allSelected = this.data.allSelected;
-    var data = this.data.lineItem;
+    var data = this.data.line_items;
     data.forEach((ele,index)=>{
       ele.selected = !allSelected
     })
     this.setData({
       allSelected: !allSelected,
-      lineItem: data
+      line_items: data
     })
   },
 
@@ -75,16 +75,16 @@ Page({
   selectItem: function(e){
     var index = e.currentTarget.dataset.index;
     var item = e.currentTarget.dataset.item;
-    var key = `lineItem[${index}].selected`
+    var key = `line_items[${index}].selected`
     
     this.setData({
       [key]: !item.selected,
     })
 
-    var lineItem = this.data.lineItem;
+    var line_items = this.data.line_items;
 
-    for (var i = 0; i < lineItem.length; i++) {
-      if (lineItem[i].selected == false) {
+    for (var i = 0; i < line_items.length; i++) {
+      if (line_items[i].selected == false) {
         this.setData({
           allSelected: false
         })
@@ -99,23 +99,23 @@ Page({
 
   // 提交
   submitForm:function(){
-    var lineItem = this.data.lineItem;
+    var line_items = this.data.line_items;
     var currentLineItem = {
       quantity:0,
       total:0,
-      products:[]
+      line_items:[]
     };
-    lineItem.forEach((ele,index)=>{
+    line_items.forEach((ele,index)=>{
 
       if(ele.selected){
         currentLineItem.quantity += ele.selectedQuantity
         currentLineItem.total += ele.selectedQuantity * ele.price
-        currentLineItem.products.push(ele)
+        currentLineItem.line_items.push(ele)
       }
 
     })
 
-    if(currentLineItem.products.length <= 0){
+    if(currentLineItem.line_items.length <= 0){
       this.errorToast('请选择售后商品')
       return false
     }

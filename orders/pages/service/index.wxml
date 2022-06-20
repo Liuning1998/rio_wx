@@ -12,10 +12,10 @@
         <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>
-    <view class="products-box" wx:if="{{currentLineItem.products.length > 0}}">
+    <view class="products-box" wx:if="{{currentLineItem.line_items.length > 0}}">
       <view class="icon"></view>
       <view class="content">
-        <image class="avatar" wx:for="{{currentLineItem.products}}" wx:key="index" src="{{item.product.avatar}}"></image>
+        <image class="avatar" wx:for="{{currentLineItem.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
       </view>
       <view class="info">
         <view class="quantity">共{{currentLineItem.quantity}}件商品</view>

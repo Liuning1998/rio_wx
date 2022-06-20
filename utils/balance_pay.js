@@ -7,7 +7,7 @@ const socketTimeOut = 1000 * 60 * 30;
 //websocket等待结果时间
 const waitInfo = 1000 * 6;
 //延时跳转时间
-const waitGoPage = 1000 * 5
+const waitGoPage = 1000 * 5 * 1000
 //房间号
 var roomId = null;
 // 手动查询支付结果定时器

@@ -14,7 +14,7 @@
       </view>
       <view class="number">订单编号：{{ orderNumber }}</view>
     </view>
-    <view class="product" wx:for="{{lineItem}}" wx:key="index" data-item="{{item}}" data-index="{{index}}" bindtap="selectItem">
+    <view class="product" wx:for="{{line_items}}" wx:key="index" data-item="{{item}}" data-index="{{index}}" bindtap="selectItem">
       <view class="select {{item.selected && 'selected'}}">
         <image src="/images/selected_icon_003.png"></image>
       </view>
