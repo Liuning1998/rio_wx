@@ -985,7 +985,7 @@ page {
   color: #FF3633;
 }
 .coupon-p .popup-item .item-center .item-value .condition-text{
-  margin-left: 12rpx;
+  margin-left: 10rpx;
   border-radius: 6rpx;
   background-color: #FFF0F0;
   padding: 0 14rpx 0;
@@ -996,6 +996,12 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #FF3633;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 .coupon-p .popup-item .receive-btn{
   display: flex;

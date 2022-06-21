@@ -1,10 +1,12 @@
+<wxs module="helper" src="/utils/helper.wxs"></wxs>
 <navbar appendStyle="background: #fff;" title="客服中心"/>
 <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
 
 <view class="banner-container">
   <view class="dialog">
     <image class="img" src="/images/v1.2/contact_06.png"></image>
-    <text class="dialog-text">下午好，158****7947！</text>
+    <text class="dialog-text" wx:if="{{userInfo.phone != null && userInfo.phone != ''}}">下午好，{{helper.hidePhone(userInfo.phone)}}</text>
+    <text class="dialog-text" wx:else>下午好</text>
     <text class="dialog-text">客服小安很高兴为您服务！</text>
   </view>
   <image class="banner-bg" src="/images/v1.2/contact_05.png"></image>
@@ -199,5 +201,5 @@
   <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover' show-message-card="{{true}}">
     其他问题，点此咨询
   </button>
-  <text>工作时间：工作日9:30-18:30</text>
+  <text>工作时间：工作日9:00-18:00</text>
 </view>

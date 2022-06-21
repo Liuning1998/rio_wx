@@ -12,16 +12,27 @@
         <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>
-    <view class="products-box" wx:if="{{currentLineItem.line_items.length > 0}}">
+    <view class="products-box" wx:if="{{currentLineItems.line_items.length > 0}}">
       <view class="icon"></view>
-      <view class="content">
-        <image class="avatar" wx:for="{{currentLineItem.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
+      <!-- 多个商品样式 -->
+      <view wx:if="{{productLength > 1}}" class="content">
+        <image class="avatar" wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
+      </view>
+      <!-- 单个商品样式 -->
+      <view wx:else class="one-content">
+        <view class="one-avatar">
+          <image wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
+        </view>
+        <view class="one-info" wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index">
+          <view class="name">{{item.product.name}}</view>
+          <view class="price">{{item.product.price}}</view>
+        </view>
       </view>
       <view class="info">
-        <view class="quantity">共{{currentLineItem.quantity}}件商品</view>
+        <view class="quantity">共{{currentLineItems.quantity}}件商品</view>
         <view class="money">
-          <text class="price" wx:if="{{!!order.vip_info.name}}">{{price.tos(currentLineItem.total * order.vip_info.name * 0.1)}}</text>
-          <text class="price" wx:else>{{price.tos(currentLineItem.total)}}</text>
+          <text class="price" wx:if="{{!!order.vip_info.name}}">{{price.tos(currentLineItems.total * order.vip_info.name * 0.1)}}</text>
+          <text class="price" wx:else>{{price.tos(currentLineItems.total)}}</text>
           <text class="express" wx:if="{{order.shipment_expense <= 0}}">（包邮）</text>
         </view>
       </view>
@@ -64,7 +75,7 @@
       <text class="name">问题描述</text>
     </view>
     <view class="describe-box" style="position: relative;">
-      <textarea maxlength="50" adjust-position="{{true}}" bindinput="reasonInput" class="description" placeholder-class="placeholder" placeholder="请在此输入申请售后的具体原因 (必填)" value="{{reasonText}}"></textarea>
+      <textarea maxlength="50" adjust-position="{{true}}" bindinput="reasonInput" class="description" placeholder-class="textarea-placeholder" placeholder="请在此输入申请售后的具体原因 (必填)" value="{{reasonText}}"></textarea>
       <text class="words-quantity">{{reasonText.length || 0}}/50</text>
     </view>
   </view>

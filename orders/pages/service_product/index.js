@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    lineItem:[],
     allSelected: false,
   },
 
@@ -19,14 +18,10 @@ Page({
 
     console.log(options)
     if(options.line_items && options.number){
-      var line_items = JSON.parse(options.line_items);
+      var currentLineItems = JSON.parse(options.line_items);
       
-      line_items.forEach((ele,index) => {
-        ele.selected = false;
-        ele.selectedQuantity = 1
-      });
-      
-      this.setData({ line_items: line_items, orderNumber: options.number })
+      this.setData({ currentLineItems: currentLineItems, orderNumber: options.number })
+      this.computeTAndQ()
     }
 
   },
@@ -39,105 +34,100 @@ Page({
   },
   subQuantity: function (e) {
     var index = e.currentTarget.dataset.index;
-    var selectedQuantity = this.data.line_items[index].selectedQuantity;
-    var key = `line_items[${index}].selectedQuantity`
+    var selectedQuantity = this.data.currentLineItems.line_items[index].selectedQuantity;
+    var key = `currentLineItems.line_items[${index}].selectedQuantity`
     if (selectedQuantity < 1) { return false}
     let quantity = selectedQuantity - 1
     if (selectedQuantity <= 1) { quantity = 1 }
     this.setData({ [key]: quantity })
+    this.computeTAndQ()
   },
 
   plusQuantity: function (e) {
     var index = e.currentTarget.dataset.index;
-    var selectedQuantity = this.data.line_items[index].selectedQuantity;
-    var maxQuantity = this.data.line_items[index].quantity;
-    var key = `line_items[${index}].selectedQuantity`
+    var selectedQuantity = this.data.currentLineItems.line_items[index].selectedQuantity;
+    var maxQuantity = this.data.currentLineItems.line_items[index].quantity;
+    var key = `currentLineItems.line_items[${index}].selectedQuantity`
     if (selectedQuantity >= maxQuantity) { return false }
     let quantity = selectedQuantity + 1
     if (quantity >= maxQuantity) { quantity = maxQuantity }
     this.setData({ [key]: quantity })
+    this.computeTAndQ()
   },
 
   // 全选
   selectALldata:function(){
     var allSelected = this.data.allSelected;
-    var data = this.data.line_items;
+    var data = this.data.currentLineItems.line_items;
+    var key = `currentLineItems.line_items`
     data.forEach((ele,index)=>{
       ele.selected = !allSelected
     })
     this.setData({
-      allSelected: !allSelected,
-      line_items: data
+      [key]: data
     })
+    this.computeTAndQ()
   },
 
   // 单选
   selectItem: function(e){
     var index = e.currentTarget.dataset.index;
     var item = e.currentTarget.dataset.item;
-    var key = `line_items[${index}].selected`
+    var key = `currentLineItems.line_items[${index}].selected`
     
     this.setData({
       [key]: !item.selected,
     })
+    
+    this.computeTAndQ()
+  },
 
-    var line_items = this.data.line_items;
-
-    for (var i = 0; i < line_items.length; i++) {
-      if (line_items[i].selected == false) {
-        this.setData({
-          allSelected: false
-        })
-        return;
+  // 计算总额和总数
+  computeTAndQ: function(){
+    var lineItems = this.data.currentLineItems.line_items
+    var total = 0;
+    var quantity = 0;
+    var allSelected = true;
+    var totalKey = `currentLineItems.total`
+    var quantityKey = `currentLineItems.quantity`
+    lineItems.forEach((ele,index) => {
+      if(ele.selected){
+        quantity += ele.selectedQuantity
+        total += parseFloat(ele.price) * ele.selectedQuantity
+      }else{
+        allSelected = false
       }
-    }
-
+    });
     this.setData({
-      allSelected: true
+      [totalKey]: parseFloat(total.toFixed(2)),
+      [quantityKey]: quantity,
+      allSelected: allSelected
     })
+    console.log(this.data.currentLineItems.total,this.data.currentLineItems.quantity)
   },
 
   // 提交
   submitForm:function(){
-    var line_items = this.data.line_items;
-    var currentLineItem = {
-      quantity:0,
-      total:0,
-      line_items:[]
-    };
-    line_items.forEach((ele,index)=>{
 
-      if(ele.selected){
-        currentLineItem.quantity += ele.selectedQuantity
-        currentLineItem.total += ele.selectedQuantity * ele.price
-        currentLineItem.line_items.push(ele)
-      }
-
-    })
-
-    if(currentLineItem.line_items.length <= 0){
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];
+    var quantity = this.data.currentLineItems.quantity
+    if(quantity > 0){
+      prevPage.setData({
+        currentLineItems: this.data.currentLineItems//要向上个页面传的参数！
+      })
+      wx.navigateBack({})
+    }else{
       this.errorToast('请选择售后商品')
       return false
     }
-    
 
-    this.setData({
-      currentLineItem: currentLineItem
-    })
 
-    wx.navigateBack({})
 
   },
 
   onUnload: function () {
-   
-    var that = this
-    var pages = getCurrentPages();
-    var prevPage = pages[pages.length - 2];
-    prevPage.setData({
-      currentLineItem: that.data.currentLineItem//要向上个页面传的参数！
-    })
-
+    
   },
 
 })

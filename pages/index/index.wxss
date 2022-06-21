@@ -825,6 +825,7 @@ page {
   font-size: 28rpx;
   color: #FF3633;
   font-weight: 400;
+  margin-right: 4rpx;
 }
 .recommend-content .item-container .bottom-info-container .cart-icon{
   height: 60rpx;

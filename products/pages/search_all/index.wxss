@@ -164,19 +164,8 @@ page {
   flex: 1;
 }
 
-.products-container .name {
-  font-size: 28rpx;
-  line-height: 36rpx;
-  margin-top: 18rpx;
-  font-weight: 600;
-  color: #666666;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  display: -webkit-box;
-  box-sizing: border-box;
+.products-container .pbadges{
+  padding-top: 0;
 }
 
 .products-container .name .pre_name{

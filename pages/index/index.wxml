@@ -80,12 +80,12 @@
   </view>
 
   <!-- 排行榜 -->
-  <view class="ranking" wx:if="{{ newBrandData != null && newBrandData.length > 0 && newBrandData[0].length == 3 }}">
+  <view class="ranking" wx:if="{{ rankingProducts != null && newBrandData != null && newBrandData.length > 0 && newBrandData[0].length == 3 }}">
     <view class="title">
       <image class="img" src="/images/v1.2/ranking.png"></image>
-      <text class="sub">跟榜购好物</text>
+      <text class="sub">{{rankingProducts.title}}</text>
       <view class="arrow-box" bindtap="gotoBrand" data-item="{{rankingProducts}}">
-        <text>更多好物</text>
+        <text>{{rankingProducts.subtitle}}</text>
         <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>

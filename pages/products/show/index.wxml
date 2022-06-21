@@ -57,10 +57,6 @@
         <view class="price-content">
           <text class="price-int">{{price.int(currentVariant.price)}}</text>
           <text class="price-decimal">{{price.decimal(currentVariant.price)}}</text>
-          <view class="badges">
-            <!-- <text class="li">包邮</text> -->
-            <!-- <text class="li">赠品</text> -->
-          </view>
         </view>
 
         <view class="origin-price-container">
@@ -168,26 +164,13 @@
           <view class="main-info">
             <text class="label">赠品</text>
             <text class="desc">
-              <block wx:for="{{ product.free_product.desc.info }}"></block>
+              <block wx:for="{{ product.free_product.desc.info }}">{{item}}</block>
             </text>
           </view>
 
           <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
         </view>
       </view>
-
-
-      <!-- <view class="shipment-and-gift">
-        <view class="gift">
-          <text class="label">赠品</text>
-          <text class="desc">儿童防水手表50米防水 高清双摄 双频111234沙发斯蒂芬</text>
-        </view>
-
-        <view class="shipment">
-          <text class="label">包邮</text>
-          <text class="desc">满90元包邮</text>
-        </view>
-      </view> -->
 
 
     </view>

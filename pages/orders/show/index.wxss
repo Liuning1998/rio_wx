@@ -870,8 +870,8 @@ page {
 
 .order-title{
   width: 702rpx;
-  margin: 54rpx auto 0;
-  padding-bottom: 46rpx;
+  margin: 40rpx auto 0;
+  padding-bottom: 40rpx;
   border-bottom: 1rpx solid rgba(230,230,230,1);
   display: flex;
   justify-content: space-between;
@@ -1003,7 +1003,7 @@ page {
   width: 702rpx;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 28rpx 0;
+  padding: 14rpx 0;
   border-top: 1rpx solid rgba(230,230,230,1);
   border-bottom: 1rpx solid rgba(230,230,230,1);
 }
@@ -1052,6 +1052,7 @@ page {
 .product-info-all text.unit{
   font-size: 28rpx;
   margin-right: 6rpx;
+  margin-top: 4rpx;
 }
 .product-info-all text.money{
   font-family: PingFangSC-Medium;
@@ -1074,9 +1075,9 @@ page {
     border-bottom: 1rpx solid rgba(230,230,230,1);
 }
 .order-info .item{
-  padding: 44rpx 0;
+  /* padding: 44rpx 0; */
   width: 702rpx;
-  margin: 0 auto;
+  margin: 36rpx auto;
   display: flex;
   box-sizing: border-box;
 }

@@ -116,8 +116,6 @@ page {
 }
 
 .product-container .pbadges{
-  height: 48rpx;
-  overflow: hidden;
   padding-top: 0;
 } 
 

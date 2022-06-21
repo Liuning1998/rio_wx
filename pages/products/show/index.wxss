@@ -301,19 +301,25 @@ page {
   font-size: 48rpx;
   color: #2B2424;
   font-weight: 500;
-  padding-top: 30rpx;
+  padding-top: 22rpx;
 }
 
 .name-and-desc .pbadges{
-  padding-top: 34rpx;
+  margin-top: 16rpx;
+  height: max-content;
+}
+
+.name-and-desc .pbadges .badge-item{
+  line-height: 48rpx;
+  font-size: 32rpx;
 }
 
 .name-and-desc .name .postage {
   border: 3rpx solid rgba(255,54,51,1);
   border-radius: 6rpx;
   height: 48rpx;
-  line-height: 48rpx;
-  padding: 0 12rpx;
+  /* line-height: 48rpx; */
+  padding: 0 12rpx 0;
   display: inline-block;
   position: relative;
   top: -4rpx;
@@ -322,6 +328,8 @@ page {
   font-size: 32rpx;
   color: #FF3633;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
 }
 
 .name-and-desc .name .pre_name{
@@ -407,12 +415,11 @@ page {
 
 .variant-info {
   width: 100%;
-  padding: 46rpx 12rpx;
+  padding: 38rpx 12rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #ffffff;
-  margin-top: 16rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid rgba(230,230,230,1);
 }
@@ -456,58 +463,12 @@ page {
   display: -webkit-box;
 }
 
-.shipment-and-gift {
-  width: 750rpx;
-  margin-top: 16rpx;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  padding: 0 24rpx;
-  box-sizing: border-box;
-}
-
-.shipment-and-gift .label {
-  display: inline-block;
-  font-size: 28rpx;
-  color: #2B2424;
-  font-weight: 500;
-  margin-right: 16rpx;
-  width: 120rpx;
-  flex-shrink: 0;
-}
-
-.shipment-and-gift .gift {
-  display: flex;
-  align-items: center;
-  height: 112rpx;
-}
-
-.shipment-and-gift .shipment {
-  display: flex;
-  align-items: center;
-  height: 112rpx;
-  border-top: 1px solid #f7f7f7;
-}
-
-.shipment-and-gift .desc {
-  flex: 1;
-  font-size: 28rpx;
-  color: #5B5454;
-  max-width: 520rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  display: -webkit-box;
-}
 /* 商品文字信息 */
 
 .pop-detail {
   width: 100%;
-  font-weight: 500;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: #ffffff;
   height: 120rpx;
@@ -516,6 +477,7 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
+  padding: 0 36rpx;
 }
 
 .description {
@@ -1156,7 +1118,7 @@ page {
 /* 区域限制 */
 .area-limit {
   width: 750rpx;
-  min-height: 112rpx;
+  /* min-height: 112rpx; */
   padding: 0 24rpx;
   box-sizing: border-box;
   display: flex;
@@ -1171,8 +1133,7 @@ page {
   display: flex;
   align-items: flex-start;
   border-radius: 4px;
-  border-radius: 4px;
-  padding: 24rpx 0;
+  padding: 38rpx 0;
   box-sizing: border-box;
 }
 
@@ -1300,6 +1261,8 @@ page {
   max-width: 520rpx;
   display: flex;
   flex-wrap: wrap;
+  height: 56rpx;
+  overflow: hidden;
 }
 .variant-info .coupon .coupon-item{
   display: flex;
@@ -1309,7 +1272,7 @@ page {
   margin-right: 10rpx;
   overflow: hidden;
   box-sizing: border-box;
-  margin: 6rpx 10rpx 6rpx 0;
+  margin: 0 10rpx 0 0;
   border-top: 2rpx solid rgba(255,215,214,1);
   border-bottom: 2rpx solid rgba(255,215,214,1);
   border-radius: 10rpx;
@@ -1545,7 +1508,7 @@ page {
   color: #FF3633;
 }
 .coupon-p .popup-item .item-center .item-value .condition-text{
-  margin-left: 12rpx;
+  margin-left: 10rpx;
   border-radius: 6rpx;
   background-color: #FFF0F0;
   padding: 0 14rpx 0;
@@ -1556,6 +1519,12 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #FF3633;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 .coupon-p .popup-item .receive-btn{
   display: flex;

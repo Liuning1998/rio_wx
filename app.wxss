@@ -111,6 +111,8 @@
   display: flex;
   flex-wrap: wrap;
   padding-top: 10rpx;
+  height: 48rpx;
+  overflow: hidden;
 }
 .pbadges  .badge-icon{
   width: 70rpx;

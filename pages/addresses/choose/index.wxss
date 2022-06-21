@@ -107,7 +107,6 @@ page {
   position: relative;
   box-sizing: border-box;
   padding: 36rpx 24rpx 25rpx 0;
-  min-height: 238rpx;
 }
 .address-item-container .info .name-and-phone {
   display: flex;

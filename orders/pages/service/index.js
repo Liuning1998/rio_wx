@@ -11,9 +11,10 @@ Page({
     services: null,
     currentReason: null,
     currentService: null,
-    currentLineItem: null,
+    currentLineItems: null,
     submitDisable: true,
-    orderServiceStatus: null
+    orderServiceStatus: null,
+    twice:false,//第二次进入页面
   },
 
   /**
@@ -22,9 +23,36 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
-    this.setData({ order: this.params.order })
+    let order = this.params.order;
+
     this.getServices()
-    this.getOrderServiceStatus(this.params.order)
+    this.getOrderServiceStatus(order).then(()=>{
+      console.log('this.getOrderServiceStatus')
+      let currentLineItems = new Object();
+      currentLineItems.line_items = new Array();
+      currentLineItems.quantity = new Number();
+      currentLineItems.total = new Number();
+      let productLength = 0
+  
+      if(order){
+        currentLineItems.line_items = order.line_items.filter((value,key)=>{
+          if(this.data.orderServiceStatus[value.variant_id] == 'ok'){
+            value.selected = true;
+            value.selectedQuantity = value.quantity
+            currentLineItems.quantity += value.selectedQuantity
+            currentLineItems.total += parseFloat(value.price) * value.selectedQuantity
+            productLength += 1
+            return value
+          }
+        })
+      }
+
+      this.setData({ 
+        order: this.params.order,
+        currentLineItems: currentLineItems,
+        productLength: productLength
+      })
+    })
   },
 
   /**
@@ -33,6 +61,25 @@ Page({
   onShow: function () {
     submiting = false
     this.checkSubmitBtnStatus()
+    if(this.data.twice){
+      //设置售后商品展示个数
+      let currentLineItems = this.data.currentLineItems;
+      let productLength = 0
+      currentLineItems.line_items.forEach((element)=>{
+        if(element.selected){
+          productLength += 1
+        }
+      })
+      this.setData({
+        productLength: productLength
+      })
+    }else{
+      this.setData({
+        twice: true
+      })
+    }
+
+
   },
 
   getServices: function () {
@@ -47,18 +94,21 @@ Page({
   },
 
   getOrderServiceStatus: function (order) {
-    http.get({
-      url: 'api/sale_order_services/show_info',
-      data: { order_number:  order.number },
-      success: res => {
-        if (res.data != null && res.data.items != null && res.data.items.length > 0) {
-          let _data = {}
-          res.data.items.forEach(item => {
-            _data['' + item.id] = item.status
-          })
-          this.setData({ orderServiceStatus: _data })
+    return new Promise((resolve,reject)=>{
+      http.get({
+        url: 'api/sale_order_services/show_info',
+        data: { order_number:  order.number },
+        success: res => {
+          if (res.data != null && res.data.items != null && res.data.items.length > 0) {
+            let _data = {}
+            res.data.items.forEach(item => {
+              _data['' + item.id] = item.status
+            })
+            this.setData({ orderServiceStatus: _data })
+            resolve();
+          }
         }
-      }
+      })
     })
   },
 
@@ -73,7 +123,7 @@ Page({
       return
     }
 
-    if (this.data.currentLineItem == null || this.data.currentLineItem.line_items.length <= 0) { 
+    if (this.data.currentLineItems.quantity == null || this.data.currentLineItems.quantity <= 0) { 
       this.errorToast('请选择售后商品')
       return
     }
@@ -84,12 +134,12 @@ Page({
     }
 
     if (this.data.currentReason == null) {
-      this.errorToast('请先选择申请原因')
+      this.errorToast('请先选择售后原因')
       return
     }
 
     if (this.data.reasonText == null || this.data.reasonText.length <= 0) {
-      this.errorToast('请填写申请说明')
+      this.errorToast('请填写问题描述')
       return
     }
 
@@ -102,8 +152,8 @@ Page({
 
     let variant_ids = new Array();
 
-    this.data.currentLineItem.line_items.forEach((ele,index)=>{
-      if(ele.variant_id){
+    this.data.currentLineItems.line_items.forEach((ele,index)=>{
+      if(ele.variant_id && ele.selected){
         variant_ids.push({
           variant_id: ele.variant_id,
           quantity: ele.selectedQuantity,
@@ -112,7 +162,7 @@ Page({
     })
 
     let _data = {
-      quantity: this.data.currentLineItem.quantity,
+      // quantity: this.data.currentLineItems.quantity,
       link_phone: this.data.link_phone,
       link_name: this.data.link_name,
       service_type: this.data.currentService.service_type,
@@ -140,7 +190,7 @@ Page({
   },
 
   toProducts: function () {
-    var line_items = this.data.order.line_items;
+    var line_items = this.data.currentLineItems;
     this.navigateTo(`/orders/pages/service_product/index?line_items=${JSON.stringify(line_items)}&number=${this.data.order.number}`)
   },
 
@@ -201,7 +251,7 @@ Page({
       return
     }
 
-    if (this.data.currentLineItem == null || this.data.currentLineItem.line_items.length <= 0) { 
+    if (this.data.currentLineItems == null || this.data.currentLineItems.line_items.length <= 0) { 
       this.setData({ submitDisable: true })
       return
     }

@@ -15,6 +15,7 @@
   <view wx:else class="products-container">
     <view class="ranking">
       <view class="item" bindtap="gotoProduct" data-item="{{products[1]}}">
+        <image class="shadow" src="/images/v1.2/ranking_05.png"></image>
         <view class="avatar">
           <image class="avatar-img" src="{{products[1].avatar}}"></image>
           <view class="background"></view>
@@ -35,6 +36,7 @@
         <view class="btn">去抢购</view>
       </view>
       <view class="item" bindtap="gotoProduct" data-item="{{products[2]}}">
+        <image class="shadow shadow-back" src="/images/v1.2/ranking_05.png"></image>
         <view class="avatar">
           <image class="avatar-img" src="{{products[2].avatar}}"></image>
           <view class="background"></view>
