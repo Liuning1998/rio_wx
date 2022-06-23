@@ -326,7 +326,7 @@ page {
   font-size: 32rpx;
   color: #FFFFFF;
   margin-right: 12rpx;
-  line-height: 1;
+  line-height: normal;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;

@@ -105,14 +105,13 @@ page {
 .address-item-container .item-content {
   display: flex;
   flex-direction: column;
-  padding: 36rpx 0;
+  padding: 26rpx 0 36rpx;
   border-bottom: 1rpx solid #f7f7f7;
 }
 
 .address-item-container .name-and-phone {
   display: flex;
   align-items: center;
-  line-height: 1;
 }
 
 .address-item-container .name {
@@ -156,7 +155,7 @@ page {
 .address-item-container .address-info {
   font-size: 36rpx;
   color: #332B2B;
-  margin-top: 28rpx;
+  margin-top: 18rpx;
   font-weight: 400;
   font-family: PingFangSC-Regular;
 }

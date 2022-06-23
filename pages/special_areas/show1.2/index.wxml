@@ -52,25 +52,29 @@
     <view class="label">
       <view bindtap="changeCategorie" data-item="{{item}}" class="item {{currentCategory.id == item.id && 'active'}}" wx:for="{{categories}}" wx:key="index">
         <image class="item-icon" src="{{item.icon}}"></image>
+        <image wx:if="{{currentCategory.id == item.id}}" class="item-back" src="{{specialArea.select_icon}}"></image>
         <text class="item-name">{{item.name}}</text>
       </view>
     </view>
     <!-- 内容区域 -->
     <view class="container">
+    <image src="{{ specialArea.bar_icon }}" class="classify-bg"></image>
       <view class="classify" wx:if="{{labelArr['category_'+currentCategory.id].length > 1}}">
         <view bindtap="changeLabel" data-item="{{item}}" class="item {{item.id == currentLabel.id && 'active'}}" wx:for="{{labelArr['category_'+currentCategory.id]}}" wx:key="index">{{item.name}}</view>
       </view>
+      <view wx:else class="classify-placeholder">
+        全部商品
+      </view>
       <view class="screen">
-        <view class="name">{{currentLabel.name}}</view>
-        <view class="screen-box">
-          <view class="default {{orderType == null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="auto">综合</view>
-          <view class="price {{orderType != null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="price">
-            价格
-            <image class="up" wx:if="{{orderType == 'price up'}}" src="/images/v1.2/special_02.png"></image>
-            <image class="up" wx:else src="/images/v1.2/special_01.png"></image>
+        <view class="screen-item default {{orderType == null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="auto">综合筛选</view>
+        <view class="screen-item price {{orderType != null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="price">
+          价格排序
+          <view class="screen-icon">
+            <image class="up" wx:if="{{orderType == 'price up'}}" src="/images/v1.2/collect_05.png"></image>
+            <image class="up" wx:else src="/images/v1.2/collect_04.png"></image>
 
-            <image class="down" wx:if="{{orderType == 'price down'}}" src="/images/v1.2/special_02.png"></image>
-            <image class="down" wx:else src="/images/v1.2/special_01.png"></image>
+            <image class="down" wx:if="{{orderType == 'price down'}}" src="/images/v1.2/collect_05.png"></image>
+            <image class="down" wx:else src="/images/v1.2/collect_04.png"></image>
           </view>
         </view>
       </view>
@@ -79,7 +83,7 @@
         <text>商品上架中，敬请期待</text>
       </view>
       <view class="products" wx:else>
-        <scroll-view scroll-y="{{allowScroll}}" style="height: 100%;" bindscrolltolower="loadMore">
+        <scroll-view scroll-top="{{scrollTop}}" scroll-y="{{allowScroll}}" bindscroll="viewScroll" style="height: 100%;" bindscrolltolower="loadMore">
           <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
             <view class="avatar-container">
               <image class="avatar" src="{{item.avatar}}"></image>
@@ -116,6 +120,11 @@
 
 <msgToast msg-data="{{ _msgData }}"/>
 
+<!-- 跳到顶部 -->
+<view class="to-top" hidden='{{!cangotop}}'catchtap="goTop">
+  <text class="line"></text>
+  <image src="/images/v1.2/return_black.png"></image>
+</view>
 
 <!-- 1.2取消加入商品列表页加入购物车  -->
 <!-- <view catchtap="gotoCart" class="page-cart-container">

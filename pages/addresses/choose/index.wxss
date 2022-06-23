@@ -106,13 +106,12 @@ page {
   width: 544rpx;
   position: relative;
   box-sizing: border-box;
-  padding: 36rpx 24rpx 25rpx 0;
+  padding: 28rpx 24rpx 25rpx 0;
 }
 .address-item-container .info .name-and-phone {
   display: flex;
   align-items: center;
-  line-height: 1;
-  margin-bottom: 25rpx;
+  margin-bottom: 16rpx;
 }
 
 .address-item-container .info .name {

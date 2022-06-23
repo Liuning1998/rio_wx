@@ -856,33 +856,3 @@ page {
   width: 702rpx;
 }
 /* 活动 */
-
-/* 跳到顶部 s */
-.to-top{
-  background: #FFFFFF;
-  border: 1rpx solid #E5E5E5;
-  box-shadow: 0 4rpx 8rpx -6rpx #E5E5E5;
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
-  position: fixed;
-  right: 24rpx;
-  bottom: 100rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.to-top .line{
-  width: 45.4rpx;
-  height: 2rpx;
-  background-color: #666666;
-  margin-top: 10rpx;
-}
-.to-top image{
-  width: 17.8rpx;
-  height: 34rpx;
-  transform: rotate(90deg);
-}
-/* 跳到顶部 e */

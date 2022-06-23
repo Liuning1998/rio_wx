@@ -79,16 +79,16 @@ page {
 
 .background-swiper{
   width: 750rpx;
-  height: 750rpx;
+  height: 530rpx;
   margin: auto;
 }
 .background-swiper image{
   width: 750rpx;
-  height: 750rpx;
+  height: 530rpx;
 }
 .content{
   width: 704rpx;
-  margin: -248rpx auto 0;
+  margin: -250rpx auto 0;
   position: relative;
   z-index: 1;
   display: flex;
@@ -98,7 +98,7 @@ page {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 24rpx 0;
+  padding: 24rpx 10rpx;
   white-space: nowrap;
   flex: none;
 }
@@ -111,8 +111,9 @@ page {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding-top: 22rpx;
+  justify-content: space-between;
+  padding-top: 8rpx;
+  padding-bottom: 6rpx;
   position: relative;
   box-sizing: border-box;
 }
@@ -120,146 +121,147 @@ page {
   margin-right: 0;
 }
 .label .item .item-icon{
-  width: 50rpx;
-  height: 48rpx;
+  width: 72rpx;
+  height: 72rpx;
+  position: relative;
+  z-index: 1;
+}
+.label .item .item-back{
+  position: absolute;
+  width: 156rpx;
+  height: 150rpx;
+  top:-4rpx;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .label .item .item-name{
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #332B2B;
   font-weight: 400;
-  line-height: 32rpx;
-  margin: 12rpx 0 14rpx;
+  line-height: 1;
+  position: relative;
 }
 .label .item.active{
   width: 144rpx;
 }
-.label .item.active ::after{
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 10rpx solid transparent;
-  border-right: 10rpx solid transparent;
-  border-top: 10rpx solid #fff;
-  position: absolute;
-  bottom: -10rpx;
-  left: 50%;
-  transform: translateX(-50%);
-}
 .label .item.active .item-name{
   font-family: PingFangSC-Medium;
   font-size: 32rpx;
-  color: #FF3633;
+  color: #fff;
   font-weight: 500;
 }
 .container{
   width: 100%;
   box-sizing: border-box;
-  padding: 48rpx 24rpx;
   background-color: #fff;
   border-radius: 12rpx 12rpx 0px 0px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  position: relative;
+  padding: 0;
+}
+.container .classify-placeholder{
+  width: 100%;
+  height: 108rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #332B2B;
+  position: relative;
+  z-index: 2;
+  flex: none;
 }
 .container .classify{
   width: 100%;
   box-sizing: border-box;
-  white-space: nowrap;
+  display: flex;
+  position: relative;
+  z-index: 1;
+  flex:none;
   overflow-x: auto;
-  padding-bottom: 20rpx;
-  margin-bottom: 28rpx;
-  flex: none;
+}
+.container .classify-bg{
+  width: 100%;
+  height: 108rpx;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .container .classify .item{
-  padding: 0 24rpx;
-  height: 60rpx;
-  background: #F5F5F5;
-  border-radius: 30rpx;
-  font-family: PingFangSC-Regular;
-  font-size: 36rpx;
-  color: #807474;
-  font-weight: 400;
-  margin-right: 12rpx;
-  display: inline-flex;
+  height: 108rpx;
+  flex: 1;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #807474;
+  padding: 0 12rpx;
+  white-space: nowrap;
 }
-.container .classify .item:last-child{
-  margin-right: 0;
-}
+
 .container .classify .item.active{
-  background: #FFF0F0;
-  border-radius: 36rpx;
+  background: #FFFFFF;
+  box-shadow: -4rpx 0 8rpx -8rpx rgba(51,43,43,0.50), 4rpx 0 8rpx -8rpx rgba(51,43,43,0.50);
+  border-radius: 6rpx 6rpx 0 0;
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
-  color: #FF3633;
-  font-weight: 500;
+  color: #332B2B;
 }
+
 .screen{
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 34rpx;
+  position: relative;
+  z-index: 1;
+  height: 100rpx;
+  flex: none;
+  background-color: #fff;
 }
-.screen .name{
+.screen .screen-item{
   flex: 1;
-  font-family: PingFangSC-Medium;
-  font-size: 36rpx;
-  color: #332B2B;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  display: -webkit-box;
-  margin-right: 24rpx;
-}
-.screen .screen-box{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 176rpx;
-}
-.screen .screen-box .default{
-  font-family: PingFangSC-Medium;
-  font-size: 32rpx;
-  color: #807474;
-  font-weight: 500;
-}
-.screen .screen-box .default.active{
-  color: #FF3633;
-}
-.screen .screen-box .price{
   font-family: PingFangSC-Regular;
   font-size: 32rpx;
   color: #807474;
-  font-weight: 400;
-  padding-right: 18rpx;
-  position: relative;
 }
-.screen .screen-box .price .up{
+.screen .screen-item.active{
+  font-family: PingFangSC-Medium;
+  color: #332B2B;
+}
+.screen .price .screen-icon{
+  width: 12rpx;
+  display: flex;
+  flex-direction: column;
+  margin-left: 8rpx;
+}
+.screen .price .up{
   width: 12rpx;
   height: 8rpx;
-  position: absolute;
-  top: 14rpx;
-  right: 0;
-}
-.screen .screen-box .price .down{
-  width: 12rpx;
-  height: 8rpx;
+  margin-bottom: 4rpx;
   transform: rotate(180deg);
-  position: absolute;
-  bottom: 14rpx;
-  right: 0;
+}
+.screen .price .down{
+  width: 12rpx;
+  height: 8rpx;
 }
 /* 商品列表 */
 .products{
   width: 100%;
   flex-grow: 1; 
   overflow: auto;
+  padding: 0 22rpx;
+  box-sizing: border-box;
 }
 
 .products .product{

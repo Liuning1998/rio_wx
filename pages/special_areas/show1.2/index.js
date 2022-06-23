@@ -17,7 +17,8 @@ Page({
     specialArea: null,
     allowScroll:false,//是否允许内层scrollview滚动
     labelArr: {},//子标签
-    currentLabel:{}//当前选中的子标签
+    currentLabel:{},//当前选中的子标签
+    scrollTop:0, //滚动条滚动高度
   },
 
   /**
@@ -60,17 +61,25 @@ Page({
       },
       success: res => {
         if (res.data != null && res.data.constructor.name == 'Array') {
-          res.data.unshift({
-            icon: "/images/v1.2/special.png",
-            id:"all",
-            name: "精选",
-          })
+          let allItem = res.data.filter(item => item.name == '精选')
+          if(allItem.length > 0){
+            allItem[0].id = 'all'
+            res.data = res.data.filter(item => item.name != '精选')
+            res.data.unshift(allItem[0])
+          }else{
+            res.data.unshift({
+              icon: "/images/v1.2/jingxuan.png",
+              id:"all",
+              name: "精选",
+            })
+          }
+
           this.setData({
             currentCategory: res.data[0],
             categories: res.data,
             currentLabel: {
               id: 'all',
-              name: '全部商品',
+              name: '全部',
               icon: null,
             }
           })
@@ -260,7 +269,7 @@ Page({
       currentCategory: item,
       currentLabel: {
         id: item.id,
-        name: '全部商品',
+        name: '全部',
         icon: null,
       }
     })
@@ -286,7 +295,7 @@ Page({
       success: res => {
         res.data.unshift({
           id: category_id,
-          name: '全部商品',
+          name: '全部',
           icon: null,
         })
         this.setData({
@@ -351,6 +360,27 @@ Page({
         allowScroll: false
       })
     }
+  },
+
+    // 获取滚动条当前位置
+  viewScroll:function(e){
+    if (e.detail.scrollTop > 100) {
+      this.setData({
+        cangotop: true
+      });
+    } else {
+      this.setData({
+        cangotop: false
+      });
+    }
+  },
+
+  //回到顶部
+  goTop: function (e) {  // 一键回到顶部
+    console.log('点了点了')
+    this.setData({
+      scrollTop:0
+    })
   },
 
   onHide(){
