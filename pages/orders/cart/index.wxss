@@ -163,7 +163,7 @@ page {
 }
 
 .collect-orders{
-  padding: 36rpx 0;
+  padding: 30rpx 0;
   width: 702rpx;
   border-bottom: 1rpx solid rgba(230,230,230,1);
   display: flex;
@@ -750,7 +750,7 @@ page {
   width: 750rpx;
   background: #FFF0F0;
   border-radius: 8rpx;
-  padding: 40rpx 20rpx 40rpx 28rpx;
+  padding: 33.5rpx 20rpx 33.5rpx 28rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
