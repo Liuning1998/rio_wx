@@ -124,7 +124,10 @@ Page({
 
   onShow: function () {
     if (this.data.payMethod == 'brcb_pay' && this.data.order != null && this.data.order.number != null) {
-      this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+      // this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+      wx.reLaunch({
+        url: '/pages/orders/index/index',
+      })
     }
     this.setData({ submitStatus: false })
 
@@ -499,7 +502,10 @@ Page({
         submitStatus = false
         this.setData({ submitStatus: submitStatus })
 
-        this.redirectTo("/pages/orders/show/index?id=" + order.number)
+        // this.redirectTo("/pages/orders/show/index?id=" + order.number)
+        wx.reLaunch({
+          url: '/pages/orders/index/index',
+        })
       },
     })
   },
@@ -758,7 +764,10 @@ Page({
       submitStatus = false
       this.setData({ submitStatus: submitStatus })
 
-      this.redirectTo("/pages/orders/show/index?id=" + order.number)
+      // this.redirectTo("/pages/orders/show/index?id=" + order.number)
+      wx.reLaunch({
+        url: '/pages/orders/index/index',
+      })
     }, 800)
   },
 
@@ -853,7 +862,10 @@ Page({
               setTimeout(res => {
                 submitStatus = false
                 $this.setData({ submitStatus: submitStatus })
-                $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+                // $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+                wx.reLaunch({
+                  url: '/pages/orders/index/index',
+                })
               }, 1500)
             } else {
               submitStatus = false
@@ -868,7 +880,10 @@ Page({
             setTimeout(res => {
               submitStatus = false
               $this.setData({ submitStatus: submitStatus })
-              $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+              // $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+              wx.reLaunch({
+                url: '/pages/orders/index/index',
+              })
             }, 1500)
           } else {
             submitStatus = false
@@ -886,7 +901,10 @@ Page({
         setTimeout(res => {
           submitStatus = false
           $this.setData({ submitStatus: submitStatus })
-          $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+          // $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+          wx.reLaunch({
+            url: '/pages/orders/index/index',
+          })
         }, 1500)
       } else {
         submitStatus = false

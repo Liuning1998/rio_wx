@@ -28,7 +28,10 @@ var payFun = {
   //查看订单
   goOrder:function() {
     if(this.data.order){
-      this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+      // this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+      wx.reLaunch({
+        url: '/pages/orders/index/index',
+      })
     }else{
       return false
     }
@@ -95,7 +98,10 @@ var payFun = {
             balancePayResult:true,
            })
           pageTimer = setTimeout(()=>{
-            this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+            // this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+            wx.reLaunch({
+              url: '/pages/orders/index/index',
+            })
           },waitGoPage)
         }
       }
@@ -129,7 +135,10 @@ var payFun = {
                 balancePayResult:true,
                })
               pageTimer = setTimeout(()=>{
-                this.redirectTo("/pages/orders/show/index?id=" + number)
+                // this.redirectTo("/pages/orders/show/index?id=" + number)
+                wx.reLaunch({
+                  url: '/pages/orders/index/index',
+                })
               },waitGoPage)
             }
           }else{
@@ -149,7 +158,10 @@ var payFun = {
                 balancePayResult:false,
                })
               pageTimer = setTimeout(()=>{
-                this.redirectTo("/pages/orders/show/index?id=" + number)
+                // this.redirectTo("/pages/orders/show/index?id=" + number)
+                wx.reLaunch({
+                  url: '/pages/orders/index/index',
+                })
               },waitGoPage)
             }
           }
@@ -171,7 +183,10 @@ var payFun = {
             balancePayResult:false,
            })
           pageTimer = setTimeout(()=>{
-            this.redirectTo("/pages/orders/show/index?id=" + number)
+            // this.redirectTo("/pages/orders/show/index?id=" + number)
+            wx.reLaunch({
+              url: '/pages/orders/index/index',
+            })
           },waitGoPage)
         }
       }
