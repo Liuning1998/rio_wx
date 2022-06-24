@@ -524,6 +524,7 @@ Page({
     }
     
     let store_id = this.data.product.store_id || 0
+    let store_code = this.data.product.store_code || '' //拆分下单
     let store_name = this.data.product.store_name
     let store_short_name = this.data.product.store_short_name
     let lineItem = {
@@ -535,6 +536,7 @@ Page({
       available_on: this.data.currentVariant.available_on,
       stock: this.data.currentVariant.stock,
       store_id: store_id,
+      store_code: store_code,
       product: this.data.product,
       // variant: this.data.currentVariant,
       show_name: this.data.currentVariant.show_name,
@@ -544,6 +546,7 @@ Page({
     let cart = {
       quantity: this.data.quantity || 1,
       store_id: store_id,
+      store_code: store_code,
       store_name: this.data.product.store_name,
       store_short_name: this.data.product.store_short_name,
       lineItems: [lineItem],
@@ -551,7 +554,7 @@ Page({
       vip_total: Math.round(lineItem.vip_price * lineItem.quantity * 100) / 100.0,
       origin_total: Math.round(lineItem.origin_price * lineItem.quantity * 100) / 100.0,
     }
-    let url = `/pages/orders/confirm/index?store_id=${store_id}&buyType=now&productType=${this.data.productType}`
+    let url = `/pages/orders/confirm/index?&store_code=${store_code}&buyType=now&productType=${this.data.productType}`
     if (store_short_name == '京东') {
       url = url + '&store_short_name=京东'
     }
@@ -589,6 +592,7 @@ Page({
       available_on: this.data.currentVariant.available_on,
       stock: this.data.currentVariant.stock,
       store_id: this.data.currentVariant.store_id || '0',
+      store_code: this.data.product.store_code || '',
       product: this.data.product,
       // variant: this.data.currentVariant,
       show_name: this.data.currentVariant.show_name,

@@ -26,17 +26,16 @@ Page({
     console.log('上个页面信息',options)
     console.log('this.params',this.params)
     var category = {
-      id: options.store_id,
+      code: options.store_code,
       store_short_name: options.store_short_name,
       total: options.total,
-      pageType:'store'
     }
 
     this.setData({ 
       category: category,
     })
 
-    this.getProducts(category.id, null)
+    this.getProducts(category.code, null)
   },
 
   /**
@@ -47,12 +46,14 @@ Page({
   },
 
   //获取商品
-  getProducts: function (category_id, orderType, refresh) {
-    let _url = '/api/stores/' + this.data.category.id;
-    let _data = {};
+  getProducts: function (category_code, orderType, refresh) {
+    let _url = '/api/stores/store_products';
+    let _data = {
+      code: category_code
+    };
     
     if(orderType!=null){
-      _url = `/api/stores/${this.data.category.id}/search`;
+      _url = `/api/stores/search`;
     }
 
     var length = 0
@@ -81,7 +82,7 @@ Page({
 
         if (res.data != null && res.data.constructor.name == 'Array') {
 
-          this.appendProduct(res.data,category_id)
+          this.appendProduct(res.data,category_code)
 
         }
 
@@ -106,7 +107,6 @@ Page({
 
   addCart: function (e) {
     var item = e.currentTarget.dataset.item
-    console.log(item)
     if (item.tags != null && item.tags.indexOf('虚拟卡券') >= 0) {
       this.navigateTo("/pages/products/show/index?id=" + item.id)
       return
@@ -136,6 +136,7 @@ Page({
       available_on: master.available_on,
       stock: master.stock,
       store_id: master.store_id || '0',
+      store_code: item.store_code || '',
       product: item,
       // variant: master,
       show_name: master.show_name,
@@ -143,8 +144,8 @@ Page({
       product_limit_number: item.limit_number
     }
 
-    if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_id] != null && this.data.cartData.data['store_' + master.store_id].lineItems != null && this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id] != null) {
-      let _quantity = this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id].quantity
+    if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + item.store_code] != null && this.data.cartData.data['store_' + item.store_code].lineItems != null && this.data.cartData.data['store_' + item.store_code].lineItems['variant_' + master.id] != null) {
+      let _quantity = this.data.cartData.data['store_' + item.store_code].lineItems['variant_' + master.id].quantity
 
       // 判断数量是否超过单品购买数量限制
       if (_quantity >= master.limit_number || _quantity >= item.limit_number) {
@@ -195,7 +196,7 @@ Page({
         clicked:true
       })  
 
-      this.getProducts(this.data.category.id, orderType, true)
+      this.getProducts(this.data.category.code, orderType, true)
     }
 
 
@@ -204,7 +205,7 @@ Page({
 
   onReachBottom: function () {
     console.log('到底')
-    this.getProducts(this.data.category.id, this.data.orderType, false)
+    this.getProducts(this.data.category.code, this.data.orderType, false)
   },
 
   // 页数判断

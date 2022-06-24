@@ -23,7 +23,7 @@ Page({
   data: {
     submitStatus: false,
     storeCart: {},
-    store_id: '',
+    store_code: '',
     shipAddress: {},
     secretText: '',
     avatars: {},
@@ -63,8 +63,7 @@ Page({
     //余额支付通用方法
     balancePay.extend(this)
 
-    var store_id = options.store_id || 0
-    // var store_id = 1
+    var store_code = options.store_code || 0
 
     if (options.buyType == 'now') {
       var storeCart = this.params.cart
@@ -72,11 +71,11 @@ Page({
       this.setData({ buyType: 'now' })
     } else {
       var cart = cartApi.getCartCache()
-      var storeCart = cart.data['store_' + store_id]
+      var storeCart = cart.data['store_' + store_code]
     }
 
     this.setData({
-      store_id: store_id,
+      store_code: store_code,
       startTime: Math.ceil((new Date).getTime()/1000),
       storeCart: storeCart
     })
