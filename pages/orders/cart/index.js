@@ -62,17 +62,17 @@ Page({
     }
     
     //如果是旧版购物车商铺就删掉
-    // for(var key in cartData.data){
-    //   console.log(cartData.data[key])
-    //   if(!cartData.data[key].store_code){
-    //     cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
-    //   }
-    // }
+    var _cartData;
+    for(var key in cartData.data){
+      if(!cartData.data[key].store_code){
+        _cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
+      }
+    }
 
-    this.setData({ cartData: cartData, cartLoaded: true, deleteButtonShowId: -1 })
+    this.setData({ cartData: _cartData, cartLoaded: true, deleteButtonShowId: -1 })
 
     if(Object.keys(this.data.avatars).length <= 0) {
-      this.fetchAvatars(cartData)
+      this.fetchAvatars(_cartData)
     }
 
     // 更新购物车中的 sku 价格、库存

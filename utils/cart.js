@@ -116,7 +116,11 @@ function removeStoreLineOfSelect (storeData) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
   // let storeCart = cartData['store_' + storeData.store_id]
-  let storeCart = cartData['store_' + storeData.store_code]
+  if( storeData.store_code ){
+    var storeCart = cartData['store_' + storeData.store_code]
+  }else{
+    var storeCart = cartData['store_' + storeData.store_id]
+  }
 
   try { 
  
