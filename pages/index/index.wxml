@@ -48,11 +48,11 @@
     <view class="notice" wx:if="{{ noticeText != null && noticeText.length > 0 }}">
       <image class="img" src="/images/v1.2/notice.png"></image>
       <view class="notice-content">
-        <view class="content" style="left: {{floatNoticeLeft}}px;">
-        <text class="notice-text">{{ noticeText }}</text>
-        <text class="notice-text">{{ noticeText }}</text>
-        <text class="notice-text">{{ noticeText }}</text>
-      </view>
+        <view class="content" style="left: {{floatNoticeLeft}}px;"> 
+          <text class="notice-text">{{ noticeText }}</text> 
+          <text class="notice-text">{{ noticeText }}</text> 
+          <text class="notice-text">{{ noticeText }}</text> 
+        </view> 
       </view>     
     </view>
 

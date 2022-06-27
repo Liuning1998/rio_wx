@@ -54,12 +54,12 @@ Page({
             this.setData({orderStep: 'step2'})
           }else if(res.data.state == 'shipping'){
             this.setData({orderStep: 'step3'})
-            if(res.data.expresses.length <= 1){
+            if(res.data.expresses && res.data.expresses.length <= 1){
               this.getExpress(res.data.expresses[0].express_number, res.data.number)
             }
           }else if(res.data.state){
             this.setData({orderStep: 'step4'})
-            if(res.data.expresses.length <= 1){
+            if(res.data.expresses && res.data.expresses.length <= 1){
               this.getExpress(res.data.expresses[0].express_number, res.data.number)
             }
           }
@@ -408,7 +408,10 @@ Page({
                   "00m2x7rgBj45ghkRCSNMREsGoakf0KX3-gaXRzl-lQ8"
                 ])
               } else {
-                this.reflashOrder()
+                // this.reflashOrder()
+                wx.reLaunch({ //合并下单支付后要跳转到订单列表
+                  url: '/pages/orders/index/index',
+                })
               }
               submitStatus = false
             } else {
@@ -462,7 +465,10 @@ Page({
             "00m2x7rgBj45ghkRCSNMREsGoakf0KX3-gaXRzl-lQ8"
           ])
         } else {
-          this.reflashOrder()
+          // this.reflashOrder()
+          wx.reLaunch({ //合并下单支付后要跳到订单列表页
+            url: '/pages/orders/index/index',
+          })
         }
         submitStatus = false
       },

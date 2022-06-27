@@ -132,11 +132,11 @@
           </view>
         </view>
 
-        <view class="item">
+        <view class="item" wx:if="{{balance > 0}}">
           <view class="left">
             <image class="icon" src="/images/v1.2/order_confirm_01.png"></image>
             <text class="name">账户余额</text>
-            <text class="describe">9.0元</text>
+            <text class="describe">{{balance}}元</text>
           </view>
           <view class="right">
             <text class="balance">是否使用平台余额抵扣</text>
@@ -328,6 +328,7 @@
   <button class="btn btn-lg pay-btn {{ (submitStatus) && 'disable' }}" bindtap="{{canReceiveCoupon ? 'openCanReceive':'createOrder'}}" data-state='addCart'>提交订单</button>
 </view>
 
+<!-- v1.2前查看商品信息弹窗 现不用 -->
 <view class="variants-layer {{ !showVariantLayer && 'hide'}}" catchtap="triggerVariantLayer">
   <view class="layer-header" catchtap="{{false}}">
     <text>商品信息</text>
@@ -447,7 +448,7 @@
       <text class="total">￥{{ isBalance ? couponAfter.balance_total(order.discount_total,balance) : order.discount_total }}</text>
       <text wx:if="{{isBalance}}" class="balance">平台余额已抵扣￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
       
-      <view bindtap="selectBrcbPay" class="pay-method-item" style="position: relative;height: 280rpx;padding-bottom: 70rpx;">
+      <view bindtap="selectBrcbPay" class="pay-method-item" style="position: relative;height: 312rpx;padding-bottom: 124rpx;">
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" style="position: relative;top: -26rpx;" src="/images/yanglaozhucanka_icon.png"></image>
         <view class="item-main" style="padding-bottom: 52rpx;">

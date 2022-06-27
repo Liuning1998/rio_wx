@@ -507,6 +507,16 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 36rpx;
   color: #332B2B;
+  animation: floatNotice 13s linear infinite;
+}
+
+@keyframes floatNotice{
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
 }
 
 .special-area .item-box{

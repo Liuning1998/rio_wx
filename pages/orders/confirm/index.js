@@ -153,7 +153,6 @@ Page({
         showProductQuantity: 2
       })
     }else if(showProductQuantity == 2){
-      console.log('2')
       this.setData({
         showProductQuantity: number
       })

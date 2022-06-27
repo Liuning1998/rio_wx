@@ -35,7 +35,8 @@
     </view>
     <view wx:else class="orders-container">
       <block wx:for="{{ orders[active + 'Orders'] }}" wx:for-item="order" wx:key="index">
-        <view wx:if="{{ order != 'deleted' }}" class="order-item-container">
+        <!-- 不存在子订单 -->
+        <view wx:if="{{ order != 'deleted' && order.sub_orders != null && order.sub_orders.length <= 0}}" class="order-item-container">
           <view class="order-status {{ order.state }}">
             <view class="name-container">
               <text>下单时间：{{helper.cutDate(order.created_at_t) || ''}}</text>
@@ -45,9 +46,9 @@
           </view>
 
           <view wx:if="{{order.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
-            <view  class="product-item">
-              <view style="display: flex;width: 588rpx; overflow-x: scroll;">
-                <image wx:if="{{ index < 2 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
+            <view  class="product-item avatar-box">
+              <view style="display: flex;width: 588rpx; overflow:hidden;">
+                <image wx:if="{{ index < 4 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
               </view>
 
               <view  wx:if="{{ order.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
@@ -104,6 +105,79 @@
             <view bindtap='cancelOrder' data-order='{{ order }}' class="btn cancel-btn">取消订单</view>
             <view  wx:if="{{ helper.payLeftTime(order, nowTime) > 0 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" data-order='{{ order }}' class="btn pay-btn">支付<block>{{ utilsHelper.getM(helper.payLeftTime(order, nowTime)) }}:{{ utilsHelper.getS(helper.payLeftTime(order, nowTime)) }}</block></view>
           </view>
+        </view>
+        <!-- 存在子订单 -->
+        <view wx:if="{{subOrder != 'deleted'}}" wx:for="{{ order.sub_orders }}" wx:for-item="subOrder" wx:key="index" class="order-item-container">
+        
+            <view class="order-status {{ subOrder.state }}">
+              <view class="name-container">
+                <text>下单时间：{{helper.cutDate(subOrder.created_at_t) || ''}}</text>
+              </view>
+              <text wx:if="{{subOrder.refund_state != null}}">{{subOrder.refund_state}}</text>
+              <text wx:else>{{ subOrder.state_t }}</text>
+            </view>
+
+            <view wx:if="{{subOrder.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}">
+              <view  class="product-item avatar-box">
+                <view style="display: flex;width: 588rpx; overflow:hidden;">
+                  <image wx:if="{{ index < 4 }}"  wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
+                </view>
+
+                <view  wx:if="{{ subOrder.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
+                  <view class="quantity-container">
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                  </view>
+                </view>
+              </view>
+            </view>
+
+            <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{orsubOrderder.number}}">
+              <view wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
+                <image class="avatar" src="{{ item.product.avatar }}"></image>
+
+                <text class="product-name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
+
+                <view class="price-container">
+                    <view class="price"><text>¥</text> {{price.tos(item.product.price)}}</view>
+                    <text class="quantity">×{{subOrder.product_total}}</text>
+                </view>
+
+              </view>
+            </view>
+
+            <view class="total-container">
+              <text class="label">共{{subOrder.product_total}}件商品</text>
+              <text class="price">实付款:<text class="icon">¥</text><text class="money">{{price.tos(subOrder.discount_total)}}</text><block wx:if="{{subOrder.shipment_expense <= 0}}">(免运费)</block></text>
+            </view>
+
+            <view wx:if="{{ subOrder.state != 'new' }}" class="actions">
+
+              <!-- 已支付待发货 -->
+              <view wx:if="{{ subOrder.state == 'padding' || subOrder.state == 'shipping' }}" bindtap='inspectUrgeOrder' data-order='{{ subOrder }}' class="btn delete-btn">催发货</view>
+
+              <view wx:if="{{ subOrder.order_type != 4 && subOrder.order_type != 5 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn delete-btn">查看详情</view>
+              <!-- 原 wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}"  -->
+              <view wx:if="{{subOrder.state == 'completed' || subOrder.state == 'canceled' || subOrder.state == 'handle_canceled'}}" bindtap='deleteOrder' data-order='{{ subOrder }}' class="btn delete-btn">删除订单</view>
+
+              <!-- 已支付未完成 -->
+              <block wx:else>
+                <block wx:if="{{ subOrder.order_type != 4 && subOrder.order_type != 5 }}">
+                  <view wx:if="{{ subOrder.sale_state == null }}" bindtap='orderService' data-order='{{ subOrder }}' class="btn delete-btn">申请售后</view>
+                  <view wx:elif="{{ subOrder.sale_state == 'completed' }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn delete-btn">售后完成</view>
+                  <view wx:else bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn delete-btn">售后中</view>
+                </block>
+              </block>
+              <view wx:if="{{ subOrder.order_type != 4 && subOrder.order_type != 5 && subOrder.order_type != 2}}" bindtap='buyAgain' data-order='{{ subOrder }}' class="btn buy-btn">再次购买</view>
+              <view wx:if="{{ subOrder.order_type == 4 || subOrder.order_type == 5 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn buy-btn">查看详情</view>
+            </view>
+
+            <view wx:else class="actions">
+              <view bindtap='cancelOrder' data-order='{{ subOrder }}' class="btn cancel-btn">取消订单</view>
+              <view  wx:if="{{ helper.payLeftTime(subOrder, nowTime) > 0 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" data-order='{{ subOrder }}' class="btn pay-btn">支付<block>{{ utilsHelper.getM(helper.payLeftTime(subOrder, nowTime)) }}:{{ utilsHelper.getS(helper.payLeftTime(subOrder, nowTime)) }}</block></view>
+            </view>
+
         </view>
       </block>
       

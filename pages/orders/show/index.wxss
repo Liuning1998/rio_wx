@@ -164,7 +164,7 @@ page {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 9901;
+  z-index: 99991;
   background: rgba(0,0,0,0.20);
   height: 100%;
   width: 750rpx;
@@ -208,70 +208,52 @@ page {
 }
 
 .pay-method-layer .pay-method-container .pm-header {
-  height: 108rpx;
+  height: 112rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2B2424;
-  font-size: 40rpx;
   box-sizing: border-box;
-  border-bottom: 1rpx solid #F7F7F7;
+  border-bottom: 1rpx solid #E6E6E6;
   position: relative;
+  font-family: PingFangSC-Regular;
+  font-size: 40rpx;
+  color: #332B2B;
+  width: 666rpx;
+  margin: 0 auto;
 }
 
 .pay-method-layer .pm-header .close {
   height: 50rpx;
   width: 50rpx;
   position: absolute;
-  left: 36rpx;
+  left: 14rpx;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.pay-method-layer .pm-header .close .close-icon {
+.pay-method-layer .pm-header .close image {
   width: 28rpx;
   height: 28rpx;
-  position: relative;
-}
-
-.pay-method-layer .pm-header .close .close-icon::before {
-  width: 28rpx;
-  height: 3rpx;
-  background: #000000;
-  position: absolute;
-  content: '';
-  display: inline-block;
-  top: 10rpx;
-  transform: rotate(45deg);
-}
-
-.pay-method-layer .pm-header .close .close-icon::after {
-  width: 28rpx;
-  height: 3rpx;
-  background: #000000;
-  position: absolute;
-  content: '';
-  display: inline-block;
-  top: 10rpx;
-  transform: rotate(-45deg);
 }
 
 .pay-method-layer .pay-method-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 292rpx;
 }
 
 .pay-method-layer .pay-method-content .total {
   display: inline-block;
-  height: 192rpx;
-  line-height: 192rpx;
-  font-size: 60rpx;
-  color: #2B2424;
-  width: 100%;
+  height: 278rpx;
+  line-height: 278rpx;
+  width: 666rpx;
   text-align: center;
-  border-bottom: 1rpx solid #f7f7f7;
+  border-bottom: 1rpx solid #E6E6E6;
+  font-family: HelveticaNeue-Medium;
+  font-size: 72rpx;
+  color: #332B2B;
 }
 
 .pay-method-layer .pay-method-content .balance{
@@ -279,13 +261,12 @@ page {
 } 
 
 .pay-method-layer .pay-method-item {
-  width: 100%;
-  height: 144rpx;
+  width: 666rpx;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding-left: 48rpx;
   justify-content: space-between;
+  border-bottom: 1rpx solid #E6E6E6;
 }
 
 .pay-method-layer .pay-method-item .item-main {
@@ -295,6 +276,10 @@ page {
   align-items: center;
   border-bottom: 1rpx solid #f7f7f7;
   height: 144rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #332B2B;
+  margin-left: 36rpx;
 }
 
 .pay-method-layer .pay-method-item .item-main .recommend{
@@ -318,7 +303,7 @@ page {
   border-radius: 50%;
   box-sizing: border-box;
   border: 1rpx solid #FF3633;
-  margin-right: 48rpx;
+  margin-right: 14rpx;
   display: flex;
   align-items: center;
   justify-content: center;

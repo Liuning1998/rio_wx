@@ -191,14 +191,17 @@ page {
   box-shadow: 0 0 8rpx -4rpx rgba(0,0,0,0.50);
   box-sizing: border-box;
   border-radius: 4rpx;
-  padding: 40rpx 32rpx 30rpx;
+  padding: 40rpx 68rpx 30rpx;
   margin-top: -8rpx;
 }
 .coupon-list-mask view{
   position: relative;
   font-size: 20rpx;
   color: #5B5454;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #807474;
 }
 .coupon-list-mask view::before{
   position: absolute;
@@ -207,8 +210,8 @@ page {
   height: 8rpx;
   border-radius: 50%;
   background-color: #B4AFAF;
-  top: 13rpx;
-  left: -20rpx;
+  top: 24rpx;
+  left: -32rpx;
 }
 .page-container{
   height: 100vh;

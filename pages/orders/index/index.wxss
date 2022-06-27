@@ -141,6 +141,9 @@ page {
   display: flex;
   align-items: flex-start;
 }
+.products .product-item.avatar-box{
+  align-items: center;
+}
 
 .products .product-item .avatar {
   height: 168rpx;

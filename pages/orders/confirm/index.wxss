@@ -757,23 +757,25 @@ page {
 }
 
 .pay-method-layer .pay-method-container .pm-header {
-  height: 108rpx;
+  height: 112rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  border-bottom: 1rpx solid #F7F7F7;
+  border-bottom: 1rpx solid #E6E6E6;
   position: relative;
   font-family: PingFangSC-Regular;
   font-size: 40rpx;
   color: #332B2B;
+  width: 666rpx;
+  margin: 0 auto;
 }
 
 .pay-method-layer .pm-header .close {
   height: 50rpx;
   width: 50rpx;
   position: absolute;
-  left: 36rpx;
+  left: 14rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -816,15 +818,16 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 292rpx;
 }
 
 .pay-method-layer .pay-method-content .total {
   display: inline-block;
-  height: 192rpx;
-  line-height: 192rpx;
-  width: 100%;
+  height: 278rpx;
+  line-height: 278rpx;
+  width: 666rpx;
   text-align: center;
-  border-bottom: 1rpx solid #f7f7f7;
+  border-bottom: 1rpx solid #E6E6E6;
   font-family: HelveticaNeue-Medium;
   font-size: 72rpx;
   color: #332B2B;
@@ -835,13 +838,12 @@ page {
 }
 
 .pay-method-layer .pay-method-item {
-  width: 100%;
-  height: 144rpx;
+  width: 666rpx;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding-left: 48rpx;
   justify-content: space-between;
+  border-bottom: 1rpx solid #E6E6E6;
 }
 
 .pay-method-layer .pay-method-item .item-main {
@@ -854,6 +856,7 @@ page {
   font-family: PingFangSC-Medium;
   font-size: 40rpx;
   color: #332B2B;
+  margin-left: 36rpx;
 }
 
 .pay-method-layer .pay-method-item .item-main .recommend{
@@ -877,7 +880,7 @@ page {
   border-radius: 50%;
   box-sizing: border-box;
   border: 1rpx solid #FF3633;
-  margin-right: 48rpx;
+  margin-right: 14rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1194,10 +1197,9 @@ page {
 
 .tips{
   position: absolute;
-  bottom: 10rpx;
-  left: 48rpx;
+  bottom: 40rpx;
   line-height: 48rpx;
-  padding-right: 42rpx;
+  width: 100%;
   font-family: PingFangSC-Regular;
   font-size: 32rpx;
   color: #807474;
@@ -1312,7 +1314,7 @@ page {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 199;
+  z-index: 199980;
 }
 .not-coupon .not-coupon-mask{
   width: 100%;

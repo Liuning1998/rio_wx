@@ -18,7 +18,7 @@
       <view style='padding-top: {{pageMarginTop + 44}}px;'></view>
 
       <view class="slogan">
-        <block wx:if="{{order.refund_state != null}}">此订单已退款，欢迎再次购买~</block>
+        <block wx:if="{{order.refund_state != null}}">订单已退款</block>
         <block wx:elif="{{ order.state == 'canceled' || order.state == 'handle_canceled' }}">此订单已取消</block>
         <block wx:elif="{{ order.state == 'new' }}">等待支付( {{utilsHelper.getM(helperTime.payLeftTime(order, nowTime)) }}分{{ utilsHelper.getS(helperTime.payLeftTime(order, nowTime))}}秒 )</block>
 
@@ -36,7 +36,7 @@
         <block wx:else>订单完成，感谢您的支持~~</block>
       </view>
 
-      <view class="state" wx:if="{{order.state != 'canceled' && order.state != 'handle_canceled' && order.sale_state == null}}">
+      <view class="state" wx:if="{{order.refund_state == null && order.state != 'canceled' && order.state != 'handle_canceled' && order.sale_state == null}}">
         <view class="state-text">
           <view class="text">已下单</view>
           <view class="text">已付款</view>
@@ -88,7 +88,7 @@
             <!-- 取消 -->
             <block wx:if="{{order.state == 'canceled' || order.state == 'handle_canceled'}}">
               <view class="text">
-                <text class="title">取消进度</text>订单超时未支付，系统自动取消订单，若有需要您可再次购买。
+                <text class="title">取消进度</text>此订单已取消，若有需要您可再次购买。
               </view>
               <view class="time">{{order.updated_at_t}}</view>
             </block>
@@ -102,6 +102,18 @@
             </block>
           </view>
           <image wx:if="{{order.state != 'canceled' && order.state != 'handle_canceled'}}" class="express-r" src="/images/v1.2/arrow.png"></image>
+        </view>
+      </view>
+
+      <!-- 退款 -->
+      <view class="express" wx:if="{{ order.refund_state != null }}">
+        <view class="express-box">
+          <view class="express-l" style="width: auto;">
+            <view class="text">
+                <text class="title">退款进度</text>商家已退款，实际退款到账时间因支付方式不同，稍有延迟。
+              </view>
+              <view class="time">{{order.updated_at_t}}</view>
+          </view>
         </view>
       </view>
       
@@ -176,9 +188,9 @@
         <view class="name">下单时间：</view>
         <view class="info">{{ order.created_at_t }}</view>
       </view>
-      <view class="item">
+      <view class="item" wx:if="{{ order.paid_at_t != null }}">
         <view class="name">支付时间：</view>
-        <view class="info" wx:if="{{ order.paid_at_t != null }}">{{ order.paid_at_t }}</view>
+        <view class="info">{{ order.paid_at_t }}</view>
       </view>
       <view class="item" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
         <view class="name">平台余额支付金额：</view>
@@ -287,7 +299,7 @@
       <!-- <image class="close" src="/images/close_white.png"></image> -->
       <text>平台余额支付</text>
       <!-- <text bindtap="hidePayMethod" class="close">x</text> -->
-      <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
+      <view class="close" bindtap="closePay"><image src="/images/v1.2/close.png"></image></view>
     </view>
     <view class="pay-method-content">
       <text class="total">￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
@@ -305,7 +317,7 @@
       <!-- <image class="close" src="/images/close_white.png"></image> -->
       <text>选择支付方式</text>
       <!-- <text bindtap="hidePayMethod" class="close">x</text> -->
-      <view class="close" bindtap="closePay"><view class="close-icon"></view></view>
+      <view class="close" bindtap="closePay"><image src="/images/v1.2/close.png"></image></view>
     </view>
     <view class="pay-method-content">
       <!-- 订单被锁 -->
