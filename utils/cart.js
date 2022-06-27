@@ -68,9 +68,9 @@ function getCartCache () {
   for(var key in cart.data){
     if(!cart.data[key].store_code){
       delete cart.data[key]
-      setCartToCache(cart) 
     }
   }
+  setCartToCache(cart) 
   return cart
 }
 
