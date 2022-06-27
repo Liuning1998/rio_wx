@@ -63,14 +63,6 @@ function addCart (lineItem) {
 // 从缓存中获取购物车
 function getCartCache () {
   var cart = storage.getSyncWithExpire(cartKey) || {}
-  console.log(cart)
-  // 如果购物车存在旧版商铺删除
-  for(var key in cart.data){
-    if(!cart.data[key].store_code){
-      delete cart.data[key]
-    }
-  }
-  setCartToCache(cart) 
   return cart
 }
 

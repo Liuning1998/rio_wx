@@ -60,6 +60,15 @@ Page({
     if (Object.keys(cartData).length <= 0) {
       cartData = null
     }
+    
+    //如果是旧版购物车商铺就删掉
+    // for(var key in cartData.data){
+    //   console.log(cartData.data[key])
+    //   if(!cartData.data[key].store_code){
+    //     cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
+    //   }
+    // }
+
     this.setData({ cartData: cartData, cartLoaded: true, deleteButtonShowId: -1 })
 
     if(Object.keys(this.data.avatars).length <= 0) {
