@@ -97,11 +97,13 @@ Page({
       params.q.payment_state_not_eq = 'refunded'
       params.q.sale_state_present = true
       params.q.order_type_eq = 2
+      params.show_type = true
       delete params.q.order_type_not_in
     } else if ( state == 'padding' || state == 'shipping' ) {
       params.q.sale_state_blank = true
       params.q.ship_state_in = ['padding', 'shipping']
       params.q.payment_state_eq = 'completed'
+      params.show_type = true
     } else if (state != 'all') {
       params.q.state_eq = state
     }
@@ -224,6 +226,7 @@ Page({
         available_on: product.available_on,
         stock: variant.stock,
         store_id: product.store_id || '0',
+        store_code: product.store_code || '',
         product: product,
         // variant: master,
         show_name: variant.show_name,
@@ -316,11 +319,13 @@ Page({
       params.q.payment_state_not_eq = 'refunded'
       params.q.sale_state_present = true
       params.q.order_type_eq = 2
+      params.show_type = true
       delete params.q.order_type_not_in
     } else if ( state == 'padding' || state == 'shipping' ) {
       params.q.sale_state_blank = true
       params.q.ship_state_in = ['padding', 'shipping']
       params.q.payment_state_eq = 'completed'
+      params.show_type = true
     } else if (state != 'all') {
       params.q.state_eq = state
     }

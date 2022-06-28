@@ -267,6 +267,7 @@ Page({
         available_on: product.available_on,
         stock: variant.stock,
         store_id: product.store_id || '0',
+        store_code: product.store_code || '',
         product: product,
         // variant: master,
         show_name: variant.show_name,

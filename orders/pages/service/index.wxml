@@ -115,11 +115,11 @@
   </view>
 </view>
 
-<!-- 申请原因 -->
+<!-- 售后原因 -->
 <view class="service-popup {{!showReasonTypes && 'hidden'}} reason-type">
   <view class="mask" bindtap="hideSelectLayer"></view>
   <view class="popup">
-    <view class="title">申请原因 
+    <view class="title">售后原因 
       <view class="close" bindtap="hideSelectLayer">
         <image class="" src="/images/v1.2/close.png"></image>
       </view>

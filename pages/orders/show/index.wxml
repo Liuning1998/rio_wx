@@ -60,7 +60,7 @@
       </view>
 
       <!-- wx:if="{{order.refund_state == null &&  order.state != 'canceled' && order.state != 'handle_canceled' &&  order.state != 'new' &&  order.state != 'padding' }}" -->
-      <view class="express" wx:if="{{ order.expresses != null && order.expresses.length > 0 }}" bindtap="gotoExpress" data-expresses="{{order.expresses}}">
+      <view class="express" wx:if="{{ order.expresses != null && order.expresses.length > 0 && saleServices.length <= 0 }}" bindtap="gotoExpress" data-expresses="{{order.expresses}}">
         <view class="express-box">
           <view class="express-l">
             <!-- 多个包裹 -->
@@ -82,7 +82,7 @@
       </view>
 
       <!-- 取消和售后 -->
-      <view class="express" wx:if="{{ order.state == 'canceled' || order.state == 'handle_canceled' || saleServices.length != 0 }}">
+      <view class="express" wx:if="{{ order.refund_state == null && (order.state == 'canceled' || order.state == 'handle_canceled' || saleServices.length != 0) }}">
         <view class="express-box">
           <view class="express-l" style="{{order.state == 'canceled' || order.state == 'handle_canceled' ? 'width: auto;' : ''}}">
             <!-- 取消 -->
@@ -161,6 +161,17 @@
           <view class="text">{{vip_level.current_vip_level}}会员专享{{order.vip_info.name}}折</view>
           <view class="money"><text>- ¥</text>{{ order.vip_info.value }}</view>
         </view>
+        <!-- 优惠券 s -->
+        <view class="item" wx:if="{{order.promotions.length > 0}}" bindtap="{{ order.promotions.length > 0 ? 'couponDown' : ''}}">
+          <view class="text">优惠券</view>
+          <view class="money"><text>- ¥</text>{{helper.couponAfter(order.promotions)}}</view>
+          <image class="arrow  {{couponShow ? 'show' : ''}}"  wx:if="{{order.promotions.length > 0}}" src="/images/v1.2/arrow.png"></image>
+        </view>
+        <view class="item sub"  wx:if="{{couponShow}}" wx:for="{{order.promotions}}">
+          <view class="text">· {{item.name}}</view>
+          <view class="money"><text>¥</text>{{item.value}}</view>
+        </view>
+        <!-- 优惠券 e -->
       </view>
 
       <view class="product-info-all">
@@ -205,7 +216,7 @@
         <view class="info">¥ {{ order.balance_expend.cash_pre_total }}</view>
       </view>
       <view class="item" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'unlock' && balance > 0}}">
-        <view class="name">平台余额:{{balance}}元</view>
+        <view class="name">平台余额: {{balance}}元</view>
         <view class="switch">
           <text>是否使用平台余额抵扣</text>
           <switch checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/> 

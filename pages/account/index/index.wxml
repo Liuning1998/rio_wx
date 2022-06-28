@@ -37,7 +37,7 @@
   <view class="balance">
     <image class="balance_bg" src="/images/v1.2/mine_balance_01.png"></image>
     <view class="balance_l">
-      <view class="title">账户余额 (元)</view>
+      <view class="title">平台余额 (元)</view>
       <view class="number">{{balance || '0.0'}}</view>
     </view>
     <view class="balance_r">

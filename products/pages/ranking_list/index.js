@@ -107,6 +107,7 @@ Page({
     this.navigateTo("/pages/products/show/index?id=" + item.id)
   },
 
+
   addCart: function (e) {
     var item = e.currentTarget.dataset.item
     let master = item.variants.filter(variant => variant.is_master)[0]

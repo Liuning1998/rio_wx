@@ -59,7 +59,7 @@
                 <text class="price">{{price.tos(item.price)}}</text>
                 <!-- <text class="origin-price">￥{{price.tos(item.origin_price)}}</text> -->
               </view>
-              <!-- <text class="quantity">x{{item.quantity}}</text> -->
+              <text class="quantity">x{{item.quantity}}</text>
             </view>
           </view>
         </view>
@@ -108,18 +108,8 @@
       </view>
 
       <view class="icon-view">
-        
-        <view class="item" data-url="/pages/member/index/index" bindtap="gotoLink" wx:if="{{userInfo && price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}">
-          <view class="left">
-            <image class="icon" src="/images/v1.2/order_confirm_03.png"></image>
-            <text class="name">{{current_vip_level}}会员专享{{userInfo.vip_level.current_discount}}折</text>
-          </view>
-          <view class="right">
-            <text class="price">-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}</text>
-            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
-          </view>
-        </view>
 
+        <!-- 优惠券 -->
         <view class="item"  bindtap="openCoupon">
           <view class="left">
             <image class="icon" src="/images/v1.2/order_confirm_02.png"></image>
@@ -131,11 +121,24 @@
             <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
+        
+        <!-- 会员专享折扣 -->
+        <view class="item" data-url="/pages/member/index/index" bindtap="gotoLink" wx:if="{{userInfo && price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}">
+          <view class="left">
+            <image class="icon" src="/images/v1.2/order_confirm_03.png"></image>
+            <text class="name">{{current_vip_level}}会员专享{{userInfo.vip_level.current_discount}}折</text>
+          </view>
+          <view class="right">
+            <text class="price">-￥{{price.vipDiscount(lineItems, userInfo,checkCoupon.value)}}</text>
+            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
+          </view>
+        </view>
 
+        <!-- 平台余额 -->
         <view class="item" wx:if="{{balance > 0}}">
           <view class="left">
             <image class="icon" src="/images/v1.2/order_confirm_01.png"></image>
-            <text class="name">账户余额</text>
+            <text class="name">平台余额</text>
             <text class="describe">{{balance}}元</text>
           </view>
           <view class="right">

@@ -320,9 +320,8 @@ page {
   height: 48rpx;
   /* line-height: 48rpx; */
   padding: 0 12rpx 0;
-  display: inline-block;
   position: relative;
-  top: -4rpx;
+  top: -6rpx;
   margin-right: 12rpx;
   font-family: PingFangSC-Medium;
   font-size: 32rpx;

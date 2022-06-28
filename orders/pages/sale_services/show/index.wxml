@@ -52,7 +52,7 @@
     </view>
     <view class="content">
       <view class="item" wx:if="{{saleService.refund_info.refund_balance != null && saleService.refund_info.refund_balance > 0}}" bindtap="refundPopup" data-type="余额">
-        <view class="name">· 退回余额</view>
+        <view class="name">· 退回平台余额</view>
         <view class="info">
           <text class="price">{{saleService.refund_info.refund_balance}}</text>
           <image src="/images/v1.2/arrow_02.png"></image>

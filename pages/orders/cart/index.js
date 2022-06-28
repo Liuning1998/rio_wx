@@ -57,15 +57,17 @@ Page({
    */
   onShow: function () {
     let cartData = cartApi.getCartCache()
-    if (Object.keys(cartData).length <= 0) {
-      cartData = null
-    }
-    
-    //如果是旧版购物车商铺就删掉
+    console.log(cartData)
     var _cartData;
-    for(var key in cartData.data){
-      if(!cartData.data[key].store_code){
-        _cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
+    if (Object.keys(cartData).length <= 0) {
+      cartData = null;
+      _cartData = null;
+    }else{
+      //如果是旧版购物车商铺就删掉
+      for(var key in cartData.data){
+        if(!cartData.data[key].store_code){
+          _cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
+        }
       }
     }
 

@@ -270,6 +270,7 @@ function beforeOnload (context) {
         available_on: master.available_on,
         stock: master.stock,
         store_id: master.store_id || '0',
+        store_code: master.store_code || '',
         product: item,
         // variant: master,
         show_name: master.show_name,
@@ -283,8 +284,8 @@ function beforeOnload (context) {
         return false
       }
 
-      if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_id] != null && this.data.cartData.data['store_' + master.store_id].lineItems != null && this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id] != null) {
-        let _quantity = this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id].quantity
+      if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_code] != null && this.data.cartData.data['store_' + master.store_code].lineItems != null && this.data.cartData.data['store_' + master.store_code].lineItems['variant_' + master.id] != null) {
+        let _quantity = this.data.cartData.data['store_' + master.store_code].lineItems['variant_' + master.id].quantity
 
         // 判断数量是否超过单品购买数量限制
         if (_quantity >= master.limit_number || _quantity >= item.limit_number) {

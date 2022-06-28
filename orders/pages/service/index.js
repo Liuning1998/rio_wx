@@ -282,6 +282,6 @@ Page({
   },
 
   gotoAgreement: function () {
-    this.navigateTo("/agreement/pages/sale_service/show?store=" + this.data.order.store.mark)
+    this.navigateTo("/agreement/pages/sale_service/show")
   },
 })

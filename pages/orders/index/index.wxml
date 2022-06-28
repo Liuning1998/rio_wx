@@ -77,7 +77,7 @@
 
           <view class="total-container">
             <text class="label">共{{order.product_total}}件商品</text>
-            <text class="price">实付款:<text class="icon">¥</text><text class="money">{{price.tos(order.discount_total)}}</text><block wx:if="{{order.shipment_expense <= 0}}">(免运费)</block></text>
+            <text class="price">实付款:<text class="icon">¥</text><text class="money">{{price.tos(order.discount_total)}}</text><block wx:if="{{order.shipment_expense <= 0}}"> (免运费)</block></text>
           </view>
 
           <view wx:if="{{ order.state != 'new' }}" class="actions">
@@ -93,7 +93,7 @@
             <block wx:else>
               <block wx:if="{{ order.order_type != 4 && order.order_type != 5 }}">
                 <view wx:if="{{ order.sale_state == null }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">申请售后</view>
-                <view wx:elif="{{ order.sale_state == 'completed' }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后完成</view>
+                <view wx:elif="{{ order.sale_state == 'completed'}}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后完成</view>
                 <view wx:else bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后中</view>
               </block>
             </block>
@@ -133,7 +133,7 @@
               </view>
             </view>
 
-            <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{orsubOrderder.number}}">
+            <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}">
               <view wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
                 <image class="avatar" src="{{ item.product.avatar }}"></image>
 
@@ -149,7 +149,7 @@
 
             <view class="total-container">
               <text class="label">共{{subOrder.product_total}}件商品</text>
-              <text class="price">实付款:<text class="icon">¥</text><text class="money">{{price.tos(subOrder.discount_total)}}</text><block wx:if="{{subOrder.shipment_expense <= 0}}">(免运费)</block></text>
+              <text class="price">实付款:<text class="icon">¥</text><text class="money">{{price.tos(subOrder.discount_total)}}</text><block wx:if="{{subOrder.shipment_expense <= 0}}"> (免运费)</block></text>
             </view>
 
             <view wx:if="{{ subOrder.state != 'new' }}" class="actions">

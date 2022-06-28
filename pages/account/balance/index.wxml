@@ -8,7 +8,7 @@
   <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
   <image class="page-back-img" src="/images/v1.2/order_detailbg_01.png"></image>
   <view class="header">
-    <view class="title">账户余额(元)</view>
+    <view class="title">平台余额(元)</view>
     <view class="money">{{ price.tos(balance) || 0.00 }}</view>
   </view>
 

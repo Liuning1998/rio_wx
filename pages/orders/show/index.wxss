@@ -241,7 +241,6 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 292rpx;
 }
 
 .pay-method-layer .pay-method-content .total {
@@ -295,6 +294,8 @@ page {
   font-size: 28rpx;
   color: #FF3633;
   margin-left: 12rpx;
+  position: relative;
+  top: -4rpx;
 }
 
 .pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox {
@@ -998,12 +999,27 @@ page {
   padding: 20rpx 0;
   align-items: center;
 }
+.product-info .item .arrow{
+  width: 20rpx;
+  height: 36rpx;
+  margin-left: 16rpx;
+  transition: all .2s;
+}
+.product-info .item .arrow.show{
+  transform: rotate(90deg);
+}
 .product-info .item .text{
   font-family: PingFangSC-Regular;
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 .product-info .item .money{
   font-family: PingFangSC-Medium;
@@ -1014,6 +1030,18 @@ page {
 .product-info .item .money text{
   font-family: PingFangSC-Regular;
   font-weight: 400;
+  margin-right: 4rpx;
+}
+.product-info .item.sub{
+  padding: 10rpx;
+}
+.product-info .item.sub .text{
+  font-size: 30rpx;
+  color: #999;
+}
+.product-info .item.sub .money{
+  font-size: 30rpx;
+  color: #999;
 }
 
 .product-info-all{
@@ -1164,6 +1192,7 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #FF3633;
+  margin: 0 4rpx;
 }
 .bottom-btn-group .btn-content .total text:nth-child(3){
   font-family: PingFangSC-Medium;

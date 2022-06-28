@@ -297,6 +297,7 @@ page {
   position: relative;
   margin-top: 4rpx;
   z-index: 1;
+  background: #fff;
 }
 .ranking .item.active .avatar .background{
   width: 216rpx;
