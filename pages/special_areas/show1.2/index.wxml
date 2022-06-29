@@ -35,7 +35,7 @@
   </view>
 </view>
   
-<scroll-view enhanced="{{true}}" bounces="{{false}}" bindscrolltoupper="changeScroll" bindscrolltolower="changeScroll" scroll-y class='page-container'>
+<scroll-view enhanced="{{true}}" show-scrollbar="{{false}}"  bounces="{{false}}" bindscrolltoupper="changeScroll" bindscrolltolower="changeScroll" scroll-y class='page-container'>
 
   <view style="height: {{pageMarginTop+44}}px;width: 100%;"></view>
 

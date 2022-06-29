@@ -117,7 +117,7 @@
           <view style="display: flex; align-items: flex-end; display:table-cell; vertical-align: bottom;">
             <!-- <text class="quantity">共计{{storeCart.quantity}}件</text> -->
             <text class="total">合计:</text>
-            <text class="unit"> ¥ </text>
+            <text class="unit"> ¥</text>
             <text class="amount">{{price.tos(storeCart.total)}}</text>
           </view>
           <text class="goto-confirm" bindtap="gotoConfirm" data-item="{{storeCart}}">去结算</text>

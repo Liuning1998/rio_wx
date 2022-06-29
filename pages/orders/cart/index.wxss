@@ -104,7 +104,7 @@ page {
 .cart-container .select {
   height: 36rpx;
   width: 36rpx;
-  border: 1rpx solid #979797;
+  border: 2rpx solid #979797;
   border-radius: 50%;
   margin: 22.66rpx 22.66rpx 22.66rpx 0;
   display: flex;
@@ -474,6 +474,7 @@ page {
   font-size: 28rpx;
   color: #FF3633;
   font-weight: 400;
+  margin-right: 6rpx;
 }
 
 .cart-container .amount {

@@ -72,9 +72,9 @@
             <!-- 一个包裹 -->
             <block wx:else>
               <view class="text">
-                <text class="title">最新物流</text>{{expressInfo.data[expressInfo.data.length - 1].context}}
+                <text class="title">最新物流</text>{{expressInfo.data[0].context}}
               </view>
-              <view class="time">{{expressInfo.data[expressInfo.data.length - 1].time}}</view>
+              <view class="time">{{expressInfo.data[0].time}}</view>
             </block>
           </view>
           <image class="express-r" src="/images/v1.2/arrow.png"></image>
@@ -234,7 +234,7 @@
         </view>
         <view class="info">
           <view class="name">{{item.product_info}}</view>
-          <view class="time">{{item.created_at}}</view>
+          <view class="time">{{item.updated_at}}</view>
         </view>
         <view class="sale-state">
           <text class="{{item.state.title == '申请被拒' || item.state.title == '审核通过' ? 'green' : ''}}">{{ item.state.title }}</text>

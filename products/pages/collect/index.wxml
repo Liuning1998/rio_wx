@@ -34,7 +34,7 @@
   <view class="products-container">
     <scroll-view scroll-y bindscrolltolower="onReachBottom">
       <!-- 提示 -->
-      <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.id].total < 149}}" class="tips">差￥{{ price.tos(149 - cartData.data['store_'+category.id].total) }}免运费</view>
+      <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.code].total < 149}}" class="tips">差￥{{ price.tos(149 - cartData.data['store_'+category.code].total) }}免运费</view>
       <view wx:else class="tips">已免运费</view>
 
       <view wx:if="{{ loaded && (products == null || products.length <= 0)}}" class="product-empty">
@@ -82,9 +82,9 @@
 <msgToast msg-data="{{ _msgData }}"/>
 
 <view class="bottom-btn {{ isIphoneX && 'iphone-x' }}">
-  <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.id].total < 149}}" class="info">
+  <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.code].total < 149}}" class="info">
     <text class="black">还差</text>
-    <text class="red">{{ price.tos(149 - cartData.data['store_'+category.id].total) }}元</text>
+    <text class="red">{{ price.tos(149 - cartData.data['store_'+category.code].total) }}元</text>
   </view>
   <view wx:else class="info">
     <text class="black">已免运费</text>

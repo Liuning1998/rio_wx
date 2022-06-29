@@ -173,6 +173,7 @@ page {
 .products .product-item .price-container .price text{
   font-size: 28rpx;
   font-family: PingFangSC-Regular;
+  margin-right: 6rpx;
 }
 
 .products .product-item .quantity-container{
@@ -258,7 +259,7 @@ page {
 .total-container .price .icon{
   font-size: 28rpx;
   color: #FF3633;
-  margin: 0rpx 4rpx;
+  margin: 0rpx 6rpx;
 }
 
 .total-container .price .money{

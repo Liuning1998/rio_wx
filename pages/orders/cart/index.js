@@ -57,27 +57,22 @@ Page({
    */
   onShow: function () {
     let cartData = cartApi.getCartCache()
-    // var _cartData = cartApi.getCartCache();
-    console.log(cartData)
+
     if (Object.keys(cartData).length <= 0) {
       cartData = null;
-      // _cartData = null;
     }else{
       //如果是旧版购物车商铺就删掉
       for(var key in cartData.data){
         if(!cartData.data[key].store_code){
-          // _cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
           cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
         }
       }
-      console.log(cartData)
     }
 
-    // this.setData({ cartData: _cartData, cartLoaded: true, deleteButtonShowId: -1 })
     this.setData({ cartData: cartData, cartLoaded: true, deleteButtonShowId: -1 })
+    console.log('更新sku前',this.data.cartData)
 
     if(Object.keys(this.data.avatars).length <= 0) {
-      // this.fetchAvatars(_cartData)
       this.fetchAvatars(cartData)
     }
 
@@ -88,6 +83,8 @@ Page({
           res = null
         }
         this.setData({ cartData: res, cartLoaded: true })
+        console.log('更新sku后',this.data.cartData)
+    
       }
     })
 

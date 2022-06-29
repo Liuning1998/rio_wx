@@ -399,6 +399,10 @@ page {
   height: 100vh;
 }
 
+.page-container::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
 
 /* 搜索层 */
 

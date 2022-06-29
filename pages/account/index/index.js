@@ -21,6 +21,12 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+
+    wx.setNavigationBarColor({
+      backgroundColor: '#ffffff',
+      frontColor: '#000000',
+    })
+
   },
 
 
@@ -189,7 +195,6 @@ Page({
 
   gotoOrder: function (e) {
     let status = e.currentTarget.dataset.state
-    console.log('ass')
     if(status == 'all'){
       // this.subscribe().then(res =>{
         wx.reLaunch({

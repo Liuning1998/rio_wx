@@ -488,6 +488,7 @@ Page({
       'signType': pay_params.signType,
       'paySign': pay_sign,
       'success': (res) => {
+        console.log('wx支付成功')
         this.successToast('支付成功', 1000)
         submitStatus = false
         this.setData({ submitStatus: submitStatus })
@@ -497,6 +498,7 @@ Page({
         })
       },
       'fail': (res) => {
+        console.log('wx支付失败')
         this.errorToast('支付失败', 1000)
         submitStatus = false
         this.setData({ submitStatus: submitStatus })

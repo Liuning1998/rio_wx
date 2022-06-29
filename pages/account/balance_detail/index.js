@@ -53,7 +53,10 @@ Page({
         if(res.data != null && Object.keys(res.data).length > 0){
           this.setData({ entryData: res.data })
         }else{
-          this.errorToast('加载错误')
+          this.errorToast('加载错误');
+          setTimeout(()=>{
+            wx.navigateBack()
+          },1000)
         }
       }
     })

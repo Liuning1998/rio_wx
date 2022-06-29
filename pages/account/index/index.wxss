@@ -150,6 +150,28 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+.order .order_list .count-icon{
+  position: absolute;
+  right: 0rpx;
+  top: -10rpx;
+  background: #FF3633;
+  color: #ffffff;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18rpx 18rpx 18rpx 0;
+  padding: 0 8rpx;
+  min-width: 32rpx;
+  box-sizing: border-box;
+}
+.order .order_list.new .count-icon{
+  right: 0rpx;
+  top: -10rpx;
 }
 .order .order_list text{
   font-size: 36rpx;
@@ -160,8 +182,8 @@ page {
   font-family: PingFangSC-Regular;
 }
 .order_icon{
-  width: 72rpx;
-  height: 72rpx;
+  width: 64rpx;
+  height: 60rpx;
 }
 .order .division{
   width: 6rpx;

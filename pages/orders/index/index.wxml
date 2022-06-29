@@ -68,7 +68,7 @@
               <text class="product-name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
 
               <view class="price-container">
-                  <view class="price"><text>¥</text> {{price.tos(item.product.price)}}</view>
+                  <view class="price"><text>¥</text>{{price.tos(item.product.price)}}</view>
                   <text class="quantity">×{{order.product_total}}</text>
               </view>
 
@@ -140,7 +140,7 @@
                 <text class="product-name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
 
                 <view class="price-container">
-                    <view class="price"><text>¥</text> {{price.tos(item.product.price)}}</view>
+                    <view class="price"><text>¥</text>{{price.tos(item.product.price)}}</view>
                     <text class="quantity">×{{subOrder.product_total}}</text>
                 </view>
 

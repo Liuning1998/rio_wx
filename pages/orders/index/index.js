@@ -172,15 +172,31 @@ Page({
     for (let k=0; k < states.length; k++) {
       let offset = null
       let state = states[k]
+      let subOffset = null;
       let orders = this.data.orders[state + 'Orders']
       for (let i=0; i < orders.length; i++) {
-        if(orders[i].number == order.number) {
+        console.log(orders[i],orders[i].sub_orders)
+        if(orders[i].sub_orders.length > 0){
+          for (let j=0; j < orders[i].sub_orders.length; j++){
+            if(orders[i].sub_orders[j].number == order.number) {
+              offset = i
+              subOffset = j
+              break
+            }
+          }
+        }else if(orders[i].number == order.number){
           offset = i
           break
         }
       }
+
       if (offset != null) {
-        let key = `orders.${state}Orders[${offset}]`
+        let key;
+        if(subOffset != null){
+          key = `orders.${state}Orders[${offset}].sub_orders[${subOffset}]`
+        }else{
+          key = `orders.${state}Orders[${offset}]`
+        }
         this.setData({ [key]: 'deleted' })
       }
     }

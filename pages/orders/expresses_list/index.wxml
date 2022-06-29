@@ -27,7 +27,7 @@
       </view>
       <view class="item">
         <text class="name">最新进度:</text>
-        <text class="info">{{item.data[item.data.length-1].context}}</text>
+        <text class="info">{{item.data[0].context}}</text>
       </view>
     </view>
   </view>
