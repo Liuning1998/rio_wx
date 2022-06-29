@@ -58,6 +58,7 @@ Page({
   onShow: function () {
     let cartData = cartApi.getCartCache()
     // var _cartData = cartApi.getCartCache();
+    console.log(cartData)
     if (Object.keys(cartData).length <= 0) {
       cartData = null;
       // _cartData = null;
@@ -69,7 +70,7 @@ Page({
           cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
         }
       }
-
+      console.log(cartData)
     }
 
     // this.setData({ cartData: _cartData, cartLoaded: true, deleteButtonShowId: -1 })
