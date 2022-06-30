@@ -40,7 +40,7 @@
 </scroll-view>
 
 <view bindtap="submitForm" class="submit btn-box {{ isIphoneX && 'iphone-x' }}">
-  <view class="btn {{ submitDisable && 'disabled'}}">提交</view>
+  <view class="btn {{ submitDisable && 'disabled'}}">确定</view>
 </view>
 
 

@@ -31,9 +31,8 @@
       <view class="info">
         <view class="quantity">共{{currentLineItems.quantity}}件商品</view>
         <view class="money">
-          <text class="price" wx:if="{{!!order.vip_info.name}}">{{price.tos(currentLineItems.total * order.vip_info.name * 0.1)}}</text>
+          <text class="price" wx:if="{{!!order.vip_info.name}}">{{price.tos(currentLineItems.total)}}</text>
           <text class="price" wx:else>{{price.tos(currentLineItems.total)}}</text>
-          <text class="express" wx:if="{{order.shipment_expense <= 0}}">（包邮）</text>
         </view>
       </view>
     </view>

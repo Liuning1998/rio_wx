@@ -5,6 +5,8 @@ var config = require('../app.config.js').config()
 var checkPhonePage = [
   // "/pages/products/show/index",
   "/pages/coupons/list/index",
+  "/products/pages/collect/index",
+  "/pages/account/balance/index",
   "/pages/coupons/dashboard/index",
   "/pages/orders/show/index",
   "/pages/products/buy/index",

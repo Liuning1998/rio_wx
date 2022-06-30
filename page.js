@@ -6,6 +6,8 @@ const http = require('./utils/http.js');
 var checkPhonePage = [
   // "/pages/products/show/index",
   "/pages/coupons/list/index",
+  "/products/pages/collect/index",
+  "/pages/account/balance/index",
   // "/pages/coupons/dashboard/index",
   "/pages/member/index/index",
   "/pages/orders/show/index",
@@ -89,6 +91,7 @@ function beforeOnload (context) {
         "/pages/products/show/index",
         "/pages/special_areas/show/index",
         "/pages/special_areas/show01/index",
+        "/pages/special_areas/show1.2/index",
         "/products/pages/index/index",
         "/products/pages/index2/index",
         "/products/pages/index3/index",
@@ -116,6 +119,7 @@ function beforeOnload (context) {
         "/pages/products/show/index",
         "/pages/special_areas/show/index",
         "/pages/special_areas/show01/index",
+        "/pages/special_areas/show1.2/index",
         "/products/pages/index/index",
         "/products/pages/index2/index",
         "/products/pages/index3/index",
@@ -154,15 +158,22 @@ function beforeOnload (context) {
 
       if (getApp().globalData.userInfo == null || !phoneReg.test(getApp().globalData.userInfo.phone)) {
         
-        if(url.split('?')[0] == '/pages/orders/confirm/index'){
+
+        // -----------v1.2改版前 s-----------
+        // if(url.split('?')[0] == '/pages/orders/confirm/index'){
+        //   wx.navigateTo({
+        //     url:'/pages/account/phone/validate?back=true'
+        //   })
+        // }else{
+        //   wx.redirectTo({
+        //     url: '/pages/account/phone/validate',
+        //   })
+        // }
+        // -----------v1.2改版前 e-----------
+
           wx.navigateTo({
             url:'/pages/account/phone/validate?back=true'
           })
-        }else{
-          wx.redirectTo({
-            url: '/pages/account/phone/validate',
-          })
-        }
 
         return false
       } else {
@@ -210,6 +221,7 @@ function beforeOnload (context) {
         "pages/products/show/index",
         "pages/special_areas/show/index",
         "pages/special_areas/show01/index",
+        "pages/special_areas/show1.2/index",
         "products/pages/index/index",
         "products/pages/index2/index",
         "products/pages/index3/index",

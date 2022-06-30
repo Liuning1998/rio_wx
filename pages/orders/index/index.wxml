@@ -93,7 +93,7 @@
             <block wx:else>
               <block wx:if="{{ order.order_type != 4 && order.order_type != 5 }}">
                 <view wx:if="{{ order.sale_state == null }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">申请售后</view>
-                <view wx:elif="{{ order.sale_state == 'completed'}}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后完成</view>
+                <view wx:elif="{{ order.sale_state == 'completed' || subOrder.sale_state == 'agree' || subOrder.sale_state == 'refuse' }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后完成</view>
                 <view wx:else bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后中</view>
               </block>
             </block>
@@ -165,7 +165,7 @@
               <block wx:else>
                 <block wx:if="{{ subOrder.order_type != 4 && subOrder.order_type != 5 }}">
                   <view wx:if="{{ subOrder.sale_state == null }}" bindtap='orderService' data-order='{{ subOrder }}' class="btn delete-btn">申请售后</view>
-                  <view wx:elif="{{ subOrder.sale_state == 'completed' }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn delete-btn">售后完成</view>
+                  <view wx:elif="{{ subOrder.sale_state == 'completed' || subOrder.sale_state == 'agree' || subOrder.sale_state == 'refuse' }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn delete-btn">售后完成</view>
                   <view wx:else bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn delete-btn">售后中</view>
                 </block>
               </block>

@@ -17,7 +17,7 @@ function addCart (lineItem) {
   let storeCart = cart['store_'+lineItem.store_code] || {}
 
   storeCart.store_id = lineItem.store_id
-  storeCart.store_code = lineItem.store_code //拆单
+  storeCart.store_code = lineItem.store_code //合并支付
   storeCart.store_name = lineItem.product.store_name
   storeCart.store_short_name = lineItem.product.store_short_name
   if (storeCart['lineItems'] != null && storeCart['lineItems']['variant_'+lineItem.variant_id] != null) {
@@ -52,10 +52,21 @@ function addCart (lineItem) {
     }, lineItem)
     
     if (storeCart['lineItems'] == null) { storeCart['lineItems'] = {} }
-    storeCart['lineItems']['variant_' + lineItem.variant_id] = _line 
+    
+    let _lineCopy = {
+      ['variant_' + lineItem.variant_id] : _line
+    }
+    storeCart['lineItems'] = Object.assign(_lineCopy,storeCart['lineItems'])
   }
 
-  cart['store_' + lineItem.store_code] = storeCart
+
+  let storeCartCopy = {
+    ['store_' + lineItem.store_code] : storeCart
+  }
+
+  cart = Object.assign(storeCartCopy,cart)
+
+  // cart['store_' + lineItem.store_code] = storeCart
 
   return setCartToCache(cart)
 }

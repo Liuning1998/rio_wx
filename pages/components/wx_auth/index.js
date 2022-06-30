@@ -79,7 +79,6 @@ Component({
         lang: 'zh_CN',
         desc: "用于平台展示",
         success: res => {
-          console.log(res)
           var data = res.userInfo
           var globalData = getApp().globalData
           var session = globalData.session

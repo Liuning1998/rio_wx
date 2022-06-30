@@ -1294,7 +1294,7 @@ page {
   height: 24rpx;
 }
 .sale-services-products .title{
-  padding: 48rpx 0;
+  padding: 35.5rpx 0;
   width: 702rpx;
   margin: 0 auto;
   font-family: PingFangSC-Medium;

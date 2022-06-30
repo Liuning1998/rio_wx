@@ -18,6 +18,7 @@ page {
   justify-content: space-between;
   padding: 0 48rpx;
   margin-top: 64rpx;
+  align-items: center;
 }
 
 .header-container {
@@ -26,13 +27,13 @@ page {
 }
 
 .header-container .main {
-  font-size: 40rpx;
+  font-size: 50rpx;
   color: #342F27;
   font-weight: 500;
 }
 
 .header-container .sub {
-  font-size: 28rpx;
+  font-size: 36rpx;
   color: #5B5454;
 }
 
@@ -51,9 +52,9 @@ page {
 .field-group {
   display: flex;
   border: 1px solid #f7f7f7;
-  margin-bottom: 8rpx;
+  margin-bottom: 18rpx;
   border-radius: 8rpx;
-  height: 96rpx;
+  height: 106rpx;
   align-items: center;
   justify-content: space-between;
   padding: 0 24rpx;
@@ -81,34 +82,35 @@ page {
 }
 
 .code-btn {
-  font-size: 28rpx;
-  color: #F64C47;
+  font-size: 32rpx;
+  color: #FF3633;
+  flex: none;
 }
 
 .code-btn.disabled {
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #DDD8D8;
 }
 
 .input {
-  font-size: 32rpx;
+  font-size: 36rpx;
   color: #2b2424;
 }
 
 .input-placeholder {
-  font-size: 32rpx;
+  font-size: 36rpx;
   color: #b4afaf;
 }
 
 .form-btn {
   display: block;
-  height: 88rpx;
+  height: 72rpx;
   width: 654rpx;
-  background: linear-gradient(135deg, #FF524E 0%, #FB2C2A 100%);
+  background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
   color: #ffffff;
-  font-size: 32rpx;
+  font-size: 36rpx;
   font-weight: 500;
-  line-height: 88rpx;
+  line-height: 72rpx;
   text-align: center;
   border-radius: 44rpx;
   margin-top: 88rpx;

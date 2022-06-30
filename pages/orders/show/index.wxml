@@ -23,7 +23,7 @@
         <block wx:elif="{{ order.state == 'new' }}">等待支付( {{utilsHelper.getM(helperTime.payLeftTime(order, nowTime)) }}分{{ utilsHelper.getS(helperTime.payLeftTime(order, nowTime))}}秒 )</block>
 
         <block wx:elif="{{ saleServices != null && saleServices.length > 0 }}">
-            <block  wx:if="{{ order.sale_state == 'completed' }}">订单售后完成</block>
+            <block  wx:if="{{ order.sale_state == 'completed' || order.sale_state == 'agree' || order.sale_state == 'refuse' }}">订单售后完成</block>
             <block  wx:else>订单售后中</block>
         </block>
 
@@ -60,7 +60,7 @@
       </view>
 
       <!-- wx:if="{{order.refund_state == null &&  order.state != 'canceled' && order.state != 'handle_canceled' &&  order.state != 'new' &&  order.state != 'padding' }}" -->
-      <view class="express" wx:if="{{ order.expresses != null && order.expresses.length > 0 && saleServices.length <= 0 }}" bindtap="gotoExpress" data-expresses="{{order.expresses}}">
+      <view class="express" wx:if="{{ order.refund_state == null && order.state != 'canceled' && order.state != 'handle_canceled' && saleServices.length <= 0 && order.expresses != null && order.expresses.length > 0}}" bindtap="gotoExpress" data-expresses="{{order.expresses}}">
         <view class="express-box">
           <view class="express-l">
             <!-- 多个包裹 -->
