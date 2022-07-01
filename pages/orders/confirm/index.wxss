@@ -11,7 +11,7 @@ page {
   height: 100%;
   /* flex: 1; */
   overflow-y: scroll;
-  padding-bottom: 174rpx;
+  padding-bottom: 164rpx;
   box-sizing: border-box;
 }
 
@@ -93,7 +93,7 @@ page {
   display: flex;
   width: 702rpx;
   box-sizing: border-box;
-  padding: 36rpx;
+  padding: 24rpx 36rpx;
   align-items: center;
   background: #ffffff;
   box-shadow: 0 16rpx 32rpx -30rpx #CCBFBF;
@@ -187,6 +187,7 @@ page {
   flex-shrink: 0;
   margin-right: 18rpx;
   border: 1rpx solid rgba(230,230,230,1);
+  border-radius: 6rpx;
 }
 
 .products {
@@ -235,6 +236,7 @@ page {
   text-align: justify;
   font-family: PingFangSC-Regular;
   font-weight: 400;
+  line-height: 44rpx;
 }
 
 .products.products .variant-desc {
@@ -246,7 +248,7 @@ page {
 .products .quantity-price {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 
@@ -272,12 +274,15 @@ page {
 }
 
 .products .quantity {
-  font-size: 24rpx;
+  font-size: 36rpx;
   font-family: PingFangSC-Regular;
   color: #332B2B;
   font-weight: 500;
   margin-left: 14rpx;
-  margin-top: 18rpx;
+}
+
+.products .quantity text{
+  margin-right: 6rpx;
 }
 
 /* 商品 */
@@ -288,6 +293,7 @@ page {
   width: 702rpx;
   margin: 0 auto;
   border-top: 1rpx solid rgba(230,230,230,1);
+  padding: 14rpx 0;
 }
 
 .expenses .product-expenses {
@@ -296,7 +302,7 @@ page {
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
-  margin: 44rpx 0;
+  margin: 20rpx 0;
   font-family: PingFangSC-Regular;
   font-size: 36rpx;
   color: #332B2B;
@@ -1451,6 +1457,7 @@ page {
   content: "¥";
   font-family: PingFangSC-Medium;
   font-size: 44rpx;
+  margin-right: 6rpx;
   color: #FFFFFF;
 }
 .balance-result .subject .info{
@@ -1688,7 +1695,7 @@ page {
   margin:  auto;
   background-color: #fff;
   border: 1rpx solid rgba(238,235,232,1);
-  padding: 12rpx 24rpx;
+  padding: 6rpx 24rpx;
   box-sizing: border-box;
 }
 .icon-view .item{

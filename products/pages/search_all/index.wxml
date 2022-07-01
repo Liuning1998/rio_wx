@@ -59,7 +59,7 @@
       <view class="avatar-container">
         <image class="avatar" src="{{item.avatar}}"></image>
       </view>
-      <view class="product-info" style="{{index == (products.length - 1) ? 'border-bottom:none;': ''}}">
+      <view class="product-info">
         <view class="name-and-badge">
           <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
           <view class="pbadges">
@@ -74,6 +74,7 @@
           <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
         </view>
       </view>
+      <view class="line"></view>
     </view>
 
     <view class="page-bottom" wx:if="{{pageBottom}}">

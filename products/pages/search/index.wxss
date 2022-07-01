@@ -137,10 +137,21 @@ page {
   padding: 24rpx 24rpx 0;
   box-sizing: border-box;
   background-color: #Fff;
+  position: relative;
 }
-
+.product .line {
+  position: absolute;
+  width: 336rpx;
+  height: 1rpx;
+  background: #f7f7f7;
+  bottom: 0;
+  right: 0;
+}
+.products-container view:nth-last-child(2) .line{
+  display: none;
+}
 .product .avatar-container{
-  padding: 0 0 24rpx;
+  padding-bottom: 26rpx;
 }
 .product .avatar-container image{
   width: 272rpx;
@@ -148,12 +159,12 @@ page {
   display: flex;
   border-radius: 6rpx;
   margin-right: 24rpx;
+  border: 1rpx solid #E6E6E6;
 }
 .product .product-info{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-bottom: 1rpx solid rgba(230,230,230,1);
   padding: 0 0 8rpx;
   flex: 1;
 }
@@ -165,8 +176,9 @@ page {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   line-height: 1;
+  padding-bottom: 14rpx;
 }
 .product .product-info .price-and-btn .price-container{
   padding-bottom: 4rpx;
@@ -196,11 +208,6 @@ page {
   overflow: hidden;
 }
 
-.products-container .avatar {
-  width: 224rpx;
-  height: 224rpx;
-  display: flex;
-}
 
 .products-container .item-content {
   display: flex;
@@ -210,16 +217,17 @@ page {
 }
 
 .products-container .name {
-  font-size: 36rpx;
-  font-weight: 600;
-  color: #666666;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   display: -webkit-box;
-  box-sizing: border-box;
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  font-weight: 400;
+  line-height: 44rpx;
 }
 
 .products-container .pbadges{

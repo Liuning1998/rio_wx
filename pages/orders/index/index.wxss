@@ -167,7 +167,11 @@ page {
   font-size: 40rpx;
   color: #332B2B;
   font-weight: 500;
-  line-height: 56rpx;
+  line-height: 44rpx;
+}
+
+.products .product-item .price-container .quantity{
+  line-height: 30rpx;
 }
 
 .products .product-item .price-container .price text{
@@ -223,6 +227,7 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
+  line-height: 44rpx;
 }
 
 .products .product-item .product-name  .pre_name{

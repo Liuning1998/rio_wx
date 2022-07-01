@@ -55,6 +55,8 @@
           </view>
         </view>
       </view>
+
+      <view class="line"></view>
     </view>
 
     <view class="page-bottom" wx:if="{{pageBottom}}">

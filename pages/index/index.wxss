@@ -675,6 +675,7 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #FF3633;
+  margin-right: 6rpx;
 }
 .ranking-swiper-box .ranking-swiper-item .ranking-item.active {
   border-radius: 12rpx 12rpx 0 0;
@@ -798,6 +799,7 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
+  line-height: 44rpx;
   /* max-height: 108rpx; */
 }
 .recommend-content .item-container .bottom-info-container{

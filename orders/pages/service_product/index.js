@@ -8,6 +8,8 @@ Page({
    */
   data: {
     allSelected: false,
+    orderServiceStatus: null,
+    canNext: false, //是否可以跳转下一页
   },
 
   /**
@@ -16,13 +18,36 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
-    console.log(options)
-    if(options.line_items && options.number){
-      var currentLineItems = JSON.parse(options.line_items);
-      
-      this.setData({ currentLineItems: currentLineItems, orderNumber: options.number })
+    let order = this.params.order;
+
+    this.getOrderServiceStatus(order).then(()=>{
+      let currentLineItems = new Object();
+      currentLineItems.line_items = new Array();
+      currentLineItems.quantity = new Number();
+      currentLineItems.total = new Number();
+      let productLength = 0
+  
+      if(order){
+        currentLineItems.line_items = order.line_items.filter((value,key)=>{
+          if(this.data.orderServiceStatus[value.variant_id] == 'ok'){
+            value.selected = true;
+            value.selectedQuantity = value.quantity
+            currentLineItems.quantity += value.selectedQuantity
+            currentLineItems.total += parseFloat(value.price) * value.selectedQuantity
+            productLength += 1
+            return value
+          }
+        })
+      }
+
+      this.setData({ 
+        order: this.params.order,
+        currentLineItems: currentLineItems,
+        productLength: productLength,
+        canNext: true,
+      })
       this.computeTAndQ()
-    }
+    })
 
   },
 
@@ -32,6 +57,26 @@ Page({
   onShow: function () {
     
   },
+
+  getOrderServiceStatus: function (order) {
+    return new Promise((resolve,reject)=>{
+      http.get({
+        url: 'api/sale_order_services/show_info',
+        data: { order_number:  order.number },
+        success: res => {
+          if (res.data != null && res.data.items != null && res.data.items.length > 0) {
+            let _data = {}
+            res.data.items.forEach(item => {
+              _data['' + item.id] = item.status
+            })
+            this.setData({ orderServiceStatus: _data })
+            resolve();
+          }
+        }
+      })
+    })
+  },
+
   subQuantity: function (e) {
     var index = e.currentTarget.dataset.index;
     var selectedQuantity = this.data.currentLineItems.line_items[index].selectedQuantity;

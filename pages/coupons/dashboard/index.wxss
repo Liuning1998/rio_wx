@@ -139,9 +139,10 @@ page {
 }
 .products .products-item .products-content .products-value .condition-text{
   margin-left: 12rpx;
+  margin-right: 12rpx;
   border-radius: 6rpx;
   background-color: #FFF0F0;
-  padding: 0 0 0 14rpx;
+  padding: 0 14rpx 0 14rpx;
   height: 40rpx;
   line-height: 40rpx;
   justify-content: center;
@@ -149,6 +150,12 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #FF3633;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 .products .products-item .products-button{
   display: flex;

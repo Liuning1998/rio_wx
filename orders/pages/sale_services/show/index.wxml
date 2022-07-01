@@ -6,7 +6,6 @@
 <scroll-view scroll-y class="page-container">
   <view class="header">
     <view class="slogan">
-      <image class="slogan-bg" src="/images/v1.2/order_detailbg_01.png"></image>
       <text>{{ saleService.state.title }}</text>
     </view>
     <view class="step">

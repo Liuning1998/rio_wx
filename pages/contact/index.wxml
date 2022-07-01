@@ -31,12 +31,12 @@
     </view>
     <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">
       <image class="tab-list-img" src="/images/v1.2/contact_04.png"></image>
-      <text>账户安全</text>
+      <text>退换/售后</text>
       <image class="icon" src="/images/v1.2/contact.png"></image>
     </view>
     <view class="tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">
       <image class="tab-list-img" src="/images/v1.2/contact_01.png"></image>
-      <text>账户安全</text>
+      <text>订单问题</text>
       <image class="icon" src="/images/v1.2/contact.png"></image>
     </view>
 	</view>

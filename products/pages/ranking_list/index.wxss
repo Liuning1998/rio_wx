@@ -33,7 +33,7 @@ page {
   box-sizing: border-box;
   position: relative;
   z-index: 3;
-  top: -166rpx;
+  top: -266rpx;
 }
 
 
@@ -86,6 +86,7 @@ page {
   height: 224rpx;
   display: flex;
   border-radius: 6px;
+  border: 1rpx solid rgba(230,230,230,1);
 }
 
 .products-container .item-content {
@@ -107,6 +108,7 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   font-weight: 400;
+  line-height: 44rpx;
 }
 
 .products-container .name .pre_name{
@@ -317,6 +319,7 @@ page {
 .ranking .item .name{
   font-family: PingFangSC-Regular;
   font-size: 36rpx;
+  line-height: 44rpx;
   color: #332B2B;
   letter-spacing: -1px;
   text-align: justify;
@@ -353,6 +356,7 @@ page {
   font-size: 28rpx;
   color: #FF3633;
   font-weight: 400;
+  margin-right: 6rpx;
 }
 .ranking .item .btn{
   width: 192rpx;

@@ -59,7 +59,7 @@
                 <text class="price">{{price.tos(item.price)}}</text>
                 <!-- <text class="origin-price">￥{{price.tos(item.origin_price)}}</text> -->
               </view>
-              <text class="quantity">x{{item.quantity}}</text>
+              <text class="quantity"><text>x</text>{{item.quantity}}</text>
             </view>
           </view>
         </view>
@@ -355,7 +355,7 @@
               <text class="price">￥{{item.price}}</text>
               <text class="origin-price">￥{{item.origin_price}}</text>
             </view>
-            <text class="item-quantity">x{{item.quantity}}</text>
+            <text class="item-quantity">x {{item.quantity}}</text>
           </view>
         </view>
       </view>

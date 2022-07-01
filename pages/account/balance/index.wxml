@@ -82,7 +82,7 @@
       <view class="item {{time_type == 'months' && 'active'}}" data-type="months" bindtap="changeTime">近三月</view>
     </view>
     <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
-      <view class="btn">确定</view>
+      <view class="btn" bindtap="screenTimeClose">确定</view>
     </view>
   </view>
 </view>
@@ -102,7 +102,7 @@
       <view class="item {{trade_type == 'expend' && 'active'}}" data-type="expend" bindtap="changeType">支出</view>
     </view>
     <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
-      <view class="btn">确定</view>
+      <view class="btn" bindtap="screenTypeClose">确定</view>
     </view>
   </view>
 </view>

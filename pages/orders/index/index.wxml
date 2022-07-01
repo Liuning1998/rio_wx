@@ -48,7 +48,7 @@
           <view wx:if="{{order.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
             <view  class="product-item avatar-box">
               <view style="display: flex;width: 588rpx; overflow:hidden;">
-                <image wx:if="{{ index < 4 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
+                <image wx:if="{{ index < 4 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.avatar }}"></image>
               </view>
 
               <view  wx:if="{{ order.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
@@ -63,13 +63,13 @@
 
           <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
             <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
-              <image class="avatar" src="{{ item.product.avatar }}"></image>
+              <image class="avatar" src="{{ item.avatar }}"></image>
 
-              <text class="product-name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
+              <text class="product-name" wx:if="{{item.product_name != null}}"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.product_name}}</text>
 
               <view class="price-container">
-                  <view class="price"><text>¥</text>{{price.tos(item.product.price)}}</view>
-                  <text class="quantity">×{{order.product_total}}</text>
+                  <view class="price"><text>¥</text>{{price.tos(item.price)}}</view>
+                  <text class="quantity">×{{item.quantity}}</text>
               </view>
 
             </view>
@@ -83,7 +83,7 @@
           <view wx:if="{{ order.state != 'new' }}" class="actions">
 
             <!-- 已支付待发货 -->
-            <view wx:if="{{ order.state == 'padding' || order.state == 'shipping' }}" bindtap='inspectUrgeOrder' data-order='{{ order }}' class="btn delete-btn">催发货</view>
+            <view wx:if="{{ order.state == 'padding' }}" bindtap='inspectUrgeOrder' data-order='{{ order }}' class="btn delete-btn">催发货</view>
 
             <view wx:if="{{ order.order_type != 4 && order.order_type != 5 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">查看详情</view>
             <!-- 原 wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}"  -->
@@ -120,7 +120,7 @@
             <view wx:if="{{subOrder.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}">
               <view  class="product-item avatar-box">
                 <view style="display: flex;width: 588rpx; overflow:hidden;">
-                  <image wx:if="{{ index < 4 }}"  wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
+                  <image wx:if="{{ index < 4 }}"  wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.avatar }}"></image>
                 </view>
 
                 <view  wx:if="{{ subOrder.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
@@ -135,13 +135,13 @@
 
             <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}">
               <view wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
-                <image class="avatar" src="{{ item.product.avatar }}"></image>
+                <image class="avatar" src="{{ item.avatar }}"></image>
 
-                <text class="product-name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
+                <text class="product-name" wx:if="{{item.product_name != null}}"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.product_name}}</text>
 
                 <view class="price-container">
-                    <view class="price"><text>¥</text>{{price.tos(item.product.price)}}</view>
-                    <text class="quantity">×{{subOrder.product_total}}</text>
+                    <view class="price"><text>¥</text>{{price.tos(item.price)}}</view>
+                    <text class="quantity">×{{item.quantity}}</text>
                 </view>
 
               </view>
@@ -155,7 +155,7 @@
             <view wx:if="{{ subOrder.state != 'new' }}" class="actions">
 
               <!-- 已支付待发货 -->
-              <view wx:if="{{ subOrder.state == 'padding' || subOrder.state == 'shipping' }}" bindtap='inspectUrgeOrder' data-order='{{ subOrder }}' class="btn delete-btn">催发货</view>
+              <view wx:if="{{ subOrder.state == 'padding' }}" bindtap='inspectUrgeOrder' data-order='{{ subOrder }}' class="btn delete-btn">催发货</view>
 
               <view wx:if="{{ subOrder.order_type != 4 && subOrder.order_type != 5 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}" class="btn delete-btn">查看详情</view>
               <!-- 原 wx:if="{{order.state == 'completed' || order.payment_state != 'completed'}}"  -->

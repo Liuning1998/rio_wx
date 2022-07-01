@@ -7,7 +7,7 @@ const socketTimeOut = 1000 * 60 * 30;
 //websocket等待结果时间
 const waitInfo = 1000 * 6;
 //延时跳转时间
-const waitGoPage = 1000 * 5 * 1000
+const waitGoPage = 1000 * 5
 //房间号
 var roomId = null;
 // 手动查询支付结果定时器
@@ -38,6 +38,14 @@ var payFun = {
     clearTimeout(pageTimer)
   },
   detailGoOrder:function() {
+    if(pageTimer != ''){
+      clearTimeout(pageTimer)
+    }
+    wx.reLaunch({
+      url: '/pages/orders/index/index',
+    })
+  },
+  detailGoOrderFail:function() {
     if(pageTimer != ''){
       clearTimeout(pageTimer)
     }
