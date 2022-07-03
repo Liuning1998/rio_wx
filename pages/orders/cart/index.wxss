@@ -405,7 +405,7 @@ page {
   padding: 0 30rpx;
   box-sizing: border-box;
   background: #F5F5F5;
-  margin: 0 24rpx;
+  margin: 0 16rpx;
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #332B2B;
@@ -413,9 +413,8 @@ page {
 }
 
 .control-quantity .sub, .control-quantity .plus {
-  width: 40rpx;
-  height: 40rpx;
-  line-height: 48rpx;
+  width: 50rpx;
+  height: 50rpx;
   font-size: 44rpx;
   border-radius: 50%;
   color: #332B2B;
@@ -423,14 +422,15 @@ page {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  padding-bottom: 8rpx;
   box-sizing: border-box;
   font-family: PingFangSC-Medium;
   font-weight: 500;
 }
 
-.control-quantity .sub {
-  padding-top: 8rpx;
+.control-quantity .plus{
+  position: relative;
+  top: -4rpx;
+  font-size: 50rpx;
 }
 
 /* .control-quantity .sub {

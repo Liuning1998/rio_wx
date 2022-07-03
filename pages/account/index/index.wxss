@@ -121,6 +121,7 @@ page {
   display: flex;
   justify-content: flex-end;
   position: relative;
+  padding-top: 10rpx;
 }
 .balance .balance_r .todetail{
   padding: 6rpx 18rpx 6rpx 36rpx;
@@ -165,7 +166,7 @@ page {
   align-items: center;
   justify-content: center;
   border-radius: 18rpx 18rpx 18rpx 0;
-  padding: 0 8rpx;
+  padding: 4rpx 8rpx 0;
   min-width: 32rpx;
   box-sizing: border-box;
 }

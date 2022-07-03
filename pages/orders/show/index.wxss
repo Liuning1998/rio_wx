@@ -1076,6 +1076,7 @@ page {
   font-size: 28rpx;
   margin-right: 6rpx;
   margin-top: 4rpx;
+  color: #FF3633;
 }
 .product-info-all text.money{
   font-family: PingFangSC-Medium;

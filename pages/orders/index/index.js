@@ -441,7 +441,7 @@ Page({
     //   this.errorToast('该订单不能申请售后')
     //   return false
     // }
-    this.navigateTo("/orders/pages/service/index",{
+    this.navigateTo("/orders/pages/service_product/index",{
       order: order
     })
   },

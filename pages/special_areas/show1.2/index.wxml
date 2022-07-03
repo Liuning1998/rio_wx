@@ -102,8 +102,8 @@
                 </view>
                 <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
               </view>
+              <view wx:if="{{ index < products['id_'+currentLabel.id].length - 1}}" class="line"></view>
             </view>
-            <view class="line"></view>
           </view>
           <view class="page-bottom" wx:if="{{pageBottom['id_'+currentLabel.id]}}">
             <image src="/images/bottom_icon_001.png"></image>

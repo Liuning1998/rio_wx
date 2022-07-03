@@ -23,36 +23,16 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
-    let order = this.params.order;
+    let currentLineItems = this.params.currentLineItems
+    let order = this.params.order
+    let productLength = this.params.productLength
+    this.setData({ 
+      order: order,
+      currentLineItems: currentLineItems,
+      productLength: productLength,
+    })
 
     this.getServices()
-    this.getOrderServiceStatus(order).then(()=>{
-      console.log('this.getOrderServiceStatus')
-      let currentLineItems = new Object();
-      currentLineItems.line_items = new Array();
-      currentLineItems.quantity = new Number();
-      currentLineItems.total = new Number();
-      let productLength = 0
-  
-      if(order){
-        currentLineItems.line_items = order.line_items.filter((value,key)=>{
-          if(this.data.orderServiceStatus[value.variant_id] == 'ok'){
-            value.selected = true;
-            value.selectedQuantity = value.quantity
-            currentLineItems.quantity += value.selectedQuantity
-            currentLineItems.total += parseFloat(value.price) * value.selectedQuantity
-            productLength += 1
-            return value
-          }
-        })
-      }
-
-      this.setData({ 
-        order: this.params.order,
-        currentLineItems: currentLineItems,
-        productLength: productLength
-      })
-    })
   },
 
   /**
@@ -177,10 +157,10 @@ Page({
       data: _data,
       success: res => {
         // submiting = false
-        this.successToast('已经发起售后')
-        setTimeout(res => {
-          wx.navigateBack({})
+        setTimeout(function(){
+          wx.navigateBack({ delta: 2 })
         }, 1000)
+        this.successToast('已经发起售后')
       },
       fail: res => {
         submiting = false

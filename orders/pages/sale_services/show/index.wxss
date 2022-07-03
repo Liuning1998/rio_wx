@@ -240,6 +240,7 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #332B2B;
+  margin-right: 6rpx;
 }
 .product .product-item .info .quantity{
   font-family: PingFangSC-Regular;

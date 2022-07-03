@@ -12,7 +12,7 @@
           <image src="/images/selected_icon_003.png"></image>
         </view>
       </view>
-      <view class="number">订单编号：{{ orderNumber }}</view>
+      <view class="number">订单编号：{{ order.number }}</view>
     </view>
     <view class="product" wx:for="{{currentLineItems.line_items}}" wx:key="index" data-item="{{item}}" data-index="{{index}}" bindtap="selectItem">
       <view class="select {{item.selected && 'selected'}}">

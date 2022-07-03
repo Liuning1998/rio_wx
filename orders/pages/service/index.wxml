@@ -7,10 +7,10 @@
   <view class="products">
     <view class="title">
       <text class="name">售后商品</text>
-      <view class="right" bindtap="toProducts">
+      <!-- <view class="right" bindtap="toProducts">
         <text>添加和编辑</text>
         <image src="/images/v1.2/arrow_02.png"></image>
-      </view>
+      </view> -->
     </view>
     <view class="products-box" wx:if="{{currentLineItems.line_items.length > 0}}">
       <view class="icon"></view>

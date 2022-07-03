@@ -205,7 +205,7 @@ page {
 .product{
   display: flex;
   width: 750rpx;
-  padding: 24rpx 24rpx;
+  padding: 28rpx 24rpx 0;
   box-sizing: border-box;
   background-color: #Fff;
   position: relative;
@@ -214,7 +214,7 @@ page {
   display: none;
 }
 .product .avatar-container{
-  padding-bottom: 26rpx;
+  padding-bottom: 28rpx;
 }
 .product .avatar-container image{
   width: 272rpx;
@@ -228,6 +228,7 @@ page {
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  position: relative;
 }
 .product .product-info .name-and-badge .name{
   overflow: hidden;
@@ -255,14 +256,14 @@ page {
 }
 .product .line {
   position: absolute;
-  width: 336rpx;
+  width: 100%;
   height: 1rpx;
   background: #f7f7f7;
   bottom: 0;
   right: 0;
 }
 .product .product-info .price-and-btn .price-container{
-  padding-bottom: 4rpx;
+  margin-top: 14rpx;
 }
 .product .product-info .price-and-btn .unit{
   font-family: PingFangSC-Regular;

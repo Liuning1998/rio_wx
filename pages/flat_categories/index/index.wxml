@@ -76,9 +76,10 @@
               </view>
               <image class="add-cart" data-item="{{item}}" src="/images/v1.2/add_cart.png"></image>
             </view>
+
+            <view wx:if="{{ index < products['id_'+currentCategory.id].length - 1 }}" class="line"></view>
           </view>
 
-          <view wx:if="{{ index < products['id_'+currentCategory.id].length - 1 }}" class="line"></view>
         </view>
       </view>
 

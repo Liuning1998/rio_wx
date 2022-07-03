@@ -154,14 +154,13 @@ Page({
   // 提交
   submitForm:function(){
 
-    var pages = getCurrentPages();
-    var prevPage = pages[pages.length - 2];
     var quantity = this.data.currentLineItems.quantity
     if(quantity > 0){
-      prevPage.setData({
-        currentLineItems: this.data.currentLineItems//要向上个页面传的参数！
+      this.navigateTo("/orders/pages/service/index",{
+        currentLineItems: this.data.currentLineItems,
+        order: this.data.order,
+        productLength: this.data.productLength
       })
-      wx.navigateBack({})
     }else{
       this.errorToast('请选择售后商品')
       return false

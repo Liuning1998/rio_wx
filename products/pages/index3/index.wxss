@@ -71,24 +71,23 @@ page {
 
 .products-container {
   /* padding-top: 88rpx; */
-  padding-bottom: 100rpx;
   box-sizing: border-box;
   position: relative;
   z-index: 3;
-  top: -166rpx;
+  width: 702rpx;
+  margin: -166rpx auto 0;
+  background-color: #fff;
+  border-radius: 8rpx;
 }
 
 
 .products-container .product-item {
   display: flex;
-  padding: 24rpx;
+  padding: 24rpx 24rpx 0;
   box-sizing: border-box;
   margin: auto;
-  margin-bottom: 14rpx;
   width: 702rpx;
-  border-radius: 8rpx;
   position: relative;
-  background: #ffffff;
 }
 
 .products-container .avatar-container {
@@ -97,7 +96,7 @@ page {
   border-radius: 8rpx;
   position: relative;
   /* overflow: hidden; */
-  padding-bottom: 26rpx;
+  padding-bottom: 24rpx;
 }
 
 .products-container .sort-badge {
@@ -122,6 +121,7 @@ page {
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  position: relative;
 }
 
 .products-container .name {
@@ -155,6 +155,10 @@ page {
   box-sizing: border-box;
 }
 
+.page-bottom {
+  padding-bottom: 100rpx;
+}
+
 .product-item .price-and-cart {
   display: flex;
   justify-content: space-between;
@@ -163,9 +167,13 @@ page {
   padding-bottom: 14rpx;
 }
 
+.product-item .price-and-cart .price-container{
+  margin-top: 14rpx;
+}
+
 .product-item .line {
   position: absolute;
-  width: 336rpx;
+  width: 100%;
   height: 1rpx;
   background: #f7f7f7;
   bottom: 0;
