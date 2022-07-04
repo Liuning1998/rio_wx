@@ -156,7 +156,7 @@ page {
   display: flex;
   border-radius: 6rpx;
   margin-right: 24rpx;
-  border: 1rpx solid #E6E6E6;
+  border: 2rpx solid #E6E6E6;
 }
 .product .product-info{
   display: flex;
@@ -310,7 +310,7 @@ page {
   height: 64rpx;
   display: flex;
   background: #F5F5F5;
-  border: 1rpx solid #E6E6E6;
+  border: 2rpx solid #E6E6E6;
   border-radius: 36rpx;
   align-items: center;
   justify-content: flex-start;

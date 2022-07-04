@@ -152,7 +152,7 @@ page {
   margin-right: 12rpx;
   border-radius: 6rpx;
   overflow: hidden;
-  border: 1rpx solid rgba(230,230,230,1);
+  border: 2rpx solid rgba(230,230,230,1);
 }
 
 .products .product-item .price-container {
@@ -291,7 +291,7 @@ page {
   width: 216rpx;
   box-sizing: border-box;
   border: 1rpx solid rgba(51,43,43,.5);
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   text-align: center;
   line-height: 72rpx;
   margin-right: 12rpx;
@@ -302,15 +302,15 @@ page {
 }
 
 .buy-btn {
-  height: 72rpx;
+  height: 96rpx;
   width: 216rpx;
   box-sizing: border-box;
   border: 1rpx solid #FF3633;
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   color: #FF3633;
   text-align: center;
   font-family: PingFangSC-Medium;
-  line-height: 72rpx;
+  line-height: 96rpx;
   font-size: 32rpx;
   font-weight: 500;
 }
@@ -320,7 +320,7 @@ page {
   width: 216rpx;
   box-sizing: border-box;
   /* border: 1rpx solid #ce343c; */
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   text-align: center;
   line-height: 72rpx;
   font-size: 32rpx;
@@ -361,11 +361,11 @@ page {
 }
 
 .goto-home {
-  height: 72rpx;
+  height: 96rpx;
   width: 250rpx;
   text-align: center;
-  line-height: 72rpx;
-  border-radius: 36rpx;
+  line-height: 96rpx;
+  border-radius: 54rpx;
   background: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
   font-size: 36rpx;
   color: #ffffff;
@@ -466,13 +466,13 @@ page {
 }
 .urge-popup .popup .urge-btn .btn{
   width: 341rpx;
-  height: 72rpx;
-  line-height: 72rpx;
+  height: 96rpx;
+  line-height: 96rpx;
   text-align: center;
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   box-sizing: border-box;
-  border-radius: 36rpx;
+  border-radius: 54rpx;
 }
 .urge-popup .popup .urge-btn .btn.hyaline{
   border: 2rpx solid #E6E6E6;

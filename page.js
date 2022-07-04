@@ -213,15 +213,16 @@ function beforeOnload (context) {
       this.navigateTo(url)
     }
 
-    this.onShareAppMessage = function () {
+    this.onShareAppMessage = function (e) {
+      console.log(e)
       // imageUrl
       // 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持PNG及JPG。显示图片长宽比是 5: 4。	
       // 使用默认截图
       var noRedirectRoot = [
         "pages/products/show/index",
-        "pages/special_areas/show/index",
-        "pages/special_areas/show01/index",
-        "pages/special_areas/show1.2/index",
+        // "pages/special_areas/show/index",
+        // "pages/special_areas/show01/index",
+        // "pages/special_areas/show1.2/index",
         "products/pages/index/index",
         "products/pages/index2/index",
         "products/pages/index3/index",
@@ -234,9 +235,16 @@ function beforeOnload (context) {
 
       if (!noRedirectRoot.includes(this.route)) {
         return {
-            title: '金色家园',
-            path: `/pages/index/index?from=share` ,
-          }
+          title: '金色家园',
+          path: `/pages/index/index?from=share` ,
+          imageUrl: '/images/v1.2/share.jpg'
+        }
+      } else if( this.route == 'pages/products/show/index' && e.from == 'menu'){ //商品详情右上角
+        return {
+          title: '金色家园',
+          path: `/pages/index/index?from=share` ,
+          imageUrl: '/images/v1.2/share.jpg'
+        }
       }
       // return {
       //   title: '金色家园',

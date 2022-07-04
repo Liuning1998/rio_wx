@@ -45,11 +45,18 @@ Page({
 
   onShow: function () {
     if (this.data.secondLoad) {
+      this.goTop()//跳到页面顶部
       this.refreshData()
     }
     this.setData({ secondLoad: true })
     this.resetUerInfo()
     this.setNowTime()
+  },
+
+  goTop: function (e) {  // 一键回到顶部
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
   },
 
   fetchOrders: function (state) {

@@ -19,10 +19,11 @@
         <image src="/images/selected_icon_003.png"></image>
       </view>
       <view class="avatar">
-        <image src="{{item.avatar}}"></image>
+        <image src="{{item.product.avatar}}"></image>
       </view>
       <view class="info">
-        <view class="name">{{item.product_name}}</view>
+        <view class="name" wx:if="{{item.product_name}}">{{item.product_name}}</view>
+        <view class="name" wx:else>{{item.product.name}}</view>
         <view class="bottom">
           <view class="price">￥{{item.price}}</view>
           <view class="quantity">

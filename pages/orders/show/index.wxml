@@ -124,10 +124,10 @@
       </view>
 
       <view class="product">
-        <view class="item" wx:if="{{index < showProductQuantity}}"  bindtap="gotoProduct" data-url="/pages/products/show/index?id={{ item.product_id }}" wx:for="{{order.line_items}}" wx:for-item="item" wx:key="index">
+        <view class="item" wx:if="{{index < showProductQuantity}}"  bindtap="gotoProduct" data-url="/pages/products/show/index?id={{ item.product.id }}" wx:for="{{order.line_items}}" wx:for-item="item" wx:key="index">
           <view class="item-top">
             <view class="avatar">
-              <image src="{{item.avatar}}"></image>
+              <image src="{{item.product.avatar}}"></image>
             </view>
             <view class="name">{{item.product_name}}</view>
             <view class="money">

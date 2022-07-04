@@ -365,7 +365,14 @@ Page({
     this.navigateTo(`/products/pages/collect/index?store_code=${item.store_code}&store_short_name=${item.store_short_name}&total=${item.total}`)
   },
 
+  goTop: function (e) {  // 一键回到顶部
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
+  },
+
   addCart: function (e) {
+    this.goTop()
     var item = e.currentTarget.dataset.item
     if (item.tags != null && item.tags.indexOf('虚拟卡券') >= 0) {
       this.navigateTo("/pages/products/show/index?id=" + item.id)

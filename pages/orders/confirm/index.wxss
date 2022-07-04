@@ -920,12 +920,11 @@ page {
 
 .pay-method-layer .bottom-btns .pay-method-confirm {
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
-  border-radius: 42rpx;
-  border-radius: 42rpx;
-  height: 72rpx;
+  border-radius: 54rpx;
+  height: 96rpx;
   width: 702rpx;
   display: inline-block;
-  line-height: 72rpx;
+  line-height: 96rpx;
   text-align: center;
   font-size: 36rpx;
   color: #ffffff;
@@ -1638,9 +1637,9 @@ page {
 }
 .balance-fail .popup .btn-box .btn{
   border: 2rpx solid #E6E6E6;
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   width: 341rpx;
-  height: 72rpx;
+  height: 96rpx;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -285,9 +285,9 @@ page {
 }
 .balance-popup .popup .btn-box .btn{
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   width: 702rpx;
-  height: 72rpx;
+  height: 96rpx;
   display: flex;
   align-items: center;
   justify-content: center;

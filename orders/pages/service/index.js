@@ -31,6 +31,12 @@ Page({
       currentLineItems: currentLineItems,
       productLength: productLength,
     })
+    
+    if(this.data.userInfo.phone && this.data.userInfo.phone.trim() != ''){
+      this.setData({
+        link_phone: this.data.userInfo.phone
+      })
+    }
 
     this.getServices()
   },

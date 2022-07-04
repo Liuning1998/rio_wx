@@ -120,7 +120,7 @@
   </view>
 </view>
 
-<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 108rpx;"></image>
 
 <!-- <view catchtap="gotoCart1" class="page-cart-container">
   <view class="white-background">

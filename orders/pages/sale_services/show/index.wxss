@@ -211,7 +211,7 @@ page {
   display: flex;
 }
 .product .product-item .avatar image{
-  border: 1rpx solid #E6E6E6;
+  border: 2rpx solid #E6E6E6;
   border-radius: 6rpx;
   width: 168rpx;
   height: 168rpx;

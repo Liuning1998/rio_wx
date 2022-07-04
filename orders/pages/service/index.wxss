@@ -100,7 +100,7 @@ page {
   margin-right: 12rpx;
   width: 192rpx;
   height: 192rpx;
-  border: 1rpx solid #E6E6E6;
+  border: 2rpx solid #E6E6E6;
   border-radius: 12rpx;
   flex: none;
 }
@@ -119,8 +119,8 @@ page {
 .products-box .one-content .one-avatar image{
   width: 192rpx;
   height: 192rpx;
-  border: 1rpx solid #E6E6E6;
-  border-radius: 12rpx;
+  border: 2rpx solid #E6E6E6;
+  border-radius: 6rpx;
   margin-right: 24rpx;
 }
 .products-box .one-content .one-info{
@@ -154,7 +154,7 @@ page {
 }
 .products-box .one-content .one-info .price::before{
   content: "¥";
-  margin-right: 4rpx;
+  margin-right: 6rpx;
 }
 /* 单个商品 e */
 
@@ -181,6 +181,7 @@ page {
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #FF3633;
+  margin-right: 6rpx;
 }
 .products-box .info .money .price{
   font-family: PingFangSC-Medium;
@@ -266,12 +267,12 @@ page {
 }
 .btn-box .btn{
   width: 702rpx;
-  height: 72rpx;
+  height: 96rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #FFFFFF;
@@ -367,9 +368,9 @@ page {
 }
 .service-popup .popup .btn-box .btn{
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   width: 702rpx;
-  height: 72rpx;
+  height: 96rpx;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -643,7 +643,7 @@ page {
   width: 272rpx;
   text-align: center;
   line-height: 80rpx;
-  border-radius: 36rpx;
+  border-radius: 50rpx;
   background-image: linear-gradient(90deg, #FF524E 0%, #FB2C2A 100%);
   padding: 0;
   position: relative;
@@ -656,11 +656,11 @@ page {
 .btn.confirm-btn {
   /* margin-top: 16rpx; */
   margin: 0 12rpx;
-  height: 72rpx;
+  height: 80rpx;
   width: 702rpx;
   text-align: center;
-  line-height: 72rpx;
-  border-radius: 36rpx;
+  line-height: 80rpx;
+  border-radius: 54rpx;
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
   padding: 0;
   position: relative;
@@ -1068,7 +1068,7 @@ page {
 }
 
 .coupon-layer .btn-content {
-  height: 72rpx;
+  height: 96rpx;
   position: relative;
   z-index: 304;
   width: 400rpx;
@@ -1081,7 +1081,7 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height: 72rpx;
+  line-height: 96rpx;
   text-align: center;
   margin-left: 24rpx;
 }
@@ -1405,7 +1405,7 @@ page {
   box-shadow: 0 0 2rpx 0 #E5E5E5;
   display: flex;
   justify-content: center;
-  height: 98rpx;
+  height: 108rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1414,15 +1414,15 @@ page {
   padding-bottom: 68rpx;
 }
 .coupon-p .popup.iphone-x .pupup-scroll{
-  height: calc(100% - 390rpx);
+  height: calc(100% - 394rpx);
 }
 .coupon-p .popup-btn view{
   width: 702rpx;
-  height: 72rpx;
+  height: 80rpx;
   display: inline-block;
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
   border-radius: 100rpx;
-  line-height: 72rpx;
+  line-height: 80rpx;
   text-align: center;
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
@@ -1559,7 +1559,7 @@ page {
   width: 192rpx;
   height: 72rpx;
   background-image: linear-gradient(90deg, #FF3633 0%, #FB2C2A 100%);
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   line-height: 72rpx;
   text-align: center;
   font-family: PingFangSC-Medium;
@@ -1807,11 +1807,11 @@ page {
 }
 .gift-p .popup-btn view{
   background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   width: 702rpx;
-  height: 72rpx;
+  height: 80rpx;
   text-align: center;
-  line-height: 72rpx;
+  line-height: 80rpx;
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #FFFFFF;

@@ -41,19 +41,19 @@
     </view>
 	</view>
   <view class="line"></view>
-  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange"  style="width: 750rpx;height: calc(100vh - {{ isIphoneX ? (pageMarginTop + 44 + 375) : (pageMarginTop + 44 + 341)}}px);">
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange"  style="width: 750rpx;height: calc(100vh - {{ isIphoneX ? (pageMarginTop + 44 + 389) : (pageMarginTop + 44 + 355)}}px);">
     <swiper-item>
       <scroll-view scroll-y="true" class="tab-content">
         <view class="tab-content-list" bindtap="toAnswer" data-id="1">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请1</view>
+          <view class="text">“平台余额”从哪里查看？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="2">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
+          <view class="text">“平台余额”如何使用？是否有期限和使用要求？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
@@ -62,99 +62,23 @@
     </swiper-item>
     <swiper-item>
       <scroll-view scroll-y="true" class="tab-content">
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="3">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请2</view>
+          <view class="text">能否修改支付密码？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
         </view>
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="4">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
+          <view class="text">如何查询养老助残卡的余额及使用情况？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
         </view>
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="5">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>
-        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>
-        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>
-        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
-          <view class="arrow">
-            <image src="/images/arrow.png"></image>
-          </view>
-        </view>
-        <view class="tab-content-list">
-          <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
+          <view class="text">手机号与银行预留不一致？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
@@ -163,16 +87,30 @@
     </swiper-item>
     <swiper-item>
       <scroll-view scroll-y="true" class="tab-content">
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="6">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请3</view>
+          <view class="text">如何提交售后申请？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
         </view>
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="7">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
+          <view class="text">退货/退款的订单金额何时到帐？</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list" bindtap="toAnswer" data-id="8">
+          <view class="dot"></view>
+          <view class="text">订单如何取消？</view>
+          <view class="arrow">
+            <image src="/images/arrow.png"></image>
+          </view>
+        </view>
+        <view class="tab-content-list" bindtap="toAnswer" data-id="9">
+          <view class="dot"></view>
+          <view class="text">收货人地址信息填写错误，该如何修改？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
@@ -181,16 +119,16 @@
     </swiper-item>
     <swiper-item>
       <scroll-view scroll-y="true" class="tab-content">
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="10">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请4</view>
+          <view class="text">下单之后何时发货？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
         </view>
-        <view class="tab-content-list">
+        <view class="tab-content-list" bindtap="toAnswer" data-id="11">
           <view class="dot"></view>
-          <view class="text">如何提交售后申请</view>
+          <view class="text">订单配送的物流快递有哪些？从哪里发货？</view>
           <view class="arrow">
             <image src="/images/arrow.png"></image>
           </view>
@@ -202,7 +140,7 @@
 </view>
 
 <view class="tokefu {{ isIphoneX && 'iphone-x' }}">
-  <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover' show-message-card="{{true}}">
+  <button class='btn btn-xl btn-radius' open-type="contact" hover-class='hover'>
     其他问题，点此咨询
   </button>
   <text>工作时间：工作日9:00-18:00</text>

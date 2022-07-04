@@ -174,9 +174,7 @@
 
 </scroll-view>
 
-
-<image wx:if="{{noticeText == null || noticeText.length <= 0}}" src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 14rpx;"></image>
-<image wx:else src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 78rpx;"></image>
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 14rpx;"></image>
 
 <msgToast msg-data="{{ _msgData }}"/>
 

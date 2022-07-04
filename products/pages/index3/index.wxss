@@ -113,7 +113,7 @@ page {
   height: 272rpx;
   display: flex;
   border-radius: 6rpx;
-  border: 1rpx solid rgba(230,230,230,1);
+  border: 2rpx solid rgba(230,230,230,1);
 }
 
 .products-container .item-content {

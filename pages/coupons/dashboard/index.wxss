@@ -199,7 +199,7 @@ page {
   width: 192rpx;
   height: 72rpx;
   background-image: linear-gradient(90deg, #FF3633 0%, #FB2C2A 100%);
-  border-radius: 36rpx;
+  border-radius: 54rpx;
   line-height: 72rpx;
   text-align: center;
   font-family: PingFangSC-Medium;

@@ -48,7 +48,7 @@
           <view wx:if="{{order.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
             <view  class="product-item avatar-box">
               <view style="display: flex;width: 588rpx; overflow:hidden;">
-                <image wx:if="{{ index < 4 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.avatar }}"></image>
+                <image wx:if="{{ index < 4 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
               </view>
 
               <view  wx:if="{{ order.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
@@ -63,9 +63,10 @@
 
           <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
             <view wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
-              <image class="avatar" src="{{ item.avatar }}"></image>
+              <image class="avatar" src="{{ item.product.avatar }}"></image>
 
-              <text class="product-name" wx:if="{{item.product_name != null}}"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.product_name}}</text>
+              <text class="product-name" wx:if="{{item.product_name != null}}"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product_name}}</text>
+              <text class="product-name" wx:else><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
 
               <view class="price-container">
                   <view class="price"><text>¥</text>{{price.tos(item.price)}}</view>
@@ -120,7 +121,7 @@
             <view wx:if="{{subOrder.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}">
               <view  class="product-item avatar-box">
                 <view style="display: flex;width: 588rpx; overflow:hidden;">
-                  <image wx:if="{{ index < 4 }}"  wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.avatar }}"></image>
+                  <image wx:if="{{ index < 4 }}"  wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="avatar" src="{{ item.product.avatar }}"></image>
                 </view>
 
                 <view  wx:if="{{ subOrder.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
@@ -135,9 +136,10 @@
 
             <view wx:else class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{subOrder.number}}">
               <view wx:for="{{ subOrder.line_items }}" wx:for-item="item" wx:key="index" class="product-item">
-                <image class="avatar" src="{{ item.avatar }}"></image>
+                <image class="avatar" src="{{ item.product.avatar }}"></image>
 
-                <text class="product-name" wx:if="{{item.product_name != null}}"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.product_name}}</text>
+                <text class="product-name" wx:if="{{item.product_name != null}}"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product_name}}</text>
+                <text class="product-name" wx:else><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
 
                 <view class="price-container">
                     <view class="price"><text>¥</text>{{price.tos(item.price)}}</view>
