@@ -22,8 +22,6 @@ page {
 .products .avatar image{
   width: 216rpx;
   height: 216rpx;
-  border-radius: 6rpx;
-  border: 2rpx solid #E6E6E6;
   margin-right: 18rpx;
 }
 .products .info{

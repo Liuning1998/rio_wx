@@ -46,7 +46,7 @@
 
       <view class="products">
         <view wx:for="{{ lineItems }}" wx:for-item="item" wx:key="index"  class="product-item" wx:if="{{item.selectStatus && index < showProductQuantity}}">
-          <image class="avatar" src="{{avatars[item.product.id] || item.product.avatar}}"></image>
+          <image class="avatar avatar_border" src="{{avatars[item.product.id] || item.product.avatar}}"></image>
 
           <view class="product-info">
             <view class='name-variant'>

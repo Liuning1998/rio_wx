@@ -104,13 +104,13 @@ Page({
       params.q.payment_state_not_eq = 'refunded'
       params.q.sale_state_present = true
       params.q.order_type_eq = 2
-      params.show_type = true
+      // params.show_type = true
       delete params.q.order_type_not_in
     } else if ( state == 'padding' || state == 'shipping' ) {
-      params.q.sale_state_blank = true
+      // params.q.sale_state_blank = true
       params.q.ship_state_in = ['padding', 'shipping']
       params.q.payment_state_eq = 'completed'
-      params.show_type = true
+      // params.show_type = true
     } else if (state != 'all') {
       params.q.state_eq = state
     }
@@ -342,13 +342,13 @@ Page({
       params.q.payment_state_not_eq = 'refunded'
       params.q.sale_state_present = true
       params.q.order_type_eq = 2
-      params.show_type = true
+      // params.show_type = true
       delete params.q.order_type_not_in
     } else if ( state == 'padding' || state == 'shipping' ) {
-      params.q.sale_state_blank = true
+      // params.q.sale_state_blank = true
       params.q.ship_state_in = ['padding', 'shipping']
       params.q.payment_state_eq = 'completed'
-      params.show_type = true
+      // params.show_type = true
     } else if (state != 'all') {
       params.q.state_eq = state
     }

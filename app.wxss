@@ -197,3 +197,10 @@
   transform: rotate(90deg);
 }
 /* 跳到顶部 e */
+
+/* 商品图 s */
+.avatar_border{
+  border-radius: 6rpx;
+  border: 2rpx solid #FAFAFA;
+}
+/* 商品图 e */

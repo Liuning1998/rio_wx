@@ -32,7 +32,7 @@
   <view wx:else class="products-container">
     <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
       <view class="avatar-container">
-        <image class="avatar" src="{{item.avatar}}"></image>
+        <image class="avatar avatar_border" src="{{item.avatar}}"></image>
         <image wx:if="{{sortBadge && index <= 2}}" class="sort-badge" src="/images/sort_0{{index+1}}.png"></image>
       </view>
 

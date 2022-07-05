@@ -84,7 +84,7 @@
           <mp-slideview show="{{ deleteButtonShowId == item.variant_id }}" bindshow="slideviewShow" buttons="{{deleteButton}}" bindbuttontap="deleteItem" data-item='{{ item }}'>
           <view  data-item="{{ item }}" class="weui-slidecell line-item-content">
             <view bindtap="changeSelectStatus" data-item="{{item}}" class="select {{ item.selectStatus && 'selected' }}"><image src="/images/selected_icon_003.png"></image></view>
-            <image bindtap="gotoProduct" data-item="{{item.product}}" class="avatar" src="{{ avatars[item.product.id] || item.product.avatar}}"></image>
+            <image bindtap="gotoProduct" data-item="{{item.product}}" class="avatar avatar_border" src="{{ avatars[item.product.id] || item.product.avatar}}"></image>
             <view class="line-item-info">
               <view bindtap="gotoProduct" data-item="{{item.product}}" style="display: flex; flex-direction: column; flex: 1;">
                 <text class="name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>

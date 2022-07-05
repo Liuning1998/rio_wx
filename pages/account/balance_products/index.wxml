@@ -8,7 +8,7 @@
 
     <view wx:if="{{products && products.length > 0}}" class="products"  wx:for="{{products}}" wx:key="index">
       <view class="avatar">
-        <image src="{{item.avatar}}"></image>
+        <image class="avatar_border" src="{{item.avatar}}"></image>
       </view>
       <view class="info">
         <view class="name">{{item.name}}</view>

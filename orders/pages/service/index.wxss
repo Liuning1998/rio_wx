@@ -50,6 +50,8 @@ page {
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: #332B2B;
+  height: 50rpx;
+  padding: 30rpx 0;
 }
 .input-placeholder{
   font-family: PingFangSC-Regular;
@@ -100,7 +102,6 @@ page {
   margin-right: 12rpx;
   width: 192rpx;
   height: 192rpx;
-  border: 2rpx solid #E6E6E6;
   border-radius: 12rpx;
   flex: none;
 }
@@ -119,8 +120,6 @@ page {
 .products-box .one-content .one-avatar image{
   width: 192rpx;
   height: 192rpx;
-  border: 2rpx solid #E6E6E6;
-  border-radius: 6rpx;
   margin-right: 24rpx;
 }
 .products-box .one-content .one-info{

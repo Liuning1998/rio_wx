@@ -909,8 +909,6 @@ page {
 .product .item .item-top .avatar image{
   width: 168rpx;
   height: 168rpx;
-  border-radius: 6rpx;
-  border: 2rpx solid rgba(230,230,230,1);
 }
 .product .item .item-top .name{
   font-family: PingFangSC-Regular;
@@ -1248,6 +1246,7 @@ page {
   margin: 48rpx auto 0;
   display: flex;
   justify-content: center;
+  padding: 0;
 }
 .sale-services-products .product .avatar{
   display: flex;
@@ -1256,13 +1255,12 @@ page {
   width: 168rpx;
   height: 168rpx;
   margin-right: 12rpx;
-  border-radius: 6rpx;
-  border: 2rpx solid rgba(230,230,230,1);
 }
 .sale-services-products .product .info{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 }
 .sale-services-products .product .info .name{
   font-family: PingFangSC-Regular;
@@ -1274,6 +1272,7 @@ page {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  line-height: 44rpx;
 }
 .sale-services-products .product .info .time{
   font-family: PingFangSC-Regular;
@@ -1287,26 +1286,42 @@ page {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
-.sale-services-products .product .sale-state{
+.sale-services-products .sale-state{
+  width: 700rpx;
+  margin: 24rpx auto 48rpx;
+  background: #FAFAFA;
+  border-radius: 6rpx;
+  height: 120rpx;
   display: flex;
+  padding: 0 21rpx 0 36rpx;
+  box-sizing: border-box;
   align-items: center;
-  flex: none;
-  justify-content: flex-end;
-  margin-left: 10rpx;
 }
-.sale-services-products .product .sale-state text{
+.sale-services-products .sale-state text{
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
+  color: #332B2B;
+  flex: 1;
+  margin: 0 24rpx;
+}
+.sale-services-products .sale-state .sale-icon{
+  width: 52rpx;
+  height: 52rpx;
+  position: relative;
+  top: 4rpx;
+}
+.sale-services-products .sale-state .sale-arrow{
+  display: flex;
+  align-items: center;
+}
+.sale-services-products .sale-state .sale-arrow text{
   color: #FF3633;
-  font-weight: 500;
-  margin-right: 12rpx;
+  margin-right: 2.5rpx;
 }
-.sale-services-products .product .sale-state text.green{
-  color:#77D9BD;
-}
-.sale-services-products .product .sale-state image{
-  width: 12rpx;
-  height: 24rpx;
+.sale-services-products .sale-state .sale-arrow image{
+  width: 26rpx;
+  height: 12rpx;
+  transform: rotate(-90deg);
 }
 .sale-services-products .title{
   padding: 35.5rpx 0;

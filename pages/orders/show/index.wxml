@@ -126,7 +126,7 @@
       <view class="product">
         <view class="item" wx:if="{{index < showProductQuantity}}"  bindtap="gotoProduct" data-url="/pages/products/show/index?id={{ item.product.id }}" wx:for="{{order.line_items}}" wx:for-item="item" wx:key="index">
           <view class="item-top">
-            <view class="avatar">
+            <view class="avatar avatar_border">
               <image src="{{item.product.avatar}}"></image>
             </view>
             <view class="name">{{item.product_name}}</view>
@@ -228,19 +228,31 @@
     <!-- 售后商品 -->
     <view class="sale-services-products" wx:if="{{saleServices.length > 0}}">
       <view class="title">售后商品</view>
-      <view class="product" wx:if="{{index < showServiceQuantity}}" wx:for="{{saleServices}}" wx:for-item="item" wx:key="index" bindtap="gotoSaleServiceShow" data-item="{{item}}">
-        <view class="avatar">
-          <image src="{{item.master_image}}"></image>
+
+      <block wx:if="{{index < showServiceQuantity}}" wx:for="{{saleServices}}" wx:for-item="item" wx:key="index">
+
+        <view class="product">
+          <view class="avatar">
+            <image class="avatar_border" src="{{item.master_image}}"></image>
+          </view>
+          <view class="info">
+            <view class="name">{{item.product_info}}</view>
+          </view>
         </view>
-        <view class="info">
-          <view class="name">{{item.product_info}}</view>
-          <view class="time">{{item.updated_at}}</view>
+        <view class="sale-state" bindtap="gotoSaleServiceShow" data-item="{{item}}">
+          <image class="sale-icon" wx:if="{{item.state.title == '等待审核'}}" src="/images/v1.2/service_02.png"></image>
+          <image class="sale-icon" wx:elif="{{item.state.title == '审核通过'}}" src="/images/v1.2/service_04.png"></image>
+          <image class="sale-icon" wx:elif="{{item.state.title == '申请被拒'}}" src="/images/v1.2/service_03.png"></image>
+          <image class="sale-icon" wx:else src="/images/v1.2/service_01.png"></image>
+          <text>{{ item.state.title }}</text>
+          <view class="sale-arrow">
+            <text>查看详情</text>
+            <image class="" src="/images/v1.2/arrow_01.png"></image>
+          </view>
         </view>
-        <view class="sale-state">
-          <text class="{{item.state.title == '申请被拒' || item.state.title == '审核通过' ? 'green' : ''}}">{{ item.state.title }}</text>
-          <image src="/images/v1.2/arrow.png"></image>
-        </view>
-      </view>
+      
+      </block>
+
       <view class="show-all {{showServiceQuantity > 2 && 'shou'}}" data-length="{{saleServices.length}}" bindtap="seeServicesAll" wx:if="{{saleServices.length > 2}}">
           <block wx:if="{{showServiceQuantity == 2}}">查看全部</block>
           <block wx:else>收起</block>

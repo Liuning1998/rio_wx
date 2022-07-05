@@ -57,7 +57,7 @@
     </view>
 
     <!-- 专区滚动 s -->
-    <scroll-view scroll-x="true" class="special-area" scroll-with-animation="{true}" scroll-left='0' bindscroll="getleft">
+    <scroll-view scroll-x="true" class="special-area {{ slideShow && 'no-center' }}" enable-flex="true" scroll-with-animation="{true}" scroll-left='0' bindscroll="getleft">
       <view class="item-box">
         <view class="item-parent" wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
           <view  bindtap="gotoShow" data-item="{{item}}" class="item" wx:for="{{group}}" wx:for-item="item">

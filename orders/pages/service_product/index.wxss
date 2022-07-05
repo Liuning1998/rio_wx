@@ -97,8 +97,6 @@ page {
 .product .avatar image{
   width: 192rpx;
   height: 192rpx;
-  border: 1rpx solid rgba(230,230,230,1);
-  border-radius: 6rpx;
   margin-right: 24rpx;
 }
 .product .info{

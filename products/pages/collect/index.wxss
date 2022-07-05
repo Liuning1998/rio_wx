@@ -115,7 +115,7 @@ page {
   background-image: linear-gradient(90deg, #FF3633 0%, #FB2C2A 100%);
   border-radius: 54rpx;
   width: 216rpx;
-  height: 96rpx;
+  height: 72rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -190,7 +190,6 @@ page {
   width: 272rpx;
   height: 272rpx;
   display: flex;
-  border-radius: 6rpx;
   margin-right: 24rpx;
 }
 .product .product-info{

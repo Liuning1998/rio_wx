@@ -16,12 +16,12 @@
       <view class="icon"></view>
       <!-- 多个商品样式 -->
       <view wx:if="{{productLength > 1}}" class="content">
-        <image class="avatar" wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
+        <image class="avatar avatar_border" wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
       </view>
       <!-- 单个商品样式 -->
       <view wx:else class="one-content">
         <view class="one-avatar">
-          <image wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
+          <image class="avatar_border" wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index" src="{{item.product.avatar}}"></image>
         </view>
         <view class="one-info" wx:if="{{item.selected}}" wx:for="{{currentLineItems.line_items}}" wx:key="index">
           <view class="name" wx:if="{{item.product_name}}">{{item.product_name}}</view>

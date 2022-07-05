@@ -87,8 +87,6 @@ page {
   height: 216rpx;
   display: flex;
   margin-right: 12rpx;
-  border-radius: 6rpx;
-  border: 2rpx solid rgba(230,230,230,1);
 }
 
 .products-container .avatar-container{

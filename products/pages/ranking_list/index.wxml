@@ -54,7 +54,7 @@
       </view>
 
       <view class="avatar-container">
-        <image class="avatar" src="{{item.avatar}}"></image>
+        <image class="avatar avatar_border" src="{{item.avatar}}"></image>
       </view>
 
       <view class="item-content">

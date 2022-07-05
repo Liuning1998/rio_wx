@@ -154,9 +154,7 @@ page {
   width: 272rpx;
   height: 272rpx;
   display: flex;
-  border-radius: 6rpx;
   margin-right: 24rpx;
-  border: 2rpx solid #E6E6E6;
 }
 .product .product-info{
   display: flex;
@@ -185,6 +183,7 @@ page {
   font-size: 28rpx;
   color: #FF3633;
   font-weight: 400;
+  margin-right: 6rpx;
 }
 .product .product-info .price-and-btn .price{
   font-family: PingFangSC-Medium;

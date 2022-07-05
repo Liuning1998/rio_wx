@@ -442,11 +442,19 @@ Page({
     if (url == null || url.length <= 0) {
       return
     }
+    if(url.indexOf("?") > -1){
+      var query = url.substring(url.indexOf("?")+1)
 
-    var query = url.substring(url.indexOf("=")+1)
-    url = url.substring(0,url.indexOf("=")+1)
+      if(query.indexOf('url') > -1){//if 参数包含url (webView)
+        query = query.substring(0,query.indexOf("=")+1) + encodeURIComponent(query.substring(query.indexOf("=")+1))
+      }
 
-    this.navigateTo(url + encodeURIComponent(query))
+      url = url.substring(0,url.indexOf("?")+1)
+      this.navigateTo(url + query)
+    }else{
+      this.navigateTo(url)
+    }
+
   },
 
   reLogin: function () {

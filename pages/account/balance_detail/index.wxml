@@ -52,7 +52,7 @@
       <view class="trade-content product" wx:if="{{ entryData.products.length > 0 }}">
         <view class="name">交易商品</view>
         <view class="products" bindtap="goProductDetail" data-products="{{ entryData.products }}">
-          <image class="img" wx:for="{{ entryData.products }}" wx:key="index" src="{{item.avatar}}"></image>
+          <image class="img avatar_border" wx:for="{{ entryData.products }}" wx:key="index" src="{{item.avatar}}"></image>
           <view class="arrow" wx:if="{{ entryData.products.length >= 3 }}">
             <image src="/images/v1.2/arrow_02.png"></image>
           </view>

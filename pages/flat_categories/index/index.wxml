@@ -54,7 +54,7 @@
         </view>
         <view class="product-container" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink" wx:for="{{ products['id_'+currentCategory.secondId]}}" wx:key="index">
           <view class="avatar-container">
-            <image class="avatar" src="{{ item.avatar }}"></image>
+            <image class="avatar avatar_border" src="{{ item.avatar }}"></image>
           </view>
           <view class="product-info">
             <view class="name-and-badge" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">

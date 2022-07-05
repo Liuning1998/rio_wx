@@ -468,7 +468,7 @@ page {
   margin: 12rpx auto 0;
   background: #FFFFFF;
   border-radius:12rpx;
-  padding: 24rpx 24rpx;
+  padding: 24rpx 24rpx 48rpx;
   position: relative;
   z-index: 1;
   box-sizing: border-box;
@@ -509,6 +509,22 @@ page {
   color: #332B2B;
 }
 
+.special-area{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.special-area.no-center{
+  align-items: flex-start;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
+ }
 
 .special-area .item-box{
   /* white-space: nowrap; */
@@ -516,7 +532,7 @@ page {
 }
 .special-area .item-parent{
   display: inline-block;
-  margin: 0 13rpx;
+  margin: 0 13.5rpx;
   text-align: center;
   vertical-align: top;
 }
@@ -530,10 +546,7 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 24rpx;
-}
-.special-area .item:first-child{
-  margin-top: 0;
+  padding-top: 24rpx;
 }
 .special-area .item .avatar{
   display: flex;
@@ -546,10 +559,12 @@ page {
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #332B2B;
+  line-height: 1;
+  margin-top: 24rpx;
 }
 .special-slide{
   width: 100%;
-  margin: 24rpx 0;
+  margin: 24rpx 0 0;
 }
 .special-slide .slide-bar{
   width:142rpx;

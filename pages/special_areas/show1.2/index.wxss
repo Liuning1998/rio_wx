@@ -279,9 +279,7 @@ page {
   width: 272rpx;
   height: 272rpx;
   display: flex;
-  border-radius: 6rpx;
   margin-right: 24rpx;
-  border: 2rpx solid #E6E6E6;
 }
 .products .product .product-info{
   display: flex;

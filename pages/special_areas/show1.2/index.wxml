@@ -86,7 +86,7 @@
         <scroll-view scroll-top="{{scrollTop}}" scroll-y="{{allowScroll}}" bindscroll="viewScroll" style="height: 100%;" class="products-scroll" bindscrolltolower="loadMore">
           <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
             <view class="avatar-container">
-              <image class="avatar" src="{{item.avatar}}"></image>
+              <image class="avatar avatar_border" src="{{item.avatar}}"></image>
             </view>
             <view class="product-info">
               <view class="name-and-badge">

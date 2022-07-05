@@ -19,7 +19,7 @@
         <image src="/images/selected_icon_003.png"></image>
       </view>
       <view class="avatar">
-        <image src="{{item.product.avatar}}"></image>
+        <image class="avatar_border" src="{{item.product.avatar}}"></image>
       </view>
       <view class="info">
         <view class="name" wx:if="{{item.product_name}}">{{item.product_name}}</view>

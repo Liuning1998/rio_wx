@@ -48,14 +48,14 @@
           <view class="dot"></view>
           <view class="text">“平台余额”从哪里查看？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="2">
           <view class="dot"></view>
           <view class="text">“平台余额”如何使用？是否有期限和使用要求？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
       </scroll-view>
@@ -66,21 +66,21 @@
           <view class="dot"></view>
           <view class="text">能否修改支付密码？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="4">
           <view class="dot"></view>
           <view class="text">如何查询养老助残卡的余额及使用情况？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="5">
           <view class="dot"></view>
           <view class="text">手机号与银行预留不一致？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
       </scroll-view>
@@ -91,28 +91,28 @@
           <view class="dot"></view>
           <view class="text">如何提交售后申请？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="7">
           <view class="dot"></view>
           <view class="text">退货/退款的订单金额何时到帐？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="8">
           <view class="dot"></view>
           <view class="text">订单如何取消？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="9">
           <view class="dot"></view>
           <view class="text">收货人地址信息填写错误，该如何修改？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
       </scroll-view>
@@ -123,14 +123,14 @@
           <view class="dot"></view>
           <view class="text">下单之后何时发货？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
         <view class="tab-content-list" bindtap="toAnswer" data-id="11">
           <view class="dot"></view>
           <view class="text">订单配送的物流快递有哪些？从哪里发货？</view>
           <view class="arrow">
-            <image src="/images/arrow.png"></image>
+            <image src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
       </scroll-view>

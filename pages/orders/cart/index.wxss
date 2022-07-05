@@ -271,8 +271,6 @@ page {
   margin-right: 18rpx;
   width: 216rpx;
   height: 216rpx;
-  border: 2rpx solid rgba(230,230,230,1);
-  border-radius: 6rpx;
   position: relative;
 }
 

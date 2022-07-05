@@ -85,8 +85,6 @@ page {
   width: 224rpx;
   height: 224rpx;
   display: flex;
-  border-radius: 6px;
-  border: 1rpx solid rgba(230,230,230,1);
 }
 
 .products-container .item-content {

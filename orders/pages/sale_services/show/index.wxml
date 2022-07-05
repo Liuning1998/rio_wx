@@ -71,7 +71,7 @@
     <view class="title">售后详情</view>
     <view class="product-item">
       <view class="avatar">
-        <image src="{{ saleService.master_image }}"></image>
+        <image class="avatar_border" src="{{ saleService.master_image }}"></image>
       </view>
       <view class="name">{{ saleService.product_info }}</view>
       <view class="info">

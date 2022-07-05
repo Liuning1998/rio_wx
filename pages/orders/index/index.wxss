@@ -150,9 +150,7 @@ page {
   width: 168rpx;
   flex-shrink: 0;
   margin-right: 12rpx;
-  border-radius: 6rpx;
   overflow: hidden;
-  border: 2rpx solid rgba(230,230,230,1);
 }
 
 .products .product-item .price-container {

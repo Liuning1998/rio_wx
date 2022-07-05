@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
-    if (options.url == null && options.url.length <= 0) {
+    if (options.url == null || options.url.length <= 0) {
       wx.navigateBack({})
     }
 
