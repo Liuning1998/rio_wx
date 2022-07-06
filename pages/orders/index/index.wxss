@@ -84,7 +84,7 @@ page {
 
 /* 订单列表 */
 .orders-container {
-  margin-top: 97rpx;
+  margin-top: 108rpx;
 }
 
 .order-item-container {
@@ -94,7 +94,7 @@ page {
   width: 750rpx;
   margin: 24rpx 0 0 0;
   box-sizing: border-box;
-  padding: 46rpx 30rpx 48rpx;
+  padding: 0 30rpx 0;
 }
 
 .order-status {
@@ -105,8 +105,10 @@ page {
   font-family: PingFangSC-Regular;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 46rpx;
+  min-height: 120rpx;
+  border-bottom: 1rpx solid #E6E6E6;
   line-height: 1;
+  box-sizing: border-box;
 }
 
 .order-status .name-container {
@@ -135,6 +137,8 @@ page {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  padding: 36rpx 0;
+  border-bottom: 1rpx solid #E6E6E6;
 }
 
 .products .product-item {
@@ -151,6 +155,7 @@ page {
   flex-shrink: 0;
   margin-right: 12rpx;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .products .product-item .price-container {
@@ -237,8 +242,12 @@ page {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 46rpx;
   line-height: 1;
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #E6E6E6;
+  box-sizing: border-box;
 }
 
 .total-container .label {
@@ -273,7 +282,7 @@ page {
 }
 
 .actions {
-  padding-top: 46rpx;
+  padding: 36rpx 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;

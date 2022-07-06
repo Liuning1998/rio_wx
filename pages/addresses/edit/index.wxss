@@ -35,7 +35,7 @@ form {
   min-height: 132rpx;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #DEDEDE;
+  border-bottom: 1rpx solid #E6E6E6;
   box-sizing: border-box;
   margin: 0 24rpx;
   position: relative;

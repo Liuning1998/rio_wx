@@ -226,7 +226,7 @@ page {
   line-height: 1;
 }
 .product .product-info .price-and-btn .price-container{
-  padding-bottom: 4rpx;
+  padding-bottom: 12rpx;
 }
 .product .product-info .price-and-btn .unit{
   font-family: PingFangSC-Regular;

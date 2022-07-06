@@ -140,7 +140,7 @@ page {
   padding: 0 36rpx;
   height: 228rpx;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   box-sizing: border-box;
   margin: 24rpx auto 0;
@@ -152,6 +152,15 @@ page {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+.order .order_list.new{
+  margin-right: 48rpx;
+}
+.order .order_list.shipping{
+  margin-right: 30rpx;
+}
+.order .order_list.saleService{
+  margin-right: 20rpx;
 }
 .order .order_list .count-icon{
   position: absolute;
@@ -192,6 +201,7 @@ page {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-right: 22rpx;
 }
 .order .division .arrow{
   width: 6rpx;

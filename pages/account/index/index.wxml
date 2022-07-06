@@ -51,12 +51,12 @@
     <text>待支付</text>
     <view class="count-icon" wx:if="{{orderQuantity.new_orders_count && orderQuantity.new_orders_count > 0}}">{{orderQuantity.new_orders_count}}</view>
   </view>
-  <view class="order_list" bindtap="gotoOrder" data-state="shipping">
+  <view class="order_list shipping" bindtap="gotoOrder" data-state="shipping">
     <image class="order_icon" src="/images/v1.2/mine_order_03.png"></image>
     <text>待收货</text>
     <view class="count-icon" wx:if="{{orderQuantity.padding_orders_count && orderQuantity.padding_orders_count > 0}}">{{orderQuantity.padding_orders_count}}</view>
   </view>
-  <view class="order_list" bindtap="gotoOrder" data-state="saleService">
+  <view class="order_list saleService" bindtap="gotoOrder" data-state="saleService">
     <image class="order_icon" src="/images/v1.2/mine_order.png"></image>
     <text>售后订单</text>
   </view>
