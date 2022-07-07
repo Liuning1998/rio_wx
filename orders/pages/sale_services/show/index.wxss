@@ -225,14 +225,16 @@ page {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  height: 104rpx;
+  height: max-content;
   margin-right: 24rpx;
+  line-height: 44rpx;
 }
 .product .product-item .info .price{
   text-align: right;
   font-family: PingFangSC-Medium;
   font-size: 40rpx;
   color: #332B2B;
+  line-height: 44rpx;
 }
 .product .product-item .info .price .unit{
   font-family: PingFangSC-Regular;
@@ -245,6 +247,7 @@ page {
   font-size: 36rpx;
   color: #332B2B;
   text-align: right;
+  line-height: 30rpx;
 }
 .product .service-info{
   display: flex;

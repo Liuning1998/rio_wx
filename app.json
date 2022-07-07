@@ -84,14 +84,14 @@
     "request": 30000
   },
   "tabBar": {
-    "color": "#B4AFAF",
-    "selectedColor": "#F64C47",
+    "color": "#807474",
+    "selectedColor": "#FF3633",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "商城",
+        "text": "首页",
         "iconPath": "/images/home.png",
         "selectedIconPath": "/images/home_active.png"
       },

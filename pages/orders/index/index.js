@@ -61,7 +61,6 @@ Page({
 
   fetchOrders: function (state) {
     state = state || this.data.active
-    console.log(state)
 
     var params = this.queryParams(state)
     http.get({
@@ -95,10 +94,10 @@ Page({
     })
   },
 
-  queryParams: function (state) {
+  queryParams: function (state,refresh) {
     state = state || this.data.active
     // let params = {q: { order_type_not_in:[ '1', '4', '5'] }}
-    let params = {q: { order_type_not_in:[ '1'] }}
+    let params = {q: { order_type_not_in:['1'] }}
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
       params.q.payment_state_not_eq = 'refunded'
@@ -114,10 +113,16 @@ Page({
     } else if (state != 'all') {
       params.q.state_eq = state
     }
-    params.page = Math.ceil((this.data.orders[state+'Orders'].filter(item => item != 'deleted').length + 1)/getApp().globalData.perPage)
-    if(params.page <= 0) {
+    
+    if(refresh){
       params.page = 1
+    }else{
+      params.page = Math.ceil((this.data.orders[state+'Orders'].filter(item => item != 'deleted').length + 1)/getApp().globalData.perPage)
+      if(params.page <= 0) {
+        params.page = 1
+      }
     }
+
     return params
   },
 
@@ -332,27 +337,7 @@ Page({
   },
 
   refreshData: function () {
-    let state = this.data.active
-
-    // let params = { q: { order_type_not_in: ['1', '4', '5'] } }
-    let params = { q: { order_type_not_in: ['1'] } }
-
-    if (state == 'saleService') {
-      params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
-      params.q.payment_state_not_eq = 'refunded'
-      params.q.sale_state_present = true
-      params.q.order_type_eq = 2
-      // params.show_type = true
-      delete params.q.order_type_not_in
-    } else if ( state == 'padding' || state == 'shipping' ) {
-      // params.q.sale_state_blank = true
-      params.q.ship_state_in = ['padding', 'shipping']
-      params.q.payment_state_eq = 'completed'
-      // params.show_type = true
-    } else if (state != 'all') {
-      params.q.state_eq = state
-    }
-    params.page = 1
+    var params = this.queryParams(this.data.active,true)
 
     http.get({
       url: 'api/orders',
@@ -367,7 +352,7 @@ Page({
           return
         }
 
-        this.replaceOrders(res.data, state)
+        this.replaceOrders(res.data, this.data.active)
         this.setData({ emptyStatus: false })
         // wx.stopPullDownRefresh()
         this.stopPDRefresh()

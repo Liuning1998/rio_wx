@@ -44,7 +44,7 @@
       </view>
       
 
-      <view class="products-container" style="padding-top:{{topShow ? 40 : 0}}px">
+      <view class="products-container" style="padding-top:{{categories[currentIndex].labelArr.length > 1 && topShow ? 40 : 0}}px">
         <view wx:if="{{categories[currentIndex].labelArr.length > 1}}" class="products-title">
           <text class="icon"></text>
           <image class="left" src="/images/v1.2/class_icon_01.png"></image>

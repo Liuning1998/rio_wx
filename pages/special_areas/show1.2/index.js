@@ -164,11 +164,14 @@ Page({
 
     let key = `id_${category_id}`
     let length = 0
+    console.log(key)
     if (this.data.products[key] != null) {
       length = this.data.products[key].length
+      console.log(length)
     }
 
     var page = Math.floor(length/getApp().globalData.perPage) + 1
+    
 
     if (refresh) {//if要刷新清空数据时
       _data.page = 1
