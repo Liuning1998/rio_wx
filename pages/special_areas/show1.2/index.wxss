@@ -101,6 +101,10 @@ page {
   padding: 24rpx 10rpx;
   white-space: nowrap;
   flex: none;
+  box-sizing: border-box;
+}
+.label::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
 }
 .label .item{
   width: 120rpx;

@@ -187,9 +187,10 @@ Component({
       tempNameArr[3] = ''
       var key = `nameArr[1]`;
       this.setData({
+        nameArr: tempNameArr,
         provinceIndex: e.currentTarget.dataset.index,
         province_id: e.currentTarget.dataset.item.id,
-        loading:true
+        loading:true,
       })
       http.get({
         url: '/api/china_regions/fetch_address',
@@ -200,14 +201,12 @@ Component({
         success: res => {
           if(res.data.length <= 0){
             this.setData({
-              nameArr: tempNameArr,
               [key]:'',
               loading:false
             })
             this.exit();
           }else{
             this.setData({
-              nameArr: tempNameArr,
               cityArr: res.data,
               currentTab: 1,
               [key]:'请选择',
@@ -232,6 +231,7 @@ Component({
       tempNameArr[3] = ''
       var key = `nameArr[2]`;
       this.setData({
+        nameArr: tempNameArr,
         cityIndex: e.currentTarget.dataset.index,
         city_id: e.currentTarget.dataset.item.id,
         loading:true
@@ -247,7 +247,6 @@ Component({
             this.setData({
               [key]:'',
               loading:false,
-              nameArr: tempNameArr,
             })
             this.exit();
           }else{
@@ -256,7 +255,6 @@ Component({
               currentTab: 2,
               [key]:'请选择',
               loading:false,
-              nameArr: tempNameArr,
               districtScrollTop:0
             });
           }
@@ -275,6 +273,7 @@ Component({
       tempNameArr[2] = this.data.districtArr[e.currentTarget.dataset.index].name
       var key = `nameArr[3]`
       this.setData({
+        nameArr: tempNameArr,
         districtIndex: e.currentTarget.dataset.index,
         district_id: e.currentTarget.dataset.item.id,
         loading:true
@@ -289,7 +288,6 @@ Component({
           if(res.data.length <= 0){
             this.setData({
               [key]:'',
-              nameArr: tempNameArr,
               loading:false
             })
             this.exit();
@@ -297,7 +295,6 @@ Component({
             this.setData({
               townArr: res.data,
               currentTab: 3,
-              nameArr: tempNameArr,
               [key]:'请选择',
               loading:false,
               townScrollTop:0
@@ -339,7 +336,6 @@ Component({
           town_id:null
         })
       }
-      console.log(this.data)
       this.setData({
         isShowToast: true,
       })

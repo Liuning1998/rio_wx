@@ -50,7 +50,7 @@
       <text class="price">{{ saleService.refund_info.refund_total }}</text>
     </view>
     <view class="content">
-      <view class="item" wx:if="{{saleService.refund_info.refund_balance != null && saleService.refund_info.refund_balance > 0}}" bindtap="refundPopup" data-type="余额">
+      <view class="item" wx:if="{{saleService.refund_info.refund_balance != null && saleService.refund_info.refund_balance > 0}}" bindtap="refundPopup" data-type="平台余额">
         <view class="name">· 退回平台余额</view>
         <view class="info">
           <text class="price">{{saleService.refund_info.refund_balance}}</text>
@@ -121,7 +121,7 @@
       <view class="info">
         <text>退回{{refundShowType}}</text>
         <text wx:if="{{refundShowType == '银行卡'}}">{{saleService.refund_info.bank_amount}}</text>
-        <text wx:elif="{{refundShowType == '余额'}}">{{saleService.refund_info.refund_balance}}</text>
+        <text wx:elif="{{refundShowType == '平台余额'}}">{{saleService.refund_info.refund_balance}}</text>
       </view>
       <view class="step">
         <view class="item">

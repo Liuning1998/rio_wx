@@ -45,7 +45,7 @@ page {
 .header .step .step-icon{
   padding: 0 114rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .header .step .step-icon .icon{
   display: flex;
@@ -136,6 +136,7 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 32rpx;
   color: #332B2B;
+  margin-right: 6rpx;
 }
 .detail .content{
   padding: 48rpx 0;
@@ -338,6 +339,7 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #332B2B;
+  margin-right: 6rpx;
 }
 .refund .content .item .info image{
   width: 12rpx;
@@ -417,6 +419,7 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
   color: #332B2B;
+  margin-right: 6rpx;
 }
 .refund-popup .popup .content .step .item{
   display: flex;

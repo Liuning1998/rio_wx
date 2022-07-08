@@ -1225,12 +1225,12 @@ page {
 .coupon-a{
   width: 734rpx;
   box-sizing: border-box;
-  border-radius: 10rpx 10rpx 0 0;
+  border-radius: 8rpx 8rpx 0 0;
   border-top: 1rpx solid #FFC4A4;
   border-right: 1rpx solid #FFC4A4;
   border-left: 1rpx solid #FFC4A4;
   display: flex;
-  background: #FCEDE5;
+  background: #FFF0F0;
   position: fixed;
   bottom: 96rpx;
   left: 50%;
@@ -1282,8 +1282,9 @@ page {
 }
 .coupon-a .coupon-a-r image {
   width: 16rpx;
-  height: 28rpx;
-  margin-left: 6.8rpx;
+  height: 8rpx;
+  transform: rotate(-90deg);
+  margin-left: 4rpx;
 }
 .coupon-split{
   width: 702rpx;

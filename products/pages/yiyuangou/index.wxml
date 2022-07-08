@@ -3,7 +3,7 @@
 <view class="navbar" style="top: 0;">
   <view class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
     <view bindtap="goback" class="return-image-container">
-      <image class="return-image" src="/images/arrow_o_white_01.png"></image>
+      <image class="return-image" src="/images/v1.2/return_white.png"></image>
     </view>
     <text class="title">{{pageTitle}}</text>
   </view>

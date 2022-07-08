@@ -10,14 +10,14 @@
   <!-- <image class="background-image" src="{{brand.banners[0]}}"></image> -->
   <view wx:if="{{!scollStatus}}" class="navbar-content" style="height: {{pageMarginTop+44}}px;">
     <view bindtap="goback" class="return-image-container">
-      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/arrow_o_black.png"></image>
-      <image wx:else class="return-image" src="/images/arrow_o_white_01.png"></image>
+      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/v1.2/return_black.png"></image>
+      <image wx:else class="return-image" src="/images/v1.2/return_white.png"></image>
     </view>
   </view>
 
   <view wx:else class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
     <view bindtap="goback" class="return-image-container">
-      <image class="return-image" src="/images/arrow_o_black.png"></image>
+      <image class="return-image" src="/images/v1.2/return_black.png"></image>
     </view>
     <text class="title">{{tagName}}</text>
   </view>

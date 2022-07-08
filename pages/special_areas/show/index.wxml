@@ -7,7 +7,7 @@
   <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
   <view class='navbar-content'>
     <view bindtap='goback' class='return-image-container'>
-      <image class='return-image' src='../../../images/arrow_o_white_01.png'></image>
+      <image class='return-image' src='/images/v1.2/return_white.png'></image>
     </view>
     <text style="{{textStyle}}" class='navbar-title'>{{ pageTitle }}</text>
   </view>
@@ -64,7 +64,7 @@
     <view wx:if="{{ categories.length > 0 }}" class="category-container">
       <view class="badges">
         <view class="badge-item">
-          <image src="/images/special_areas/icon_001.png"></image>
+          <image src="/images/special_areas/icon_001.png"></image>//
           <text>严选好物</text>
         </view>
         <view class="badge-item">

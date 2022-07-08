@@ -106,6 +106,7 @@ form {
   position: relative;
   padding-left: 30rpx;
   font-family: PingFangSC-Medium;
+  line-height: 44rpx;
 }
 
 .input-group .input .arrow{

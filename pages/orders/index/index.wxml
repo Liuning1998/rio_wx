@@ -94,7 +94,7 @@
             <block wx:else>
               <block wx:if="{{ order.order_type != 4 && order.order_type != 5 }}">
                 <view wx:if="{{ order.sale_state == null }}" bindtap='orderService' data-order='{{ order }}' class="btn delete-btn">申请售后</view>
-                <view wx:elif="{{ order.sale_state == 'completed' || subOrder.sale_state == 'agree' || subOrder.sale_state == 'refuse' }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后完成</view>
+                <view wx:elif="{{ order.sale_state == 'completed' || order.sale_state == 'agree' || order.sale_state == 'refuse' }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后完成</view>
                 <view wx:else bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" class="btn delete-btn">售后中</view>
               </block>
             </block>

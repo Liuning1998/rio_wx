@@ -5,8 +5,8 @@
   <view class="status-bar" style='height: {{ statusBarHeight }}px;'></view>
   <view class="navbar-content">
     <view bindtap='goback' class='return-image-container'>
-      <image wx:if="{{navSwitch}}" class='return-image' src='../../../images/arrow_o_black.png'></image>
-      <image wx:else class='return-image' src='../../../images/arrow_o_white_01.png'></image>
+      <image wx:if="{{navSwitch}}" class='return-image' src='/images/v1.2/return_black.png'></image>
+      <image wx:else class='return-image' src='/images/v1.2/return_white.png'></image>
     </view>
     <text class='navbar-title'>{{ pageTitle }}</text>
   </view>

@@ -725,7 +725,7 @@ page {
 .state .state-icon{
   padding: 0 76rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .state .state-icon .icon{
   display: flex;

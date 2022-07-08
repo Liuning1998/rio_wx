@@ -14,7 +14,7 @@
       <view bindtap="selectAddress" wx:if="{{shipAddress == null || shipAddress.phone == null || shipAddress.phone.length <= 0}}" class="select-address-empty">
         <image class="location" src="/images/location_icon_001.png"></image>
         <text>选择收货地址</text>
-        <image class="arrow" src="/images/arrow_o_black.png"></image>
+        <image class="arrow" src="/images/v1.2/return_black.png"></image>
       </view>
 
       <view wx:else class="select-address-container">
@@ -35,7 +35,7 @@
           </view>
         </view>
 
-        <image class="arrow" src="/images/arrow_o_black.png"></image>
+        <image class="arrow" src="/images/v1.2/return_black.png"></image>
       </view>
 
       <image class="split-line" src="/images/split_line_001.png"></image>

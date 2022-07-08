@@ -81,7 +81,7 @@
         <view class="quantity-and-more">
           <text>共 {{storeCart.quantity}} 件</text>
           <view class="arrow-container">
-            <image src="/images/arrow_o_black.png"></image>
+            <image src="/images/v1.2/return_black.png"></image>
           </view>
         </view>
       </veiw> -->
@@ -311,7 +311,7 @@
   </view>
   <view class="coupon-a-r" hover-class="hove-btn" bindtap="toDashboard">
     <text>领券</text>
-    <image src="/images/arrow_o_red_01.png"></image>
+    <image src="/images/v1.2/arrow_01.png"></image>
   </view>
 </view>
 

@@ -190,7 +190,7 @@ page {
   color: #332B2B;
   text-align: center;
   font-weight: 400;
-  margin-top: 12rpx;
+  margin-top: 18rpx;
   font-family: PingFangSC-Regular;
 }
 .order_icon{
@@ -225,7 +225,7 @@ page {
 .discount{
   width: 702rpx;
   background-color: #fff;
-  padding: 36rpx 24rpx;
+  padding: 42rpx 24rpx;
   height: 246rpx;
   display: flex;
   justify-content: space-between;
@@ -241,7 +241,7 @@ page {
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  border-radius: 12px;
+  border-radius: 12rpx;
 }
 .discount .member .member_l{
   display: flex;

@@ -8,7 +8,7 @@
   <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
   <view class='navbar-content'>
     <view bindtap='goback' class='return-image-container'>
-      <image class='return-image' src='../../../images/arrow_o_white_01.png'></image>
+      <image class='return-image' src='/images/v1.2/return_white.png'></image>
     </view>
     <text style="{{textStyle}}" class='navbar-title'>{{ tagName || '' }}</text>
   </view>
