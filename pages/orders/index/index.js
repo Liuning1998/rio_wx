@@ -187,8 +187,7 @@ Page({
       let subOffset = null;
       let orders = this.data.orders[state + 'Orders']
       for (let i=0; i < orders.length; i++) {
-        console.log(orders[i],orders[i].sub_orders)
-        if(orders[i].sub_orders.length > 0){
+        if(orders[i].sub_orders && orders[i].sub_orders.length > 0){
           for (let j=0; j < orders[i].sub_orders.length; j++){
             if(orders[i].sub_orders[j].number == order.number) {
               offset = i

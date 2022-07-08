@@ -766,7 +766,7 @@ page {
 .pay-method-layer .checkbox-icon {
   height: 40rpx;
   width: 56rpx;
-  display: flex;
+  display: none;
 }
 
 .pay-method-layer .pay-method-container .pm-header {
@@ -904,8 +904,8 @@ page {
   justify-content: center;
 }
 
-.pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox.active {
-  background: #FF3633;
+.pay-method-layer .pay-method-item .item-main .pay-menthod-checkbox.active .checkbox-icon {
+  display: flex;
 }
 
 .pay-method-layer .bottom-btns {

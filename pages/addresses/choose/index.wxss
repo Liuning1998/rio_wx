@@ -80,23 +80,23 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 28rpx;
-  width: 28rpx;
+  height: 36rpx;
+  width: 36rpx;
   border: 1px solid #B4AFAF;
   border-radius: 50%;
   margin-right: 24rpx;
   margin-left: 24rpx;
   overflow: hidden;
+  box-sizing: border-box;
 }
 .address-item-container .checkbox image {
   display: none;
-  width: 35.96rpx;
-  height: 35.96rpx;
+  width: 36rpx;
+  height: 36rpx;
 }
 
 .address-item-container .checkbox.selected {
-  background: #FF3633;
-  border-color: #FF3633;
+  border: none;
 }
 
 .address-item-container .checkbox.selected image {

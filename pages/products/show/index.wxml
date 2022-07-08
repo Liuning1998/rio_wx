@@ -349,3 +349,11 @@
     </view>
   </view>
 </view>
+
+<view class="add-cart-p" wx:if="{{addConfirm}}">
+  <view class="add-cart-mask"></view>
+  <view class="add-cart-p-content">
+    <image class="img" src="/images/v1.2/product_show_confirm.png"></image>
+    <view class="content">加入购物车成功</view>
+  </view>
+</view>

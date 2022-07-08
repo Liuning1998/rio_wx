@@ -93,7 +93,7 @@ page {
 
 .cart-container .store-header {
   display: flex;
-  height: 128rpx;
+  height: 124rpx;
   width: 702rpx;
   margin: 0 auto;
   align-items: center;
@@ -128,8 +128,7 @@ page {
   height: 36rpx;
   width: 36rpx;
   margin: 22.66rpx 22.66rpx 22.66rpx 0;
-  border-color: #F64C47;
-  background: #F64C47;
+  border: none;
 }
 
 .cart-container .select.selected image {
@@ -137,15 +136,15 @@ page {
 }
 
 .cart-container .select image {
-  height: 28rpx;
-  width: 28rpx;
+  height: 36rpx;
+  width: 36rpx;
   display: none;
 }
 
 .cart-container .store-icon {
   width: 39.02rpx;
   height: 38.7rpx;
-  margin-right: 9.74rpx;
+  margin-right: 24rpx;
 }
 
 .cart-container .store-header .delete {
@@ -163,9 +162,8 @@ page {
 }
 
 .collect-orders{
-  padding: 30rpx 0;
+  padding: 36rpx 0;
   width: 702rpx;
-  border-bottom: 1rpx solid rgba(230,230,230,1);
   display: flex;
   align-items: center;
   margin: 0 auto;
@@ -182,7 +180,7 @@ page {
   font-size: 28rpx;
   color: #FF3633;
   font-weight: 500;
-  margin: 0 12rpx 0 56rpx;
+  margin: 0 24rpx 0 56rpx;
 }
 
 .collect-orders .content{
@@ -217,7 +215,7 @@ page {
   position: relative;
   overflow: hidden;
   width: 702rpx;
-  margin: 48rpx auto;
+  margin: 0 auto 48rpx;
 }
 
 .cart-container .line-item-content {
@@ -296,6 +294,8 @@ page {
   font-size: 40rpx;
   color: #332B2B;
   font-weight: 500;
+  line-height: 44rpx;
+  margin-top: -2rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
@@ -314,20 +314,24 @@ page {
 }
 
 .cart-container .variant-info {
-  font-size: 24rpx;
-  color: #999999;
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #807474;
+  margin-top: 6rpx;
   text-overflow: ellipsis;
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   display: -webkit-box;
+  overflow: hidden;
 }
 
 .cart-container .price-and-quantity {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 8srpx;
+  margin-top: 8rpx;
+  line-height: 1;
 }
 
 .cart-container .price {
@@ -750,7 +754,7 @@ page {
   width: 750rpx;
   background: #FFF0F0;
   border-radius: 8rpx;
-  padding: 33.5rpx 20rpx 33.5rpx 28rpx;
+  padding: 24rpx 20rpx 23rpx 28rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;

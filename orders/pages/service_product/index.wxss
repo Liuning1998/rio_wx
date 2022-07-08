@@ -69,10 +69,13 @@ page {
 .select image{
   width: 100%;
   height: 100%;
+  display: none;
 }
 .select.selected{
-  background-color: #FF3633;
   border: none;
+}
+.select.selected image{
+  display: block;
 }
 .products .title .number{
   font-family: PingFangSC-Medium;

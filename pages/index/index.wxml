@@ -79,35 +79,6 @@
 
   </view>
 
-  <!-- 排行榜 -->
-  <view class="ranking" wx:if="{{ rankingProducts != null && newBrandData != null && newBrandData.length > 0 && newBrandData[0].length == 3 }}">
-    <view class="title">
-      <image class="img" src="/images/v1.2/ranking.png"></image>
-      <text class="sub">{{rankingProducts.title}}</text>
-      <view class="arrow-box" bindtap="gotoBrand" data-item="{{rankingProducts}}">
-        <text>{{rankingProducts.subtitle}}</text>
-        <image src="/images/v1.2/arrow_02.png"></image>
-      </view>
-    </view>
-    <view class="ranking-swiper-box">
-      <swiper bindchange='changeRankSwiperCurrent' class="ranking-swiper" indicator-dots="{{false}}" circular autoplay="{{true}}">
-        <block wx:for="{{ newBrandData }}" wx:key="index" wx:if="{{ item.length == 3 }}">
-          <swiper-item class="ranking-swiper-item">
-            <view class="ranking-item {{ index == 1 && 'active' }}" bindtap="gotoProduct" data-item="{{ranking}}" wx:for="{{ item }}" wx:for-item="ranking">
-              <view class="border-box">
-                <image class="ranking-product" src="{{ ranking.avatar }}"></image>
-                <view class="price">{{ ranking.price }}</view>
-              </view>
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
-      <view class="swiper-dots-container">
-        <view wx:for="{{ newBrandData }}" wx:key="index" wx:if="{{ item.length == 3 }}" class="dot {{ index == swiperRankCurrent && 'active' }}"></view>
-      </view>
-    </view>
-  </view>
-
   <!-- 年货节 -->
   <view class="group-product" wx:if="{{ newYearProducts != null }}" bindtap="gotoBrand" data-item="{{newYearProducts}}">
     <image src="{{newYearProducts.background_image}}" class=""></image>
@@ -137,6 +108,35 @@
     <image src="{{benefitPeopleProducts.background_image}}" class=""></image>
   </view>
   <!-- 惠民折扣小商铺 -->
+
+    <!-- 排行榜 -->
+    <view class="ranking" wx:if="{{ rankingProducts != null && newBrandData != null && newBrandData.length > 0 && newBrandData[0].length == 3 }}">
+      <view class="title">
+        <image class="img" src="/images/v1.2/ranking.png"></image>
+        <!-- <text class="sub">{{rankingProducts.title}}</text> -->
+        <view class="arrow-box" bindtap="gotoBrand" data-item="{{rankingProducts}}">
+          <text>{{rankingProducts.subtitle}}</text>
+          <image src="/images/v1.2/arrow_02.png"></image>
+        </view>
+      </view>
+      <view class="ranking-swiper-box">
+        <swiper bindchange='changeRankSwiperCurrent' class="ranking-swiper" indicator-dots="{{false}}" circular autoplay="{{true}}">
+          <block wx:for="{{ newBrandData }}" wx:key="index" wx:if="{{ item.length == 3 }}">
+            <swiper-item class="ranking-swiper-item">
+              <view class="ranking-item {{ index == 1 && 'active' }}" bindtap="gotoProduct" data-item="{{ranking}}" wx:for="{{ item }}" wx:for-item="ranking">
+                <view class="border-box">
+                  <image class="ranking-product" src="{{ ranking.avatar }}"></image>
+                  <view class="price">{{ ranking.price }}</view>
+                </view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class="swiper-dots-container">
+          <view wx:for="{{ newBrandData }}" wx:key="index" wx:if="{{ item.length == 3 }}" class="dot {{ index == swiperRankCurrent && 'active' }}"></view>
+        </view>
+      </view>
+    </view>
 
   <view class="recommend" wx:if="{{products.length > 0}}">
     <view class="title">

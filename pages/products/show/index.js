@@ -33,6 +33,7 @@ Page({
     giftShow:false,//赠品弹框
     loadErr:false,//加载错误
     couponsList:[],
+    addConfirm:false
   },
 
   /**
@@ -606,9 +607,26 @@ Page({
     }
 
     let cart = cartApi.addCart(lineItem)
-    wx.reLaunch({
-      url: '/pages/orders/cart/index'
-    })
+    // wx.reLaunch({
+    //   url: '/pages/orders/cart/index'
+    // })
+
+    // v1.2加入购物车后不跳转购物车页面，只弹窗
+    this.showAddConfirm()
+  },
+
+  showAddConfirm:function(){
+    var addConfirm = this.data.addConfirm;
+    if(!addConfirm){
+      this.setData({
+        addConfirm: true
+      })
+      setTimeout(res=>{
+        this.setData({
+          addConfirm: false
+        })
+      },1500)
+    }
   },
 
   gotoCart: function () {

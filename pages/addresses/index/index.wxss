@@ -202,23 +202,23 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 28rpx;
+  height: 36rpx;
   width: 28rpx;
   border: 1px solid #B4AFAF;
   border-radius: 50%;
   margin-right: 10rpx;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
 .actions .select .checkbox image {
   display: none;
-  width: 35.96rpx;
-  height: 35.96rpx;
+  width: 36rpx;
+  height: 36rpx;
 }
 
 .actions .select .checkbox.selected {
-  background: #F64C47;
-  border-color: #F64C47;
+  border: none;
 }
 
 .actions .select .checkbox.selected image {
