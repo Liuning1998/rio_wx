@@ -311,8 +311,8 @@ page {
 }
 
 .empty-container image {
-  width: 480rpx;
-  height: 244rpx;
+  width: 260rpx;
+  height: 260rpx;
   margin-bottom: 44rpx;
 }
 

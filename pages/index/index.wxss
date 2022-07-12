@@ -67,7 +67,7 @@ page {
 }
 
 .page-bottom text {
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #B4AFAF;
   margin: 0 20rpx;
 }
@@ -710,7 +710,7 @@ page {
 }
 .ranking-swiper-box .swiper-dots-container{
   position: absolute;
-  bottom: 8rpx;
+  bottom: 16rpx;
   width: 100%;
   display: flex;
   justify-content: center;

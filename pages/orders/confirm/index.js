@@ -47,7 +47,7 @@ Page({
     balancePayResult: null,//纯余额支付结果弹窗
     navStyle:{
       navbarStyle: 'custom',
-      imgSrc: '/images/v1.2/order_detailbg_01.png'
+      imgSrc: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_detailbg_01.png'
     },
     startTime: Math.ceil((new Date).getTime()/1000),
     nowTime: Math.ceil((new Date).getTime()/1000),
@@ -63,7 +63,7 @@ Page({
     //余额支付通用方法
     balancePay.extend(this)
 
-    var store_code = options.store_code || 0
+    var store_code = options.store_code || ''
 
     if (options.buyType == 'now') {
       var storeCart = this.params.cart

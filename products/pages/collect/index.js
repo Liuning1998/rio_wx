@@ -117,6 +117,11 @@ Page({
       return
     }
 
+    if (item.store_code == null || item.store_code.trim() == '') {
+      this.errorToast('加入购物车失败')
+      return
+    }
+
     let master = item.master
     if (master == null) {
       return
@@ -194,11 +199,10 @@ Page({
         products:[],
         pageBottom:false,
         clicked:true
-      })  
+      })
 
       this.getProducts(this.data.category.code, orderType, true)
     }
-
 
   },
 

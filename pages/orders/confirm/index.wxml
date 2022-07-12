@@ -14,7 +14,7 @@
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
     <view class="main-container">
       <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
-      <image class="page-background" src="/images/v1.2/order_detailbg_01.png"></image>
+      <image class="page-background" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_detailbg_01.png"></image>
       <view class="time-remark">
         <text>剩余支付时间{{helper.getM(time.payLeftTimeConfirm(startTime, nowTime)) }}分{{ helper.getS(time.payLeftTimeConfirm(startTime, nowTime))}}秒</text>
       </view>
@@ -139,10 +139,10 @@
           <view class="left">
             <image class="icon" src="/images/v1.2/order_confirm_01.png"></image>
             <text class="name">平台余额</text>
-            <text class="describe">{{balance}}元</text>
+            <text class="describe unit">{{balance}}</text>
           </view>
           <view class="right">
-            <text class="balance">是否使用平台余额抵扣</text>
+            <text class="balance">是否抵扣</text>
             <switch class="balance-switch" checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/>
           </view>
         </view>
@@ -193,67 +193,57 @@
 <view class="coupon-popup" wx:if="{{couponShow}}">
   <view class="mask" bindtap="closeCoupon"></view>
   <view class="cpupon-box">
-    <view class="coupon-popup-title">
+    <view class="popup-title">
       <text>优惠券</text>
-      <image class="coupon-popup-close" bindtap="closeCoupon" src="../../../images/error_badge.png"></image>
+      <view class="close" bindtap="closeCoupon">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
     </view>
     <scroll-view scroll-y="{{true}}" class="coupon-scrollview {{ isIphoneX && 'coupon-iphone-x' }}">
 
 
       <block wx:if="{{couponNew != null && couponNew.length != 0}}">
-        <label class="coupon-list" data-index="index" data-item="{{item}}" bindtap="couponChange" wx:for="{{couponNew}}" wx:key="{{item.number}}">
+
+        <!-- v1.2 s -->
+        <view class="coupon-list" data-index="index" data-item="{{item}}" bindtap="couponChange" wx:for="{{couponNew}}" wx:key="{{item.number}}">
           <view class="coupon">
-            <image class="coupon-bg" src="../../../images/coupon/coupon-content1.png"></image>
-            <view class="coupon-card">
+            <image wx:if="{{helperTime.isExpire(nowDate,item.expires_at)}}" class="coupon-bg" src="/images/v1.2/coupon_01.png"></image>
+            <image wx:else class="coupon-bg" src="/images/v1.2/coupon_02.png"></image>
 
-              <image wx:if="{{helperTime.isExpire(nowDate,item.expires_at)}}" class="coupon-card-bg" src="../../../images/coupon/coupon-card.png"></image>
-              <image wx:else class="coupon-card-bg" src="../../../images/coupon/coupon-card1.png"></image>
-
-              <view class="coupon-card-content">
-                <view class="coupon-money">
-                  <text>￥</text>
-                  <text>{{item.value}}</text>
-                </view>
-                <view class="coupon-brief">满{{item.limit_value}}可用</view>
-              </view>
-
-              <view wx:if="{{helperTime.isExpire(nowDate,item.expires_at)}}" class="coupon-card-mark">
-                <image class="coupon-card-mark-bg" src="../../../images/coupon/coupon-babel.png"></image>
-                <text class="coupon-card-mark-text">仅剩{{helperTime.surplusDay(nowDate,item.expires_at)}}天</text>
-              </view>
-              <view wx:else class="coupon-card-mark gray">
-                <image class="coupon-card-mark-bg" src="../../../images/coupon/coupon_border.png"></image>
-                <text class="coupon-card-mark-text">已失效</text>
-              </view>
+            <view class="money">
+              <view class="price">{{item.value}}</view>
+              <view class="subscript"  wx:if="{{helperTime.isExpire(nowDate,item.expires_at)}}">仅剩{{helperTime.surplusDay(nowDate,item.expires_at)}}天</view>
+              <view class="subscript gray" wx:else>已失效</view>
             </view>
-            <view class="coupon-operation">
-              <view class="coupon-operation-top">
-                <text>{{item.name}}</text>
-                <view class="coupon-operation-top-btn">
-                  <text>{{helperTime.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
-                
-                  <view class="weui-cell__hd">
-                    <radio color="#F64C47" checked="{{item.isCheck}}"/>
+            <view class="info">
+                <view class="info-top">
+                  <view class="left">
+                    <text>{{item.name}}</text>
+                    <text>{{helperTime.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
+                  </view>
+                  <view class="weui-cell__hd {{ item.isCheck && 'active' }}">
+                        <image src="/images/selected_icon_003.png"></image>
                   </view>
                 </view>
-              </view>
-              <view class="coupon-operation-bottom {{item.detailShow ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}" catchtap="down">
-                <text>使用规则</text>
-                <image src="/images/arrow_o_bottom.png"></image>
-              </view>
+                <view class="info-bottom {{item.detailShow ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}"  catchtap="down">
+                  <text>使用规则</text>
+                  <image src="/images/arrow_o_bottom.png"></image>
+                </view>
             </view>
           </view>
           <view class="coupon-list-mask" wx:if="{{item.detailShow}}">
             <view wx:for="{{item.description}}" wx:for-item="des">{{des}}</view>
           </view>
-        </label>
+        </view>
+        <!-- v1.2 e -->
+
       </block>
 
       <block wx:if="{{couponNewCant != null && couponNewCant.length != 0}}">
         <view class="coupon-split">
           不可用的优惠券
         </view>
-        <label class="coupon-list cant" data-index="index" data-item="{{item}}" bindtap="" wx:for="{{couponNewCant}}" wx:key="{{item.number}}">
+        <!-- <label class="coupon-list cant" data-index="index" data-item="{{item}}" bindtap="" wx:for="{{couponNewCant}}" wx:key="{{item.number}}">
           <view class="coupon">
             <image class="coupon-bg" src="/images/coupon/coupon-content1.png"></image>
             <view class="coupon-card">
@@ -285,7 +275,35 @@
           <view class="coupon-list-mask" wx:if="{{item.detailShow}}">
             <view wx:for="{{item.description}}" wx:for-item="des">{{des}}</view>
           </view>
-        </label>
+        </label> -->
+
+        <!-- v1.2 s -->
+          <view class="coupon-list" data-index="index" data-item="{{item}}" wx:for="{{couponNewCant}}" wx:key="{{item.number}}">
+            <view class="coupon">
+              <image class="coupon-bg" src="/images/v1.2/coupon_02.png"></image>
+
+              <view class="money">
+                <view class="price">{{item.value}}</view>
+              </view>
+              <view class="info">
+                  <view class="info-top">
+                    <view class="choose">
+                      <text>{{item.name}}</text>
+                    </view>
+                    <text>{{helperTime.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
+                  </view>
+                  <view class="info-bottom {{item.detailShow ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}"  catchtap="down">
+                    <text>使用规则</text>
+                    <image src="/images/arrow_o_bottom.png"></image>
+                  </view>
+              </view>
+            </view>
+            <view class="coupon-list-mask" wx:if="{{item.detailShow}}">
+              <view wx:for="{{item.description}}" wx:for-item="des">{{des}}</view>
+            </view>
+          </view>
+        <!-- v1.2 e -->
+
       </block>
 
       <block wx:if="{{(!couponNewCant || couponNewCant.length == 0) && (!couponNew || couponNew.length == 0)}}">
@@ -504,7 +522,7 @@
   </view>
   <view class="result-bg"></view>
   <view class="subject">
-    <image class="img" src="/images/v1.2/result.png"></image>
+    <image class="img" src="/images/v1.2/result_success.png"></image>
     <view class="money">{{ couponAfter.balance_deduct(order.discount_total,balance) }}</view>
     <view class="result">支付成功</view>
     <view class="info">

@@ -525,7 +525,7 @@ Page({
     }
     
     let store_id = this.data.product.store_id || 0
-    let store_code = this.data.product.store_code || '' //拆分下单
+    let store_code = this.data.product.store_code || ''
     let store_name = this.data.product.store_name
     let store_short_name = this.data.product.store_short_name
     let lineItem = {
@@ -584,6 +584,11 @@ Page({
       return false
     }
 
+    if (this.data.product.store_code == null || this.data.product.store_code.trim() == '') {
+      this.errorToast('加入购物车失败')
+      return false
+    }
+
     let lineItem = {
       quantity: this.data.quantity || 1,
       variant_id: this.data.currentVariant.id,
@@ -613,6 +618,10 @@ Page({
 
     // v1.2加入购物车后不跳转购物车页面，只弹窗
     this.showAddConfirm()
+    this.setData({
+      showSelectContainer: false,
+      cartData: cart
+    })
   },
 
   showAddConfirm:function(){

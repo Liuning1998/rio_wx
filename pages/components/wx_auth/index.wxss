@@ -53,11 +53,12 @@
   margin-top: 20rpx;
   font-size: 28rpx;
   color: #666666;
+  justify-content: center;
 }
 
 .auth .msg .remark .fa-circle {
   font-size: 15rpx;
-  padding: 0 20rpx;
+  /* padding: 0 20rpx; */
 }
 
 .btn-group {

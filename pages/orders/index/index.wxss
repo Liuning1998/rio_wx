@@ -297,7 +297,7 @@ page {
   height: 72rpx;
   width: 216rpx;
   box-sizing: border-box;
-  border: 1rpx solid rgba(51,43,43,.5);
+  border: 2rpx solid rgba(128,116,116,.5);
   border-radius: 54rpx;
   text-align: center;
   line-height: 72rpx;

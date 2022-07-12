@@ -273,6 +273,8 @@ page {
   color: #807474;
   font-weight: 400;
   margin-left: 16rpx;
+  position: relative;
+  top: -2rpx;
 }
 
 .price-container .origin-price {

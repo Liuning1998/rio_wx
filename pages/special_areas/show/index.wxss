@@ -635,7 +635,7 @@ page {
 }
 
 .page-bottom text {
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #B4AFAF;
   margin: 0 20rpx;
 }

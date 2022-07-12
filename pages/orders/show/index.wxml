@@ -6,14 +6,14 @@
 <wxs module="couponAfter" src="../confirm/coupon.wxs"></wxs>
 <wxs module="utilsHelper" src="../../../utils/helper.wxs"></wxs>
 
-<navbar navbarStyle="custom" customImgSrc="{{ (  (order.refund_state == null && order.state != 'canceled' && order.state != 'handle_canceled' && order.sale_state == null) && order.expresses.length > 0  ) ? '/images/v1.2/order_bg_01.png' : '/images/v1.2/order_detailbg_01.png'}}" title="订单详情" />
+<navbar navbarStyle="custom" customImgSrc="{{ (  (order.refund_state == null && order.state != 'canceled' && order.state != 'handle_canceled' && order.sale_state == null) && order.expresses.length > 0  ) ? 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_bg_01.png' : 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_detailbg_01.png'}}" title="订单详情" />
 
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
 
     <view class="header">
-      <image wx:if="{{ (order.refund_state == null && order.state != 'canceled' && order.state != 'handle_canceled' && order.sale_state == null) && order.expresses.length > 0 }}" class="bg-img" src="/images/v1.2/order_bg_01.png"></image>
-      <image wx:else class="bg-img-noexpress" src="/images/v1.2/order_detailbg_01.png"></image>
+      <image wx:if="{{ (order.refund_state == null && order.state != 'canceled' && order.state != 'handle_canceled' && order.sale_state == null) && order.expresses.length > 0 }}" class="bg-img" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_bg_01.png"></image>
+      <image wx:else class="bg-img-noexpress" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_detailbg_01.png"></image>
 
       <view style='padding-top: {{pageMarginTop + 44}}px;'></view>
 
@@ -66,7 +66,7 @@
             <!-- 多个包裹 -->
             <block wx:if="{{order.expresses.length > 1}}">
               <view class="text">
-                <text class="title">多个包裹</text>当前订单已拆分为{{order.expresses.length}}个包裹 
+                <text class="title">多个包裹</text>当前订单被分成{{order.expresses.length}}个包裹发出，可点此查看物流信息进度详情。
               </view>
             </block>
             <!-- 一个包裹 -->
@@ -82,9 +82,9 @@
       </view>
 
       <!-- 取消和售后 -->
-      <view class="express" wx:if="{{ order.refund_state == null && (order.state == 'canceled' || order.state == 'handle_canceled' || saleServices.length != 0) }}">
+      <view class="express" wx:if="{{ order.number != null && order.refund_state == null && (order.state == 'canceled' || order.state == 'handle_canceled' || saleServices.length != 0) }}">
         <view class="express-box">
-          <view class="express-l" style="{{order.state == 'canceled' || order.state == 'handle_canceled' ? 'width: auto;' : ''}}">
+          <view class="express-l" style="width: auto;">
             <!-- 取消 -->
             <block wx:if="{{order.state == 'canceled' || order.state == 'handle_canceled'}}">
               <view class="text">
@@ -101,7 +101,7 @@
               <view class="time">{{saleServices[saleServices.length - 1].updated_at}}</view>
             </block>
           </view>
-          <image wx:if="{{order.state != 'canceled' && order.state != 'handle_canceled'}}" class="express-r" src="/images/v1.2/arrow.png"></image>
+          <!-- <image wx:if="{{order.state != 'canceled' && order.state != 'handle_canceled'}}" class="express-r" src="/images/v1.2/arrow.png"></image> -->
         </view>
       </view>
 
@@ -129,7 +129,8 @@
             <view class="avatar avatar_border">
               <image src="{{item.product.avatar}}"></image>
             </view>
-            <view class="name">{{item.product_name}}</view>
+            <view class="name" wx:if="{{item.product_name != null}}">{{item.product_name}}</view>
+            <view class="name" wx:else>{{item.product.name}}</view>
             <view class="money">
               <view class="top">
                 <text>¥</text>{{item.price}}
@@ -153,10 +154,6 @@
           <view class="text">商品总价</view>
           <view class="money"><text>¥</text>{{ order.total }}</view>
         </view>
-        <view class="item" wx:if="{{order.shipment_expense > 0}}">
-          <view class="text">运费(快递)</view>
-          <view class="money"><text>+ ¥</text>{{order.shipment_expense}}</view>
-        </view>
         <view class="item" wx:if="{{ !!order.vip_info && order.vip_info.name > 0 && order.vip_info.value > 0 && price.vipDiscount(order.line_items, userInfo,order.promotions[0].value)}}">
           <view class="text">{{vip_level.current_vip_level}}会员专享{{order.vip_info.name}}折</view>
           <view class="money"><text>- ¥</text>{{ order.vip_info.value }}</view>
@@ -172,13 +169,34 @@
           <view class="money"><text>¥</text>{{item.value}}</view>
         </view>
         <!-- 优惠券 e -->
+        <view class="item" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
+          <view class="text">平台余额抵扣</view>
+          <view class="money"><text>- ¥</text>{{ order.pay_method.pay_balance_total }}</view>
+        </view>
+        <view class="item" wx:if="{{order.shipment_expense > 0}}">
+          <view class="text">运费(快递)</view>
+          <view class="money"><text>+ ¥</text>{{order.shipment_expense}}</view>
+        </view>
+        <!-- <view class="item" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
+          <view class="text">实际支付金额</view>
+          <view class="money"><text>¥</text>{{ order.pay_method.pay_cash_total }}</view>
+        </view> -->
       </view>
 
       <view class="product-info-all">
-        <text class="quantity">共{{order.product_total}}件商品</text>
-        <text class="text">实付款:</text>
+        <!-- <text class="quantity">共{{order.product_total}}件商品</text> -->
+        <text class="quantity">实付款</text>
+        <text class="text">合计:</text>
         <text class="unit">¥</text>
-        <text class="money">{{ order.discount_total }}</text>
+        <!-- <text class="money">{{ order.discount_total }}</text> -->
+
+        <text class="money" wx:if="{{ order.payment_state != 'new' && order.pay_method.pay_cash_total != null }}">{{ order.pay_method.pay_cash_total }}</text>
+        <text class="money" wx:else>
+          <block wx:if="{{ isBalance && balance > 0 &&  order.discount_total > balance }}">{{ order.discount_total - balance}}</block>
+          <block wx:elif="{{ isBalance && balance > 0 &&  order.discount_total <= balance }}">0.0</block>
+          <block wx:elif="{{ !isBalance || balance <= 0 }}">{{order.discount_total}}</block>
+        </text>
+
         <text class="text" wx:if="{{order.shipment_expense <= 0}}">(免运费)</text>
       </view>
 
@@ -203,22 +221,24 @@
         <view class="name">支付时间：</view>
         <view class="info">{{ order.paid_at_t }}</view>
       </view>
-      <view class="item" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
+      <!-- 平台余额支付金额 -->
+      <!-- <view class="item" wx:if="{{ order.pay_method.pay_balance_total != null &&  order.pay_method.pay_balance_total != 0 }}">
         <view class="name">平台余额支付金额：</view>
         <view class="info">¥ {{ order.pay_method.pay_balance_total }}</view>
-      </view>
-      <view class="item" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
+      </view> -->
+      <!-- 实际支付金额 -->
+      <!-- <view class="item" wx:if="{{ order.pay_method.pay_cash_total != null && order.pay_method.pay_cash_total != 0 }}">
         <view class="name">实际支付金额：</view>
         <view class="info">¥ {{ order.pay_method.pay_cash_total }}</view>
-      </view>
+      </view> -->
       <view class="item" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'lock' && order.balance_expend.cash_pre_total > 0 }}">
         <view class="name">平台余额已扣：</view>
         <view class="info">¥ {{ order.balance_expend.cash_pre_total }}</view>
       </view>
       <view class="item" wx:if="{{ order.payment_state == 'new' && order.balance_expend != null && order.balance_expend.status == 'unlock' && balance > 0}}">
-        <view class="name">平台余额: {{balance}}元</view>
+        <view class="name">平台余额: <text>{{balance}}</text></view>
         <view class="switch">
-          <text>是否使用平台余额抵扣</text>
+          <text>是否抵扣</text>
           <switch checked="{{isBalance}}" color="#FB2C2A" bindchange="switchBalance"/> 
         </view>
         
@@ -357,7 +377,7 @@
         <text wx:if="{{isBalance}}" class="balance">平台余额已抵扣￥{{ couponAfter.balance_deduct(order.discount_total,balance) }}</text>
       </block>
 
-      <view bindtap="selectBrcbPay" class="pay-method-item">
+      <view bindtap="selectBrcbPay" class="pay-method-item" style="position: relative;height: 312rpx;padding-bottom: 124rpx;">
         <!-- <view class="checkbox {{ payMethod == 'brcb_pay' && 'active' }}"><image src="/images/select.png"></image></view> -->
         <image class="icon" src="/images/yanglaozhucanka_icon.png"></image>
         <view class="item-main">
@@ -366,6 +386,7 @@
             <image class="checkbox-icon" src="/images/selected_icon_003.png"></image>
           </view>
         </view>
+        <text class="tips">温馨提示：由于发卡银行限制，使用养老助残卡支付的订单不支持取消或退款，如有故障问题可申请换货</text>
       </view>
 
       <view class="pay-method-item" bindtap="selectWxPay">
@@ -397,7 +418,7 @@
   </view>
   <view class="result-bg"></view>
   <view class="subject">
-    <image class="img" src="/images/v1.2/result.png"></image>
+    <image class="img" src="/images/v1.2/result_success.png"></image>
     <view class="money">{{ order.discount_total }}</view>
     <view class="result">支付成功</view>
     <view class="info">

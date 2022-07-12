@@ -78,6 +78,41 @@ function splitArray (arr, num){
   return ret;
 };
 
+// 数组两个元素互换位置
+function swapArr(arr, index1, index2) {
+  arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+  return arr;
+}
+
+/*函数节流*/
+function throttle(fn, interval) {
+  var enterTime = 0;//触发的时间
+  var gapTime = interval || 300 ;//间隔时间，如果interval不传，则默认300ms
+  return function() {
+    var context = this;
+    var backTime = new Date();//第一次函数return即触发的时间
+    if (backTime - enterTime > gapTime) {
+      fn.call(context,arguments);
+      enterTime = backTime;//赋值给第一次触发的时间，这样就保存了第二次触发的时间
+    }
+  };
+}
+
+/*函数防抖*/
+function debounce(fn, interval) {
+  var timer;
+  var gapTime = interval || 200;//间隔时间，如果interval不传，则默认200ms
+  return function() {
+    clearTimeout(timer);
+    var context = this;
+    var args = arguments;//保存此处的arguments，因为setTimeout是全局的，arguments不是防抖函数需要的。
+    timer = setTimeout(function() {
+      fn.call(context,args);
+    }, gapTime);
+  };
+}
+
+
 module.exports = {
   getShipAddress: getShipAddress,
   cacheShipAddress: cacheShipAddress,
@@ -85,5 +120,9 @@ module.exports = {
   cacheShipAddressReal: cacheShipAddressReal,
   checkRepeat: checkRepeat,
   getRandom: getRandom,
-  splitArray: splitArray
+  splitArray: splitArray,
+  swapArr: swapArr,
+  throttle: throttle,
+  debounce: debounce
+
 }

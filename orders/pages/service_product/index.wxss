@@ -119,10 +119,12 @@ page {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   display: -webkit-box;
+  line-height: 44rpx;
 }
 .product .info .bottom{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .product .info .bottom .price{
   font-family: PingFangSC-Medium;

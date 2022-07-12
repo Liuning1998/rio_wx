@@ -89,6 +89,7 @@ function beforeOnload (context) {
     this.navigateTo = function (url, params={}) {
       var skipPage = [
         "/pages/products/show/index",
+        "/pages/contact/index",
         "/pages/special_areas/show/index",
         "/pages/special_areas/show01/index",
         "/pages/special_areas/show1.2/index",
@@ -117,6 +118,7 @@ function beforeOnload (context) {
     this.redirectTo = function (url, params = {}) {
       var skipPage = [
         "/pages/products/show/index",
+        "/pages/contact/index",
         "/pages/special_areas/show/index",
         "/pages/special_areas/show01/index",
         "/pages/special_areas/show1.2/index",
@@ -279,6 +281,11 @@ function beforeOnload (context) {
       let master = item.master
       if (master == null) {
         return
+      }
+
+      if (master.store_code == null || master.store_code.trim() == '') {
+        this.errorToast('加入购物车失败')
+        return false
       }
 
       let lineItem = {

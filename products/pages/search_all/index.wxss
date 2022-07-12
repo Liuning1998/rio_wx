@@ -93,7 +93,7 @@ page {
 }
 
 .list-cations-header .action-item.active {
-  color: #CE343C;
+  color: #FF3633;
 }
 
 .list-cations-header .price-arrow {
@@ -112,7 +112,7 @@ page {
 }
 
 /* .list-cations-header .price-arrow.up .up {
-  border-color: transparent transparent #CE343C transparent;
+  border-color: transparent transparent #FF3633 transparent;
 } */
 
 .list-cations-header .price-arrow .down {
@@ -122,7 +122,7 @@ page {
 }
 
 /* .list-cations-header .price-arrow.down .down {
-  border-color: #CE343C transparent transparent transparent;
+  border-color: #FF3633 transparent transparent transparent;
 } */
 
 

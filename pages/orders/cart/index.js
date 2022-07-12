@@ -63,7 +63,7 @@ Page({
     }else{
       //如果是旧版购物车商铺就删掉
       for(var key in cartData.data){
-        if(!cartData.data[key].store_code){
+        if( cartData.data[key].store_code == null ){
           cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
         }
       }
@@ -79,6 +79,7 @@ Page({
     // 更新购物车中的 sku 价格、库存
     cartApi.updateVariantInfo({
       success: res => {
+        console.log(res)
         if (Object.keys(res).length <= 0) {
           res = null
         }
@@ -361,7 +362,7 @@ Page({
 
   gotoStore: function (e) {
     var item = e.currentTarget.dataset.item
-    if (item == null || item.store_code == null) { return }
+    if (item == null || item.store_code == null || item.store_code.trim() == '') { return }
     this.navigateTo(`/products/pages/collect/index?store_code=${item.store_code}&store_short_name=${item.store_short_name}&total=${item.total}`)
   },
 
@@ -373,6 +374,7 @@ Page({
 
   addCart: function (e) {
     this.goTop()
+
     var item = e.currentTarget.dataset.item
     if (item.tags != null && item.tags.indexOf('虚拟卡券') >= 0) {
       this.navigateTo("/pages/products/show/index?id=" + item.id)
@@ -382,6 +384,11 @@ Page({
     if (item.tags != null && item.tags.indexOf('特殊商品') >= 0) {
       this.navigateTo("/pages/products/show/index?id=" + item.id)
       return
+    }
+
+    if (item.store_code == null || item.store_code.trim() == '') {
+      this.errorToast('加入购物车失败', 500)
+      return false
     }
 
     let master = item.master

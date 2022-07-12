@@ -232,6 +232,11 @@ Page({
         return false
       }
 
+      if (product.store_code == null || product.store_code.trim() == '') {
+        this.errorToast('加入购物车失败')
+        return false
+      }
+
       let variant = null
       for(var j=0; j < product.variants.length; j++) {
         if (product.variants[j].id == line_item.variant_id) {

@@ -226,7 +226,7 @@ page {
 .describe .describe-box .words-quantity {
   position: absolute;
   z-index: 1;
-  bottom: 38rpx;
+  bottom: 12rpx;
   right: 32rpx;
   font-size: 40rpx;
   color: #807474;

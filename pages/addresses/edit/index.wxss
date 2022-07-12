@@ -188,7 +188,7 @@ form {
   display: flex; 
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #DEDEDE;
+  border-top: 1px solid #E6E6E6;
 }
 
 .set-default .box .left{

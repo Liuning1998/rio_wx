@@ -4,33 +4,28 @@
 
 <navbar returnAble="{{false}}" appendStyle="background: rgba(255,255,255,1);" title="个人中心" textStyle="font-weight: 600;"/>
 <view class="header" style="padding-top: {{pageMarginTop+64}}px;">
-  <view  wx:if="{{ authLoginStatus }}" class="information">
+  <view class="information">
     <view class="avatar">
       <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
           <image class="avatar-image" src="{{userAvatar}}"></image>
       </button>
       <image class="pendant" wx:if="{{userInfo.vip_level}}" src="/pages/member/images/member_pendant.png"></image>
     </view>
-    <view class="phone">
-      <view class="phone_number">{{ userInfo.phone }}</view>
+    <view class="phone"  wx:if="{{ authLoginStatus }}">
+      <view class="phone_number" wx:if="{{ userInfo.phone != null && userInfo.phone.length == 11 }}">{{ userInfo.phone }}</view>
+      <view class="phone_number" wx:else bindtap="gotoPhone">去补全手机号</view>
       <view class="discount_head" wx:if="{{userInfo.vip_level}}">
         <image src="/images/v1.2/mine_head_01.png"></image>
         <text>{{userInfo.vip_level.current_vip_level}}会员享{{userInfo.vip_level.current_discount}}折</text>
       </view>
     </view>
-  </view>
-  <view  wx:else class="information no_login">
-    <view class="avatar">
-      <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
-          <image class="avatar-image" src="{{userAvatar}}"></image>
-      </button>
-      <image class="pendant" wx:if="{{userInfo.vip_level}}" src="/pages/member/images/member_pendant.png"></image>
-    </view>
-    <view class="phone">
-      <view class="phone_number">{{ userInfo.phone }}</view>
-      <view class="discount_head" wx:if="{{userInfo.vip_level}}">
-        <image src="/images/v1.2/mine_head_01.png"></image>
-        <text>{{userInfo.vip_level.current_vip_level}}会员享{{userInfo.vip_level.current_discount}}折</text>
+    <view class="no-login" wx:else bindtap="login">
+      <view class="no-login-content">
+        <text class="to-login">点击登录</text>
+        <text class="sub-text">1秒登录，查看专属会员权益</text>
+      </view>
+      <view class="no-login-img">
+        <image src="/images/v1.2/arrow_02.png"></image>
       </view>
     </view>
   </view>
@@ -97,28 +92,28 @@
     <image class="img" src="/images/v1.2/mine_menu_04.png"></image>
     <text class="text">优惠券</text>
     <view class="arrow_box">
-      <image class="arrow" src="/images/arrow.png"></image>
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
     </view>
   </view>
   <view class="list" data-url="/pages/addresses/index/index" bindtap="gotoLink">
     <image class="img1" src="/images/v1.2/mine_menu_01.png"></image>
     <text class="text">地址管理</text>
     <view class="arrow_box">
-      <image class="arrow" src="/images/arrow.png"></image>
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
     </view>
   </view>
   <view class="list" data-url="/agreement/pages/price/index" bindtap="gotoLink">
     <image class="img1" src="/images/v1.2/mine_menu_02.png"></image>
     <text class="text">价格说明</text>
     <view class="arrow_box">
-      <image class="arrow" src="/images/arrow.png"></image>
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
     </view>
   </view>
   <view class="list" data-url="/agreement/pages/sale_service/show" bindtap="gotoLink">
     <image class="img1" src="/images/v1.2/mine_menu_03.png"></image>
     <text class="text">售后协议</text>
     <view class="arrow_box">
-      <image class="arrow" src="/images/arrow.png"></image>
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
     </view>
   </view>
 </view>

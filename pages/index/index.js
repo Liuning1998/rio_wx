@@ -730,6 +730,7 @@ Page({
         if(res.data != null && res.data.length > 0) {
           res.data = helper.splitArray(res.data,3)
           res.data.forEach((item,index)=>{
+            item = helper.swapArr(item,0,1)
             newBrandData.push(item)
           })
           this.setData({

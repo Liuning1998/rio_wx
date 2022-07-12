@@ -36,7 +36,7 @@
     <view wx:else class="orders-container">
       <block wx:for="{{ orders[active + 'Orders'] }}" wx:for-item="order" wx:key="index">
         <!-- 不存在子订单 -->
-        <view wx:if="{{ order != 'deleted' && order.sub_orders != null && order.sub_orders.length <= 0}}" class="order-item-container">
+        <view wx:if="{{ order != 'deleted' && (order.sub_orders == null || order.sub_orders.length <= 0) }}" class="order-item-container">
           <view class="order-status {{ order.state }}">
             <view class="name-container">
               <text>下单时间：{{helper.cutDate(order.created_at_t) || ''}}</text>
@@ -78,7 +78,7 @@
 
           <view class="total-container">
             <text class="label">共{{order.product_total}}件商品</text>
-            <text class="price">实付款:<text class="icon">¥</text><text class="money">{{price.tos(order.discount_total)}}</text><block wx:if="{{order.shipment_expense <= 0}}"> (免运费)</block></text>
+            <text class="price">合计:<text class="icon">¥</text><text class="money">{{price.tos(order.discount_total)}}</text><block wx:if="{{order.shipment_expense <= 0}}"> (免运费)</block><block wx:else> (含运费)</block></text>
           </view>
 
           <view wx:if="{{ order.state != 'new' }}" class="actions">
@@ -108,7 +108,7 @@
           </view>
         </view>
         <!-- 存在子订单 -->
-        <view wx:if="{{subOrder != 'deleted'}}" wx:for="{{ order.sub_orders }}" wx:for-item="subOrder" wx:key="index" class="order-item-container">
+        <view wx:if="{{ order.sub_orders != null && order.sub_orders.length > 0 && subOrder != 'deleted'}}" wx:for="{{ order.sub_orders }}" wx:for-item="subOrder" wx:key="index" class="order-item-container">
         
             <view class="order-status {{ subOrder.state }}">
               <view class="name-container">
@@ -151,7 +151,7 @@
 
             <view class="total-container">
               <text class="label">共{{subOrder.product_total}}件商品</text>
-              <text class="price">实付款:<text class="icon">¥</text><text class="money">{{price.tos(subOrder.discount_total)}}</text><block wx:if="{{subOrder.shipment_expense <= 0}}"> (免运费)</block></text>
+              <text class="price">合计:<text class="icon">¥</text><text class="money">{{price.tos(subOrder.discount_total)}}</text><block wx:if="{{subOrder.shipment_expense <= 0}}"> (免运费)</block><block wx:else> (含运费)</block></text>
             </view>
 
             <view wx:if="{{ subOrder.state != 'new' }}" class="actions">

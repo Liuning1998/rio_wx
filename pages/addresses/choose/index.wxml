@@ -18,9 +18,13 @@
     <view wx:else class='address-list'>
       <block  wx:for="{{ addresses }}" wx:key="index">
         <view wx:if="{{ item.deleted != true }}" class="address-item-container">
-          <view class="checkbox {{ item.isSelected && 'selected' }}" data-address='{{ item }}' bindtap='selectAddress'>
-            <image src="/images/selected_icon_003.png"></image>
+
+          <view class="checkbox-box" data-address='{{ item }}' bindtap='selectAddress'>
+            <view class="checkbox {{ item.isSelected && 'selected' }}">
+              <image src="/images/selected_icon_003.png"></image>
+            </view>
           </view>
+           
           <view class="info" bindtap='selectAddress' data-address='{{ item }}'>
             <view class="name-and-phone">
               <text class="name">{{ item.real_name }}</text>

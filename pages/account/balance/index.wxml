@@ -6,7 +6,7 @@
 
 <scroll-view scroll-y   class='page-container' bindscroll="scrollEvent" bindscrolltolower="reachBottom">
   <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
-  <image class="page-back-img" src="/images/v1.2/order_detailbg_01.png"></image>
+  <image class="page-back-img" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_detailbg_01.png"></image>
   <view class="header">
     <view class="title">平台余额(元)</view>
     <view class="money">{{ price.tos(balance) || 0.00 }}</view>
@@ -35,8 +35,8 @@
   <!-- --内容区域-- -->
   <view class="content">
     <view class="empty-container" wx:if="{{ lists && lists.length <= 0}}">
-      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_coupon_icon.png"></image>
-      <text>暂无平台余额~</text>
+      <image src="/images/v1.2/balance_none.png"></image>
+      <!-- <text>暂无平台余额~</text> -->
     </view>
     <view wx:else>
       <view class="item {{ item.sources == '支出' ? 'pay' : '' }} {{ item.sources == '收入' ? 'refund' : '' }}" wx:for="{{lists}}"  bindtap="gotoLink" data-url="/pages/account/balance_detail/index?id={{item.id}}&sources={{item.sources}}" wx:key="index">
@@ -55,11 +55,11 @@
       </view>
     </view>
 
-    <view class="page-bottom" hidden="{{!finished}}">
+    <!-- <view class="page-bottom" hidden="{{!finished}}">
       <image src="/images/bottom_icon_001.png"></image>
       <text>已经到底啦</text>
       <image class="right" src="/images/bottom_icon_001.png"></image>
-    </view>
+    </view> -->
   </view>
 
   <view class="placeholder" style="width: 100%;height: {{ isIphoneX ? '200' : '100'}}rpx;"></view>

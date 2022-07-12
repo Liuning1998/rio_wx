@@ -74,7 +74,6 @@ page {
   justify-content: space-between;
   width: 750rpx;
   background-color: #fff;
-  align-items: center;
 }
 .address-item-container .checkbox{
   display: flex;
@@ -91,8 +90,13 @@ page {
 }
 .address-item-container .checkbox image {
   display: none;
-  width: 36rpx;
-  height: 36rpx;
+  width: 100%;
+  height: 100%;
+}
+
+.address-item-container .checkbox-box{
+  display: flex;
+  align-items: center;
 }
 
 .address-item-container .checkbox.selected {
@@ -177,6 +181,7 @@ page {
   font-size: 36rpx;
   color: #807474;
   font-weight: 400;
+  align-items: center;
 }
 
 .loading-icon {

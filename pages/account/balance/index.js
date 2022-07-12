@@ -15,7 +15,7 @@ Page({
     emptyStatus:false,
     navStyle:{
       navbarStyle: 'custom',
-      imgSrc: '/images/v1.2/order_detailbg_01.png'
+      imgSrc: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_detailbg_01.png'
     },
     screenSticky: false,
     skityHeight:null,

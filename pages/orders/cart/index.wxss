@@ -430,10 +430,9 @@ page {
   font-weight: 500;
 }
 
-.control-quantity .plus{
-  position: relative;
-  top: -4rpx;
-  font-size: 50rpx;
+.control-quantity .sub image, .control-quantity .plus image{
+  width: 24rpx;
+  height: 24rpx;
 }
 
 /* .control-quantity .sub {

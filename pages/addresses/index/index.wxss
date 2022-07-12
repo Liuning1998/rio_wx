@@ -203,7 +203,7 @@ page {
   justify-content: center;
   align-items: center;
   height: 36rpx;
-  width: 28rpx;
+  width: 36rpx;
   border: 1px solid #B4AFAF;
   border-radius: 50%;
   margin-right: 10rpx;
@@ -213,8 +213,8 @@ page {
 
 .actions .select .checkbox image {
   display: none;
-  width: 36rpx;
-  height: 36rpx;
+  width: 100%;
+  height: 100%;
 }
 
 .actions .select .checkbox.selected {

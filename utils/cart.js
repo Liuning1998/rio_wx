@@ -107,8 +107,11 @@ function triggerStoreSelectStatus(storeData, status) {
 function removeFromCart (lineItem) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
-  // let storeCart = cartData['store_' + lineItem.store_id]
-  let storeCart = cartData['store_' + lineItem.store_code]
+  if( lineItem.store_code != null ){
+    var storeCart = cartData['store_' + lineItem.store_code]
+  }else{
+    var storeCart = cartData['store_' + lineItem.store_id]
+  }
 
   try { 
  
@@ -127,7 +130,8 @@ function removeStoreLineOfSelect (storeData) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
   // let storeCart = cartData['store_' + storeData.store_id]
-  if( storeData.store_code ){
+  console.log(storeData)
+  if( storeData.store_code != null ){
     var storeCart = cartData['store_' + storeData.store_code]
   }else{
     var storeCart = cartData['store_' + storeData.store_id]
