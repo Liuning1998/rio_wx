@@ -6,7 +6,7 @@
 <navbar navbarStyle="custom" customImgSrc="{{brand.banners[0]}}" title="{{tagName}}" />
 
 
-<scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
+<scroll-view scroll-y class='page-container' >
   <image class="ad-image" src="{{brand.banners[0]}}"></image>
   <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
     <image src="../../images/products_empty_icon_001.png"></image>

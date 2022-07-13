@@ -280,7 +280,6 @@ Page({
   labelSreen:function(e){
     //  点击后的标签居中
     var ele = 'ele' + e.currentTarget.dataset.index;
-    console.log(e.currentTarget.dataset.item)
     var id = e.currentTarget.dataset.item.id;
     var currentidKey = `currentCategory.secondId`
     var key = `id_${id}`;
@@ -347,7 +346,6 @@ Page({
         url: `api/platform_categories?q[father_id_eq]=${currentId}`,
         // data: _data,
         success: res => {
-          console.log('加载成功！',res.data)
           res.data.forEach(function(ele,i){
             ele.active = false
             categories[currentIndex].labelArr.push(ele)

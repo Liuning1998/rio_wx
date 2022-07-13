@@ -106,7 +106,6 @@ Page({
     }
 
     this.setData({ addresses: addresses.concat(_addrs) })
-    console.log(this.data.addresses)
   },
 
   /**
@@ -236,7 +235,6 @@ Page({
       if (addresses[key].id == item.id) {
         var temp = {}
         temp["addresses[" + key + '].deleted'] = true
-        console.log(temp)
         this.setData(temp)
         this.checkIsNone()
       }
@@ -244,7 +242,6 @@ Page({
   },
 
   checkIsNone:function(){
-    console.log('检查')
     var addresses = this.data.addresses
     var noDeleteLength = 0;
     addresses.forEach((element,index)=>{

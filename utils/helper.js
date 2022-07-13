@@ -74,7 +74,6 @@ function splitArray (arr, num){
     }
     ret[ret.length - 1].push(item);
   });
-  console.log(ret);
   return ret;
 };
 

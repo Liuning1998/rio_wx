@@ -91,7 +91,6 @@ Page({
       this.setData({ shown: true })
     } else {
       // 调用onload重新渲染页面
-      console.log('重新渲染页面')
       var params = {
         id:this.data.order.number
       }

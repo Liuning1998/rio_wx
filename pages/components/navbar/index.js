@@ -50,9 +50,7 @@ Component({
   },
 
   attached: function () {
-    console.log(this.data)
     this.setData({statusBarHeight: wx.getSystemInfoSync().statusBarHeight})
-    console.log(this.data.title)
     this.setData({ title: decodeURI(this.data.title) })
   },
 })

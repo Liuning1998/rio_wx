@@ -24,7 +24,6 @@ Page({
     getApp().commonBeforeOnLoad(this)
 
     console.log('上个页面信息',options)
-    console.log('this.params',this.params)
     var category = {
       code: options.store_code,
       store_short_name: options.store_short_name,
@@ -208,7 +207,6 @@ Page({
 
 
   onReachBottom: function () {
-    console.log('到底')
     this.getProducts(this.data.category.code, this.data.orderType, false)
   },
 

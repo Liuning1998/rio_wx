@@ -645,11 +645,11 @@ page {
 .pbadges {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 8rpx;
+  margin-top: 0;
 }
 .pbadges .badge-item {
   font-size: 20rpx;
-  color: #F64C47;
+  color: #fff;
   height: 28rpx;
   line-height: 28rpx;
   border: 1px solid #F64C47;

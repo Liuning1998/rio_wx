@@ -37,7 +37,6 @@ Page({
     wx.getSetting({
       withSubscriptions: true,
       success(res) {
-        console.log(res)
         var itemSettings = res.subscriptionsSetting.itemSettings;
         if (itemSettings) {
           if (itemSettings['j3FKFyq9kJnybm8yoN2em_0kD96zc2sqAhyOmr7mbmo']=='accept' && itemSettings['hxlDiBwF6YabpwEPm4L4vrutDMNEG1wbt8yzxDEBB6I']=='accept') {
@@ -88,7 +87,7 @@ Page({
   },
 
   // 跳转优惠券
-  gotoCoupon:function(){
+  gotoCoupon: function(){
     this.subscribe().then(res =>{
       this.navigateTo('/pages/coupons/list/index')
     })
@@ -162,7 +161,6 @@ Page({
     http.post({
       url: 'api/users/show_user',
       success: res => {
-        console.log(res)
         this.setData({ userInfo: res.data })
       }
     })
@@ -215,7 +213,6 @@ Page({
     var maxtop = wx.getSystemInfoSync().screenHeight;
     if (timer) return
     var timer = setTimeout(() => {
-      console.log(maxtop)
       if(csTop >= 100 && csTop <= (maxtop - 150)){
         this.setData({
           csTop: csTop

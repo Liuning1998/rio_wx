@@ -960,13 +960,14 @@ page {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
   margin-top: 10rpx;
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #332B2B;
+  word-break: break-all;
 }
 .coupon-p .popup-item .item-center .item-value{
   display: flex;

@@ -70,7 +70,6 @@ Page({
     }
 
     this.setData({ cartData: cartData, cartLoaded: true, deleteButtonShowId: -1 })
-    console.log('更新sku前',this.data.cartData)
 
     if(Object.keys(this.data.avatars).length <= 0) {
       this.fetchAvatars(cartData)
@@ -79,12 +78,10 @@ Page({
     // 更新购物车中的 sku 价格、库存
     cartApi.updateVariantInfo({
       success: res => {
-        console.log(res)
         if (Object.keys(res).length <= 0) {
           res = null
         }
         this.setData({ cartData: res, cartLoaded: true })
-        console.log('更新sku后',this.data.cartData)
     
       }
     })
@@ -200,7 +197,6 @@ Page({
       },
       success: res => {
         if(res.data.status =='ok'){
-          console.log([key])
           this.setData({
             successPopup:true,
             [key]:false
@@ -297,7 +293,6 @@ Page({
   },
 
   deleteItem: function (e) {
-    console.log(e)
     var item = e.currentTarget.dataset.item
     let _cartData = cartApi.removeFromCart(item)
 

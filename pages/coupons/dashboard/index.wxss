@@ -110,7 +110,7 @@ page {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
   margin-top: 10rpx;

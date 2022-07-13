@@ -16,7 +16,6 @@ Page({
   },
 
   gotoYinsizhengce: function () {
-    console.log('ssss')
     this.navigateTo("/agreement/pages/yinsizhengce/index")
   },
 

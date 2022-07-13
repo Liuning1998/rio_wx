@@ -105,7 +105,7 @@ Page({
     }
 
     this.setData({ addresses: addresses.concat(_addrs) })
-    console.log(this.data.addresses)
+    // console.log(this.data.addresses)
   },
 
   /**

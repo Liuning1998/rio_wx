@@ -31,7 +31,6 @@ Page({
   // 切换热门问题
   swichNav:function(e){
     var that = this;
-    console.log(e.currentTarget.dataset.current)
     if( this.data.currentTab === e.currentTarget.dataset.current ) {
         return false;
     } else {

@@ -164,7 +164,7 @@
           <view class="main-info">
             <text class="label">赠品</text>
             <text class="desc">
-              <block wx:for="{{ product.free_product.desc.info }}">{{item}}</block>
+              <block>{{product.free_product.name}}</block>
             </text>
           </view>
 
@@ -323,7 +323,7 @@
   <view class="gift-mask" bindtap="closeGift"></view>
   <view class='popup'>
     <view class="popup-title">
-      <text>优惠</text>
+      <text>活动</text>
       <view class="close" bindtap="closeGift">
         <image src="/images/v1.2/close.png"></image>
       </view>
@@ -338,7 +338,7 @@
     <view class="pupup-scroll">
       <scroll-view class="pupup-scroll-box" scroll-y>
         <view class="item" wx:for="{{product.free_product.desc.info}}" wx:key="index">
-          <view class="title"><text>赠品</text></view>
+          <view class="title"><text>规则</text></view>
           <view class="content">{{item}}</view>
         </view>
       </scroll-view>

@@ -503,7 +503,7 @@ page {
   display: flex;
   flex-shrink: 0;
   white-space: nowrap;
-  padding-right: 10rpx;
+  padding-right: 42rpx;
   font-family: PingFangSC-Regular;
   font-size: 36rpx;
   color: #332B2B;

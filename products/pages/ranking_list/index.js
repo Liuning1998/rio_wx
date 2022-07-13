@@ -178,11 +178,12 @@ Page({
     }
   },
 
-  changeNavbar: function () {
-    this.checkNavbar()
-    setTimeout(res => {
-      this.changeNavbar()
-    }, 500)
-  },
+  // changeNavbar: function () {
+  //   console.log('dsasd')
+  //   this.checkNavbar()
+  //   setTimeout(res => {
+  //     this.changeNavbar()
+  //   }, 500)
+  // },
 
 })

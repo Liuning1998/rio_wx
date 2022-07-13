@@ -235,7 +235,6 @@ var jd_functions = {
         }
       },
       fail: res=>{
-        console.log(res);
         this.setData({
           coupon:[],
           couponLoading:false,

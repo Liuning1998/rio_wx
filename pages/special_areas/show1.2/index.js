@@ -19,6 +19,7 @@ Page({
     labelArr: {},//子标签
     currentLabel:{},//当前选中的子标签
     scrollTop:0, //滚动条滚动高度
+    showLoading: false
   },
 
   /**
@@ -85,6 +86,9 @@ Page({
           })
           //默认先加载专区的全部商品
           this.getProducts(this.data.currentCategory.id, this.data.orderType, false)
+          this.stopScrollRefresh()
+        }else{
+          this.stopScrollRefresh()
         }
       }
     })
@@ -96,11 +100,34 @@ Page({
     this.setData({ showLoading: true })
     this.stopPDRefresh()
   },
+  
+  // scroll-view下拉刷新
+  scrollRefresh() {
+    if(!this.data.showLoading){
+      this.refreshData()
+      this.setData({ showLoading: true })
+    }
+  },
+
+  stopScrollRefresh(){
+    if(this.data.showLoading == true){//如果刷新状态为true置为false
+      var _this = this;
+      setTimeout(()=>{
+        _this.setData({
+          showLoading: false
+        })
+      },500)
+    }
+  },
 
   refreshData: function () {
     this.getCategories(this.data.currentStore.id)
     this.getAds(this.data.currentStore.id)
-    this.setData({ products: {}})
+    this.setData({ 
+      products: {},
+      pageBottom: {},
+      labelArr: {},
+    })
   },
 
   stopPDRefresh: function () {
@@ -164,10 +191,8 @@ Page({
 
     let key = `id_${category_id}`
     let length = 0
-    console.log(key)
     if (this.data.products[key] != null) {
       length = this.data.products[key].length
-      console.log(length)
     }
 
     var page = Math.floor(length/getApp().globalData.perPage) + 1
@@ -210,7 +235,6 @@ Page({
     var orderType = e.currentTarget.dataset.orderType
 
     var key = `id_${this.data.currentCategory.id}`;
-    console.log(key)
     
     var bottomKey = `pageBottom.${key}`;
     
@@ -267,7 +291,6 @@ Page({
   changeCategorie: function (e) {
     var item = e.currentTarget.dataset.item
     var labelArr = this.data.labelArr;
-    console.log(item)
     this.setData({
       currentCategory: item,
       currentLabel: {
@@ -336,7 +359,6 @@ Page({
   //上拉加载更多
   loadMore: function(){
     if(!canLoadMore || this.data.pageBottom['id_'+this.data.currentLabel.id]) return;
-    console.log('上拉加载')
     this.getProducts(this.data.currentLabel.id, this.data.orderType, false)
   },
 
@@ -380,7 +402,6 @@ Page({
 
   //回到顶部
   goTop: function (e) {  // 一键回到顶部
-    console.log('点了点了')
     this.setData({
       scrollTop:0
     })

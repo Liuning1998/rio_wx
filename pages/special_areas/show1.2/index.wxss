@@ -1,6 +1,6 @@
 /* pages/store/home/index.wxss */
 page {
-  height: 100%;
+  height: 100vh;
   background: #f7f7f7;
 }
 
@@ -48,6 +48,8 @@ page {
   -webkit-line-clamp: 1;
   display: -webkit-box;
   max-width: 145rpx;
+  height: 34rpx;
+  line-height: 1;
 }
 .navbar-container .navbar-content .nav-search{
   width: 305rpx;
@@ -416,6 +418,9 @@ page {
   position: relative;
   z-index: 11;
   height: 100vh;
+}
+scroll-view.page-container ::-webkit-scrollbar {
+  display: none;
 }
 
 .page-container::-webkit-scrollbar {

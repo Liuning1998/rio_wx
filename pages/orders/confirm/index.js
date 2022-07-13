@@ -67,7 +67,6 @@ Page({
 
     if (options.buyType == 'now') {
       var storeCart = this.params.cart
-      console.log(storeCart)
       this.setData({ buyType: 'now' })
     } else {
       var cart = cartApi.getCartCache()

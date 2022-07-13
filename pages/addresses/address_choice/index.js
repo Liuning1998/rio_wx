@@ -113,9 +113,9 @@ Component({
       this.getProvince();
       //是否传入地址 传入则显示当前地址   为传入则显示之前地址
       if(address == null){
-        console.log('我是未传入地址')
+        // console.log('我是未传入地址')
       }else if(this.data.firstTime){
-        console.log('我是传入了地址')
+        // console.log('我是传入了地址')
         var nameArr = this.data.nameArr;
         nameArr[0] = address.province || '';
         nameArr[1] = address.city || '';

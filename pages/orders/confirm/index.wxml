@@ -114,7 +114,7 @@
           <view class="left">
             <image class="icon" src="/images/v1.2/order_confirm_02.png"></image>
             <text class="name">优惠券</text>
-            <text class="describe">{{checkCoupon.name}}</text>
+            <!-- <text class="describe">{{checkCoupon.name}}</text> -->
           </view>
           <view class="right">
             <text class="price">-￥{{checkCoupon != null ? price.tos(checkCoupon.value) : price.tos(0)}} </text>
@@ -243,39 +243,6 @@
         <view class="coupon-split">
           不可用的优惠券
         </view>
-        <!-- <label class="coupon-list cant" data-index="index" data-item="{{item}}" bindtap="" wx:for="{{couponNewCant}}" wx:key="{{item.number}}">
-          <view class="coupon">
-            <image class="coupon-bg" src="/images/coupon/coupon-content1.png"></image>
-            <view class="coupon-card">
-
-              <image wx:if="{{helperTime.isExpire(nowDate,item.expires_at)}}" class="coupon-card-bg" src="/images/coupon/coupon-card1.png"></image>
-              <image wx:else class="coupon-card-bg" src="/images/coupon/coupon-card1.png"></image>
-
-              <view class="coupon-card-content">
-                <view class="coupon-money">
-                  <text>￥</text>
-                  <text>{{item.value}}</text>
-                </view>
-                <view class="coupon-brief">满{{item.limit_value}}可用</view>
-              </view>
-            </view>
-            <view class="coupon-operation">
-              <view class="coupon-operation-top">
-                <text>{{item.name}}</text>
-                <view class="coupon-operation-top-btn">
-                  <text>{{helperTime.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
-                </view>
-              </view>
-              <view class="coupon-operation-bottom {{item.detailShow ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}" catchtap="down">
-                <text>使用规则</text>
-                <image src="/images/arrow_o_bottom_green.png"></image>
-              </view>
-            </view>
-          </view>
-          <view class="coupon-list-mask" wx:if="{{item.detailShow}}">
-            <view wx:for="{{item.description}}" wx:for-item="des">{{des}}</view>
-          </view>
-        </label> -->
 
         <!-- v1.2 s -->
           <view class="coupon-list" data-index="index" data-item="{{item}}" wx:for="{{couponNewCant}}" wx:key="{{item.number}}">
@@ -287,10 +254,10 @@
               </view>
               <view class="info">
                   <view class="info-top">
-                    <view class="choose">
+                    <view class="left">
                       <text>{{item.name}}</text>
+                      <text>{{helperTime.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
                     </view>
-                    <text>{{helperTime.dateFormat(item.expires_at,'yyyy-MM-dd hh:mm')}}到期</text>
                   </view>
                   <view class="info-bottom {{item.detailShow ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}"  catchtap="down">
                     <text>使用规则</text>

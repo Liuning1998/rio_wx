@@ -566,7 +566,6 @@ Page({
 
   // 跳转活动商品
   gotoUrl:function(e){
-    console.log(e)
     var url = e.currentTarget.dataset.url
     if (url == null || url.length <= 0) {
       return

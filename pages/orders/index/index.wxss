@@ -309,7 +309,7 @@ page {
 }
 
 .buy-btn {
-  height: 96rpx;
+  height: 72rpx;
   width: 216rpx;
   box-sizing: border-box;
   border: 1rpx solid #FF3633;
@@ -317,7 +317,7 @@ page {
   color: #FF3633;
   text-align: center;
   font-family: PingFangSC-Medium;
-  line-height: 96rpx;
+  line-height: 72rpx;
   font-size: 32rpx;
   font-weight: 500;
 }
