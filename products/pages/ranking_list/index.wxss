@@ -314,6 +314,7 @@ page {
   font-family: PingFangSC-Regular;
   font-size: 36rpx;
   line-height: 44rpx;
+  height: 88rpx;
   color: #332B2B;
   letter-spacing: -1px;
   font-weight: 400;
@@ -324,7 +325,7 @@ page {
   -webkit-line-clamp: 2;
   display: -webkit-box;
   box-sizing: border-box;
-  flex: 1;
+  flex: none;
 }
 .ranking .item.active .name{
   margin-top: 13rpx;

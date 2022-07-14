@@ -48,8 +48,7 @@ page {
   -webkit-line-clamp: 1;
   display: -webkit-box;
   max-width: 145rpx;
-  height: 34rpx;
-  line-height: 1;
+  white-space: nowrap;
 }
 .navbar-container .navbar-content .nav-search{
   width: 305rpx;

@@ -35,7 +35,7 @@
   </view>
 </view>
   
-<scroll-view  show-scrollbar="{{false}}"  bounces="{{false}}" bindscrolltoupper="changeScroll" bindscrolltolower="changeScroll" scroll-y class='page-container' refresher-enabled="true" refresher-threshold="45" refresher-default-style="none" refresher-background="#fff" refresher-triggered="{{showLoading}}" bindrefresherrefresh="scrollRefresh">
+<scroll-view  show-scrollbar="{{false}}"  bounces="{{false}}" scroll-y class='page-container' refresher-enabled="true" refresher-threshold="45" refresher-default-style="none" refresher-background="#fff" refresher-triggered="{{showLoading}}" bindrefresherrefresh="scrollRefresh">
 
   <view style="height: {{pageMarginTop+44}}px;width: 100%;"></view>
 
@@ -83,33 +83,43 @@
         <text>商品上架中，敬请期待</text>
       </view>
       <view class="products" wx:else>
-        <scroll-view scroll-top="{{scrollTop}}" scroll-y="{{allowScroll}}" bindscroll="viewScroll" style="height: 100%;" class="products-scroll" bindscrolltolower="loadMore">
-          <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
-            <view class="avatar-container">
-              <image class="avatar avatar_border" src="{{item.avatar}}"></image>
-            </view>
-            <view class="product-info">
-              <view class="name-and-badge">
-                <text class="name">{{item.name}}</text>
-                <view class="pbadges">
-                  <text class="badge-item" wx:for="{{item.badges}}"  wx:for-item="badge">{{badge}}</text>
-                </view>
+        <scroll-view 
+          wx:for="{{products}}" 
+          wx:if="{{index ==  'id_' + currentLabel.id}}" 
+          scroll-top="{{scrollTop['id_' + currentLabel.id]}}" 
+          scroll-y="{{allowScroll}}" 
+          bindscroll="viewScroll" 
+          style="height: 100%;" 
+          scroll-anchoring="{{true}}" 
+          scroll-with-animation="{{true}}" 
+          class="products-scroll" 
+          bindscrolltolower="loadMore">
+            <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
+              <view class="avatar-container">
+                <image class="avatar avatar_border" src="{{item.avatar}}"></image>
               </view>
-              <view class="price-and-btn">
-                <view class="price-container">
-                  <text class="unit">¥</text>
-                  <text class="price">{{price.tos(item.price)}}</text>
+              <view class="product-info">
+                <view class="name-and-badge">
+                  <text class="name">{{item.name}}</text>
+                  <view class="pbadges">
+                    <text class="badge-item" wx:for="{{item.badges}}"  wx:for-item="badge">{{badge}}</text>
+                  </view>
                 </view>
-                <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+                <view class="price-and-btn">
+                  <view class="price-container">
+                    <text class="unit">¥</text>
+                    <text class="price">{{price.tos(item.price)}}</text>
+                  </view>
+                  <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+                </view>
+                <view wx:if="{{ index < products['id_'+currentLabel.id].length - 1}}" class="line"></view>
               </view>
-              <view wx:if="{{ index < products['id_'+currentLabel.id].length - 1}}" class="line"></view>
             </view>
-          </view>
-          <view class="page-bottom" wx:if="{{pageBottom['id_'+currentLabel.id]}}">
-            <image src="/images/bottom_icon_001.png"></image>
-            <text>已经到底啦</text>
-            <image src="/images/bottom_icon_001.png" class="right"></image>
-          </view>
+            <view class="page-bottom" wx:if="{{pageBottom['id_'+currentLabel.id]}}">
+              <image src="/images/bottom_icon_001.png"></image>
+              <text>已经到底啦</text>
+              <image src="/images/bottom_icon_001.png" class="right"></image>
+            </view>
         </scroll-view>
       </view>
     </view>
@@ -122,7 +132,7 @@
 <msgToast msg-data="{{ _msgData }}"/>
 
 <!-- 跳到顶部 -->
-<view class="to-top" hidden='{{!cangotop}}'catchtap="goTop">
+<view class="to-top" hidden="{{!cangotop['id_' + currentLabel.id]}}" catchtap="goTop">
   <text class="line"></text>
   <image src="/images/v1.2/return_black.png"></image>
 </view>

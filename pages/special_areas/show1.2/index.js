@@ -15,10 +15,10 @@ Page({
     currentStore: {},
     pageBottom: false,
     specialArea: null,
-    allowScroll:false,//是否允许内层scrollview滚动
+    allowScroll:true,//是否允许内层scrollview滚动
     labelArr: {},//子标签
     currentLabel:{},//当前选中的子标签
-    scrollTop:0, //滚动条滚动高度
+    scrollTop:{}, //滚动条滚动高度
     showLoading: false
   },
 
@@ -164,6 +164,15 @@ Page({
     } else {
       this.setData({ [bottomKey]: false })
     }
+
+    var scrollTopKey = `scrollTop.${key}`
+    if(this.data.scrollTop[key] == null && this.data.scrollTop[key] != 0){
+      console.log('scrollTop')
+      this.setData({
+        [scrollTopKey]: 0
+      })
+    }
+
   },
 
   getAds: function (special_area_id) {
@@ -223,18 +232,22 @@ Page({
   // 点击子标签
   changeLabel: function(e){
     var item = e.currentTarget.dataset.item
+    var key = `id_${item.id}`;
     this.setData({
       currentLabel: item
     })
+
+    if(this.data.products[key] == null || this.data.products[key].length < 1){
+      this.getProducts(item.id, this.data.orderType, false)
+    }
     
-    this.getProducts(item.id, this.data.orderType, false)
   },
 
   // 筛选
   changeOrder: function (e) {
     var orderType = e.currentTarget.dataset.orderType
 
-    var key = `id_${this.data.currentCategory.id}`;
+    var key = `id_${this.data.currentLabel.id}`;
     
     var bottomKey = `pageBottom.${key}`;
     
@@ -256,8 +269,7 @@ Page({
       this.setData({
         [`products.${key}`]:[],
         [bottomKey]:false,
-      })  
-    
+      }) 
       
       this.getProducts(this.data.currentLabel.id, orderType, false)
     }
@@ -358,6 +370,7 @@ Page({
 
   //上拉加载更多
   loadMore: function(){
+    console.log('-------------------触底-----------------')
     if(!canLoadMore || this.data.pageBottom['id_'+this.data.currentLabel.id]) return;
     this.getProducts(this.data.currentLabel.id, this.data.orderType, false)
   },
@@ -374,36 +387,40 @@ Page({
   },
 
   // 改变商品列表scroll-view是否可滚动
-  changeScroll: function(e) {
-    var direction = e.detail.direction;
-    if(direction == 'bottom'){
-      this.setData({
-        allowScroll: true
-      })
-    }else{
-      this.setData({
-        allowScroll: false
-      })
-    }
-  },
+  // changeScroll: function(e) {
+  //   var direction = e.detail.direction;
+  //   if(direction == 'bottom'){
+  //     this.setData({
+  //       allowScroll: true
+  //     })
+  //   }else{
+  //     this.setData({
+  //       allowScroll: false
+  //     })
+  //   }
+  // },
 
     // 获取滚动条当前位置
-  viewScroll:function(e){
+  viewScroll: function(e){
+    var key = `id_${this.data.currentLabel.id}`
+    var cangotopKey = `cangotop.${key}`
     if (e.detail.scrollTop > 100) {
       this.setData({
-        cangotop: true
+        [cangotopKey]: true
       });
     } else {
       this.setData({
-        cangotop: false
+        [cangotopKey]: false
       });
     }
   },
 
   //回到顶部
   goTop: function (e) {  // 一键回到顶部
+    var key = `id_${this.data.currentLabel.id}`;
+    var scrollTopKey = `scrollTop.${key}`
     this.setData({
-      scrollTop:0
+      [scrollTopKey]:0
     })
   },
 
