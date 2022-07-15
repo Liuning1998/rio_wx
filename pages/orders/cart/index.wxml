@@ -32,9 +32,10 @@
       </view>
     </view>
 
-    <view wx:if="{{helper.empty(cartData) && cartLoaded}}" class="cart-empty">
-      <image src="/images/empty_icon_002.png"></image>
-      <text>没有可结算的商品 </text>
+    <view wx:if="{{helper.empty(cartData) && cartLoaded}}" class="empty cart-empty">
+      <image class="empty-img" src="/images/v1.2/default/default_07.png"></image>
+      <text class="empty-text">没有可结算的商品</text>
+      <text class="empty-text-01">挑点喜欢的装进购物车吧</text>
     </view>
 
     <view wx:if="{{!helper.empty(cartData)}}" class="cart-container">

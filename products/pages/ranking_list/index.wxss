@@ -203,25 +203,9 @@ page {
 }
 
 /* 空列表样式 */
-.product-empty {
-  width: 750rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #f7f7f7;
-  height: 100%;
-}
 
 .product-empty image {
-  width: 336rpx;
-  height: 270rpx;
-  margin-top: 230rpx;
-}
-
-.product-empty text {
-  font-size: 28rpx;
-  color: #333333;
-  margin-top: 30rpx;
+  margin-top: 120rpx;
 }
 /* 空列表样式 */
 

@@ -25,9 +25,10 @@
 
 <scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
   <image class="ad-image" src="{{banner.images[0]}}"></image>
-  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
-    <image src="../../images/products_empty_icon_001.png"></image>
-    <text>商品上架中，敬请期待</text>
+  <view wx:if="{{ loaded && products.length <= 0}}" class="empty product-empty">
+    <image class="empty-img" src="/images/v1.2/default/default_01.png"></image>
+    <text class="empty-text">商品上架中，敬请期待</text>
+    <text class="empty-text-01">返回上一级页面逛一逛吧</text>
   </view>
   <view wx:else class="products-container">
     <!-- <block wx:for="{{products}}" wx:for-item="productsData"> -->

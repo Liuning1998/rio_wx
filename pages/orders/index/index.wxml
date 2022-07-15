@@ -28,9 +28,10 @@
 
 <scroll-view scroll-y class='page-container'>
   <view class='page-content {{ isIphoneX && "iphone-x" }}'>
-    <view wx:if="{{emptyStatus || !authLoginStatus}}" class="order-empty">
-      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_order_icon.png"></image>
-      <text class="title">暂无订单~</text>
+    <view wx:if="{{emptyStatus || !authLoginStatus}}" class="empty order-empty">
+      <image class="empty-img" src="/images/v1.2/default/default_05.png"></image>
+      <text class="empty-text">您还没有相关订单</text>
+      <text class="empty-text-01">可以去看看有哪些想买的~</text>
       <!-- <text class="goto-home" bindtap="gotoHome">去首页逛逛</text> -->
     </view>
     <view wx:else class="orders-container">

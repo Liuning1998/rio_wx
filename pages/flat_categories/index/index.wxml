@@ -26,7 +26,7 @@
         <view id="fixedTop"></view>
         <view wx:if="{{categories[currentIndex].labelArr.length > 1}}" class="top-label {{topShow ? 'fixed':''}}" style="top:{{topShow ? parentTop : 0}}px" >
           <scroll-view class="label-box {{categories[currentIndex].labelArr.length>=6 ? 'more' : ''}}" scroll-x scroll-left="{{scrollLeft}}" bindscroll="scrollMove" scroll-with-animation>
-            <view wx:for="{{categories[currentIndex].labelArr}}" bindtap="labelSreen" class="label-text {{item.id == currentCategory.secondId ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}"  id="ele{{index}}">{{item.name}}</view>
+            <view wx:for="{{categories[currentIndex].labelArr}}" bindtap="labelSreen" wx:key="index" class="label-text {{item.id == currentCategory.secondId ? 'active' : ''}}" data-item="{{item}}" data-index="{{index}}"  id="ele{{index}}">{{item.name}}</view>
           </scroll-view>
 
           <view class="label-many" wx:if="{{labelShow}}">
@@ -60,7 +60,7 @@
             <view class="name-and-badge" data-url="/pages/products/show/index?id={{ item.id }}" bindtap="gotoLink">
               <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
               <view class="pbadges">
-                <block wx:for="{{ item.badges }}" wx:for-item="badge">
+                <block wx:for="{{ item.badges }}" wx:for-item="badge" wx:key="index">
                   <text class="badge-item">{{badge}}</text>
                 </block>
               </view>

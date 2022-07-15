@@ -69,7 +69,6 @@ Page({
     }
     
     this.getRecommendProducts()
-    this.getspecialAreas()
     this.getAds()
     this.getBannerBackground()
     this.getNotice()
@@ -97,6 +96,7 @@ Page({
   onShow: function () {
     this.loadCartInfo()
     this.setData({ canScroll: true })
+    this.getspecialAreas()
     //如果relogin()正在执行就不执行this.getUserInfo()
     if(!this.data._reLogin) this.getUserInfo()
 
@@ -292,15 +292,23 @@ Page({
 
     await new Promise((resolve, reject)=>{
       obj.selectAll('.special-area').boundingClientRect(function (rect) {
-          parentW = rect[0].width
-          resolve()
+          if(rect != null && rect.length > 0){
+            parentW = rect[0].width
+            resolve()
+          }else{
+            console.log('获取不到元素')
+          }
       }).exec()  
     })
 
     await new Promise((resolve, reject)=>{
       obj.selectAll('.item-box').boundingClientRect(function (rect) {
+        if(rect != null && rect.length > 0){
           childrenW = rect[0].width
           resolve()
+        }else{
+          console.log('获取不到元素')
+        }
       }).exec()  
     })
 

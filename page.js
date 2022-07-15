@@ -238,13 +238,13 @@ function beforeOnload (context) {
         return {
           title: '金色家园',
           path: `/pages/index/index?from=share` ,
-          imageUrl: '/images/v1.2/share.jpg'
+          imageUrl: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/share.jpeg'
         }
       } else if( this.route == 'pages/products/show/index' && e.from == 'menu'){ //商品详情右上角
         return {
           title: '金色家园',
           path: `/pages/index/index?from=share` ,
-          imageUrl: '/images/v1.2/share.jpg'
+          imageUrl: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/share.jpeg'
         }
       }
       // return {

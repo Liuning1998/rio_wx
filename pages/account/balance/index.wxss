@@ -300,20 +300,8 @@ page {
   padding-bottom: 40rpx;
 }
 
-.empty-container {
-  margin: 304rpx 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 28rpx;
-  color: #2B2424;
-}
-
-.empty-container image {
-  width: 260rpx;
-  height: 260rpx;
-  margin-bottom: 44rpx;
+.empty-container .empty-img {
+  margin-top: 0rpx;
 }
 
 .content .page-bottom{

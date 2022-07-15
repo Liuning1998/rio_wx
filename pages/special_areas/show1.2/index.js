@@ -19,7 +19,8 @@ Page({
     labelArr: {},//子标签
     currentLabel:{},//当前选中的子标签
     scrollTop:{}, //滚动条滚动高度
-    showLoading: false
+    showLoading: false,
+    firstGetLoading:{},//首次加载的loading状态
   },
 
   /**
@@ -127,6 +128,7 @@ Page({
       products: {},
       pageBottom: {},
       labelArr: {},
+      firstGetLoading: {},
     })
   },
 
@@ -167,9 +169,15 @@ Page({
 
     var scrollTopKey = `scrollTop.${key}`
     if(this.data.scrollTop[key] == null && this.data.scrollTop[key] != 0){
-      console.log('scrollTop')
       this.setData({
         [scrollTopKey]: 0
+      })
+    }
+
+    var firstGetLoadingKey = `firstGetLoading.${key}`
+    if( !this.data.firstGetLoading[key] ){
+      this.setData({
+        [firstGetLoadingKey]: true
       })
     }
 
@@ -250,6 +258,7 @@ Page({
     var key = `id_${this.data.currentLabel.id}`;
     
     var bottomKey = `pageBottom.${key}`;
+    var firstGetLoadingKey = `firstGetLoading.${key}`;
     
     if (orderType == 'price') {
       if (this.data.orderType == 'price down') {
@@ -269,6 +278,7 @@ Page({
       this.setData({
         [`products.${key}`]:[],
         [bottomKey]:false,
+        [firstGetLoadingKey]:false,
       }) 
       
       this.getProducts(this.data.currentLabel.id, orderType, false)
@@ -370,7 +380,6 @@ Page({
 
   //上拉加载更多
   loadMore: function(){
-    console.log('-------------------触底-----------------')
     if(!canLoadMore || this.data.pageBottom['id_'+this.data.currentLabel.id]) return;
     this.getProducts(this.data.currentLabel.id, this.data.orderType, false)
   },

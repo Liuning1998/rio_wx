@@ -13,7 +13,8 @@ Page({
     orderQuantity: {},
     //用户头像
     userAvatar: '',
-    csTop:460
+    csTop:460,
+    couponJump: true, //阻止频繁点击多次跳转问题
   },
 
   /**
@@ -88,15 +89,25 @@ Page({
 
   // 跳转优惠券
   gotoCoupon: function(){
-    this.subscribe().then(res =>{
-      this.navigateTo('/pages/coupons/list/index')
-    })
+    if(this.data.couponJump == true){
+      this.setData({
+        couponJump:false
+      })
+      this.subscribe().then(res =>{
+        this.navigateTo('/pages/coupons/list/index')
+      })
+    }
   },
   // 跳转领券中心
   gotoDashboard:function(){
-    this.subscribe().then(res =>{
-      this.navigateTo('/pages/coupons/dashboard/index')
-    })
+    if(this.data.couponJump == true){
+      this.setData({
+        couponJump:false
+      })
+      this.subscribe().then(res =>{
+        this.navigateTo('/pages/coupons/dashboard/index')
+      })
+    }
   },
 
 
@@ -110,6 +121,11 @@ Page({
     this.setData({
       userAvatar: store.getSync('userAvatar') ||'/images/default_avatar_003.png'
     })
+    if(this.data.couponJump == false){
+      this.setData({
+        couponJump: true,
+      })
+    }
   },
 
   login: function () {

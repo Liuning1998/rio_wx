@@ -14,7 +14,7 @@
     <view class="phone"  wx:if="{{ authLoginStatus }}">
       <view class="phone_number" wx:if="{{ userInfo.phone != null && userInfo.phone.length == 11 }}">{{ userInfo.phone }}</view>
       <view class="phone_number" wx:else bindtap="gotoPhone">去补全手机号</view>
-      <view class="discount_head" wx:if="{{userInfo.vip_level}}">
+      <view class="discount_head" wx:if="{{userInfo.vip_level}}" bindtap="gotoLink" data-url="/pages/member/index/index">
         <image src="/images/v1.2/mine_head_01.png"></image>
         <text>{{userInfo.vip_level.current_vip_level}}会员享{{userInfo.vip_level.current_discount}}折</text>
       </view>

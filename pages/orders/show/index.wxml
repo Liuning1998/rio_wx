@@ -164,7 +164,7 @@
           <view class="money"><text>- ¥</text>{{helper.couponAfter(order.promotions)}}</view>
           <image class="arrow  {{couponShow ? 'show' : ''}}"  wx:if="{{order.promotions.length > 0}}" src="/images/v1.2/arrow.png"></image>
         </view>
-        <view class="item sub"  wx:if="{{couponShow}}" wx:for="{{order.promotions}}">
+        <view class="item sub"  wx:if="{{couponShow}}" wx:for="{{order.promotions}}" wx:key="index">
           <view class="text">· {{item.name}}</view>
           <view class="money"><text>¥</text>{{item.value}}</view>
         </view>

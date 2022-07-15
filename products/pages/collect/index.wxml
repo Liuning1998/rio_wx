@@ -37,9 +37,10 @@
       <view wx:if="{{category.store_short_name && category.store_short_name == '京东' && cartData.data['store_'+category.code].total < 149}}" class="tips">差￥{{ price.tos(149 - cartData.data['store_'+category.code].total) }}免运费</view>
       <view wx:else class="tips">已免运费</view>
 
-      <view wx:if="{{ loaded && (products == null || products.length <= 0)}}" class="product-empty">
-        <image src="../../images/products_empty_icon_001.png"></image>
-        <text>商品上架中，敬请期待</text>
+      <view wx:if="{{ products == null || products.length <= 0 }}" class="empty product-empty">
+        <image class="empty-img" src="/images/v1.2/default/default_01.png"></image>
+        <text class="empty-text">商品上架中，敬请期待</text>
+        <text class="empty-text-01">返回上一级页面逛一逛吧</text>
       </view>
 
       <block wx:else>

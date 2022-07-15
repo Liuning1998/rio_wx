@@ -12,7 +12,6 @@ Page({
     products: [],
     pageNo: 1,
     category: null,
-    loaded: false,
     //  正在点击，避免重复点击
     clicked:false
   },
@@ -85,11 +84,7 @@ Page({
 
         }
 
-        if(this.data.products<=0){
-          this.setData({loaded:true})
-        }else{
-          this.setData({loaded:false})
-        }
+
 
       }
     })

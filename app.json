@@ -57,7 +57,8 @@
     "web/pages/yanglaohuodong/index",
     "web/pages/brcb_pay/index/index",
     "pages/member/index/index",
-    "web/pages/rural_pay/index"
+    "web/pages/rural_pay/index",
+    "web/pages/request/errors"
   ],
   "subpackages": [
     {

@@ -34,9 +34,10 @@
 
   <!-- --内容区域-- -->
   <view class="content">
-    <view class="empty-container" wx:if="{{ lists && lists.length <= 0}}">
-      <image src="/images/v1.2/balance_none.png"></image>
-      <!-- <text>暂无平台余额~</text> -->
+    <view class="empty-container empty" wx:if="{{ lists && lists.length <= 0}}">
+      <image class="empty-img" src="/images/v1.2/default/default_04.png"></image>
+      <text class="empty-text">暂时没有余额</text>
+      <text class="empty-text-01">但你还有我呀~</text>
     </view>
     <view wx:else>
       <view class="item {{ item.sources == '支出' ? 'pay' : '' }} {{ item.sources == '收入' ? 'refund' : '' }}" wx:for="{{lists}}"  bindtap="gotoLink" data-url="/pages/account/balance_detail/index?id={{item.id}}&sources={{item.sources}}" wx:key="index">

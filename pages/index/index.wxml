@@ -60,7 +60,7 @@
     <scroll-view scroll-x="true" class="special-area {{ slideShow && 'no-center' }}" enable-flex="true" scroll-with-animation="{true}" scroll-left='0' bindscroll="getleft">
       <view class="item-box">
         <view class="item-parent" wx:for="{{specialAreas}}" wx:key="index" wx:for-item="group">
-          <view  bindtap="gotoShow" data-item="{{item}}" class="item" wx:for="{{group}}" wx:for-item="item">
+          <view  bindtap="gotoShow" data-item="{{item}}" class="item" wx:for="{{group}}" wx:for-item="item" wx:key="index">
             <view class="avatar">
               <image src="{{item.logo}}"></image>
             </view>
@@ -123,7 +123,7 @@
         <swiper bindchange='changeRankSwiperCurrent' class="ranking-swiper" indicator-dots="{{false}}" circular autoplay="{{true}}">
           <block wx:for="{{ newBrandData }}" wx:key="index" wx:if="{{ item.length == 3 }}">
             <swiper-item class="ranking-swiper-item">
-              <view class="ranking-item {{ index == 1 && 'active' }}" bindtap="gotoProduct" data-item="{{ranking}}" wx:for="{{ item }}" wx:for-item="ranking">
+              <view class="ranking-item {{ index == 1 && 'active' }}" bindtap="gotoProduct" data-item="{{ranking}}" wx:for="{{ item }}" wx:for-item="ranking" wx:key="index">
                 <view class="border-box">
                   <image class="ranking-product" src="{{ ranking.avatar }}"></image>
                   <view class="price">{{ ranking.price }}</view>
@@ -154,7 +154,7 @@
           <image class="avatar" src="{{item.avatar}}"></image>
         </view>
         <view class="pbadges" wx:if="{{item.badges.length > 0}}">
-          <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{badge}}</text>
+          <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item" wx:key="index">{{badge}}</text>
         </view>
         <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
         <view class="bottom-info-container">

@@ -12,8 +12,8 @@
 <scroll-view scroll-y class='page-container' scroll-y="{{true}}">
   <!-- <image class="page-background" src="https://score-admin-file.ixiaoliu.com/brcb_wxs/images/yiyuangou_background_02.png"></image> -->
   <view wx:if="{{loaded && products.length <= 0}}" class="products-container empty-container">
-    <image class="empty-image" src="../../../images/empty_icon_001.png"></image>
-    <text>暂无相关商品信息</text>
+    <image class="empty-image" src="../../../images/empty_icon_001.png"></image><!-- 页面重新使用需要替换缺省图标 -->
+    <text>暂无相关商品信息</text><!-- 页面重新使用需要替换缺省图标 -->
   </view>
 
   <view wx:else class="products-container">

@@ -376,25 +376,15 @@ page {
 /* 到底提示 */
 
 /* 空列表样式 */
-.product-empty {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #ffffff;
-  height: 100%;
+.loading{
+  padding-top: 180rpx;
 }
-
-.product-empty image {
-  width: 336rpx;
-  height: 270rpx;
-  margin-top: 150rpx;
+.empty{
+  padding-top: 180rpx;
 }
-
-.product-empty text {
+.loading .empty-text{
   font-size: 28rpx;
-  color: #333333;
-  margin-top: 30rpx;
+  color: #807474;
 }
 /* 空列表样式 */
 

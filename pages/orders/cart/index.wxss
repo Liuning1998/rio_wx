@@ -63,10 +63,7 @@ page {
 
 /* 空购物车 */
 .cart-empty {
-  font-size: 28rpx;
-  color: #333333;
   width: 700rpx;
-  height: 408rpx;
   background: #ffffff;
   border-radius: 8rpx;
   display: flex;
@@ -74,12 +71,11 @@ page {
   align-items: center;
   flex-direction: column;
   margin: 16rpx auto 0;
+  padding: 60rpx 0;
 }
-
-.cart-empty image {
-  height: 156rpx;
-  width: 184rpx;
-  margin-bottom: 20rpx;
+.cart-empty .empty-img{
+  margin-top: 0rpx;
+  flex: none;
 }
 /* 空购物车 */
 

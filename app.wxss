@@ -80,32 +80,6 @@
   display: none !important;
 }
 
-/* 到底提示 */
-.page-bottom image {
-  width: 46rpx;
-  height: 28rpx;
-  display: flex;
-}
-
-.page-bottom image.right {
-  transform: rotate(180deg);
-}
-
-.page-bottom {
-  height: 160rpx;
-  width: 750rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.page-bottom text {
-  font-size: 32rpx;
-  color: #B4AFAF;
-  margin: 0 20rpx;
-}
-/* 到底提示 */
-
 /* 徽标 */
 .pbadges {
   display: flex;
@@ -204,3 +178,35 @@
   border: 2rpx solid #FAFAFA;
 }
 /* 商品图 e */
+
+
+/* 缺省 s */
+.empty .empty-img{
+  width: 240rpx;
+  height: 240rpx;
+}
+.empty {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 60rpx 0;
+  box-sizing: border-box;
+}
+
+.empty .empty-text-01 {
+  color: #807474;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  line-height: 40rpx;
+}
+
+.empty .empty-text {
+  color: #332B2B;
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular;
+  line-height: 50rpx;
+  margin: 36rpx 0 12rpx;
+}
+/* 缺省 e */

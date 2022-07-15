@@ -31,8 +31,8 @@
 
   <view class="products-container">
     <view class="empty-container" wx:if="{{ apiLoad && products.length <= 0 }}">
-      <image src="/images/empty_icon_001.png"></image>
-      <text>暂无活动</text>
+      <image src="/images/empty_icon_001.png"></image><!-- 页面重新使用需要替换缺省图标 -->
+      <text>暂无活动</text><!-- 页面重新使用需要替换缺省图标 -->
     </view>
     <view class="product-item" wx:for="{{products}}" wx:key="item">
       <view class="product-item-container">

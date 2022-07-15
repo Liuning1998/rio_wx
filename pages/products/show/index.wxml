@@ -67,7 +67,7 @@
 
       <view class="name-and-desc">
         <view class="pbadges">
-          <text wx:for="{{ product.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+          <text wx:for="{{ product.badges }}" wx:for-item="badge" wx:key="index" class="badge-item">{{ badge }}</text>
         </view>
         <text class="name"><text wx:if="{{product.is_postage.length > 0}}" class="postage">{{product.is_postage}}</text><text class="pre_name" wx:if="{{!!product.pre_name}}">{{product.pre_name}}</text>{{ product.name }}</text>
         <!-- <text class="desc">{{ product.description }}</text> -->
@@ -97,7 +97,7 @@
             </view>
             <view class="areas">
               <text>
-                <block wx:for="{{product.area_limit.area_limit}}">{{item}} </block>
+                <block wx:for="{{product.area_limit.area_limit}}" wx:key="index">{{item}} </block>
               </text>
               <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
             </view>

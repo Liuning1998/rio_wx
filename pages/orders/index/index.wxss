@@ -349,22 +349,7 @@ page {
 
 /* 空白 */
 .order-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding-top: 260rpx;
-}
-
-.order-empty image {
-  width: 480rpx;
-  height: 244rpx;
-}
-
-.order-empty .title {
-  font-size: 28rpx;
-  color: #2B2424;
-  margin-top: 44rpx;
-  text-align: center;
 }
 
 .goto-home {

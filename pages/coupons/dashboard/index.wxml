@@ -42,9 +42,10 @@
         </view>
         <image hidden="{{item.show_status}}" class="finished-img" src="/images/finished.png"></image>
       </view>
-      <view class="empty-container" wx:if="{{ !loading && !loadErr && couponsList.length == 0 }}">
-        <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_default_icon.png"></image>
-        <text>暂无可领取优惠券~</text>
+      <view class="empty empty-container" wx:if="{{ !loading && !loadErr && couponsList.length == 0 }}">
+        <image class="empty-img" src="/images/v1.2/default/default.png"></image>
+        <text class="empty-text">暂时还没有优惠券哦</text>
+        <text class="empty-text-01">下次记得积极领券哦</text>
       </view>
 
       <!-- 加载状态 -->

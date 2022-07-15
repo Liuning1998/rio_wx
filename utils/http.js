@@ -39,12 +39,21 @@ function request(options) {
   var p = new Promise((resolve, reject) => {
     wx.request(Object.assign(options, {
       fail: (res) => {
+        wx.redirectTo({
+          url: '/web/pages/request/errors?error_type=0',
+        })
         res.data = res.data || {}
         reject(res)
       },
       success: (res) => {
         if(res.statusCode >= 200 && res.statusCode < 300){
           resolve(res)
+        } else if( res.statusCode >= 500){
+          wx.redirectTo({
+            url: '/web/pages/request/errors?error_type=1',
+          })
+          res.data = res.data || {}
+          reject(res)
         } else {
           res.data = res.data || {}
           httpFail(res, reject)
