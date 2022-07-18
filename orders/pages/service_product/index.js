@@ -148,7 +148,6 @@ Page({
       [quantityKey]: quantity,
       allSelected: allSelected
     })
-    console.log(this.data.currentLineItems.total,this.data.currentLineItems.quantity)
   },
 
   // 提交

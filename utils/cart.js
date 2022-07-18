@@ -84,9 +84,17 @@ function setSelectedStatus (lineItem, status) {
   // let storeCart = cartData['store_' + lineItem.store_id]
   let storeCart = cartData['store_' + lineItem.store_code]
 
-  storeCart.lineItems['variant_' + lineItem.variant_id].selectStatus = status
+  try { 
+ 
+    storeCart.lineItems['variant_' + lineItem.variant_id].selectStatus = status
 
-  return setCartToCache(cartData)
+    return setCartToCache(cartData)
+ 
+  } catch (error) { 
+     
+    return false 
+ 
+  } 
 }
 
 // 设置购物车中 storeCart 的选中状态
@@ -101,6 +109,7 @@ function triggerStoreSelectStatus(storeData, status) {
   }
 
   return setCartToCache(cartData)
+
 }
 
 // 将 lineItem 从购物车中删除
@@ -130,7 +139,6 @@ function removeStoreLineOfSelect (storeData) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
   // let storeCart = cartData['store_' + storeData.store_id]
-  console.log(storeData)
   if( storeData.store_code != null ){
     var storeCart = cartData['store_' + storeData.store_code]
   }else{
