@@ -5,6 +5,8 @@ var helper = require('../../../utils/helper.js')
 var storage = require("../../../utils/storage.js")
 var sessionApi = require('../../../utils/session.js')
 
+var addTime;
+
 Page({
 
   /**
@@ -33,7 +35,9 @@ Page({
     giftShow:false,//赠品弹框
     loadErr:false,//加载错误
     couponsList:[],
-    addConfirm:false
+    addCartOk: null,
+    isLimit: false,//限购弹窗
+    nowTime: Math.ceil((new Date).getTime()/1000),
   },
 
   /**
@@ -575,6 +579,7 @@ Page({
   },
 
   addCart: function () {
+
     if (this.data.product.tags != null && this.data.product.tags.indexOf('团购商品') >= 0) {
       return false
     }
@@ -584,7 +589,11 @@ Page({
     }
 
     if (this.data.product.store_code == null || this.data.product.store_code.trim() == '') {
-      this.errorToast('加入购物车失败')
+      // this.errorToast('加入购物车失败')
+      this.setData({
+        showSelectContainer: false,
+      })
+      this.openAddCartPopup(false,'抱歉该商品暂时无法加入购物车')
       return false
     }
 
@@ -606,7 +615,11 @@ Page({
     }
 
     if(lineItem.stock <= 0) {
-      this.errorToast('该商品型号已售罄')
+      // this.errorToast('该商品型号已售罄')
+      this.setData({
+        showSelectContainer: false,
+      })
+      this.openAddCartPopup(false,'该商品型号已售罄')
       return false
     }
 
@@ -615,26 +628,47 @@ Page({
     //   url: '/pages/orders/cart/index'
     // })
 
-    // v1.2加入购物车后不跳转购物车页面，只弹窗
-    this.showAddConfirm()
     this.setData({
       showSelectContainer: false,
-      cartData: cart
+      cartData: cart,
     })
+
+    this.openAddCartPopup(true)
   },
 
-  showAddConfirm:function(){
-    var addConfirm = this.data.addConfirm;
-    if(!addConfirm){
+  openAddCartPopup: function(result,text){
+    var _this = this
+    this.setData({
+      addCartOk: result
+    })
+    if(text){
       this.setData({
-        addConfirm: true
+        addCartOkText: text
       })
-      setTimeout(res=>{
-        this.setData({
-          addConfirm: false
+    }
+    if(result == true){
+      addTime = setTimeout(function(){
+        _this.setData({
+          addCartOkImg: true
         })
       },1500)
     }
+  },
+
+  //关闭加入购物车结果弹窗
+  closeAddCartPopup: function(){
+    clearTimeout(addTime)
+    this.setData({
+      addCartOk: null,
+      addCartOkImg: null,
+      addCartOkText: null
+    })
+  },
+
+  openLimitPopup:function(){
+    this.setData({
+      isLimit: !this.data.isLimit
+    })
   },
 
   gotoCart: function () {

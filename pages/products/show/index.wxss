@@ -418,7 +418,7 @@ page {
 
 .variant-info {
   width: 100%;
-  padding: 38rpx 12rpx;
+  padding: 38rpx 0 38rpx 12rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1200,11 +1200,11 @@ page {
   text-overflow: ellipsis;
   word-break: break-all;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   display: -webkit-box;
 }
 
-.area-limit .areas .arrow{
+.area-limit .arrow{
   width: 16rpx;
   height: 28rpx;
   flex: none;
@@ -1827,8 +1827,8 @@ page {
 }
 
 
-/* 加入购物车弹窗 s */
-.add-cart-p{
+/* 加入购物车结果弹窗 s */
+.add-car-result{
   width: 100%;
   height: 100%;
   position: fixed;
@@ -1836,37 +1836,245 @@ page {
   left: 0;
   z-index: 1000;
 }
-.add-cart-p .add-cart-mask{
+.add-car-result .mask{
   position: absolute;
   top: 0;
-  left: 0;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0,0,0,.4);
   width: 100%;
   height: 100%;
 }
-.add-cart-p .add-cart-p-content{
-  width: 332rpx;
+.add-car-result .popup{
+  width: 100%;
+  height: 942rpx;
+  background-color: #fff;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.add-car-result .popup .title {
+  display: flex;
+  justify-content: flex-end;
+  padding: 25rpx 36rpx;
+  align-items: center;
+}
+.add-car-result .popup .title .close {
+  width: 50rpx;
+  height: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-car-result .popup .title .close image {
+  width: 28rpx;
+  height: 28rpx;
+}
+.add-car-result .popup .content{
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.add-car-result .popup .content .loading-img{
+  width: 240rpx;
   height: 240rpx;
-  background: rgba(17,17,17,0.70);
-  border-radius: 24rpx;
+}
+.add-car-result .popup .content .desc{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  margin: 36rpx 0 12rpx;
+  line-height: 50rpx;
+}
+.add-car-result .popup .content .desc01{
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #807474;
+  line-height: 40rpx;
+}
+.add-car-result .popup .btn-box{
+  width: 100%;
+  padding: 14rpx 23rpx;
+  background-color: #fff;
+  box-shadow: 0 0 2rpx 0 #E5E5E5;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.add-car-result .popup .btn-box.iphone-x{
+  padding-bottom: 68rpx;
+}
+.add-car-result .popup .btn-box .btn{
+  width: 341rpx;
+  height: 72rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
+  border-radius: 36rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #FFFFFF;
+}
+.add-car-result .popup .btn-box .btn.white{
+  background: #fff;
+  color: #332B2B;
+  border: 2rpx solid #E6E6E6;
+}
+.add-car-result .popup .btn-box .btn.confirm{
+  background: #fff;
+  color: #332B2B;
+  border: 2rpx solid #E6E6E6;
+  width: 100%;
+}
+/* 加入购物车结果弹窗 e */
+
+/* 限购 s */
+.limit-popup{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+.limit-popup .mask{
+  position: absolute;
+  top: 0;
+  background-color: rgba(0,0,0,.4);
+  width: 100%;
+  height: 100%;
+}
+.limit-popup .popup{
+  width: 100%;
+  height: 842rpx;
+  background-color: #fff;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.limit-popup .popup .limit-guding{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 750rpx;
+  height: 842rpx;
+  transform: translateX(-50%);
+}
+.limit-popup .popup .title {
+  display: flex;
+  justify-content: center;
+  padding: 25rpx 36rpx;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+.limit-popup .popup .title text{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #FFEED4;
+}
+.limit-popup .popup .title .close {
+  width: 50rpx;
+  height: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  box-sizing: border-box;
+  right: 36rpx;
+  transform: translateY(-50%);
+}
+.limit-popup .popup .title .close image {
+  width: 28rpx;
+  height: 28rpx;
+}
+.limit-popup .popup .btn-box{
+  width: 100%;
+  padding: 14rpx 23rpx;
+  background-color: #fff;
+  box-shadow: 0 0 2rpx 0 #E5E5E5;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  flex-direction: column;
-  padding: 42.6rpx 0 40rpx;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
-.add-cart-p .add-cart-p-content .img{
-  width: 66.6rpx;
-  height: 66.6rpx;
+.limit-popup .popup .btn-box.iphone-x{
+  padding-bottom: 68rpx;
 }
-.add-cart-p .add-cart-p-content .content{
-  font-family: PingFangSC-Regular;
-  font-size: 34rpx;
-  color: rgba(255,255,255,0.90);
+.limit-popup .popup .btn-box .btn{
+  width: 100%;
+  height: 72rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
+  border-radius: 36rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #FFFFFF;
 }
-/* 加入购物车弹窗 e */
+.limit-popup .popup .content{
+  width: 702rpx;
+  flex-grow: 1;
+  background: #FFFFFF;
+  border-radius: 12rpx 12rpx 0 0;
+  position: relative;
+  z-index: 1;
+  padding: 32rpx 24rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.limit-popup .popup .content .desc{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #332B2B;
+  line-height: 48rpx;
+  margin-bottom: 40rpx;
+}
+.limit-popup .popup .content .desc text{
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  color: #FFEED4;
+  padding: 0 24rpx;
+  background-image: linear-gradient(137deg, #373D55 0%, #212231 100%);
+  border-radius: 6rpx;
+  position: relative;
+  top: -4rpx;
+  margin-right: 10rpx;
+}
+.limit-popup .popup .content .list view {
+  background-image: linear-gradient(136deg, #FFF8EC 0%, #FFEED4 100%);
+  border: 2rpx solid #FFEED4;
+  border-radius: 12rpx;
+  width: 100%;
+  height: 112rpx;
+  line-height: 112rpx;
+  text-align: center;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #CC591E;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  margin-top: 24rpx;
+}
+/* 限购 e */

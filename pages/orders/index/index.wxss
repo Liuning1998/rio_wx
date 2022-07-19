@@ -420,7 +420,7 @@ page {
   width: 50rpx;
   height: 50rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 .urge-popup .popup .title .close image{

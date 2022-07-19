@@ -87,7 +87,7 @@
       </view>
 
       <block wx:if="{{ product.area_limit != null && ((product.area_limit.area_limit != null && product.area_limit.area_limit.length > 0) || (product.area_limit.area_only != null && product.area_limit.area_only.length > 0)) }}">
-        <view class="area-limit" wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
+        <view class="area-limit" bindtap="openLimitPopup" wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
           <view class="area-limit-container">
             <view class="left">
               <image class="icon" src="/images/v1.2/product_detail_01.png"></image>
@@ -99,12 +99,12 @@
               <text>
                 <block wx:for="{{product.area_limit.area_limit}}" wx:key="index">{{item}} </block>
               </text>
-              <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
             </view>
+            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
 
-        <view wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}" class="area-limit">
+        <view bindtap="openLimitPopup" wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}" class="area-limit">
           <view class="area-limit-container">
             <view class="left">
               <image class="icon" src="/images/v1.2/product_detail_01.png"></image>
@@ -116,8 +116,8 @@
               <text>
                 <block wx:for="{{product.area_limit.area_only}}">{{item}} </block>
               </text>
-              <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
             </view>
+            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
       </block>
@@ -350,10 +350,67 @@
   </view>
 </view>
 
-<view class="add-cart-p" wx:if="{{addConfirm}}">
-  <view class="add-cart-mask"></view>
-  <view class="add-cart-p-content">
-    <image class="img" src="/images/v1.2/product_show_confirm.png"></image>
-    <view class="content">加入购物车成功</view>
+<view class="add-car-result" wx:if="{{ addCartOk != null }}">
+  <view class="mask" bindtap="closeAddCartPopup"></view>
+  <view class="popup">
+    <view class="title">
+      <view class="close" bindtap="closeAddCartPopup">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="content">
+      <block wx:if="{{ addCartOk }}">
+        <image wx:if="{{ addCartOkImg }}" class="loading-img" src="/images/v1.2/result.png"></image>
+        <image wx:else class="loading-img" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/cart.gif?{{ nowTime }}"></image>
+        <view wx:if="{{ addCartOkImg }}" class="desc">添加成功</view>
+        <view wx:if="{{ addCartOkImg }}" class="desc01">恭喜您，成功添加商品到购物车</view>
+      </block>
+      <block wx:else>
+        <image class="loading-img" src="/images/v1.2/fail.png"></image>
+        <view class="desc">添加失败</view>
+        <view class="desc01">{{addCartOkText ? addCartOkText : '抱歉该商品暂时无法加入购物车'}}</view>
+      </block>
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <block wx:if="{{ addCartOk }}">
+        <view class="btn white" bindtap="closeAddCartPopup">继续逛</view>
+        <view class="btn" bindtap="gotoCart">去购物车结算</view>
+      </block>
+      <block wx:else>
+        <view class="btn confirm" bindtap="closeAddCartPopup">确定</view>
+      </block>
+    </view>
+  </view>
+</view>
+
+
+<view class="limit-popup" wx:if="{{ isLimit }}">
+  <view class="mask" bindtap="openLimitPopup"></view>
+  <view class="popup">
+    <image class="limit-guding" src="/images/v1.2/limit.png"></image>
+    <view class="title">
+      <text>限购</text>
+      <view class="close" bindtap="openLimitPopup">
+        <image src="/images/v1.2/close_white.png"></image>
+      </view>
+    </view>
+    <view class="content">
+      <block wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
+        <view class="desc"><text>不可售区域</text>该商品在以下地区，暂不支持销售及配送，感谢您的支持理解</view>
+        <view class="list">
+          <view wx:for="{{product.area_limit.area_limit}}" wx:key="index">{{ item }}</view>
+        </view>
+      </block>
+      <block wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}">
+        <view class="desc"><text>仅可售区域</text>该商品仅在以下地区销售及配送，感谢您的支持理解</view>
+        <view class="list">
+          <view wx:for="{{product.area_limit.area_only}}">{{ item }}</view>
+        </view>
+      </block>
+
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <view class="btn" bindtap="openLimitPopup">确定</view>
+    </view>
   </view>
 </view>
