@@ -353,10 +353,8 @@
 <view class="add-car-result" wx:if="{{ addCartOk != null }}">
   <view class="mask" bindtap="closeAddCartPopup"></view>
   <view class="popup">
-    <view class="title">
-      <view class="close" bindtap="closeAddCartPopup">
-        <image src="/images/v1.2/close.png"></image>
-      </view>
+    <view class="close" bindtap="closeAddCartPopup">
+      <image src="/images/v1.2/close.png"></image>
     </view>
     <view class="content">
       <block wx:if="{{ addCartOk }}">
@@ -384,7 +382,7 @@
 </view>
 
 
-<view class="limit-popup" wx:if="{{ isLimit }}">
+<view class="limit-popup" hidden="{{ !isLimit }}">
   <view class="mask" bindtap="openLimitPopup"></view>
   <view class="popup">
     <image class="limit-guding" src="/images/v1.2/limit.png"></image>
@@ -414,3 +412,6 @@
     </view>
   </view>
 </view>
+
+
+<canvas id="endtime" type="2d" style="width:500rpx;height: 400rpx;position: fixed; left: 0;top: 200rpx;"></canvas>

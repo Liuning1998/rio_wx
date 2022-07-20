@@ -92,14 +92,14 @@
   </view>
   <view class="btn" bindtap="gotoCart">去购物车</view>
 </view>
-
+<!-- 
 <view catchtap="gotoCart" class="page-cart-container">
   <view class="white-background">
     <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
     <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
     <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
   </view>
-</view>
+</view> -->
 
 <view class="cart-animation-container">
   <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">

@@ -1856,20 +1856,17 @@ page {
   flex-direction: column;
   justify-content: space-between;
 }
-.add-car-result .popup .title {
-  display: flex;
-  justify-content: flex-end;
-  padding: 25rpx 36rpx;
-  align-items: center;
-}
-.add-car-result .popup .title .close {
+.add-car-result .popup .close {
   width: 50rpx;
   height: 50rpx;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 20rpx;
+  right: 16rpx;
 }
-.add-car-result .popup .title .close image {
+.add-car-result .popup .close image {
   width: 28rpx;
   height: 28rpx;
 }
@@ -2036,7 +2033,7 @@ page {
   z-index: 1;
   padding: 32rpx 24rpx;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: auto;
 }
 .limit-popup .popup .content .desc{
   font-family: PingFangSC-Medium;

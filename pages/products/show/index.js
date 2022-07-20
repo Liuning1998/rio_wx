@@ -70,6 +70,21 @@ Page({
     }
 
     this.loadCartInfo()
+
+
+
+
+
+
+
+
+
+
+
+    var _this = this
+    setTimeout(function(){
+      _this.createImage()
+    },3000)
   },
 
   // 打开优惠券弹窗
@@ -682,6 +697,138 @@ Page({
     this.setData({ showSelectContainer: true, btnSelectState: null })
 
     this.setOptionsStatus(this.data.currentVariant)
+  },
+
+  // 绘制分享图片
+  createImage() {
+      wx.createSelectorQuery().select('#endtime').fields({ node: true, size: true })
+      .exec((res)=>{
+        // 获取设备设备像素比
+        const dpr = wx.getSystemInfoSync().pixelRatio
+
+        let canvas = res[0].node  // 重点1
+        canvas.width = res[0].width * dpr
+        canvas.height = res[0].height * dpr
+
+        let ctx = canvas.getContext('2d')  // 重点2
+         /**至此，textCanvas，textCtx已经成功获取到，下面代码为绘图测试代码可忽略**/
+ 
+         ctx.clearRect(0,0,canvas._width,canvas._height)
+         ctx.beginPath();
+         ctx.scale(dpr, dpr)
+         this.setData({
+           canvas,
+           ctx
+         })
+
+          //向画布载入图片
+          this.canvasDraw(ctx,canvas).then(res=>{
+            console.log('1',res)
+            // 向画布载入logo的方法
+            return this.code(ctx)
+          }).then(rrr=>{
+            console.log('2',rrr)
+            //图片头像渲染完成之后，渲染文字
+            this.title(ctx)
+          })
+      })
+  },
+  
+  // 封面图  使用 pormise方法来输出 代码执行成功，返回一个成功标识出去
+  canvasDraw(ctx,canvas) {
+    return new Promise(res=>{
+      let img = this.data.canvas.createImage(); //创建img对象
+      img.src = '/images/v1.2/share1111.png';
+      img.onload = () => {
+        console.log(img.complete); //true
+        this.data.ctx.drawImage(img, 0, 0,210, 168);
+          setTimeout(() => {
+            res(true)
+          }, 100);
+      };  
+    })
+  },
+
+  // 头像 使用 pormise方法来输出 代码执行成功，返回一个成功标识出去
+  code(ctx) {
+    const that=this;
+    return new Promise(rrr=>{
+      let code = this.data.canvas.createImage(); //创建img对象
+      code.onload = () => {
+
+        this.data.ctx.save(); // 先保存状态 已便于画完圆再用
+
+        this.data.ctx.beginPath();  //开始绘制
+
+          var bg_x = 8;
+          // 图片的y坐标
+          var bg_y = 26;
+          // 图片宽度
+          var bg_w = 96;
+          // 图片高度
+          var bg_h = 96;
+          // 图片圆角
+          var bg_r = 10;
+    
+        ctx.arc(bg_x + bg_r, bg_y + bg_r, bg_r, Math.PI, Math.PI * 1.5);
+        ctx.arc(bg_x + bg_w - bg_r, bg_y + bg_r, bg_r, Math.PI * 1.5, Math.PI * 2);
+        ctx.arc(bg_x + bg_w - bg_r, bg_y + bg_h - bg_r, bg_r, 0, Math.PI * 0.5);
+        ctx.arc(bg_x + bg_r, bg_y + bg_h - bg_r, bg_r, Math.PI * 0.5, Math.PI);
+    
+        this.data.ctx.clip();//画了圆 再剪切
+    
+        this.data.ctx.drawImage(code, bg_x,bg_y, bg_w, bg_h);
+
+        this.data.ctx.restore();//恢复之前保存的绘图上下文
+
+      };
+      code.src =this.data.product.avatar;
+      setTimeout(() => {
+        rrr(true)
+      }, 100);
+    })
+  },
+
+  //文字模块，不使用pormise，因为他是最后模块，所有不需要了
+  title(ctx) {
+    let unit = '¥'
+    let money =  this.data.currentVariant.price
+    let scribing =  `原价¥${this.data.currentVariant.origin_price}`
+
+    ctx.font = 'normal 14px PingFangSC-Semibold';
+    ctx.fillStyle = "#332B2B";
+    ctx.fillText(unit, 110, 82, 280)
+    console.log('======,')
+
+    ctx.font = 'normal 20px PingFangSC-Semibold';
+    ctx.fillStyle = "#332B2B";
+    ctx.fillText(money, 119, 82, 280)
+    ctx.font = 'normal 12px PingFangSC-Regular ';//指定文字样式
+    ctx.fillStyle = "#CCBFBF";
+    ctx.fillText(scribing, 110, 100, 280) //    ctx.fillText(文字, 像素, 移动y, 移动x) 
+    console.log('文本绘制')
+
+    let scribingW = ctx.measureText(scribing).width
+    // 两个点进行画线
+    ctx.beginPath();  //开始绘制
+    ctx.moveTo(110,96);      //起点
+    ctx.lineTo(110+scribingW,96);    //终点
+    ctx.lineWidth = 1; // 设置线的宽度，单位是像素
+    ctx.strokeStyle = '#CCBFBF';  //设置线的颜色
+    ctx.stroke();
+
+    // 导出临时图片
+    wx.canvasToTempFilePath({
+      canvas: this.data.canvas, // 使用2D 需要传递的参数
+      success(res) {
+        console.log(res.tempFilePath)
+        getApp().globalData.shareImg = res.tempFilePath
+      },
+      fail(res){
+        console.log(res)
+      }
+    })
+    
   },
 
   /**
