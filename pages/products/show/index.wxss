@@ -90,7 +90,7 @@ page {
 
 .navbar.block .actions .item .border {
   width: 100%;
-  height: 4rpx;
+  height: 8rpx;
   background: #f7f7f7;
 }
 
@@ -98,7 +98,7 @@ page {
   font-size: 32rpx;
   color: #666666;
   padding: 8rpx;
-  margin-bottom: 10rpx;
+  margin-bottom: 6rpx;
 }
 
 .navbar.block .actions .active text {

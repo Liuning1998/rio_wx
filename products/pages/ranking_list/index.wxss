@@ -253,6 +253,9 @@ page {
 .ranking .item .avatar{
   position: relative;
 }
+.ranking .item.active .avatar{
+  flex: 1;
+}
 .ranking .item .avatar .background{
   width: 192rpx;
   height: 192rpx;
@@ -311,9 +314,9 @@ page {
   box-sizing: border-box;
   flex: none;
 }
-.ranking .item.active .name{
-  margin-top: 13rpx;
-}
+/* .ranking .item.active .name{
+  margin-top: 10rpx;
+} */
 .ranking .item .price{
   font-family: PingFangSC-Medium;
   font-size: 40rpx;

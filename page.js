@@ -246,6 +246,12 @@ function beforeOnload (context) {
           path: `/pages/index/index?from=share` ,
           imageUrl: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/share.jpeg'
         }
+      }else if(this.route == 'pages/products/show/index' && e.from == 'button'){
+        return {
+          // title: '金色家园',
+          // path: `/pages/index/index?from=share` ,
+          imageUrl: getApp().globalData.shareImg ? getApp().globalData.shareImg : 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/share.jpeg'
+        }
       }
       // return {
       //   title: '金色家园',

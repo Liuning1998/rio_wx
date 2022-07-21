@@ -22,13 +22,12 @@ Page({
   },
 
   wxPay: function (pay_params) {
-    console.log('开始微信支付------------------------------------')
-    console.log(pay_params.timeStamp)
-    console.log(pay_params.nonceStr)
-    console.log(pay_params.package)
-    console.log(pay_params.signType)
-    console.log(pay_params.paySign)
-    console.log('开始微信支付-------------------------------------')
+    // console.log('开始微信支付------------------------------------')
+    // console.log(pay_params.timeStamp)
+    // console.log(pay_params.nonceStr)
+    // console.log(pay_params.package)
+    // console.log(pay_params.signType)
+    // console.log(pay_params.paySign)
 
     wx.requestPayment({
       'timeStamp': pay_params.timeStamp,
@@ -37,12 +36,12 @@ Page({
       'signType': pay_params.signType,
       'paySign': pay_params.paySign,
       'success': (res) => {
-        console.log(res)
+        // console.log(res)
         var url = '/web/pages/common/index?url='+getApp().globalData.webviewUrl.url
         this.redirectTo(url)
       },
       'fail': (res) => {
-        console.log(res)
+        // console.log(res)
         var url = '/web/pages/common/index?url='+getApp().globalData.webviewUrl.url
         this.redirectTo(url)
       },

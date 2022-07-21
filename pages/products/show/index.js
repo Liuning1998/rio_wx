@@ -70,21 +70,6 @@ Page({
     }
 
     this.loadCartInfo()
-
-
-
-
-
-
-
-
-
-
-
-    var _this = this
-    setTimeout(function(){
-      _this.createImage()
-    },3000)
   },
 
   // 打开优惠券弹窗
@@ -252,6 +237,9 @@ Page({
   
 
   getProductDetail: function (id,channel='') {
+    this.setData({
+      canTapShare: false
+    })
     http.get({
       url: "api/products/" + id + '?channel=' + channel,
       success: (res) => {
@@ -288,6 +276,9 @@ Page({
         if (_product.available_on == null || _product.available_on == 0) {
           this.setData({ available: false })
         }
+
+        // 绘制自定义分享图
+        this.createImage()
       },
       fail: (res) => {
         if (res.statusCode == '404') {
@@ -723,11 +714,11 @@ Page({
 
           //向画布载入图片
           this.canvasDraw(ctx,canvas).then(res=>{
-            console.log('1',res)
+            // console.log('1',res)
             // 向画布载入logo的方法
             return this.code(ctx)
           }).then(rrr=>{
-            console.log('2',rrr)
+            // console.log('2',rrr)
             //图片头像渲染完成之后，渲染文字
             this.title(ctx)
           })
@@ -740,7 +731,6 @@ Page({
       let img = this.data.canvas.createImage(); //创建img对象
       img.src = '/images/v1.2/share1111.png';
       img.onload = () => {
-        console.log(img.complete); //true
         this.data.ctx.drawImage(img, 0, 0,210, 168);
           setTimeout(() => {
             res(true)
@@ -751,9 +741,11 @@ Page({
 
   // 头像 使用 pormise方法来输出 代码执行成功，返回一个成功标识出去
   code(ctx) {
-    const that=this;
     return new Promise(rrr=>{
       let code = this.data.canvas.createImage(); //创建img对象
+
+      console.log('开始绘制')
+      code.src =this.data.product.avatar;
       code.onload = () => {
 
         this.data.ctx.save(); // 先保存状态 已便于画完圆再用
@@ -781,32 +773,32 @@ Page({
 
         this.data.ctx.restore();//恢复之前保存的绘图上下文
 
-      };
-      code.src =this.data.product.avatar;
-      setTimeout(() => {
         rrr(true)
-      }, 100);
+      };
     })
   },
 
   //文字模块，不使用pormise，因为他是最后模块，所有不需要了
   title(ctx) {
-    let unit = '¥'
-    let money =  this.data.currentVariant.price
-    let scribing =  `原价¥${this.data.currentVariant.origin_price}`
+    let _this = this;
+    let unit = '￥'
+    let money = this.cropText(this.data.currentVariant.price,8)
+    let scribing =  '原价￥' + this.cropText(this.data.currentVariant.origin_price,9)
 
-    ctx.font = 'normal 14px PingFangSC-Semibold';
-    ctx.fillStyle = "#332B2B";
-    ctx.fillText(unit, 110, 82, 280)
-    console.log('======,')
 
-    ctx.font = 'normal 20px PingFangSC-Semibold';
+    ctx.font = 'normal bold 14px PingFangSC-Regular';
     ctx.fillStyle = "#332B2B";
-    ctx.fillText(money, 119, 82, 280)
-    ctx.font = 'normal 12px PingFangSC-Regular ';//指定文字样式
+    ctx.textAlign = "start"
+    ctx.fillText(unit, 110, 82, )
+
+    ctx.font = 'normal bold 20px PingFangSC-Regular';
+    ctx.fillStyle = "#332B2B";
+    ctx.textAlign = "start"
+    ctx.fillText(money, 122, 82, )
+    ctx.font = 'normal normal 12px PingFangSC-Regular';//指定文字样式
     ctx.fillStyle = "#CCBFBF";
-    ctx.fillText(scribing, 110, 100, 280) //    ctx.fillText(文字, 像素, 移动y, 移动x) 
-    console.log('文本绘制')
+    ctx.textAlign = "start"
+    ctx.fillText(scribing, 110, 100,) //    ctx.fillText(文字, 像素, 移动y, 移动x) 
 
     let scribingW = ctx.measureText(scribing).width
     // 两个点进行画线
@@ -821,8 +813,11 @@ Page({
     wx.canvasToTempFilePath({
       canvas: this.data.canvas, // 使用2D 需要传递的参数
       success(res) {
-        console.log(res.tempFilePath)
+        console.log('导出完成',res.tempFilePath)
         getApp().globalData.shareImg = res.tempFilePath
+        _this.setData({
+          canTapShare: true
+        })
       },
       fail(res){
         console.log(res)
@@ -830,6 +825,20 @@ Page({
     })
     
   },
+
+  cropText: function(text,size){
+    if(text == null){
+      return ''
+    }
+    var textArr = text.split('');
+    if(textArr.length > size){
+      textArr.splice(size - 2)
+      textArr = textArr.join('')
+      return textArr + '...'
+    }else{
+      return text
+    }
+  }
 
   /**
    * 用户点击右上角分享

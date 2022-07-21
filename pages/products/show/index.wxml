@@ -79,7 +79,7 @@
               <text>转发宝贝给他人</text>
               <text>可分享给他人帮忙看看</text>
             </view>
-            <button open-type="share" class="right">
+            <button style="	pointer-events: {{ canTapShare ? 'auto' : 'none' }};" open-type="share" class="right">
               <image class="img" src="/images/v1.2/share.png"></image>
               <text>分享</text>
             </button>
@@ -414,4 +414,4 @@
 </view>
 
 
-<canvas id="endtime" type="2d" style="width:500rpx;height: 400rpx;position: fixed; left: 0;top: 200rpx;"></canvas>
+<canvas id="endtime" type="2d" style="width:420rpx;height: 336rpx;position: fixed; left: 200%;top: 0rpx;"></canvas>
