@@ -104,11 +104,19 @@ function triggerStoreSelectStatus(storeData, status) {
   // let storeCart = cartData['store_' + storeData.store_id]
   let storeCart = cartData['store_' + storeData.store_code]
 
-  for(let line in storeCart.lineItems) {
-    storeCart.lineItems[line].selectStatus = status
-  }
-
-  return setCartToCache(cartData)
+  try { 
+ 
+    for(let line in storeCart.lineItems) {
+      storeCart.lineItems[line].selectStatus = status
+    }
+  
+    return setCartToCache(cartData)
+ 
+  } catch (error) { 
+     
+    return false 
+ 
+  } 
 
 }
 

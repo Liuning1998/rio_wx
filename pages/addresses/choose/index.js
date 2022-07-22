@@ -76,6 +76,11 @@ Page({
       url: 'api/ship_addresses?page=' + this.data.pageNo,
       success: (res) => {
         // this.pushItemToList(res.data)
+        if(res.data == null || res.data.length <= 0){
+          if(storage.getSync('ship_address')){
+            storage.delSync('ship_address')
+          }
+        }
         var cacheAddressReal = storage.getSync('ship_address_real')
         res.data.forEach((ele,index)=>{
           if(cacheAddressReal != null && cacheAddressReal.id == ele.id){

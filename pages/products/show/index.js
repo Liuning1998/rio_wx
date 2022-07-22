@@ -744,7 +744,6 @@ Page({
     return new Promise(rrr=>{
       let code = this.data.canvas.createImage(); //创建img对象
 
-      console.log('开始绘制')
       code.src =this.data.product.avatar;
       code.onload = () => {
 
@@ -813,7 +812,7 @@ Page({
     wx.canvasToTempFilePath({
       canvas: this.data.canvas, // 使用2D 需要传递的参数
       success(res) {
-        console.log('导出完成',res.tempFilePath)
+        // console.log('导出完成',res.tempFilePath)
         getApp().globalData.shareImg = res.tempFilePath
         _this.setData({
           canTapShare: true
