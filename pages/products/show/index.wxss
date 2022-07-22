@@ -901,9 +901,9 @@ page {
   margin: 10rpx 24rpx 10rpx 0;
 }
 
-.option-container {
-  /* margin-top: 60rpx; */
-}
+/* .option-container {
+  margin-top: 60rpx;
+} */
 
 .option-container .option-item-container {
   display: flex;

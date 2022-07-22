@@ -542,7 +542,7 @@ Page({
         if (res.data.status == 'ok' && res.data.content != null && res.data.content.length > 0) {
           this.setData({ noticeText: res.data.content, floatNoticeLeft: 7 })
           if(!this.data.floatNoticeStatus) {
-            this.floatNotice()
+            // this.floatNotice()
           }
         } else if (res.data.status == 'ok'){
           this.setData({ noticeText: '' })
