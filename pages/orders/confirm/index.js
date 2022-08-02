@@ -396,6 +396,7 @@ Page({
         } else {
           $this.errorToast(msg)
         }
+        $this.addressNotExists(res, $this)
         submitStatus = false
         $this.setData({ submitStatus: submitStatus })
       }
@@ -478,7 +479,7 @@ Page({
 
 
   wxPay: function (pay_params, pay_sign, order) {
-    console.log('开始微信支付')
+    // console.log('开始微信支付')
 
     wx.requestPayment({
       'timeStamp': pay_params.timeStamp,
@@ -487,7 +488,7 @@ Page({
       'signType': pay_params.signType,
       'paySign': pay_sign,
       'success': (res) => {
-        console.log('wx支付成功')
+        // console.log('wx支付成功')
         this.successToast('支付成功', 1000)
         submitStatus = false
         this.setData({ submitStatus: submitStatus })
@@ -497,7 +498,7 @@ Page({
         })
       },
       'fail': (res) => {
-        console.log('wx支付失败')
+        // console.log('wx支付失败')
         this.errorToast('支付失败', 1000)
         submitStatus = false
         this.setData({ submitStatus: submitStatus })
@@ -552,12 +553,13 @@ Page({
             }
           },
           fail: (res) => {
-            console.log('获取地址失败')
-            if (res.data != null && res.data.code == 100123) {
-              storage.delSync('ship_address')
-              // this.setData({ shipAddress: {} })
-              this.setShipAddress({})
-            }
+            // console.log('获取地址失败')
+            this.addressNotExists(res)
+            // if (res.data != null && res.data.code == 100123) {
+            //   storage.delSync('ship_address')
+            //   // this.setData({ shipAddress: {} })
+            //   this.setShipAddress({})
+            // }
           }
         })
       })
@@ -568,7 +570,7 @@ Page({
   setShipAddress: function (data) {
     this.setData({ shipAddress: data })
     this.checkAreaLimit(this.data.storeCart, data)
-    if (this.data.store_short_name == '京东') {
+    if (this.data.store_short_name == '京东' && data != null && data.id != null) {
       this.checkJdStockAndAreaLimit(this.data.storeCart, data.id)
       this.fetchJdFreight(this.data.storeCart, data.id)
     }

@@ -817,6 +817,9 @@ page {
   line-height: 44rpx;
   /* max-height: 108rpx; */
 }
+.recommend-content .item-container .name .pre_name{
+  color: #F64C47;
+}
 .recommend-content .item-container .bottom-info-container{
   display: flex;
   width: 100%;

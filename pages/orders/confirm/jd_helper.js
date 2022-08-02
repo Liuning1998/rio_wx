@@ -94,12 +94,15 @@ var jd_functions = {
           if (res.data.code != null) {
             this.setData({ canCreateOrder: false })
             var msg = '库存不足或订单中商品在所选地区不支持销售'
-  
+
             if (getApp().globalData.errorMap[res.data.code] != null) {
               msg = getApp().globalData.errorMap[res.data.code].msg_t
             }
-  
+
+            this.addressNotExists(res)
+            
             this.errorToast(msg)
+
           }
         }
       })
@@ -145,11 +148,32 @@ var jd_functions = {
         fail: res => {
           reject(res)
           let msg = '地址选择出错，请重试'
+          if (getApp().globalData.errorMap[res.data.code] != null) {
+            msg = getApp().globalData.errorMap[res.data.code].msg_t
+          }
           this.errorToast(msg)
+          this.addressNotExists(res)
           this.updateShipmentExpenses(8,'')
         }
       })
     })
+  },
+
+  addressNotExists: function(data,_this){
+      _this = _this || this
+      if(data.data.code == 100123){
+        var ship_address = storage.getSync('ship_address');
+        var ship_address_real = storage.getSync('ship_address_real');
+        if( !!ship_address && ship_address.id == _this.data.shipAddress.id ){
+          storage.delSync('ship_address')
+        }
+        if( !!ship_address_real && ship_address_real.id == _this.data.shipAddress.id ){
+          storage.delSync('ship_address_real')
+        }
+        _this.setData({
+          shipAddress: {}
+        })
+      }
   },
 
   updateShipmentExpenses: function (freight,notice) {
@@ -228,7 +252,7 @@ var jd_functions = {
           })
           couponJs.couponSort(this.data.coupon,( parseFloat(this.data.orderTotal) || this.data.storeCart.total),this)
         }else{
-          console.log('优惠券请求结果为空,没可用优惠券')
+          // console.log('优惠券请求结果为空,没可用优惠券')
           this.setData({
             couponLoading:false
           })

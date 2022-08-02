@@ -154,12 +154,14 @@
             </view>
           </view>
 
-          <view class="pbadges" wx:if="{{item.badges.length > 0}}">
-            <block wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge">
-              <text class="badge-item">{{badge}}</text>
-            </block>
+          <view style="flex: 1;">
+            <view class="pbadges" wx:if="{{item.badges.length > 0}}">
+              <block wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge">
+                <text class="badge-item">{{badge}}</text>
+              </block>
+            </view>
+            <text bindtap="gotoProduct" data-item="{{item}}" class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
           </view>
-          <text bindtap="gotoProduct" data-item="{{item}}" class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
 
           <view class="bottom-info-container">
             <view class="info-content">

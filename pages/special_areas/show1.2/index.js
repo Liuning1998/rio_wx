@@ -21,6 +21,7 @@ Page({
     scrollTop:{}, //滚动条滚动高度
     showLoading: false,
     firstGetLoading:{},//首次加载的loading状态
+    clicked:false, //避免重复点击
   },
 
   /**
@@ -162,9 +163,9 @@ Page({
 
     var bottomKey = `pageBottom.${key}`
     if (resProducts.length < 10) {
-      this.setData({ [bottomKey]: true })
+      this.setData({ [bottomKey]: true, clicked:false })
     } else {
-      this.setData({ [bottomKey]: false })
+      this.setData({ [bottomKey]: false, clicked:false })
     }
 
     var scrollTopKey = `scrollTop.${key}`
@@ -279,11 +280,11 @@ Page({
         [`products.${key}`]:[],
         [bottomKey]:false,
         [firstGetLoadingKey]:false,
+        clicked:true,
       }) 
       
       this.getProducts(this.data.currentLabel.id, orderType, false)
     }
-
 
   },
 
