@@ -8,6 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    buttons:[{
+      text: '删除',
+      type: 'warn',
+      extClass: 'test'
+  }],
     active: "all", // 'all', 'completed', 'new', 'paid', 'shipping', 'completed' ,'padding'(待收货)
     orders: {
       allOrders: [],

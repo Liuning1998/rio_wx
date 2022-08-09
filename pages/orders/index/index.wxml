@@ -35,6 +35,9 @@
     </view>
     <view wx:else class="orders-container">
       <block wx:for="{{ orders[active + 'Orders'] }}" wx:for-item="order" wx:key="index">
+      <view class="weui-slidecells">
+      <!-- 滑动单元格 -->
+      <mp-slideview show="{{false}}" bindbuttontap="deleteOrder" buttons="{{buttons}}" data-order='{{ order }}' disable="{{order.state !== 'completed' && order.state !== 'canceled' && order.state !== 'handle_canceled'}}">
         <view wx:if="{{ order != 'deleted' }}" class="order-item-container">
           <view class="order-status {{ order.state }}">
             <view class="name-container">
@@ -106,6 +109,8 @@
             <view bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" data-order='{{ order }}' class="btn pay-btn">立即付款</view>
           </view>
         </view>
+      </mp-slideview>
+      </view>
       </block>
       
     </view>
