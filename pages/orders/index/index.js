@@ -13,6 +13,7 @@ Page({
       type: 'warn',
       extClass: 'test'
   }],
+  deleteButtonShowId: -1,
     active: "all", // 'all', 'completed', 'new', 'paid', 'shipping', 'completed' ,'padding'(待收货)
     orders: {
       allOrders: [],
@@ -130,7 +131,10 @@ Page({
       }
     }
   },
-
+  slideviewShow: function (e) {
+    var order = e.currentTarget.dataset.order
+    this.setData({ deleteButtonShowId: order.id })
+  },
   changeTab: function (e) {
     var targetState = e.currentTarget.dataset.state
     this.setData({ active: targetState, emptyStatus: false })

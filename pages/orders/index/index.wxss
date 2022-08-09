@@ -10,7 +10,9 @@ page {
 }
 
 .page-content {
+  width:100%;
   padding-bottom: 80rpx;
+  margin:0 auto;
 }
 
 .page-content.iphone-x {
@@ -70,14 +72,21 @@ page {
 .orders-container {
   margin-top: 97rpx;
 }
-
+.slide-order{
+  width:100%;
+  margin:0 auto;
+  /* background: red; */
+}
 .order-item-container {
   background: #ffffff;
-  width: 702rpx;
-  margin: 16rpx 24rpx 0 24rpx;
-  box-sizing: border-box;
+  width: 91.5%;
+  /* margin: 16rpx 24rpx 0 24rpx; */
+  /* box-sizing: border-box; */
   padding: 20rpx 30rpx;
   border-radius: 8rpx;
+  /* margin: 10rpx auto; */
+  margin-top:16rpx;
+  /* margin-left:24rpx; */
 }
 
 .order-status {
@@ -360,4 +369,12 @@ page {
 .hidden {
   display: none;
   /* animation: viewlinear 2s linear infinite; */
+}
+
+/* 滑动单元格 */
+.weui-slidecells .weui-slideview__btn__wrp{
+  height:170px;
+  margin-bottom:20px;
+  font-size:20rpx;
+  /* margin-left:-10px; */
 }
