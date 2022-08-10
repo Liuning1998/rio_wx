@@ -8,39 +8,39 @@
 
 <view class="tab-header" style='margin-top: {{pageMarginTop + 44}}px;'>
   <view class="tab-item {{ active == 'all' && 'active' }}" bindtap="changeTab" data-state="all">
-    <text >全部订单</text>
+    <text>全部订单</text>
     <view class="border"></view>
   </view>
   <view class="tab-item {{ active == 'new' && 'active' }}" bindtap="changeTab" data-state="new">
-    <text  >待支付</text>
+    <text>待支付</text>
     <view class="border"></view>
   </view>
   <view class="tab-item {{ active == 'shipping' && 'active' }}" bindtap="changeTab" data-state="shipping">
-    <text >待收货</text>
+    <text>待收货</text>
     <view class="border"></view>
   </view>
 
   <view class="tab-item {{ active == 'saleService' && 'active' }}" bindtap="changeTab" data-state="saleService">
-    <text >售后订单</text>
+    <text>售后订单</text>
     <view class="border"></view>
   </view>
 </view>
 
-<scroll-view scroll-y class='page-container' >
-  <view class='page-content' >
-    <view wx:if="{{emptyStatus || !authLoginStatus}}" class="order-empty">
-      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_order_icon.png"></image>
-      <text class="title">暂无订单~</text>
+<scroll-view scroll-y class='page-container'>
+  <view class='page-content {{ isIphoneX && "iphone-x" }}'>
+    <view wx:if="{{emptyStatus || !authLoginStatus}}" class="empty order-empty">
+      <image class="empty-img" src="/images/v1.2/default/default_05.png"></image>
+      <text class="empty-text">您还没有相关订单</text>
+      <text class="empty-text-01">可以去看看有哪些想买的~</text>
       <!-- <text class="goto-home" bindtap="gotoHome">去首页逛逛</text> -->
     </view>
     <view wx:else class="orders-container">
       <block wx:for="{{ orders[active + 'Orders'] }}" wx:for-item="order" wx:key="index">
- 
+        <!-- 不存在子订单 -->
         <view wx:if="{{ order != 'deleted' }}" class="order-item-container">
-        
           <view class="weui-slidecells">
             <!-- 滑动单元格 -->
-            <mp-slideview show="{{deleteButtonShowId == order.id}}" bindbuttontap="deleteOrder" buttons="{{buttons}}" data-order='{{ order }}' disable="{{order.state !== 'completed' && order.state !== 'canceled' && order.state !== 'handle_canceled'}}" data-item='{{ order }}' bindshow="slideviewShow" >
+            <mp-slideview show="{{deleteButtonShowId == order.id}}" bindbuttontap="deleteOrder" buttons="{{buttons}}" data-order='{{ order }}' disable="{{order.state != 'completed' && order.state != 'canceled' && order.state != 'handle_canceled'}}" data-item='{{ order }}' bindshow="slideviewShow">
               <view class="order-status {{ order.state }}">
                 <view class="name-container">
                   <text>下单时间：{{helper.cutDate(order.created_at_t) || ''}}</text>
@@ -50,12 +50,12 @@
               </view>
 
               <view wx:if="{{order.line_items.length > 1}}" class="products" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}">
-                <view  class="product-item avatar-box">
+                <view class="product-item avatar-box">
                   <view style="display: flex;width: 588rpx; overflow:hidden;">
-                    <image wx:if="{{ index < 4 }}"  wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar avatar_border" src="{{ item.product.avatar }}"></image>
+                    <image wx:if="{{ index < 4 }}" wx:for="{{ order.line_items }}" wx:for-item="item" wx:key="index" class="avatar avatar_border" src="{{ item.product.avatar }}"></image>
                   </view>
 
-                  <view  wx:if="{{ order.line_items.length >= 3 }}"  style="display: flex; justify-content: center; align-items: center;flex: 1;">
+                  <view wx:if="{{ order.line_items.length >= 3 }}" style="display: flex; justify-content: center; align-items: center;flex: 1;">
                     <view class="quantity-container">
                       <text></text>
                       <text></text>
@@ -73,8 +73,8 @@
                   <text class="product-name" wx:else><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
 
                   <view class="price-container">
-                      <view class="price"><text>¥</text>{{price.tos(item.price)}}</view>
-                      <text class="quantity">×{{item.quantity}}</text>
+                    <view class="price"><text>¥</text>{{price.tos(item.price)}}</view>
+                    <text class="quantity">×{{item.quantity}}</text>
                   </view>
 
                 </view>
@@ -82,7 +82,10 @@
 
               <view class="total-container">
                 <text class="label">共{{order.product_total}}件商品</text>
-                <text class="price">合计:<text class="icon">¥</text><text class="money">{{price.tos(order.discount_total)}}</text><block wx:if="{{order.shipment_expense <= 0}}"> (免运费)</block><block wx:else> (含运费)</block></text>
+                <text class="price">合计:<text class="icon">¥</text><text class="money">{{price.tos(order.discount_total)}}</text>
+                  <block wx:if="{{order.shipment_expense <= 0}}"> (免运费)</block>
+                  <block wx:else> (含运费)</block>
+                </text>
               </view>
 
               <view wx:if="{{ order.state != 'new' }}" class="actions">
@@ -108,23 +111,21 @@
 
               <view wx:else class="actions">
                 <view bindtap='cancelOrder' data-order='{{ order }}' class="btn cancel-btn">取消订单</view>
-                <view  wx:if="{{ helper.payLeftTime(order, nowTime) > 0 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" data-order='{{ order }}' class="btn pay-btn">支付<block>{{ utilsHelper.getM(helper.payLeftTime(order, nowTime)) }}:{{ utilsHelper.getS(helper.payLeftTime(order, nowTime)) }}</block></view>
+                <view wx:if="{{ helper.payLeftTime(order, nowTime) > 0 }}" bindtap="gotoLink" data-url="/pages/orders/show/index?id={{order.number}}" data-order='{{ order }}' class="btn pay-btn">支付<block>{{ utilsHelper.getM(helper.payLeftTime(order, nowTime)) }}:{{ utilsHelper.getS(helper.payLeftTime(order, nowTime)) }}</block>
+                </view>
               </view>
-
             </mp-slideview>
           </view>
-
         </view>
-
       </block>
-      
+
     </view>
   </view>
 </scroll-view>
 
 <image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px; margin-top: 110rpx;"></image>
 
-<msgToast msg-data="{{ _msgData }}"/>
+<msgToast msg-data="{{ _msgData }}" />
 
 <!-- 催发货弹窗 -->
 <view class="urge-popup" hidden="{{!urgeShow}}">
