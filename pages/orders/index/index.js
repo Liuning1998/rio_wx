@@ -54,7 +54,7 @@ Page({
       this.goTop()//跳到页面顶部
       this.refreshData()
     }
-    this.setData({ secondLoad: true })
+    this.setData({ secondLoad: true,deleteButtonShowId: -1 })
     this.resetUerInfo()
     this.setNowTime()
   },
@@ -156,7 +156,7 @@ Page({
   },
   changeTab: function (e) {
     var targetState = e.currentTarget.dataset.state
-    this.setData({ active: targetState, emptyStatus: false })
+    this.setData({ active: targetState, emptyStatus: false,deleteButtonShowId:-1})
     if (this.data.orders != null && this.data.orders[targetState + 'Orders'] != null && this.data.orders[targetState + 'Orders'].filter(item => item != 'deleted').length <= 4) {
       this.fetchOrders(targetState)
     }
