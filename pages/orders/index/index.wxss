@@ -373,8 +373,9 @@ page {
 
 /* 滑动单元格 */
 .weui-slidecells .weui-slideview__btn__wrp{
-  height:340rpx;
-  margin-bottom:40rpx;
+  height:400rpx;
+  /* margin-top:50rpx; */
+  margin-bottom:-4rpx;
   font-size:20rpx;
   /* margin-left:-10px; */
 }
