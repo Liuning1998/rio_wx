@@ -26,6 +26,15 @@ function origin_total (order) {
   return total.toFixed(2)
 }
 
+//获取字符串第一个空格前的内容
+function cutDate(timeString){
+  if(timeString){
+    return timeString.split(" ")[0]
+  }else{
+    return -1
+  }
+}
+
 function payLeftTime (order, now) {
   if(order.state != 'new') { return -1 }
   
@@ -41,8 +50,22 @@ function payLeftTime (order, now) {
   }
 }
 
+function payLeftTimeConfirm (start, now) {
+  if(typeof(start) != 'number') { return -1 }
+  
+  var expireTime = start + 60 * 30;
+  var leftTime = now - start
+  if(now > expireTime) {
+    return -1
+  } else {
+    return (expireTime - now)
+  }
+}
+
 module.exports = {
   vip_total: vip_total,
   origin_total: origin_total,
-  payLeftTime: payLeftTime
+  payLeftTime: payLeftTime,
+  cutDate: cutDate,
+  payLeftTimeConfirm:payLeftTimeConfirm
 }

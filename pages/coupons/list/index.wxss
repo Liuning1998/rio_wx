@@ -5,149 +5,143 @@ page {
 }
 
 .empty-container {
-  margin-top: 304rpx;
-  width: 750rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 28rpx;
-  color: #2B2424;
+  padding-top: 304rpx;
 }
 
-.empty-container image {
-  width: 480rpx;
-  height: 244rpx;
-  margin-bottom: 44rpx;
-}
 
+/* 卡片 s */
+.coupon-list{
+  margin-bottom: 28rpx;
+}
+.coupon:first-child{
+  margin-top: 28rpx;
+}
 .coupon{
   width: 702rpx;
-  height: 220rpx;
-  margin: 24rpx auto 0;
+  margin: 0 auto 0;
   display: flex;
   position: relative;
+  height: 256rpx;
+  box-shadow: 0 0 16rpx -8rpx #B4AFAF;
 }
-.coupon > .coupon-bg{
+.coupon .coupon-bg{
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 718rpx;
-  height: 236rpx;
-  transform: translate(-50%, -50%);
+  width: 702rpx;
+  height: 256rpx;
 }
-.coupon .coupon-card{
-  position: relative;
-}
-.coupon .coupon-card > .coupon-card-bg{
-  width: 220rpx;
-  height: 220rpx;
-}
-.coupon .coupon-card .coupon-card-content{
-  position: absolute;
-  width: 100%;
-  top: 49%;
-  left: 0;
-  transform: translateY(-50%);
-  text-align: center;
-}
-.coupon .coupon-card .coupon-money text:nth-child(1){
-  font-size: 20rpx;
-  color: #fff;
-}
-.coupon .coupon-card .coupon-money text:nth-child(2){
-  font-size: 60rpx;
-  color: #fff;
-  font-weight: 500;
-  line-height: 60rpx;
-}
-.coupon .coupon-card .coupon-brief{
-  width: 100%;
-  font-size: 24rpx;
-  line-height: 34rpx;
-  color: #fff;
-}
-.coupon-operation{
-  width: calc(100% - 220rpx);
+.coupon .info{
+  flex: 1;
   display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   position: relative;
-  z-index: 1;
-  align-content: space-between;
-  flex-wrap: wrap;
 }
-.coupon-operation .coupon-operation-top{
-  padding: 32rpx 20rpx 0 26rpx;
-  width: 100%;
-  box-sizing: border-box;
+.coupon .info .info-top{
+  flex: 1;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  padding: 0 36rpx;
 }
-.coupon-operation .coupon-operation-top > text {
-  width: 100%;
+.coupon .info .info-top text:nth-child(1){
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #332B2B;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+.coupon .info .info-top text:nth-child(2){
+  font-family: PingFangSC-Regular;
   font-size: 32rpx;
-  color: #342F27;
+  color: #807474;
   overflow: hidden;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  display: block;
+  word-break: break-all;
 }
-.coupon-operation .coupon-operation-top .coupon-operation-top-btn{
-  width: 100%;
+.coupon .info .info-bottom{
+  height: 74rpx;
   display: flex;
+  align-items: center;
+  padding: 0 36rpx;
   justify-content: space-between;
+  border-top: 2rpx dashed #F7F7F7;
 }
-.coupon-operation .coupon-operation-top .coupon-operation-top-btn text:nth-child(1){
-  font-size: 22rpx;
-  line-height: 44rpx;
-  color: #5B5454;
-  width: calc(100% - 136rpx);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.coupon .info .info-bottom text{
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #807474;
 }
-.coupon-operation .coupon-operation-top .coupon-operation-top-btn text:nth-child(2){
-  width: 136rpx;
-  height: 44rpx;
-  line-height: 44rpx;
-  text-align: center;
-  background-image: linear-gradient(132deg, #FF524E 0%, #FB2C2A 100%);
-  border-radius: 30rpx;
-  font-size: 24rpx;
-  color: #fff;
+.coupon .info .info-bottom image{
+  width: 24rpx;
+  height: 16rpx;
 }
-.coupon-operation .coupon-operation-top .coupon-operation-top-btn text:nth-child(2).gray{
-  background: #DDD8D8;
-}
-.coupon-operation .coupon-operation-bottom{
-  border-top: 2px dashed #F7F7F7;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 0 20rpx 0 26rpx;
-  box-sizing: border-box;
-}
-.coupon-operation .coupon-operation-bottom text:nth-child(1){
-  display: block;
-  width: calc(100% - 50rpx);
-  line-height: 54rpx;
-  color: #5B5454;
-  font-size: 22rpx;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.coupon-operation .coupon-operation-bottom text:nth-child(2){
-  width: 50rpx;
-  line-height: 54rpx;
-  text-align: center;
-  font-size: 26rpx;
-  color: #5B5454;
+.coupon .info .info-bottom.active image{
   transform: rotate(180deg);
+}
+.coupon .money{
+  width: 232rpx;
   position: relative;
-  top: -3rpx;
-  transition: all .3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
-.coupon-operation .coupon-operation-bottom.active text:nth-child(2){
-  transform: rotate(0);
-  top: 4rpx;
+.coupon .money .price{
+  font-family: HelveticaNeue-Medium;
+  font-size: 72rpx;
+  color: #FFFFFF;
 }
+.coupon .money .price::before{
+  content: "¥";
+  font-family: PingFangSC-Medium;
+  font-size: 44rpx;
+  color: #FFFFFF;
+}
+.coupon .money .btn{
+  width: 176rpx;
+  height: 56rpx;
+  background: #FFFFFF;
+  border-radius: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #FF3633;
+}
+.coupon .money .btn.gray{
+  color: #CCBFBF;
+}
+.coupon .money .subscript{
+  position: absolute;
+  font-family: PingFangSC-Semibold;
+  font-size: 18rpx;
+  color: #FD403D;
+  text-align: center;
+  background-color: #fff;
+  background: #FFFFFF;
+  box-shadow: 0 4rpx 8rpx -4rpx #E50402;
+  transform: rotate(45deg);
+  top: 22rpx;
+  width: 140rpx;
+  right: -31rpx;
+}
+.coupon .money .subscript.gray{
+  color: #CCBFBF;
+}
+/* 卡片 e */
+
+
 .coupon-card-mark{
   position: absolute;
   top: -5rpx;
@@ -185,14 +179,17 @@ page {
   box-shadow: 0 0 8rpx -4rpx rgba(0,0,0,0.50);
   box-sizing: border-box;
   border-radius: 4rpx;
-  padding: 40rpx 32rpx 30rpx;
+  padding: 40rpx 68rpx 30rpx;
   margin-top: -8rpx;
 }
 .coupon-list-mask view{
   position: relative;
   font-size: 20rpx;
   color: #5B5454;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #807474;
 }
 .coupon-list-mask view::before{
   position: absolute;
@@ -201,8 +198,8 @@ page {
   height: 8rpx;
   border-radius: 50%;
   background-color: #B4AFAF;
-  top: 13rpx;
-  left: -20rpx;
+  top: 24rpx;
+  left: -32rpx;
 }
 .page-container{
   height: 100vh;

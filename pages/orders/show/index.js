@@ -26,6 +26,9 @@ Page({
     isBalance:null,
     balance:0,
     balancePayResult:null,//纯余额支付结果
+    nowTime: Math.ceil((new Date).getTime()/1000),
+    showProductQuantity:2,
+    showServiceQuantity:2,
   },
 
   /**
@@ -43,6 +46,28 @@ Page({
       success: res => {
         if (res.data != null && Object.keys(res.data).length >0) {
           this.setData({ order: res.data })
+          if(res.data.refund_state != null || res.data.state == 'canceled' || res.data.state == 'handle_canceled'){
+            this.setData({orderStep: 'step4'})
+          }else if(res.data.state == 'new'){
+            this.setData({orderStep: 'step1'})
+          }else if(res.data.state == 'padding'){
+            this.setData({orderStep: 'step2'})
+          }else if(res.data.state == 'shipping'){
+            this.setData({orderStep: 'step3'})
+            if(res.data.expresses && res.data.expresses.length <= 1){
+              this.getExpress(res.data.expresses[0].express_number, res.data.number)
+            }
+          }else if(res.data.state){
+            this.setData({orderStep: 'step4'})
+            if(res.data.expresses && res.data.expresses.length <= 1){
+              this.getExpress(res.data.expresses[0].express_number, res.data.number)
+            }
+          }
+
+          if(res.data.payment_state == 'new'){
+            this.setNowTime()
+          }
+
           if(res.data.payment_state == 'new' && res.data.balance_expend != null && res.data.balance_expend.status == 'unlock'){
             this.getAccountBalance('detail')
           }
@@ -66,7 +91,6 @@ Page({
       this.setData({ shown: true })
     } else {
       // 调用onload重新渲染页面
-      console.log('重新渲染页面')
       var params = {
         id:this.data.order.number
       }
@@ -82,6 +106,60 @@ Page({
       //   }
       // })
     }
+  },
+
+  seeAll: function (e){
+    var number = e.target.dataset.length;
+    var showProductQuantity = this.data.showProductQuantity
+    if(number <= showProductQuantity){
+      this.setData({
+        showProductQuantity: 2
+      })
+    }else if(showProductQuantity == 2){
+      this.setData({
+        showProductQuantity: number
+      })
+    }
+  },
+
+  //售后商品
+  seeServicesAll: function (e){
+    var number = e.target.dataset.length;
+    var showServiceQuantity = this.data.showServiceQuantity
+    if(number <= showServiceQuantity){
+      this.setData({
+        showServiceQuantity: 2
+      })
+    }else if(showServiceQuantity == 2){
+      this.setData({
+        showServiceQuantity: number
+      })
+    }
+  },
+
+  getExpress: function (number, order_number) {
+    http.get({
+      url: `/api/expresses/${number}/search_express`,
+      data: { order_number: order_number },
+      success: res => {
+        if (res.statusCode == 200 && res.data != null) {
+          this.setData({ expressInfo: res.data })
+        }
+      },
+      fail: res => {
+
+      }
+    })
+  },
+
+  setNowTime: function () {
+    this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
+    setTimeout( res => 
+      this.setNowTime(), 1000)
+  },
+  
+  onPageScroll: function (res){
+
   },
 
   onUnload: function () {
@@ -167,6 +245,11 @@ Page({
         return false
       }
 
+      if (product.store_code == null || product.store_code.trim() == '') {
+        this.errorToast('加入购物车失败')
+        return false
+      }
+
       let variant = null
       for(var j=0; j < product.variants.length; j++) {
         if (product.variants[j].id == line_item.variant_id) {
@@ -188,6 +271,7 @@ Page({
         available_on: product.available_on,
         stock: variant.stock,
         store_id: product.store_id || '0',
+        store_code: product.store_code || '',
         product: product,
         // variant: master,
         show_name: variant.show_name,
@@ -329,7 +413,10 @@ Page({
                   "00m2x7rgBj45ghkRCSNMREsGoakf0KX3-gaXRzl-lQ8"
                 ])
               } else {
-                this.reflashOrder()
+                // this.reflashOrder()
+                wx.reLaunch({ //合并下单支付后要跳转到订单列表
+                  url: '/pages/orders/index/index',
+                })
               }
               submitStatus = false
             } else {
@@ -383,7 +470,10 @@ Page({
             "00m2x7rgBj45ghkRCSNMREsGoakf0KX3-gaXRzl-lQ8"
           ])
         } else {
-          this.reflashOrder()
+          // this.reflashOrder()
+          wx.reLaunch({ //合并下单支付后要跳到订单列表页
+            url: '/pages/orders/index/index',
+          })
         }
         submitStatus = false
       },
@@ -450,7 +540,7 @@ Page({
     //   this.errorToast('该订单不能申请售后')
     //   return false
     // }
-    this.navigateTo("/orders/pages/service/index",{
+    this.navigateTo("/orders/pages/service_product/index",{
       order: this.data.order
     })
   },
@@ -494,13 +584,16 @@ Page({
   },
 
   gotoExpress: function (e) {
-    let item = e.currentTarget.dataset.item
-    if (item.express_number == null) {
+    let expresses = e.currentTarget.dataset.expresses
+    if (expresses == null) {
       this.errorToast('获取快递信息出错')
       return
     }
-
-    this.navigateTo(`/pages/orders/expresses/show?id=${item.express_number}&order_number=${this.data.order.number}`)
+    if(expresses.length > 1){
+      this.navigateTo(`/pages/orders/expresses_list/index?expresses=${JSON.stringify(expresses)}&order_number=${this.data.order.number}`)
+    }else{
+      this.navigateTo(`/pages/orders/expresses/show?id=${expresses[0].express_number}&order_number=${this.data.order.number}`)
+    }
   },
   
   gotoBuyGroup: function () {
@@ -608,6 +701,9 @@ Page({
 
   showPayMethod: function () {
     var order = this.data.order;
+    //关闭支付失败弹窗
+    this.closeFail()
+    
     if(order.balance_expend != null && order.balance_expend.status == 'lock'){
       this.setData({ showPayMethodLayer: true })
     }else{
@@ -747,6 +843,13 @@ Page({
     if (item.id == null) { return }
 
     this.navigateTo(`/orders/pages/sale_services/show/index?id=${item.id}`)
+  },
+
+  // 关闭支付失败弹窗
+  closeFail: function(){
+    this.setData({
+      balancePayResult: null
+    })
   },
   /**
    * 用户点击右上角分享

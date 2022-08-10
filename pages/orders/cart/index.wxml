@@ -1,17 +1,17 @@
 <!--pages/orders/cart/index.wxml-->
 <wxs module="helper" src="./helper.wxs"></wxs>
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
 <wxs module="product" src="../../../utils/product.wxs"></wxs>
 
 <navbar returnAble="{{false}}" appendStyle="background: #fff;" title="购物车" textStyle="font-weight: 600;"/>
 <view class="top-actions" style="top: {{pageMarginTop+44}}px;">
   <view></view>
-  <text class="info">已选({{cartData.quantity || 0}})件商品</text>
+  <text class="info">已选 {{cartData.quantity || 0}} 件商品</text>
   <view bindtap="clearCart" class="delete-all">
-    <image src="/images/delete_icon_001.png"></image>
     <text> 全部清除</text>
   </view>
 </view>
-<view style='margin-top: {{pageMarginTop+44}}px; padding-top: 64rpx;'></view>
+<view style='margin-top: {{pageMarginTop+44}}px; padding-top: 80rpx;'></view>
 
 <!-- <scroll-view scroll-y="{{canScroll}}" class='page-container'> -->
 <scroll-view scroll-y="{{canScroll}}" class='page-container'>
@@ -27,14 +27,15 @@
         <text class="coupon-l-text">领券下单更优惠</text>
       </view>
       <view class="coupon-r" hover-class="hove-btn">
-        <text>领券</text>
-        <image src="/images/arrow_o_white_01.png"></image>
+        <text>去领券</text>
+        <image src="/images/v1.2/arrow_01.png"></image>
       </view>
     </view>
 
-    <view wx:if="{{helper.empty(cartData) && cartLoaded}}" class="cart-empty">
-      <image src="/images/empty_icon_002.png"></image>
-      <text>没有可结算的商品 </text>
+    <view wx:if="{{helper.empty(cartData) && cartLoaded}}" class="empty cart-empty">
+      <image class="empty-img" src="/images/v1.2/default/default_07.png"></image>
+      <text class="empty-text">没有可结算的商品</text>
+      <text class="empty-text-01">挑点喜欢的装进购物车吧</text>
     </view>
 
     <view wx:if="{{!helper.empty(cartData)}}" class="cart-container">
@@ -42,20 +43,35 @@
         <view class="store-header">
           <view style="display: flex; align-items: center;margin-right: auto;flex: 1;">
             <view bindtap="allSelected" data-item="{{storeCart}}" class="select {{ storeCart.allSelectStatus && 'selected' }}"><image src="/images/selected_icon_003.png"></image></view>
-            <view class="goto-store" bindtap="gotoStore" data-item="{{storeCart}}">
-              <image class="store-icon" src="/images/store_icon_001.png"></image>
-              <text class="name">{{storeCart.store_name}}</text>
-              <view class="to_store">
-                <text class="" wx:if="{{storeCart.store_short_name && storeCart.store_short_name == '京东'}}"> (去凑单) ></text>
-              </view>
+            <view class="goto-store">
+              <image class="store-icon" src="/images/v1.2/shops.png"></image>
+              <text class="name">{{storeCart.store_code}}</text>
             </view>
-            <!-- <image style="height: 14rpx; width: 7rpx; margin-left: 10rpx; margin-top: 2rpx;" src="/images/arrow_o_black_01.png"></image> -->
           </view>
-          <block>
+          <!-- <block>
             <view class="coupon-title" wx:if="{{storeCart.store_short_name == '京东'}}">满149元免基础运费</view>
             <view class="coupon-title" wx:else>免运费</view>
-          </block>
+          </block> -->
           <text bindtap="deleteStoreItem" data-item="{{storeCart}}" class="delete">删除</text>
+        </view>
+        
+        <view class="collect-orders">
+          <block wx:if="{{storeCart.store_short_name && storeCart.store_short_name == '京东' && storeCart.total < 149}}">
+            <text class="icon">凑单</text>
+            <text class="content">再买{{price.tos(149 - storeCart.total)}}元可享包邮</text>
+            <view class="go" bindtap="gotoStore" data-item="{{storeCart}}">
+              <text>去凑单</text>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
+          </block>
+          <block wx:else>
+            <text class="icon">包邮</text>
+            <text class="content">已享受包邮！</text>
+            <view class="go" bindtap="gotoStore" data-item="{{storeCart}}">
+              <text>再逛逛</text>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
+          </block>
         </view>
 
         <view wx:for="{{ storeCart.lineItems }}" wx:for-item="item" wx:key="index" class="line-item-container">
@@ -69,22 +85,30 @@
           <mp-slideview show="{{ deleteButtonShowId == item.variant_id }}" bindshow="slideviewShow" buttons="{{deleteButton}}" bindbuttontap="deleteItem" data-item='{{ item }}'>
           <view  data-item="{{ item }}" class="weui-slidecell line-item-content">
             <view bindtap="changeSelectStatus" data-item="{{item}}" class="select {{ item.selectStatus && 'selected' }}"><image src="/images/selected_icon_003.png"></image></view>
-            <image bindtap="gotoProduct" data-item="{{item.product}}" class="avatar" src="{{ avatars[item.product.id] || item.product.avatar}}"></image>
+            <image bindtap="gotoProduct" data-item="{{item.product}}" class="avatar avatar_border" src="{{ avatars[item.product.id] || item.product.avatar}}"></image>
             <view class="line-item-info">
               <view bindtap="gotoProduct" data-item="{{item.product}}" style="display: flex; flex-direction: column; flex: 1;">
                 <text class="name"><text class="pre_name" wx:if="{{!!item.product.pre_name}}">{{item.product.pre_name}}</text>{{item.product.name}}</text>
                 <text class="variant-info">{{item.show_name}}</text>
               </view>
               <view class="price-and-quantity">
-                <text class="price">￥{{item.price}}<text wx:if="{{item.price != null && item.price > 0}}" class="origin-price">￥{{item.origin_price}}</text></text>
+                <text class="price"><text class="unit">¥</text>{{price.tos(item.price)}}<!-- <text wx:if="{{item.price != null && item.price > 0}}" class="origin-price">￥{{item.origin_price}}</text> --></text>
                 
                 
                 <view class='control-quantity'>
-                  <view wx:if="{{ item.quantity <= 1 }}" class='sub disable' bindtap="subQuantity" data-item="{{item}}">ㄧ</view>
-                  <view wx:else class='sub ' bindtap="subQuantity" data-item="{{item}}">ㄧ</view>
+                  <view wx:if="{{ item.quantity <= 1 }}" class='sub disable' bindtap="subQuantity" data-item="{{item}}">
+                    <image src="/images/v1.2/sub_disable.png"></image>
+                  </view>
+                  <view wx:else class='sub ' bindtap="subQuantity" data-item="{{item}}">
+                    <image src="/images/v1.2/sub.png"></image>
+                  </view>
                   <text class='quantity'>{{ item.quantity }}</text>
-                  <view wx:if="{{!helper.canPlus(item)}}" class='plus disable'  bindtap="plusQuantity" data-item="{{item}}">+</view>
-                  <view wx:else class='plus' bindtap="plusQuantity" data-item="{{item}}">+</view>
+                  <view wx:if="{{!helper.canPlus(item)}}" class='plus disable'  bindtap="plusQuantity" data-item="{{item}}">
+                    <image src="/images/v1.2/plus_disable.png"></image>
+                  </view>
+                  <view wx:else class='plus' bindtap="plusQuantity" data-item="{{item}}">
+                    <image src="/images/v1.2/plus.png"></image>
+                  </view>
                 </view>
                 <!-- <view class="quantity-container">
                   <text bindtap="subQuantity" data-item="{{item}}" class="sub-icon btn {{ item.quantity <= 1 && 'disabled'}}">-</text>
@@ -100,11 +124,12 @@
 
         <view class="store-bottom-info">
           <view style="display: flex; align-items: flex-end; display:table-cell; vertical-align: bottom;">
-            <text class="quantity">共计{{storeCart.quantity}}件</text>
-            <text class="total">合计</text>
-            <text class="amount">￥{{storeCart.total}}</text>
+            <!-- <text class="quantity">共计{{storeCart.quantity}}件</text> -->
+            <text class="total">合计:</text>
+            <text class="unit"> ¥</text>
+            <text class="amount">{{price.tos(storeCart.total)}}</text>
           </view>
-          <text class="goto-confirm" bindtap="gotoConfirm" data-item="{{storeCart}}">立即付款</text>
+          <text class="goto-confirm" bindtap="gotoConfirm" data-item="{{storeCart}}">去结算</text>
         </view>
       </view>
 
@@ -114,9 +139,7 @@
       <view class="split-container">
         <view class="line"></view>
         <view class="label">
-          <!-- <image src="/images/cart_split_001.png"></image> -->
-          <text>/// 为你推荐 ///</text>
-          <!-- <image src="/images/cart_split_001.png"></image> -->
+          <text>为你推荐</text>
         </view>
         <view class="line"></view>
       </view>
@@ -131,19 +154,21 @@
             </view>
           </view>
 
-          <text bindtap="gotoProduct" data-item="{{item}}" class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
-          <view class="pbadges" style="padding: 0 24rpx; box-sizing: border-box;">
-            <text wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+          <view style="flex: 1;">
+            <view class="pbadges" wx:if="{{item.badges.length > 0}}">
+              <block wx:for="{{ item.badges }}"  wx:key="badges" wx:for-item="badge">
+                <text class="badge-item">{{badge}}</text>
+              </block>
+            </view>
+            <text bindtap="gotoProduct" data-item="{{item}}" class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
           </view>
 
           <view class="bottom-info-container">
             <view class="info-content">
-              <!-- <view class="badges">
-                <text wx:for="{{item.badges}}" wx:for-item="badge" wx:key="index">{{badge}}</text>
-              </view> -->
               <view class="price">
-                <text class="">￥{{item.price}}</text>
-                <text class="origin-price">￥{{item.origin_price}}</text>
+                <text class="unit">￥</text>
+                <text class="money">{{item.price}}</text>
+                <!-- <text class="origin-price">￥{{item.origin_price}}</text> -->
               </view>
             </view>
             <view bindtap="addCart" data-item="{{item}}" class="cart-icon">
@@ -151,7 +176,7 @@
                 <text>GO</text>
                 <image src="/images/store/go_arrow_002.png"></image>
               </view>
-              <image wx:else src="/images/cart_icon_007.png"></image>
+              <image wx:else src="/images/v1.2/add_cart.png"></image>
             </view>
           </view>
         </view>
@@ -176,8 +201,7 @@
     <view class="popup-title">
       <text>优惠</text>
       <view class="close" bindtap="closePopup">
-        <image src="/images/arrow_o_black.png"></image>
-        <image src="/images/arrow_o_black.png"></image>
+        <image src="/images/v1.2/close.png"></image>
       </view>
     </view>
     <view class="popup-brief">领券</view>
@@ -188,7 +212,7 @@
           <view class="item-name">{{item.name}}</view>
           <view class="item-value">
             <text class="value-text">{{item.value}}</text>
-            <text class="condition-text">满{{item.limit_value}}可用</text>
+            <!-- <text class="condition-text">满{{item.limit_value}}可用</text> -->
           </view>
         </view>
         <view class="receive-btn">

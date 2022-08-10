@@ -1,9 +1,25 @@
 <!--products/pages/index/index.wxml-->
 <wxs module="price" src="../../../utils/price.wxs"></wxs>
-<navbar appendStyle="background: #EBEBEB;" title="{{pageTitle}}" />
+<!-- <navbar appendStyle="background: #EBEBEB;" title="{{pageTitle}}" /> -->
 
-<view style='margin-top: {{pageMarginTop+44 + 44}}px;'></view>
-<view class="search-container" style="top: {{pageMarginTop+44}}px;">
+<view class="navbar">
+  <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
+  <view class="navbar-content">
+    <view class="return-box" bindtap="goback">
+      <image class="return-img" src="/images/v1.2/return_black.png"></image>
+    </view>
+    <view class="search-box" bindtap="showSearchLayer">
+      <view class="search-content" wx:if="{{searchText != null && searchText != ''}}">
+        <view class="search-key">{{searchText}}</view>
+        <image class="close" bindtap="clearSearchText" src="/images/close_white.png"></image>
+      </view>
+      <view class="text" wx:else>你想买些什么？</view>
+    </view>
+  </view>
+</view>
+
+<view style='margin-top: {{pageMarginTop + 44}}px;'></view>
+<!-- <view class="search-container" style="top: {{pageMarginTop+44}}px;">
   <view class="input-group">  
     <image class="search-icon" src="../../images/search_icon_001.png"></image>
     <input focus="{{focus}}" bindconfirm="searchProducts" bindinput="inputChange" data-name='searchText' value='{{ searchText }}' placeholder-class="placeholder" placeholder="输入商品名称" confirm-type="search" class=""></input>
@@ -13,9 +29,9 @@
   </view>
 
   <text bindtap="goback" class="cancel">取消</text>
-</view>
+</view> -->
 
-<view wx:if="{{ !(loaded && products.length <= 0) }}" class="list-cations-header" style="top: {{44+pageMarginTop + 44}}px; ">
+<view wx:if="{{ !(loaded && products.length <= 0) }}" class="list-cations-header" style="top: {{pageMarginTop + 44}}px; ">
   <view bindtap="changeOrder" data-order-type="auto" class="action-item {{orderType == null && 'active'}} ">
     <text>综合排序</text>
   </view>
@@ -23,42 +39,42 @@
   <view bindtap="changeOrder" data-order-type="price" class="action-item {{orderType != null && 'active'}}">
     <text>商品价格</text>
     <view class="price-arrow {{ orderType }}">
-      <view class="up"></view>
-      <view class="down"></view>
+      <image class="up" wx:if="{{orderType == 'price up'}}" src="/images/v1.2/special_02.png"></image>
+      <image class="up" wx:else src="/images/v1.2/special_01.png"></image>
+
+      <image class="down" wx:if="{{orderType == 'price down'}}" src="/images/v1.2/special_02.png"></image>
+      <image class="down" wx:else src="/images/v1.2/special_01.png"></image>
     </view>
   </view>
 </view>
 
 <scroll-view scroll-y class='page-container'>
-  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
-    <image src="../../images/products_empty_icon_001.png"></image>
-    <text>没有搜索到相关商品</text>
+  <view wx:if="{{ loaded && products.length <= 0}}" class="empty product-empty">
+    <image class="empty-img" src="/images/v1.2/default/default_06.png"></image>
+    <text class="empty-text">非常抱歉</text>
+    <text class="empty-text-01">没有找到相关的宝贝</text>
   </view>
 
   <view wx:else class="products-container">
-    <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
+    <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products}}" wx:key="index">
       <view class="avatar-container">
-        <image class="avatar" src="{{item.avatar}}"></image>
+        <image class="avatar avatar_border" src="{{item.avatar}}"></image>
       </view>
-
-      <view class="item-content">
-        <view class="info">
+      <view class="product-info">
+        <view class="name-and-badge">
           <text class="name"><text class="pre_name" wx:if="{{!!item.pre_name}}">{{item.pre_name}}</text>{{item.name}}</text>
           <view class="pbadges">
-            <text wx:for="{{ item.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+            <text class="badge-item" wx:for="{{item.badges}}"  wx:for-item="badge">{{badge}}</text>
           </view>
-          <text class="description">{{item.description}}</text>
         </view>
-
-        <view class="price-and-cart">
+        <view class="price-and-btn">
           <view class="price-container">
+            <text class="unit">¥</text>
             <text class="price">{{price.tos(item.price)}}</text>
-            <text class="origin-price">原价<text>{{price.tos(item.origin_price)}}</text></text>
           </view>
-          <view catchtap="addCartAndAnimation" data-item="{{item}}" class="cart-container">
-            <image src="../../../images/cart_icon_001.png"></image>
-          </view>
+          <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
         </view>
+        <view class="line" wx:if="{{ index < products.length -1 }}"></view>
       </view>
     </view>
 
@@ -72,7 +88,7 @@
 
 <msgToast msg-data="{{ _msgData }}"/>
 
-<view catchtap="gotoCart" class="page-cart-container">
+<!-- <view catchtap="gotoCart" class="page-cart-container">
   <view class="white-background">
     <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
     <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
@@ -83,5 +99,23 @@
 <view class="cart-animation-container">
   <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
     <text>+1</text>
+  </view>
+</view> -->
+
+<view wx:if="{{ showSearch }}" bindtap="hideSearch" class="search-layer-1" style="top: 0;">
+  <view catchtap="{{false}}" class="search-title" style="height: {{pageMarginTop + 44}}px; padding-top: {{pageMarginTop}}px; width: 750rpx; background: #fff;">
+    <text>搜索商品</text>
+  </view>
+  <view catchtap="{{false}}" class="search-container">
+    <view class="search-container-01">
+      <view class="input-group">
+        <image class="icon" src="/images/search_icon_003.png"></image>
+        <input bindinput='inputChange' data-name='searchText' value='{{ searchText }}' focus="{{focus}}" confirm-type="search" bindconfirm="searchProducts" />
+        <view bindtap="clearSearchText" class="clear">
+          <text>x</text>
+        </view>
+      </view>
+      <text bindtap="hideSearch" class="cancel-btn">取消</text>
+    </view>
   </view>
 </view>

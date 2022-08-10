@@ -1,0 +1,20 @@
+<!--web/pages/request/errors.wxml-->
+
+<navbar appendStyle="background: #ffffff;" title="页面错误" />
+
+
+<view class="container" style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'>
+  <view class="error empty">
+    <block wx:if="{{ errorType == 0 }}">
+      <image class="empty-img" src="/images/v1.2/default/default_02.png"></image>
+      <text class="empty-text">网络连接失败</text>
+      <text class="empty-text-01">信号可能跑到外星球去了哦</text>
+    </block>
+    <block wx:else>
+      <image class="empty-img" src="/images/v1.2/default/default_03.png"></image>
+      <text class="empty-text">服务器出错了</text>
+      <text class="empty-text-01">服务器出错了，请稍后再试</text>
+    </block>
+    <view class="error-btn" bindtap="gotoHome">返回首页</view>
+  </view>
+</view>

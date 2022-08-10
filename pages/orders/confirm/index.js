@@ -23,7 +23,7 @@ Page({
   data: {
     submitStatus: false,
     storeCart: {},
-    store_id: '',
+    store_code: '',
     shipAddress: {},
     secretText: '',
     avatars: {},
@@ -45,6 +45,13 @@ Page({
     isBalance:null,//是否开启余额支付
     balance:0,//平台余额
     balancePayResult: null,//纯余额支付结果弹窗
+    navStyle:{
+      navbarStyle: 'custom',
+      imgSrc: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/order_detailbg_01.png'
+    },
+    startTime: Math.ceil((new Date).getTime()/1000),
+    nowTime: Math.ceil((new Date).getTime()/1000),
+    showProductQuantity:2,
   },
 
   /**
@@ -56,23 +63,23 @@ Page({
     //余额支付通用方法
     balancePay.extend(this)
 
-    var store_id = options.store_id || 0
-    // var store_id = 1
+    var store_code = options.store_code || ''
 
     if (options.buyType == 'now') {
       var storeCart = this.params.cart
-      console.log(storeCart)
       this.setData({ buyType: 'now' })
     } else {
       var cart = cartApi.getCartCache()
-      var storeCart = cart.data['store_' + store_id]
+      var storeCart = cart.data['store_' + store_code]
     }
 
     this.setData({
-      store_id: store_id,
+      store_code: store_code,
+      startTime: Math.ceil((new Date).getTime()/1000),
       storeCart: storeCart
     })
     this.setCartLength(storeCart)
+    this.setNowTime()
 
     if (options.store_short_name == '京东') {
       this.setData({ store_short_name: '京东' })
@@ -116,7 +123,10 @@ Page({
 
   onShow: function () {
     if (this.data.payMethod == 'brcb_pay' && this.data.order != null && this.data.order.number != null) {
-      this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+      // this.redirectTo("/pages/orders/show/index?id=" + this.data.order.number)
+      wx.reLaunch({
+        url: '/pages/orders/index/index',
+      })
     }
     this.setData({ submitStatus: false })
 
@@ -130,6 +140,28 @@ Page({
 
     // 检查是否可以领取优惠券
     this.canReceiveCoupon()
+    
+  },
+
+
+  seeAll: function (e){
+    var number = e.target.dataset.length;
+    var showProductQuantity = this.data.showProductQuantity
+    if(number <= showProductQuantity){
+      this.setData({
+        showProductQuantity: 2
+      })
+    }else if(showProductQuantity == 2){
+      this.setData({
+        showProductQuantity: number
+      })
+    }
+  },
+
+  setNowTime: function () {
+    this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
+    setTimeout( res => 
+      this.setNowTime(), 1000)
   },
 
   // 跳转领优惠券页面
@@ -364,6 +396,7 @@ Page({
         } else {
           $this.errorToast(msg)
         }
+        $this.addressNotExists(res, $this)
         submitStatus = false
         $this.setData({ submitStatus: submitStatus })
       }
@@ -446,7 +479,7 @@ Page({
 
 
   wxPay: function (pay_params, pay_sign, order) {
-    console.log('开始微信支付')
+    // console.log('开始微信支付')
 
     wx.requestPayment({
       'timeStamp': pay_params.timeStamp,
@@ -455,6 +488,7 @@ Page({
       'signType': pay_params.signType,
       'paySign': pay_sign,
       'success': (res) => {
+        // console.log('wx支付成功')
         this.successToast('支付成功', 1000)
         submitStatus = false
         this.setData({ submitStatus: submitStatus })
@@ -464,11 +498,15 @@ Page({
         })
       },
       'fail': (res) => {
+        // console.log('wx支付失败')
         this.errorToast('支付失败', 1000)
         submitStatus = false
         this.setData({ submitStatus: submitStatus })
 
-        this.redirectTo("/pages/orders/show/index?id=" + order.number)
+        // this.redirectTo("/pages/orders/show/index?id=" + order.number)
+        wx.reLaunch({
+          url: '/pages/orders/index/index',
+        })
       },
     })
   },
@@ -515,12 +553,13 @@ Page({
             }
           },
           fail: (res) => {
-            console.log('获取地址失败')
-            if (res.data != null && res.data.code == 100123) {
-              storage.delSync('ship_address')
-              // this.setData({ shipAddress: {} })
-              this.setShipAddress({})
-            }
+            // console.log('获取地址失败')
+            this.addressNotExists(res)
+            // if (res.data != null && res.data.code == 100123) {
+            //   storage.delSync('ship_address')
+            //   // this.setData({ shipAddress: {} })
+            //   this.setShipAddress({})
+            // }
           }
         })
       })
@@ -531,14 +570,14 @@ Page({
   setShipAddress: function (data) {
     this.setData({ shipAddress: data })
     this.checkAreaLimit(this.data.storeCart, data)
-    if (this.data.store_short_name == '京东') {
+    if (this.data.store_short_name == '京东' && data != null && data.id != null) {
       this.checkJdStockAndAreaLimit(this.data.storeCart, data.id)
       this.fetchJdFreight(this.data.storeCart, data.id)
     }
   },
 
   selectAddress: function () {
-    this.navigateTo('/pages/addresses/index/index?referrer=confirm_order')
+    this.navigateTo('/pages/addresses/choose/index?referrer=confirm_order')
   },
 
   /**
@@ -727,7 +766,10 @@ Page({
       submitStatus = false
       this.setData({ submitStatus: submitStatus })
 
-      this.redirectTo("/pages/orders/show/index?id=" + order.number)
+      // this.redirectTo("/pages/orders/show/index?id=" + order.number)
+      wx.reLaunch({
+        url: '/pages/orders/index/index',
+      })
     }, 800)
   },
 
@@ -822,7 +864,10 @@ Page({
               setTimeout(res => {
                 submitStatus = false
                 $this.setData({ submitStatus: submitStatus })
-                $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+                // $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+                wx.reLaunch({
+                  url: '/pages/orders/index/index',
+                })
               }, 1500)
             } else {
               submitStatus = false
@@ -837,7 +882,10 @@ Page({
             setTimeout(res => {
               submitStatus = false
               $this.setData({ submitStatus: submitStatus })
-              $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+              // $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+              wx.reLaunch({
+                url: '/pages/orders/index/index',
+              })
             }, 1500)
           } else {
             submitStatus = false
@@ -855,7 +903,10 @@ Page({
         setTimeout(res => {
           submitStatus = false
           $this.setData({ submitStatus: submitStatus })
-          $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+          // $this.redirectTo("/pages/orders/show/index?id=" + $this.data.order.number)
+          wx.reLaunch({
+            url: '/pages/orders/index/index',
+          })
         }, 1500)
       } else {
         submitStatus = false
@@ -893,5 +944,12 @@ Page({
         this.getCouponCount()
       }
     })
-  }
+  },
+
+  // 关闭支付失败弹窗
+  closeFail: function(){
+    this.setData({
+      balancePayResult: null
+    })
+  },
 })

@@ -5,6 +5,7 @@ var http = require('../../../utils/http.js')
 var helper = require('../../../utils/helper.js')
 var storage = require("../../../utils/storage.js")
 
+
 Page({
 
   /**
@@ -25,6 +26,7 @@ Page({
       // src: '/page/weui/cell/icon_del.svg', // icon的路径
       src: '/images/delete_icon.png'
     }],
+    twice: null
   },
 
   onLoad: function (options) {
@@ -52,6 +54,14 @@ Page({
 
     // this.setData({ addresses: [], loaded: false, pageNo: 1, touchMoveList: {}, deleteButtonShowId: -1 })
     // this.getAddresses()
+
+    if(this.data.twice == true){
+      this.checkIsNone()
+    }else{
+      this.setData({
+        twice: true
+      })
+    }
   },
 
   /**
@@ -76,11 +86,17 @@ Page({
       url: 'api/ship_addresses?page=' + this.data.pageNo,
       success: (res) => {
         // this.pushItemToList(res.data)
+        if(res.data == null || res.data.length <= 0){
+          if(storage.getSync('ship_address')){
+            storage.delSync('ship_address')
+          }
+        }
         this.setData({
           loaded: true,
-          addresses:res.data
+          addresses:res.data,
         })
         this.stopPDRefresh()
+        this.checkIsNone()
       },
       fail: (res) => { this.setData({ loaded: true }) }
     })
@@ -95,7 +111,6 @@ Page({
     }
 
     this.setData({ addresses: addresses.concat(_addrs) })
-    console.log(this.data.addresses)
   },
 
   /**
@@ -225,10 +240,23 @@ Page({
       if (addresses[key].id == item.id) {
         var temp = {}
         temp["addresses[" + key + '].deleted'] = true
-        console.log(temp)
         this.setData(temp)
+        this.checkIsNone()
       }
     }
+  },
+
+  checkIsNone:function(){
+    var addresses = this.data.addresses
+    var noDeleteLength = 0;
+    addresses.forEach((element,index)=>{
+      if(element.deleted == null || element.deleted != true){
+        noDeleteLength += 1
+      }
+    })
+    this.setData({
+      noDeleteLength:noDeleteLength
+    })
   },
 
   slideviewShow: function (e) {

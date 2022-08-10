@@ -6,6 +6,8 @@ const http = require('./utils/http.js');
 var checkPhonePage = [
   // "/pages/products/show/index",
   "/pages/coupons/list/index",
+  "/products/pages/collect/index",
+  "/pages/account/balance/index",
   // "/pages/coupons/dashboard/index",
   "/pages/member/index/index",
   "/pages/orders/show/index",
@@ -87,8 +89,10 @@ function beforeOnload (context) {
     this.navigateTo = function (url, params={}) {
       var skipPage = [
         "/pages/products/show/index",
+        "/pages/contact/index",
         "/pages/special_areas/show/index",
         "/pages/special_areas/show01/index",
+        "/pages/special_areas/show1.2/index",
         "/products/pages/index/index",
         "/products/pages/index2/index",
         "/products/pages/index3/index",
@@ -114,8 +118,10 @@ function beforeOnload (context) {
     this.redirectTo = function (url, params = {}) {
       var skipPage = [
         "/pages/products/show/index",
+        "/pages/contact/index",
         "/pages/special_areas/show/index",
         "/pages/special_areas/show01/index",
+        "/pages/special_areas/show1.2/index",
         "/products/pages/index/index",
         "/products/pages/index2/index",
         "/products/pages/index3/index",
@@ -132,7 +138,7 @@ function beforeOnload (context) {
         return
       }
 
-      this.setParamsToGlobal('params', params)
+    this.setParamsToGlobal('params', params)
       wx.redirectTo({
         url: url
       })
@@ -154,15 +160,22 @@ function beforeOnload (context) {
 
       if (getApp().globalData.userInfo == null || !phoneReg.test(getApp().globalData.userInfo.phone)) {
         
-        if(url.split('?')[0] == '/pages/orders/confirm/index'){
+
+        // -----------v1.2改版前 s-----------
+        // if(url.split('?')[0] == '/pages/orders/confirm/index'){
+        //   wx.navigateTo({
+        //     url:'/pages/account/phone/validate?back=true'
+        //   })
+        // }else{
+        //   wx.redirectTo({
+        //     url: '/pages/account/phone/validate',
+        //   })
+        // }
+        // -----------v1.2改版前 e-----------
+
           wx.navigateTo({
             url:'/pages/account/phone/validate?back=true'
           })
-        }else{
-          wx.redirectTo({
-            url: '/pages/account/phone/validate',
-          })
-        }
 
         return false
       } else {
@@ -202,14 +215,15 @@ function beforeOnload (context) {
       this.navigateTo(url)
     }
 
-    this.onShareAppMessage = function () {
+    this.onShareAppMessage = function (e) {
       // imageUrl
       // 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持PNG及JPG。显示图片长宽比是 5: 4。	
       // 使用默认截图
       var noRedirectRoot = [
         "pages/products/show/index",
-        "pages/special_areas/show/index",
-        "pages/special_areas/show01/index",
+        // "pages/special_areas/show/index",
+        // "pages/special_areas/show01/index",
+        // "pages/special_areas/show1.2/index",
         "products/pages/index/index",
         "products/pages/index2/index",
         "products/pages/index3/index",
@@ -222,9 +236,22 @@ function beforeOnload (context) {
 
       if (!noRedirectRoot.includes(this.route)) {
         return {
-            title: '金色家园',
-            path: `/pages/index/index?from=share` ,
-          }
+          title: '金色家园',
+          path: `/pages/index/index?from=share` ,
+          imageUrl: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/share.jpeg'
+        }
+      } else if( this.route == 'pages/products/show/index' && e.from == 'menu'){ //商品详情右上角
+        return {
+          title: '金色家园',
+          path: `/pages/index/index?from=share` ,
+          imageUrl: 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/share.jpeg'
+        }
+      }else if(this.route == 'pages/products/show/index' && e.from == 'button'){
+        return {
+          // title: '金色家园',
+          // path: `/pages/index/index?from=share` ,
+          imageUrl: getApp().globalData.shareImg ? getApp().globalData.shareImg : 'https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/share.jpeg'
+        }
       }
       // return {
       //   title: '金色家园',
@@ -261,6 +288,11 @@ function beforeOnload (context) {
         return
       }
 
+      if (master.store_code == null || master.store_code.trim() == '') {
+        this.errorToast('加入购物车失败')
+        return false
+      }
+
       let lineItem = {
         quantity: 1,
         variant_id: master.id,
@@ -270,6 +302,7 @@ function beforeOnload (context) {
         available_on: master.available_on,
         stock: master.stock,
         store_id: master.store_id || '0',
+        store_code: master.store_code || '',
         product: item,
         // variant: master,
         show_name: master.show_name,
@@ -283,8 +316,8 @@ function beforeOnload (context) {
         return false
       }
 
-      if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_id] != null && this.data.cartData.data['store_' + master.store_id].lineItems != null && this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id] != null) {
-        let _quantity = this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id].quantity
+      if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_code] != null && this.data.cartData.data['store_' + master.store_code].lineItems != null && this.data.cartData.data['store_' + master.store_code].lineItems['variant_' + master.id] != null) {
+        let _quantity = this.data.cartData.data['store_' + master.store_code].lineItems['variant_' + master.id].quantity
 
         // 判断数量是否超过单品购买数量限制
         if (_quantity >= master.limit_number || _quantity >= item.limit_number) {

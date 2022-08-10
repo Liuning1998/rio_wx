@@ -2,6 +2,7 @@
 var http = require('../../utils/http.js')
 var sessionApi = require('../../utils/session.js')
 var store = require('../../utils/storage.js')
+var helper = require('../../utils/helper.js')
 const app = getApp()
 
 Page({
@@ -19,13 +20,13 @@ Page({
     cartAnimations: {},
     canScroll: true,
     scorllViewHeight: 'auto',
-    homeBrands: null,
     tryProduct: null,
     noticeText: null,
     swiperCurrent: 0,
+    swiperRankCurrent: 0,
     specialAreaSwiperCurrent: 0,
     pageBottom: false,
-    // 新推荐板块
+    // 新推荐板块(改版1.2后排行榜)
     newBrandData:[],
     newBrandPage:1,
     // 导航滚动条
@@ -68,10 +69,9 @@ Page({
     }
     
     this.getRecommendProducts()
-    this.getspecialAreas()
     this.getAds()
+    this.getBannerBackground()
     this.getNotice()
-    // this.getTodayProduct()
 
     wx.getSystemInfo({
       success: (res) => {
@@ -96,6 +96,7 @@ Page({
   onShow: function () {
     this.loadCartInfo()
     this.setData({ canScroll: true })
+    this.getspecialAreas()
     //如果relogin()正在执行就不执行this.getUserInfo()
     if(!this.data._reLogin) this.getUserInfo()
 
@@ -169,6 +170,7 @@ Page({
           let _promotionProducts = null
           let _benefitPeopleProducts = null
           let _temporaryProducts = null
+          let _rankingProducts = null
           let _data = []
           let _groupProducts = null
           for(let i=0; i < res.data.length; i++) {
@@ -189,13 +191,14 @@ Page({
               _benefitPeopleProducts = item
             } else if (item.tags.indexOf('临时活动') >= 0) {
               _temporaryProducts = item
+            } else if (item.tags.indexOf('排行榜') >= 0) {
+              _rankingProducts = item
             }
              else {
               _data.push(item)
             }
           }
           this.setData({
-            // homeBrands: res.data,
             tryProduct: _tryProduct,
             todayProducts: _todayProducts,
             groupProducts: _groupProducts,
@@ -204,6 +207,7 @@ Page({
             promotionProducts: _promotionProducts,
             benefitPeopleProducts: _benefitPeopleProducts,
             temporaryProducts:_temporaryProducts,
+            rankingProducts: _rankingProducts,
             elseProduct:_data
           })
         }
@@ -281,19 +285,47 @@ Page({
     })
   },
   // 获取导航便宜比例
-  getRatio(){
+  async getRatio(){
     var that = this ;
-    if (!that.data.specialAreas || that.data.specialAreas.length<=4){
-      this.setData({
+    var obj=wx.createSelectorQuery();
+    var parentW,childrenW;
+
+    await new Promise((resolve, reject)=>{
+      obj.selectAll('.special-area').boundingClientRect(function (rect) {
+          if(rect != null && rect.length > 0){
+            parentW = rect[0].width
+            resolve()
+          }else{
+            console.log('获取不到元素')
+          }
+      }).exec()  
+    })
+
+    await new Promise((resolve, reject)=>{
+      obj.selectAll('.item-box').boundingClientRect(function (rect) {
+        if(rect != null && rect.length > 0){
+          childrenW = rect[0].width
+          resolve()
+        }else{
+          console.log('获取不到元素')
+        }
+      }).exec()  
+    })
+
+    if(childrenW <= parentW){
+      that.setData({
         slideShow:false
       })
     }else{
-      var _totalLength = that.data.specialAreas.length * 175; //分类列表总长度
-      var _ratio = 128 / _totalLength * (750 / this.data.windowWidth); //滚动列表长度与滑条长度比例
-      var _showLength = 750 / _totalLength * 128; //当前显示红色滑条的长度(保留两位小数)
-      this.setData({
+      // 142 * (this.data.windowWidth / 750) ---- 滚动条容器的px值
+      // 142 * (this.data.windowWidth / 750) / childrenW ---- 宽度比例
+      var _ratio = 142 * (this.data.windowWidth / 750) / childrenW ; 
+      // parentW / childrenW ---- 专区子元素与父元素的宽度比例
+      // parentW / childrenW  * 142 * (this.data.windowWidth / 750) ---- 再*滚动条容器px宽度
+      var _showLength = parentW / childrenW * 142 * (this.data.windowWidth / 750) ; 
+      that.setData({
         slideWidth: _showLength,
-        totalLength: _totalLength,
+        totalLength: childrenW,
         slideShow: true,
         slideRatio:_ratio
       })
@@ -322,6 +354,23 @@ Page({
     })
   },
 
+  //轮播图背景图
+  getBannerBackground: function () {
+    http.get({
+      url: "api/ads",
+      data: {
+        q: {
+          tags_name_eq: '广告背景图'
+        }
+      },
+      success: res => {
+        if (res.data != null && res.data.constructor.name == "Array") {
+          this.setData({ bannerBackground: res.data })
+        }
+      }
+    })
+  },
+
   refreshData: function () {
     this.setData({
       // pageNo: 1,
@@ -331,6 +380,7 @@ Page({
 
     this.getUserInfo()
     this.getAds()
+    this.getBannerBackground()
     this.getspecialAreas()
     // this.getRecommendProducts(1)
     this.refreshProducts()
@@ -374,7 +424,7 @@ Page({
       this.navigateTo(url)
       return
     }
-    this.navigateTo(`/pages/special_areas/show/index?item_id=${item.id}&name=${item.name}`)
+    this.navigateTo(`/pages/special_areas/show1.2/index?item_id=${item.id}&name=${item.name}`)
   },
 
   gotoProduct: function (e) {
@@ -396,16 +446,23 @@ Page({
 
 
   gotoUrl: function (e) {
-    console.log(e)
     var url = e.currentTarget.dataset.url
     if (url == null || url.length <= 0) {
       return
     }
+    if(url.indexOf("?") > -1){
+      var query = url.substring(url.indexOf("?")+1)
 
-    var query = url.substring(url.indexOf("=")+1)
-    url = url.substring(0,url.indexOf("=")+1)
+      if(query.indexOf('url') > -1){//if 参数包含url (webView)
+        query = query.substring(0,query.indexOf("=")+1) + encodeURIComponent(query.substring(query.indexOf("=")+1))
+      }
 
-    this.navigateTo(url + encodeURIComponent(query))
+      url = url.substring(0,url.indexOf("?")+1)
+      this.navigateTo(url + query)
+    }else{
+      this.navigateTo(url)
+    }
+
   },
 
   reLogin: function () {
@@ -496,7 +553,7 @@ Page({
 
   floatNotice: function () {
     this.setData({ floatNoticeStatus: true })
-    wx.createSelectorQuery().select('.float-notice-text').boundingClientRect(res => {
+    wx.createSelectorQuery().select('.notice-text').boundingClientRect(res => {
       if (res != null) {
         if (res.width > 0) {
           let left = this.data.floatNoticeLeft - 1
@@ -506,7 +563,6 @@ Page({
 
           this.setData({ floatNoticeLeft: left })
         }
-        // console.log(res)
       }
     }).exec()
 
@@ -518,6 +574,10 @@ Page({
 
   changeSwiperCurrent: function (e) {
     this.setData({ swiperCurrent: e.detail.current })
+  },
+
+  changeRankSwiperCurrent: function (e) {
+    this.setData({ swiperRankCurrent: e.detail.current })
   },
 
   changeSpecailAreaSwiperCurrent: function (e) {
@@ -663,7 +723,6 @@ Page({
       return
     }
 
-    // console.log('sss')
     this.navigateTo("/products/pages/search_all/index?searchKey="+this.data.searchKey)
   },
 
@@ -677,7 +736,9 @@ Page({
       },
       success: res => {
         if(res.data != null && res.data.length > 0) {
+          res.data = helper.splitArray(res.data,3)
           res.data.forEach((item,index)=>{
+            item = helper.swapArr(item,0,1)
             newBrandData.push(item)
           })
           this.setData({
@@ -689,6 +750,26 @@ Page({
           }
         }
       }
+    })
+  },
+
+  // 获取滚动条当前位置
+  onPageScroll:function(e){
+    if (e.scrollTop > 100) {
+      this.setData({
+        cangotop: true
+      });
+    } else {
+      this.setData({
+        cangotop: false
+      });
+    }
+  },
+
+  //回到顶部
+  goTop: function (e) {  // 一键回到顶部
+    wx.pageScrollTo({
+      scrollTop: 0
     })
   },
 

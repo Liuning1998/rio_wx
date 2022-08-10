@@ -20,6 +20,9 @@ Component({
     },
     textStyle: {
       type: String
+    },
+    customImgSrc: {
+      type: String,
     }
   },
 
@@ -43,13 +46,11 @@ Component({
         })
       }
       
-    }
+    },
   },
 
   attached: function () {
-    console.log(this.data)
     this.setData({statusBarHeight: wx.getSystemInfoSync().statusBarHeight})
-    console.log(this.data.title)
     this.setData({ title: decodeURI(this.data.title) })
   },
 })

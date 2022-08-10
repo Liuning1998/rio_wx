@@ -10,12 +10,12 @@
 
 <view class="navbar {{!navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
   <view class="return simple" bindtap="goback">
-    <image mode="heightFix" src="/images/arrow_o_white_01.png"></image>
+    <image mode="heightFix" src="/images/v1.2/return_white.png"></image>
   </view>
 </view>
 
 <view class="navbar block {{navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
-  <image bindtap="goback" mode="heightFix" class="return" src="/images/arrow_o_black.png"></image>
+  <image bindtap="goback" mode="heightFix" class="return" src="/images/v1.2/return_black.png"></image>
   <!-- <view class="actions">
     <view class="item {{ navbarActive == 1 && 'active' }}">
       <text class="">商品</text>

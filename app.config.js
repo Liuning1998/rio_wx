@@ -31,6 +31,7 @@ var errorMap = {
   100163: { msg: 'user_limit', msg_t: "下单失败，您不是北京市96156居家养老服务平台认证用户" },
   100161: { msg: 'not_sale', msg_t: "商品不可售, 请稍后再试"},
   100210: { msg: 'address_not_exists is not found', msg_t: "地址不存在，未找到"},
+  100123: { msg: 'address_not_exists', msg_t: "请重新选择地址"},
 }
 
 // 修改团购中专区跳转id, /group_buy/pages/join/index.js

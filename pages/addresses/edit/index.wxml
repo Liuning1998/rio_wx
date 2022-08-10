@@ -15,34 +15,36 @@
         <input bindinput='inputChange' data-name='phone' type='number' placeholder='请输入手机号' placeholder-class='input-placeholder' maxlength='11' class='phone field' name='phone' value='{{ address.phone }}'></input>
       </view>
 
-      <view class='input-group'>
+      <view class='input-group have-arrow'>
         <view class='label text'>选择地区</view>
         <!-- <view class="{{ 'input text ' + (cityString == '' && 'placeholder') }}" bindtap='selectCity'> -->
         <view class="input text {{locationArr[0] ? '' : 'placeholder'}}" bindtap='chooseAddress'>
           <!-- {{ cityString == '' ? '请选择地区' : cityString }} -->
           {{address == null ? '请选择地区' : (locationArr[0] + locationArr[1] + locationArr[2] + locationArr[3])}}
+          <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>
 
       <view class='input-group'>
         <view class='label text'>详细地址</view>
         <input bindinput='inputChange' data-name='address_info' placeholder='请输入详细地址' placeholder-class='input-placeholder' class='address-info field' name='address_info' value='{{ address.address_info }}'></input>
-        <!-- <view class="textarea-container">
-          <textarea placeholder-class="textarea-placeholder" bindlinechange="changeTextareaLine" style="height: {{(textareaLine*40 + 40)}}rpx;" bindinput='inputChange' data-name='address_info' placeholder='请输入详细地址' class='field address_info' name='address_info' focus="{{true}}" value='{{ address.address_info }}'></textarea>
-        </view> -->
+        <!-- <textarea placeholder-class="textarea-placeholder"  bindlinechange="changeTextareaLine" style="  margin-top: 8rpx;" bindinput='inputChange' data-name='address_info' placeholder='请输入详细地址' class='field address_info' name='address_info' value='{{ address.address_info }}'></textarea> -->
       </view>
     </view>
 
     <view class='set-default' wx:if="{{!address.default_address}}">
-      <view style="width: 100%; display: flex; justify-content: space-between;">
-        <text>设置默认地址</text>
+      <view class="box">
+        <view class="left">
+          <text class="top">设置默认地址</text>
+          <text class="bottom">注：每次下单将默认推荐使用该地址</text>
+        </view>
         <switch checked='{{ default_address }}' color="#FF524E" bindchange="switchDefaultAddress"/>
       </view>
     </view>
 
     <view wx:if="{{ !newObject && referrer != 'confirm_order' }}" class='delete-container'>
       <view style="width: 100%; display: flex; justify-content: space-between;">
-      <text bindtap='deleteAddress' data-address='{{ address }}' style="font-size: 28rpx; color: #F64C47;">删除收货地址</text>
+      <text bindtap='deleteAddress' data-address='{{ address }}' style="font-size: 36rpx; color: #FF3633;">删除收货地址</text>
       </view>
     </view>
 

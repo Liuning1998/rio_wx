@@ -1,180 +1,129 @@
 <!--pages/account/index/index.wxml-->
-<!-- <navbar textStyle="color: #8E662F; font-weight: 600;" returnAble="{{false}}" appendStyle="background: rgba(0,0,0,0)" return-able="{{true}}" title="我的"/> -->
-<!-- <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view> -->
 
-<view class="navbar" style="height: {{pageMarginTop+44}}px;">
-  <image class="{{!scollStatus && 'hidden'}}" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/account_index_background_002.png"></image>
-  <text style="margin-top: {{pageMarginTop}}px;"></text>
+<!-- ----------------------version1.2---------------------- -->
+
+<navbar returnAble="{{false}}" appendStyle="background: rgba(255,255,255,1);" title="个人中心" textStyle="font-weight: 600;"/>
+<view class="header" style="padding-top: {{pageMarginTop+64}}px;">
+  <view class="information">
+    <view class="avatar">
+      <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          <image class="avatar-image" src="{{userAvatar}}"></image>
+      </button>
+      <image class="pendant" wx:if="{{userInfo.vip_level}}" src="/pages/member/images/member_pendant.png"></image>
+    </view>
+    <view class="phone"  wx:if="{{ authLoginStatus }}">
+      <view class="phone_number" wx:if="{{ userInfo.phone != null && userInfo.phone.length == 11 }}">{{ userInfo.phone }}</view>
+      <view class="phone_number" wx:else bindtap="gotoPhone">去补全手机号</view>
+      <view class="discount_head" wx:if="{{userInfo.vip_level}}" bindtap="gotoLink" data-url="/pages/member/index/index">
+        <image src="/images/v1.2/mine_head_01.png"></image>
+        <text>{{userInfo.vip_level.current_vip_level}}会员享{{userInfo.vip_level.current_discount}}折</text>
+      </view>
+    </view>
+    <view class="no-login" wx:else bindtap="login">
+      <view class="no-login-content">
+        <text class="to-login">点击登录</text>
+        <text class="sub-text">1秒登录，查看专属会员权益</text>
+      </view>
+      <view class="no-login-img">
+        <image src="/images/v1.2/arrow_02.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="balance">
+    <image class="balance_bg" src="/images/v1.2/mine_balance_01.png"></image>
+    <view class="balance_l">
+      <view class="title">平台余额 (元)</view>
+      <view class="number">{{balance || '0.0'}}</view>
+    </view>
+    <view class="balance_r">
+      <view class="todetail" data-url="/pages/account/balance/index?balance={{balance}}" bindtap="gotoLink">查看详情</view>
+    </view>
+  </view>
+</view>
+<view class="order">
+  <view class="order_list new" bindtap="gotoOrder" data-state="new">
+    <image class="order_icon" src="/images/v1.2/mine_order_01.png"></image>
+    <text>待支付</text>
+    <view class="count-icon" wx:if="{{orderQuantity.new_orders_count && orderQuantity.new_orders_count > 0}}">{{orderQuantity.new_orders_count}}</view>
+  </view>
+  <view class="order_list shipping" bindtap="gotoOrder" data-state="shipping">
+    <image class="order_icon" src="/images/v1.2/mine_order_03.png"></image>
+    <text>待收货</text>
+    <view class="count-icon" wx:if="{{orderQuantity.padding_orders_count && orderQuantity.padding_orders_count > 0}}">{{orderQuantity.padding_orders_count}}</view>
+  </view>
+  <view class="order_list saleService" bindtap="gotoOrder" data-state="saleService">
+    <image class="order_icon" src="/images/v1.2/mine_order.png"></image>
+    <text>售后订单</text>
+  </view>
+  <view class="division">
+    <view class="line_top"></view>
+    <view class="arrow"></view>
+    <view class="line_bottom"></view>
+  </view>
+  <view class="order_list" bindtap="gotoOrder" data-state="all">
+    <image class="order_icon" src="/images/v1.2/mine_order_02.png"></image>
+    <text>全部订单</text>
+  </view>
 </view>
 
-<scroll-view bindtouchstart='changeNavbar'>
-  <view class="page-header">
-    <view class="header-background-container">
-      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/account_index_background_002.png"></image>
+<view class="discount">
+  <view class="member" bindtap="gotoLink" data-url="/pages/member/index/index">
+    <view class="member_l">
+      <view class="top">会员中心</view>
+      <view class="bottom">享最高95折</view>
     </view>
-
-    <view class="header-content">
-      <view style='height: {{pageMarginTop+44}}px; width: 750rpx;'></view>
-
-      <view class="user-container">
-        <view wx:if="{{ authLoginStatus }}" class="user-content">
-          <view class="avatar-containe-parent">
-            <image class="pendant" wx:if="{{userInfo.vip_level}}" src="/pages/member/images/member_pendant.png"></image>
-            <!-- <view class="avatar-container" >
-              <open-data class='avatar-image' type="userAvatarUrl"></open-data>
-            </view> -->
-            <button class="avatar-container" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
-                <image class="avatar-image" src="{{userAvatar}}"></image>
-            </button>
-          </view>
-          <view class="welcome-info">
-            <!-- <view class="user-name">
-              <open-data class="name" type="userNickName"></open-data>
-            </view> -->
-            <view class="user-other">
-              <block>
-                <text wx:if="{{ userInfo.phone != null && userInfo.phone.length == 11 }}" class="mark">{{ userInfo.phone }}</text>
-                <text bindtap="gotoPhone" wx:else class="mark">去补全手机号</text>
-              </block>
-              <view class="user-member-leval" wx:if="{{userInfo.vip_level}}">
-                <!-- <image class="bg" src="/pages/member/images/level_bg.png"></image> -->
-                <text>会员等级{{userInfo.vip_level.current_vip_level}}</text>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view wx:else class="no-login" bindtap="login">
-          <view class="default-avatar">
-            <image src="/images/default_avatar.png"></image>
-          </view>
-          <view class="no-login-desc">
-            <text class="item-label">登录</text>
-            <text class="sub-item-label">点击登录，享受更多优惠及服务~</text>
-          </view>
-        </view>
-      </view>
-
-      <!-- 会员权益 -->
-      <view class="member" wx:if="{{userInfo.vip_level}}">
-        <image class="member-back" src="/pages/member/images/member_back.png"></image>
-        <view class="member-left">
-          <image class="member-logo" src="/pages/member/images/member_logo.png"></image>
-          <view class="member-des">会员等级{{userInfo.vip_level.current_vip_level}} 尊享全场{{userInfo.vip_level.current_discount}}折</view>
-        </view>
-        <view class="member-go" bindtap="gotoLink" data-url="/pages/member/index/index">
-          <text>查看权益</text>
-          <image src="/images/arrow_o_white_01.png"></image>
-        </view>
-      </view>
+    <view class="member_r">
+      <image class="member_r_img" src="/images/v1.2/mine_discount_01.png"></image>
     </view>
   </view>
-  
-  <view class="order-btn-container">
-    <view class="btn-group">
-      <view class="btn-item" bindtap="gotoOrder" data-state="new">
-        <text wx:if="{{orderQuantity.new_orders_count != null && orderQuantity.new_orders_count > 0}}" class="btn-badge">{{orderQuantity.new_orders_count}}</text>
-        <image class="btn-icon" src="/images/account/order/icon_001.png"></image>
-        <text class="label">待支付</text>
-      </view>
-      <view class="btn-item" bindtap="gotoOrder" data-state="shipping">
-        <image class="btn-icon" src="/images/account/order/icon_003.png"></image>
-        <text class="label">待收货</text>
-      </view>
-      <view class="btn-item" bindtap="gotoOrder" data-state="saleService">
-        <image class="btn-icon" src="/images/account/order/icon_002.png"></image>
-        <text class="label">退换/售后</text>
-      </view>
+  <view class="member coupons" bindtap="gotoDashboard" data-url="/pages/coupons/dashboard/index">
+    <view class="member_l">
+      <view class="top">领券中心</view>
+      <view class="bottom">先领券再购物</view>
     </view>
-
-    <image class="split-icon" src="/images/account/split_001.png"></image>
-    <view class="main-btn" bindtap="gotoOrder" data-state="all">
-      <view class="btn-item">
-        <image class="btn-icon" src="/images/account/order/icon_004.png"></image>
-        <text class="label">全部订单</text>
-      </view>
+    <view class="member_r">
+      <image class="member_r_img" src="/images/v1.2/mine_discount_02.png"></image>
     </view>
   </view>
+</view>
 
-  <view class="account-info">
-    <view class="account-content">
-      <view class="info-item" bindtap="gotoLink" data-url="/pages/card/index/index">
-        <text class="desc">0</text>
-        <text class="label">卡券(张)</text>
-      </view>
-      <view class="info-item" bindtap="gotoCoupon" data-url="/pages/coupons/list/index">
-        <text class="desc">{{userInfo.user_promotions_count || 0}}</text>
-        <text class="label">优惠券(张)</text>
-      </view>
-      <view data-url="/pages/account/balance/index" bindtap="gotoLink" class="info-item">
-        <text class="desc">{{balance || '0.0'}}</text>
-        <text class="label">平台余额(元)</text>
-      </view>
-    </view>
-    <image class="split-icon" src="/images/account/split_001.png"></image>
-    <view class="main-btn">
-      <view data-url="/pages/account/show/index" bindtap="gotoLink" class="btn-item">
-        <image class="btn-icon" src="/images/account/package_icon_001.png"></image>
-        <text class="label">账户中心</text>
-      </view>
+<view class="menu">
+  <view class="list" bindtap="gotoCoupon" data-url="/pages/coupons/list/index">
+    <image class="img" src="/images/v1.2/mine_menu_04.png"></image>
+    <text class="text">优惠券</text>
+    <view class="arrow_box">
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
     </view>
   </view>
-
-  <view class="my-activity action-container">
-    <text class="label">我的活动</text>
-    <view class="action-content">
-      <view data-url="/group_buy/pages/orders/index/index" bindtap="gotoLink" class="action-item">
-        <image class="icon-01" src="/images/account/group_buy_icon.png"/>
-        <text class="item-label">我的拼团</text>
-      </view>
-      
-      <view bindtap="gotoDashboard" data-url="/pages/coupons/dashboard/index" class="action-item">
-        <image class="icon-01" src="/images/account/coupon_icon.png"/>
-        <text class="item-label">领券中心</text>
-      </view>
-
-      <view bindtap="gotoLink" data-url="/pages/card/index/index" class="action-item">
-        <image class="icon-01" src="/images/account/my_coupon_icon.png"/>
-        <text class="item-label">我的卡券</text>
-      </view>
-
-      <view bindtap="gotoOrders" class="action-item">
-        <image class="icon-01" src="/images/account/order_icon.png"/>
-        <text class="item-label">我的订单</text>
-      </view>
+  <view class="list" data-url="/pages/addresses/index/index" bindtap="gotoLink">
+    <image class="img1" src="/images/v1.2/mine_menu_01.png"></image>
+    <text class="text">地址管理</text>
+    <view class="arrow_box">
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
     </view>
   </view>
-
-  <view class="my-activity action-container">
-    <text class="label">其他服务</text>
-    <view class="action-content">
-      <view data-url="/pages/addresses/index/index" bindtap="gotoLink" class="action-item">
-        <image class="icon-02" src="/images/account/address_icon.png"/>
-        <text class="item-label">地址管理</text>
-      </view>
-
-      <view data-url="/pages/contact/index" bindtap="gotoLink" class="action-item">
-        <image class="icon-02" src="/images/account/contact_icon.png"/>
-        <text class="item-label">联系我们</text>
-      </view>
-
-      <view data-url="/agreement/pages/price/index" bindtap="gotoLink" class="action-item">
-        <image class="icon-02" src="/images/account/price_icon.png"/>
-        <text class="item-label">价格说明</text>
-      </view>
-
-      <view data-url="/agreement/pages/sale_service/show" bindtap="gotoLink" class="action-item">
-        <image class="icon-02" src="/images/account/sale_service_icon.png"/>
-        <text class="item-label">发货/售后说明</text>
-      </view>
-
-      <view data-url="/agreement/pages/user_agreement/index" bindtap="gotoLink" class="action-item">
-        <image class="icon-02" src="/images/account/user_agreement_icon.png"/>
-        <text class="item-label">用户协议</text>
-      </view>
+  <view class="list" data-url="/agreement/pages/price/index" bindtap="gotoLink">
+    <image class="img1" src="/images/v1.2/mine_menu_02.png"></image>
+    <text class="text">价格说明</text>
+    <view class="arrow_box">
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
     </view>
   </view>
+  <view class="list" data-url="/agreement/pages/sale_service/show" bindtap="gotoLink">
+    <image class="img1" src="/images/v1.2/mine_menu_03.png"></image>
+    <text class="text">售后协议</text>
+    <view class="arrow_box">
+      <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
+    </view>
+  </view>
+</view>
 
-</scroll-view>
+<view style="width: 100%;height: 100rpx;"></view>
+
+<view class="cs" catchtouchmove="csTouch" style="top:{{csTop}}px;" data-url="/pages/contact/index" bindtap="gotoLink">
+  <image class="cs_img" src="/images/v1.2/mine_kf_01.png"></image>
+  <text>联系客服</text>
+</view>
+
 
 <msgToast msg-data="{{ _msgData }}"/>

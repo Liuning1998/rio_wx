@@ -60,7 +60,6 @@ Page({
         page:page
       },
       success: res => {
-        console.log(res.data.data)
         if(res.data.data.length != 0){
             res.data.data.forEach((ele,i) => {
               ele.detailShow = false
@@ -87,7 +86,6 @@ Page({
             })
             
         }else{
-          console.log(page)
           this.setData({
             pageNo:page-1,
             loadErr:false,
@@ -96,7 +94,6 @@ Page({
         }
       },
       fail: res=>{
-        console.log(res);
         this.setData({
           pageNo:page-1,
           loading:false,
@@ -117,21 +114,19 @@ Page({
 
   // 上拉加载
   upLoad:function(){
-    console.log(this.data.isTap)
     var page = this.data.pageNo;
     var allPage;
     if(this.data.couponsCount / 10 < 1){
       allPage = 1
     }else{
       allPage = Math.ceil(this.data.couponsCount/10.0)
-      console.log(this.data.couponsCount,allPage)
     }
     
     if(this.data.loading == false && page < allPage){
-      console.log(allPage,'加载下一页')
+      // console.log(allPage,'加载下一页')
       this.getCoupons(page+1)
     }else{
-      console.log('不用加载下一页')
+      // console.log('不用加载下一页')
     }
   },
 

@@ -12,7 +12,9 @@ Page({
     // userBalance: 0,
     orderQuantity: {},
     //用户头像
-    userAvatar: ''
+    userAvatar: '',
+    csTop:460,
+    couponJump: true, //阻止频繁点击多次跳转问题
   },
 
   /**
@@ -20,6 +22,12 @@ Page({
    */
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
+
+    wx.setNavigationBarColor({
+      backgroundColor: '#ffffff',
+      frontColor: '#000000',
+    })
+
   },
 
 
@@ -30,7 +38,6 @@ Page({
     wx.getSetting({
       withSubscriptions: true,
       success(res) {
-        console.log(res)
         var itemSettings = res.subscriptionsSetting.itemSettings;
         if (itemSettings) {
           if (itemSettings['j3FKFyq9kJnybm8yoN2em_0kD96zc2sqAhyOmr7mbmo']=='accept' && itemSettings['hxlDiBwF6YabpwEPm4L4vrutDMNEG1wbt8yzxDEBB6I']=='accept') {
@@ -81,16 +88,26 @@ Page({
   },
 
   // 跳转优惠券
-  gotoCoupon:function(){
-    this.subscribe().then(res =>{
-      this.navigateTo('/pages/coupons/list/index')
-    })
+  gotoCoupon: function(){
+    if(this.data.couponJump == true){
+      this.setData({
+        couponJump:false
+      })
+      this.subscribe().then(res =>{
+        this.navigateTo('/pages/coupons/list/index')
+      })
+    }
   },
   // 跳转领券中心
   gotoDashboard:function(){
-    this.subscribe().then(res =>{
-      this.navigateTo('/pages/coupons/dashboard/index')
-    })
+    if(this.data.couponJump == true){
+      this.setData({
+        couponJump:false
+      })
+      this.subscribe().then(res =>{
+        this.navigateTo('/pages/coupons/dashboard/index')
+      })
+    }
   },
 
 
@@ -104,6 +121,11 @@ Page({
     this.setData({
       userAvatar: store.getSync('userAvatar') ||'/images/default_avatar_003.png'
     })
+    if(this.data.couponJump == false){
+      this.setData({
+        couponJump: true,
+      })
+    }
   },
 
   login: function () {
@@ -155,7 +177,6 @@ Page({
     http.post({
       url: 'api/users/show_user',
       success: res => {
-        console.log(res)
         this.setData({ userInfo: res.data })
       }
     })
@@ -188,7 +209,6 @@ Page({
 
   gotoOrder: function (e) {
     let status = e.currentTarget.dataset.state
-    console.log('ass')
     if(status == 'all'){
       // this.subscribe().then(res =>{
         wx.reLaunch({
@@ -202,6 +222,22 @@ Page({
     }
 
   },
+
+  // v1.2 s
+  csTouch: function(e){
+    var csTop = e.touches[0].clientY;
+    var maxtop = wx.getSystemInfoSync().screenHeight;
+    if (timer) return
+    var timer = setTimeout(() => {
+      if(csTop >= 100 && csTop <= (maxtop - 150)){
+        this.setData({
+          csTop: csTop
+        })
+      }
+      timer = null;
+    }, 150)
+  },
+  // v1.2 e
 
   /**
    * 用户点击右上角分享

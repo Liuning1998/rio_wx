@@ -1,0 +1,49 @@
+<!--orders/pages/service/index.wxml-->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+<navbar appendStyle="background:#fff" title="售后商品" />
+<view style='margin-top: {{pageMarginTop+44}}px;'></view>
+
+<scroll-view scroll-y class='page-container'>
+
+  <view class="products">
+    <view class="title" bindtap="selectALldata">
+      <view class="select-box">
+        <view class="select {{ allSelected && 'selected' }}">
+          <image src="/images/selected_icon_003.png"></image>
+        </view>
+      </view>
+      <view class="number">订单编号：{{ order.number }}</view>
+    </view>
+    <view class="product" wx:for="{{currentLineItems.line_items}}" wx:key="index" data-item="{{item}}" data-index="{{index}}" bindtap="selectItem">
+      <view class="select {{item.selected && 'selected'}}">
+        <image src="/images/selected_icon_003.png"></image>
+      </view>
+      <view class="avatar">
+        <image class="avatar_border" src="{{item.product.avatar}}"></image>
+      </view>
+      <view class="info">
+        <view class="name" wx:if="{{item.product_name}}">{{item.product_name}}</view>
+        <view class="name" wx:else>{{item.product.name}}</view>
+        <view class="bottom">
+          <view class="price">￥{{item.price}}</view>
+          <view class="quantity">
+            <view class="btn sub {{item.selectedQuantity == 1 && 'disabled'}}" data-index="{{index}}" catchtap="subQuantity">-</view>
+            <view class="number">{{ item.selectedQuantity }}</view>
+            <view class="btn plus {{item.selectedQuantity >= item.quantity && 'disabled'}}" data-index="{{index}}" catchtap="plusQuantity">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="view-placeholder"></view>
+
+</scroll-view>
+
+<view bindtap="submitForm" class="submit btn-box {{ isIphoneX && 'iphone-x' }}">
+  <view class="btn {{ submitDisable && 'disabled'}}">确定</view>
+</view>
+
+
+
+<msgToast msg-data="{{ _msgData }}"/>

@@ -1,0 +1,18 @@
+/* web/pages/request/errors.wxss */
+
+
+.error{
+  padding-top: 200rpx;
+}
+.error-btn{
+  font-size: 36rpx;
+  color: #ffffff;
+  height: 96rpx;
+  border-radius: 54rpx;
+  line-height: 96rpx;
+  width: 456rpx;
+  text-align: center;
+  margin-top: 36rpx;
+  background-image: linear-gradient(123deg, #FF511E 0%, #FC1000 100%);
+  font-family: PingFangSC-Medium;
+}

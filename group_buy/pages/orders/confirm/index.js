@@ -388,7 +388,6 @@ Page({
       tmplIds: templateIds,
       success: res => {
         console.log('订阅消息成功')
-        console.log(res)
         // wx.redirectTo({
         //   url: '/group_buy/pages/orders/index/index',
         // })

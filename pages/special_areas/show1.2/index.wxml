@@ -1,0 +1,162 @@
+<!--pages/store/home/index.wxml-->
+<wxs module="price" src="../../../utils/price.wxs"></wxs>
+
+<!-- <navbar navbarStyle="dark" appendStyle="background: {{navbarBackgroundcolor}};" title="{{pageTitle}}" /> -->
+
+<view class="navbar-container">
+  <view class='status-bar' style='height: {{ statusBarHeight }}px;'></view>
+  <view class="navbar-content">
+    <view bindtap='goback' class="return-image-container">
+      <image class="return-image" src="/images/v1.2/return_black.png"></image>
+    </view>
+    <view class="navbar-title">{{pageTitle}}</view>
+    <view class="nav-search" bindtap="showSearchLayer">
+      <image class="search" src="/images/search_icon_003.png"></image>
+      <view class="input-view">你想买些什么？</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{ showSearch }}" bindtap="hideSearch" class="search-layer-1" style="top: 0;">
+  <view catchtap="{{false}}" class="search-title" style="height: {{pageMarginTop + 44}}px; padding-top: {{pageMarginTop}}px; width: 750rpx; background: #fff;">
+    <text>搜索商品</text>
+  </view>
+  <view catchtap="{{false}}" class="search-container">
+    <view class="search-container-01">
+      <view class="input-group">
+        <image class="icon" src="/images/search_icon_003.png"></image>
+        <input bindinput='inputChange' data-name='searchText' value='{{ searchText }}' focus="{{focus}}" confirm-type="search" bindconfirm="searchProducts" />
+        <view bindtap="clearSearchText" class="clear">
+          <text>x</text>
+        </view>
+      </view>
+      <text bindtap="hideSearch" class="cancel-btn">取消</text>
+    </view>
+  </view>
+</view>
+  
+<scroll-view  show-scrollbar="{{false}}"  bounces="{{false}}" scroll-y class='page-container' refresher-enabled="true" refresher-threshold="45" refresher-default-style="none" refresher-background="#fff" refresher-triggered="{{showLoading}}" bindrefresherrefresh="scrollRefresh">
+
+  <view style="height: {{pageMarginTop+44}}px;width: 100%;"></view>
+
+  <swiper class="background-swiper" autoplay="{{true}}" circular="{{true}}" interval="{{5000}}" duration="{{500}}">
+    <block wx:for="{{specialArea.background_images}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view class="content" style="height: calc(100vh - {{pageMarginTop+44}}px);">  
+    <!-- 专区种类 -->
+    <view class="label">
+      <view bindtap="changeCategorie" data-item="{{item}}" class="item {{currentCategory.id == item.id && 'active'}}" wx:for="{{categories}}" wx:key="index">
+        <image class="item-icon" src="{{item.icon}}"></image>
+        <image wx:if="{{currentCategory.id == item.id}}" class="item-back" src="{{specialArea.select_icon}}"></image>
+        <text class="item-name">{{item.name}}</text>
+      </view>
+    </view>
+    <!-- 内容区域 -->
+    <view class="container">
+    <image src="{{ specialArea.bar_icon }}" class="classify-bg"></image>
+      <view class="classify" wx:if="{{labelArr['category_'+currentCategory.id].length > 1}}">
+        <view bindtap="changeLabel" data-item="{{item}}" class="item {{item.id == currentLabel.id && 'active'}}" wx:for="{{labelArr['category_'+currentCategory.id]}}" wx:key="index">{{item.name}}</view>
+      </view>
+      <view wx:else class="classify-placeholder">
+        全部商品
+      </view>
+      <view class="screen">
+        <view class="screen-item default {{orderType == null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="auto">综合筛选</view>
+        <view class="screen-item price {{orderType != null && 'active'}}" bindtap="{{!clicked ? 'changeOrder' : ''}}" data-order-type="price">
+          价格排序
+          <view class="screen-icon">
+            <image class="up" wx:if="{{orderType == 'price up'}}" src="/images/v1.2/collect_05.png"></image>
+            <image class="up" wx:else src="/images/v1.2/collect_04.png"></image>
+
+            <image class="down" wx:if="{{orderType == 'price down'}}" src="/images/v1.2/collect_05.png"></image>
+            <image class="down" wx:else src="/images/v1.2/collect_04.png"></image>
+          </view>
+        </view>
+      </view>
+      <!-- 加载中 -->
+      <view wx:if="{{ firstGetLoading['id_'+currentLabel.id] == null || firstGetLoading['id_'+currentLabel.id] == false }}" class="empty loading">
+        <image class="empty-img" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/loading_da.gif"></image>
+        <text class="empty-text">正在努力加载，请稍后...</text>
+      </view>
+      <!-- 缺省 -->
+      <view wx:elif="{{ products['id_'+currentLabel.id] == null || products['id_'+currentLabel.id].length <= 0 }}" class="empty">
+        <image class="empty-img" src="/images/v1.2/default/default_01.png"></image>
+        <text class="empty-text">商品上架中，敬请期待</text>
+        <text class="empty-text-01">返回上一级页面逛一逛吧</text>
+      </view>
+      <view class="products" wx:else>
+        <scroll-view 
+          wx:for="{{products}}" 
+          wx:key="index"
+          wx:if="{{index ==  'id_' + currentLabel.id}}" 
+          scroll-top="{{scrollTop['id_' + currentLabel.id]}}" 
+          scroll-y="{{allowScroll}}" 
+          bindscroll="viewScroll" 
+          style="height: 100%;" 
+          scroll-anchoring="{{true}}" 
+          scroll-with-animation="{{true}}" 
+          class="products-scroll" 
+          bindscrolltolower="loadMore">
+            <view bindtap="gotoProduct" data-item="{{item}}" class="product" wx:for="{{products['id_'+currentLabel.id]}}" wx:key="index">
+              <view class="avatar-container">
+                <image class="avatar avatar_border" src="{{item.avatar}}"></image>
+              </view>
+              <view class="product-info">
+                <view class="name-and-badge">
+                  <text class="name">{{item.name}}</text>
+                  <view class="pbadges">
+                    <text class="badge-item" wx:for="{{item.badges}}" wx:key="index" wx:for-item="badge">{{badge}}</text>
+                  </view>
+                </view>
+                <view class="price-and-btn">
+                  <view class="price-container">
+                    <text class="unit">¥</text>
+                    <text class="price">{{price.tos(item.price)}}</text>
+                  </view>
+                  <image class="add-cart" src="/images/v1.2/add_cart.png"></image>
+                </view>
+                <view wx:if="{{ index < products['id_'+currentLabel.id].length - 1}}" class="line"></view>
+              </view>
+            </view>
+            <view class="page-bottom" wx:if="{{pageBottom['id_'+currentLabel.id]}}">
+              <image src="/images/bottom_icon_001.png"></image>
+              <text>已经到底啦</text>
+              <image src="/images/bottom_icon_001.png" class="right"></image>
+            </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+
+</scroll-view>
+
+<image src="/images/loading_003.gif" class="loading-icon {{!showLoading && 'hidden'}}" style="top: {{pageMarginTop + 44}}px;"></image>
+
+<msgToast msg-data="{{ _msgData }}"/>
+
+<!-- 跳到顶部 -->
+<view class="to-top" hidden="{{!cangotop['id_' + currentLabel.id]}}" catchtap="goTop">
+  <text class="line"></text>
+  <image src="/images/v1.2/return_black.png"></image>
+</view>
+
+<!-- 1.2取消加入商品列表页加入购物车  -->
+<!-- <view catchtap="gotoCart" class="page-cart-container">
+  <view class="white-background">
+    <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
+    <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
+    <text wx:if="{{cartData != null && cartData.totalQuantity > 0 }}" class="quantity">{{cartData.totalQuantity}}</text>
+  </view>
+</view> -->
+
+<!-- 1.2取消加入商品列表页加入购物车  -->
+<!-- <view class="cart-animation-container">
+  <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
+    <text>+1</text>
+  </view>
+</view> -->

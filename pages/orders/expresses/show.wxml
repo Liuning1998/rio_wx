@@ -4,26 +4,21 @@
 
 <scroll-view scroll-y class='page-container'>
   <view class="express-info-container">
-    <image class="express-icon" src="/images/express_icon_001.png"></image>
-    <view class="express-info-content">
-      <view class="state">
-        <text class="state-label">物流状态:</text>
-        <text class="state-content"> {{expressInfo.express_state}}</text>
-      </view>
-      <text class="company">物流公司: {{expressInfo.company}}</text>
-      <text class="number">物流单号: {{number}}</text>
-    </view>
+    <view class="item"><view class="name">物流状态: </view> <view class="info state">{{expressInfo.express_state}}</view></view>
+    <view class="item"><view class="name">物流公司: </view> <view class="info">{{expressInfo.company}}</view></view>
+    <view class="item"><view class="name">物流单号: </view> <view class="info">{{number}}</view></view>
   </view>
 
   <view class="express-list">
+    <view class="title">物流跟踪</view>
     <view wx:for="{{ expressInfo.data }}" class="item-container">
       <view class="time-line-container">
-        <image wx:if="{{ expressInfo.express_state == '签收' && index == 0 }}" class="line-icon" src="/images/express_icon_002.png"></image>
+        <view wx:if="{{ index == 0 }}" class="dot active"><text></text></view>
         <view wx:else class="dot"></view>
         <view class="line"></view>
       </view>
 
-      <view class="detail-container">
+      <view class="detail-container {{index == 0 ? 'active' : ''}}">
         <text class="context">{{ item.context }}</text>
         <text class="time">{{ item.time }}</text>
       </view>

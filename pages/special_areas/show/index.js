@@ -30,11 +30,10 @@ Page({
     let item_id = options.item_id
     // let item_id = 3
 
-    this.getCategories(item_id)
+    // this.getCategories(item_id) // v1.2只展示手机卡所以不用调用分类接口
     this.getProducts(item_id)
-    this.getFineProducts(item_id)
+    // this.getFineProducts(item_id) // v1.2只展示手机卡所以不用调用推荐商品接口
     this.getAds(item_id)
-
     this.setData({
       pageTitle: decodeURI(options.name) || "专区首页",
       currentStore: {
@@ -76,8 +75,8 @@ Page({
   },
 
   refreshData: function () {
-    this.getCategories(this.data.currentStore.id)
-    this.getFineProducts(this.data.currentStore.id)
+    // this.getCategories(this.data.currentStore.id) // v1.2只展示手机卡所以不用调用分类接口
+    // this.getFineProducts(this.data.currentStore.id) // v1.2只展示手机卡所以不用调用推荐商品接口
     this.getAds(this.data.currentStore.id)
     this.setData({ products: [], pageNo: 1 })
     this.getProducts(this.data.currentStore.id, 1)
@@ -124,7 +123,8 @@ Page({
 
   getProducts: function (special_area_id, pageNo) {
     http.get({
-      url: `api/special_areas/${special_area_id}/products`,
+      // url: `api/special_areas/${special_area_id}/products`,//原专区接口
+      url: `api/special_areas/${special_area_id}/phone_products`,//现请求手机卡接口
       data: {
         page: pageNo || this.data.pageNo,
       },

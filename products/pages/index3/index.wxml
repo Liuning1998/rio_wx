@@ -10,14 +10,14 @@
   <!-- <image class="background-image" src="{{brand.banners[0]}}"></image> -->
   <view wx:if="{{!scollStatus}}" class="navbar-content" style="height: {{pageMarginTop+44}}px;">
     <view bindtap="goback" class="return-image-container">
-      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/arrow_o_black.png"></image>
-      <image wx:else class="return-image" src="/images/arrow_o_white_01.png"></image>
+      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/v1.2/return_black.png"></image>
+      <image wx:else class="return-image" src="/images/v1.2/return_white.png"></image>
     </view>
   </view>
 
   <view wx:else class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
     <view bindtap="goback" class="return-image-container">
-      <image class="return-image" src="/images/arrow_o_black.png"></image>
+      <image class="return-image" src="/images/v1.2/return_black.png"></image>
     </view>
     <text class="title">{{tagName}}</text>
   </view>
@@ -25,14 +25,15 @@
 
 <scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
   <image class="ad-image" src="{{brand.banners[0]}}"></image>
-  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
-    <image src="../../images/products_empty_icon_001.png"></image>
-    <text>商品上架中，敬请期待</text>
+  <view wx:if="{{ loaded && products.length <= 0}}" class="empty product-empty">
+    <image class="empty-img" src="/images/v1.2/default/default_01.png"></image>
+    <text class="empty-text">商品上架中，敬请期待</text>
+    <text class="empty-text-01">返回上一级页面逛一逛吧</text>
   </view>
   <view wx:else class="products-container">
     <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">
       <view class="avatar-container">
-        <image class="avatar" src="{{item.avatar}}"></image>
+        <image class="avatar avatar_border" src="{{item.avatar}}"></image>
         <image wx:if="{{sortBadge && index <= 2}}" class="sort-badge" src="/images/sort_0{{index+1}}.png"></image>
       </view>
 
@@ -48,30 +49,31 @@
         <view class="price-and-cart">
           <view class="price-container">
             <text class="price">{{price.tos(item.price)}}</text>
-            <text class="origin-price">原价<text>{{price.tos(item.origin_price)}}</text></text>
+            <!-- <text class="origin-price">原价<text>{{price.tos(item.origin_price)}}</text></text> -->
           </view>
-          <view catchtap="addCartAndAnimation" data-item="{{item}}" class="cart-container">
-            <view wx:if="{{!product.canAddCart(item)}}" class="go-product">
-              <text>GO</text>
-              <image src="/images/store/go_arrow_002.png"></image>
-            </view>
-            <image wx:else src="/images/cart_icon_001.png"></image>
+          <view data-item="{{item}}" class="cart-container">
+            <image src="/images/v1.2/add_cart.png"></image>
           </view>
         </view>
+
+        <view class="line" wx:if="{{ index < products.length - 1 }}"></view>
       </view>
+
     </view>
 
-    <view class="page-bottom" wx:if="{{pageBottom}}">
-      <image src="/images/bottom_icon_001.png"></image>
-      <text>已经到底啦</text>
-      <image src="/images/bottom_icon_001.png" class="right"></image>
-    </view>
   </view>
+
+  <view class="page-bottom" wx:if="{{pageBottom}}">
+    <image src="/images/bottom_icon_001.png"></image>
+    <text>已经到底啦</text>
+    <image src="/images/bottom_icon_001.png" class="right"></image>
+  </view>
+
 </scroll-view>
 
 <msgToast msg-data="{{ _msgData }}"/>
 
-<view catchtap="gotoCart" class="page-cart-container">
+<!-- <view catchtap="gotoCart" class="page-cart-container">
   <view class="white-background">
     <image wx:if="{{cartData == null || cartData.totalQuantity <= 0}}" class="empty-cart" src="/images/cart_icon_004.png"></image>
     <image wx:else class="cart" src="/images/cart_icon_005.png"></image>
@@ -83,4 +85,4 @@
   <view wx:for="{{cartAnimations}}" wx:key="index" class="item {{item.class}}" animation="{{item.animation}}" style="{{item.style}}">
     <text>+1</text>
   </view>
-</view>
+</view> -->

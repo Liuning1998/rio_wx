@@ -158,7 +158,6 @@ Page({
 
           this.setData({ floatNoticeLeft: left })
         }
-        // console.log(res)
       }
     }).exec()
 

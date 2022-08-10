@@ -1,42 +1,54 @@
 <view class="goods-detail" hidden="{{isShowToast}}">
   <view class="mask" bindtap="hideGoodsDetail"></view>
   <view class="goodsdetail">
-    <!-- <view class='goodsdetail-title'></view> -->
+    <view class='goodsdetail-title'>
+      <text>所在地区</text>
+      <view class='goodsdetail-top-cancel' bindtap='hideGoodsDetail'>
+        <image src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
     <scroll-view scroll-x class='goodsdetail-top'>
-      <view wx:if="{{item != ''}}" wx:for='{{nameArr}}' class='{{currentTab == index ? "goodsdetail-top-l-o":"goodsdetail-top-l"}}'   bindtap="navbarTap" data-index='{{index}}'>{{item}}</view>
+      <view wx:if="{{item != ''}}" wx:for='{{nameArr}}' class='goodsdetail-top-l {{currentTab == index ? "goodsdetail-top-l-o":""}}'   bindtap="navbarTap" data-index='{{index}}'>{{item}}</view>
       <!-- style="{{item == '' ? 'display: none;':''}}" -->
     </scroll-view>
-    <view class='goodsdetail-top-cancel' bindtap='hideGoodsDetail'>X</view>
  
     <swiper class="swiper-box" current="{{currentTab}}" duration="0">
       <swiper-item catchtouchmove='catchTouchMove'>
         <scroll-view data-type="province" scroll-top ="{{provinceScrollTop}}" scroll-y class="swiper-box-scr" >
-          <view id="province_{{item.id}}" class='swiper-box-item' wx:for='{{provinceArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='provinceChange'>{{item.name}}
-            <view wx:if="{{nameArr[0] == item.name}}" class='font-size'>√</view>
+          <view id="province_{{item.id}}" class='swiper-box-item {{ nameArr[0] == item.name ? "active" : ""}}' wx:for='{{provinceArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='provinceChange'>{{item.name}}
+            <view wx:if="{{nameArr[0] == item.name}}" class='active-img'>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
           </view>
         </scroll-view>
       </swiper-item>
  
       <swiper-item  catchtouchmove='catchTouchMove'>
         <scroll-view data-type="city" scroll-top ="{{cityScrollTop}}" scroll-y class="swiper-box-scr" >
-          <view id="city_{{item.id}}" class='swiper-box-item' wx:for='{{cityArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='cityChange'>{{item.name}}
-            <view wx:if="{{nameArr[1] == item.name}}" class='font-size'>√</view>
+          <view id="city_{{item.id}}" class='swiper-box-item {{ nameArr[1] == item.name ? "active" : "" }}' wx:for='{{cityArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='cityChange'>{{item.name}}
+            <view wx:if="{{nameArr[1] == item.name}}" class='active-img'>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
           </view>
         </scroll-view>
       </swiper-item>
  
       <swiper-item catchtouchmove='catchTouchMove'>
         <scroll-view data-type="district" scroll-top ="{{districtScrollTop}}" scroll-y class="swiper-box-scr" >
-          <view id="district_{{item.id}}" class='swiper-box-item' wx:for='{{districtArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='districtChange' >{{item.name}}
-            <view wx:if="{{nameArr[2] == item.name}}" class='font-size'>√</view>
+          <view id="district_{{item.id}}" class='swiper-box-item {{ nameArr[2] == item.name ? "active" : "" }}' wx:for='{{districtArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='districtChange' >{{item.name}}
+            <view wx:if="{{nameArr[2] == item.name}}" class='active-img'>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
           </view>
         </scroll-view>
       </swiper-item>
 
       <swiper-item catchtouchmove='catchTouchMove'>
         <scroll-view data-type="town" scroll-top ="{{townScrollTop}}" scroll-y class="swiper-box-scr">
-          <view id="town_{{item.id}}" class='swiper-box-item' wx:for='{{townArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='townChange' >{{item.name}}
-            <view wx:if="{{nameArr[3] == item.name}}" class='font-size'>√</view>
+          <view id="town_{{item.id}}" class='swiper-box-item {{ nameArr[3] == item.name ? "active" : "" }}' wx:for='{{townArr}}' wx:key='{{item}}' data-item='{{item}}' data-index='{{index}}' bindtap='townChange' >{{item.name}}
+            <view wx:if="{{nameArr[3] == item.name}}" class='active-img'>
+              <image src="/images/v1.2/arrow_01.png"></image>
+            </view>
           </view>
         </scroll-view>
       </swiper-item>

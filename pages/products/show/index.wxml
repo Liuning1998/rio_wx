@@ -9,13 +9,13 @@
 
 <view class="navbar {{!navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
   <view class="return simple" bindtap="goback">
-    <image mode="heightFix" src="/images/arrow_o_white_01.png"></image>
+    <image mode="heightFix" src="/images/v1.2/return_white.png"></image>
   </view>
 </view>
 
 <view class="navbar block {{navbarStatus && 'hidden'}}" style="top: {{pageMarginTop}}px;">
   <view class="return" bindtap="goback">
-    <image mode="heightFix" class="" src="/images/arrow_o_black.png"></image>
+    <image mode="heightFix" class="" src="/images/v1.2/return_black.png"></image>
   </view>
   <view class="actions">
     <view class="item {{ navbarActive == 1 && 'active' }}">
@@ -57,74 +57,70 @@
         <view class="price-content">
           <text class="price-int">{{price.int(currentVariant.price)}}</text>
           <text class="price-decimal">{{price.decimal(currentVariant.price)}}</text>
-          <view class="badges">
-            <!-- <text class="li">包邮</text> -->
-            <!-- <text class="li">赠品</text> -->
-          </view>
         </view>
 
         <view class="origin-price-container">
-          <text class="desc">市场价:</text>
+          <!-- <text class="desc">市场价:</text> -->
           <text class="origin-price">￥{{ price.tos(currentVariant.origin_price) }}</text>
         </view>
       </view>
 
       <view class="name-and-desc">
-        <text class="name"><text wx:if="{{product.is_postage.length > 0}}" class="postage">{{product.is_postage}}</text><text class="pre_name" wx:if="{{!!product.pre_name}}">{{product.pre_name}}</text>{{ product.name }}</text>
         <view class="pbadges">
-          <text wx:for="{{ product.badges }}" wx:for-item="badge" class="badge-item">{{ badge }}</text>
+          <text wx:for="{{ product.badges }}" wx:for-item="badge" wx:key="index" class="badge-item">{{ badge }}</text>
         </view>
+        <text class="name"><text wx:if="{{product.is_postage.length > 0}}" class="postage">{{product.is_postage}}</text><text class="pre_name" wx:if="{{!!product.pre_name}}">{{product.pre_name}}</text>{{ product.name }}</text>
         <!-- <text class="desc">{{ product.description }}</text> -->
       </view>
 
+      <view class="share_box">
+        <view class="share">
+            <view class="left">
+              <text>转发宝贝给他人</text>
+              <text>可分享给他人帮忙看看</text>
+            </view>
+            <button style="	pointer-events: {{ canTapShare ? 'auto' : 'none' }};" open-type="share" class="right">
+              <image class="img" src="/images/v1.2/share.png"></image>
+              <text>分享</text>
+            </button>
+        </view>
+      </view>
+
       <block wx:if="{{ product.area_limit != null && ((product.area_limit.area_limit != null && product.area_limit.area_limit.length > 0) || (product.area_limit.area_only != null && product.area_limit.area_only.length > 0)) }}">
-        <view class="area-limit" wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
+        <view class="area-limit" bindtap="openLimitPopup" wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
           <view class="area-limit-container">
-            <image class="icon" src="/images/area_limit.png"></image>
-            <text class="label">不可售区域</text>
-            <view class="line"></view>
+            <view class="left">
+              <image class="icon" src="/images/v1.2/product_detail_01.png"></image>
+            </view>
+            <view class="right">
+              <text class="label">不可售区域</text>
+            </view>
             <view class="areas">
               <text>
-                <block wx:for="{{product.area_limit.area_limit}}">{{item}} </block>
+                <block wx:for="{{product.area_limit.area_limit}}" wx:key="index">{{item}} </block>
               </text>
             </view>
+            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
 
-        <view wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}" class="area-limit">
+        <view bindtap="openLimitPopup" wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}" class="area-limit">
           <view class="area-limit-container">
-            <image class="icon" src="/images/area_limit.png"></image>
-            <text class="label">仅可售区域</text>
-            <view class="line"></view>
+            <view class="left">
+              <image class="icon" src="/images/v1.2/product_detail_01.png"></image>
+            </view>
+            <view class="right">
+              <text class="label">仅可售区域</text>
+            </view>
             <view class="areas">
               <text>
                 <block wx:for="{{product.area_limit.area_only}}">{{item}} </block>
               </text>
             </view>
+            <image class="arrow" src="/images/v1.2/arrow_02.png"></image>
           </view>
         </view>
       </block>
-
-      <!-- <view class="coupon-container">
-        <view class="coupon-border">
-          <view class="coupon-content">
-            <text class="label">优惠券</text>  
-            <view class="lis">
-              <view class="li">
-                <image class="left" src="/images/coupon_border.png"></image>
-                <text>满100减10</text>
-                <image class="right" src="/images/coupon_border.png"></image>
-              </view>
-            </view>
-          </view>
-
-          <view class="ellipsis">
-            <view class="li"></view>
-            <view class="li"></view>
-            <view class="li"></view>
-          </view>
-        </view>
-      </view> -->
 
       <!-- 活动商品展示 -->
       <view class="activity-proshow" wx:if="{{product.activity_url.name}}"  bindtap="gotoUrl" data-url="{{product.activity_url.url}}">
@@ -134,52 +130,47 @@
         <text class="activity-right">点击查看</text>
       </view>
 
-      <!--领券 -->
-      <view class="variant-info" wx:if="{{isShowCoupon}}" bindtap="openCoupon">
-        <view class="main-info coupons">
-          <text class="label">领券</text>
-          <view class="coupon">
-            <view class="coupon-item" wx:for="{{couponsList}}" wx:key="id" wx:if="{{index < 3}}">
-              <text class="item-icon left"></text>
-              <text class="item-icon right"></text>
-              <text class="item-text left">券</text>
-              <text class="item-text right">{{item.name}}</text>
-            </view>
-          </view>
-        </view>
 
-        <view class="ellipsis">
-          <view class="li"></view>
-          <view class="li"></view>
-          <view class="li"></view>
-        </view>
-      </view>
 
       <!-- 规格 -->
-      <view wx:if="{{ currentVariant.show_name != null && currentVariant.show_name.length > 0 }}" class="variant-info {{couponsList != null && couponsList.length > 0 ? 'margin-none':''}}" bindtap="onlyShowSelectLayer">
-        <view class="main-info">
-          <text class="label">规格</text>
-          <text class="desc">{{ currentVariant.show_name }}</text>
-        </view>
+      <view class="norms">
+        <view wx:if="{{ currentVariant.show_name != null && currentVariant.show_name.length > 0 }}" class="variant-info" bindtap="onlyShowSelectLayer">
+          
+          <view class="main-info">
+            <text class="label">规格</text>
+            <text class="desc">{{ currentVariant.show_name }}</text>
+          </view>
 
-        <view class="ellipsis">
-          <view class="li"></view>
-          <view class="li"></view>
-          <view class="li"></view>
+          <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
+        </view>
+        <!--领券 -->
+        <view class="variant-info" wx:if="{{isShowCoupon}}" bindtap="openCoupon">
+          <view class="main-info coupons">
+            <text class="label">领券</text>
+            <view class="coupon">
+              <view class="coupon-item" wx:for="{{couponsList}}" wx:key="id" wx:if="{{index < 3}}">
+                <text class="item-icon left"></text>
+                <text class="item-icon right"></text>
+                <text class="item-text">{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+
+          <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
+        </view>
+        <!-- 赠品 -->
+        <view class="variant-info" wx:if="{{product.free_product.name}}" bindtap="openGift">
+          
+          <view class="main-info">
+            <text class="label">赠品</text>
+            <text class="desc">
+              <block>{{product.free_product.name}}</block>
+            </text>
+          </view>
+
+          <image class="ellipsis" src="/images/v1.2/arrow_02.png"></image>
         </view>
       </view>
-
-      <!-- <view class="shipment-and-gift">
-        <view class="gift">
-          <text class="label">赠品</text>
-          <text class="desc">儿童防水手表50米防水 高清双摄 双频111234沙发斯蒂芬</text>
-        </view>
-
-        <view class="shipment">
-          <text class="label">包邮</text>
-          <text class="desc">满90元包邮</text>
-        </view>
-      </view> -->
 
 
     </view>
@@ -206,11 +197,14 @@
       <i class="fa fa-close"></i>
     </view>
     <scroll-view scroll-y class='variant-scroll'>
-      <view bindtap='hideSelectContainer' class="close"><image src="/images/close_white.png"></image></view>
+      <view bindtap='hideSelectContainer' class="close"><image src="/images/v1.2/close.png"></image></view>
       <view class='product'>
         <image src="{{ product.carousels[0] }}"></image>
         <view class='info'>
-          <text class="price">{{ currentVariant.price || '' }}</text>
+          <text class="price">
+            <text class="int">{{ price.int(currentVariant.price) || '' }}</text>
+            <text class="decimal">{{ price.decimal(currentVariant.price) || '' }}</text>
+          </text>
           <text class="name">{{ product.name || '' }}</text>
         </view>
       </view>
@@ -284,12 +278,11 @@
 
 <view class="coupon-p" hidden="{{!isShow}}">
   <view class="coupon-mask" bindtap="closePopup"></view>
-  <view class='popup'>
+  <view class="popup {{ isIphoneX && 'iphone-x' }}">
     <view class="popup-title">
       <text>优惠</text>
       <view class="close" bindtap="closePopup">
-        <image src="/images/arrow_o_black.png"></image>
-        <image src="/images/arrow_o_black.png"></image>
+        <image src="/images/v1.2/close.png"></image>
       </view>
     </view>
     <view class="popup-brief">领券</view>
@@ -300,7 +293,7 @@
           <view class="item-name">{{item.name}}</view>
           <view class="item-value">
             <text class="value-text">{{item.value}}</text>
-            <text class="condition-text">满{{item.limit_value}}可用</text>
+            <!-- <text class="condition-text">满{{item.limit_value}}可用</text> -->
           </view>
         </view>
         <view class="receive-btn">
@@ -324,3 +317,101 @@
     </view>
   </view>
 </view>
+
+<!-- 赠品弹窗 -->
+<view class="gift-p" hidden="{{!giftShow}}">
+  <view class="gift-mask" bindtap="closeGift"></view>
+  <view class='popup'>
+    <view class="popup-title">
+      <text>活动</text>
+      <view class="close" bindtap="closeGift">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="popup-ask" wx:if="{{product.free_product.desc.rule}}">
+      <view class="icon">
+        <image class="bg" src="/images/v1.2/gift.png"></image>
+      </view>
+      <view class="rule">{{product.free_product.desc.rule}}</view>
+    </view>
+
+    <view class="pupup-scroll">
+      <scroll-view class="pupup-scroll-box" scroll-y>
+        <view class="item" wx:for="{{product.free_product.desc.info}}" wx:key="index">
+          <view class="title"><text>规则</text></view>
+          <view class="content">{{item}}</view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <view class="popup-btn {{ isIphoneX && 'iphone-x' }}">
+      <view bindtap="closePopup" bindtap="closeGift">确定</view>
+    </view>
+  </view>
+</view>
+
+<view class="add-car-result" wx:if="{{ addCartOk != null }}">
+  <view class="mask" bindtap="closeAddCartPopup"></view>
+  <view class="popup">
+    <view class="close" bindtap="closeAddCartPopup">
+      <image src="/images/v1.2/close.png"></image>
+    </view>
+    <view class="content">
+      <block wx:if="{{ addCartOk }}">
+        <image wx:if="{{ addCartOkImg }}" class="loading-img" src="/images/v1.2/result.png"></image>
+        <image wx:else class="loading-img" src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/cart.gif?{{ nowTime }}"></image>
+        <view wx:if="{{ addCartOkImg }}" class="desc">添加成功</view>
+        <view wx:if="{{ addCartOkImg }}" class="desc01">恭喜您，成功添加商品到购物车</view>
+      </block>
+      <block wx:else>
+        <image class="loading-img" src="/images/v1.2/fail.png"></image>
+        <view class="desc">添加失败</view>
+        <view class="desc01">{{addCartOkText ? addCartOkText : '抱歉该商品暂时无法加入购物车'}}</view>
+      </block>
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <block wx:if="{{ addCartOk }}">
+        <view class="btn white" bindtap="closeAddCartPopup">继续逛</view>
+        <view class="btn" bindtap="gotoCart">去购物车结算</view>
+      </block>
+      <block wx:else>
+        <view class="btn confirm" bindtap="closeAddCartPopup">确定</view>
+      </block>
+    </view>
+  </view>
+</view>
+
+
+<view class="limit-popup" hidden="{{ !isLimit }}">
+  <view class="mask" bindtap="openLimitPopup"></view>
+  <view class="popup">
+    <image class="limit-guding" src="/images/v1.2/limit.png"></image>
+    <view class="title">
+      <text>限购</text>
+      <view class="close" bindtap="openLimitPopup">
+        <image src="/images/v1.2/close_white.png"></image>
+      </view>
+    </view>
+    <view class="content">
+      <block wx:if="{{ product.area_limit.area_only == null || product.area_limit.area_only.length == 0 || product.area_limit.area_only.length >= product.area_limit.area_limit.length  }}">
+        <view class="desc"><text>不可售区域</text>该商品在以下地区，暂不支持销售及配送，感谢您的支持理解</view>
+        <view class="list">
+          <view wx:for="{{product.area_limit.area_limit}}" wx:key="index">{{ item }}</view>
+        </view>
+      </block>
+      <block wx:elif="{{ product.area_limit.area_only != null && product.area_limit.area_only.length > 0 && product.area_limit.area_only.length < product.area_limit.area_limit.length }}">
+        <view class="desc"><text>仅可售区域</text>该商品仅在以下地区销售及配送，感谢您的支持理解</view>
+        <view class="list">
+          <view wx:for="{{product.area_limit.area_only}}">{{ item }}</view>
+        </view>
+      </block>
+
+    </view>
+    <view class="btn-box {{ isIphoneX && 'iphone-x' }}">
+      <view class="btn" bindtap="openLimitPopup">确定</view>
+    </view>
+  </view>
+</view>
+
+
+<canvas id="endtime" type="2d" style="width:420rpx;height: 336rpx;position: fixed; left: 200%;top: 0rpx;"></canvas>

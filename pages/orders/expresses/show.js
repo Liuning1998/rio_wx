@@ -31,7 +31,6 @@ Page({
       success: res => {
         if (res.statusCode == 200 && res.data != null) {
           this.setData({ expressInfo: res.data })
-          console.log(res.data)
         }
       },
       fail: res => {

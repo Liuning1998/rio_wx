@@ -1,0 +1,110 @@
+/* pages/orders/expresses/show.wxss */
+page {
+  background-color: #f7f7f7;
+}
+
+.page-container {
+  padding-bottom: 100rpx;
+}
+
+.tips{
+  width: 750rpx;
+  margin: 0 auto;
+  padding: 40rpx 24rpx;
+  background: #FFF0F0;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.tips image{
+  width: 30.8rpx;
+  height: 33.4rpx;
+  margin-right: 24rpx;
+  margin-top: 8rpx;
+}
+.tips text{
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #661614;
+  flex: 1;
+}
+.express{
+  border-radius: 0px 0px 12rpx 12rpx;
+  background-color: #fff;
+  padding: 0 24rpx;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+}
+.express .title{
+  display: flex;
+  justify-content: space-between;
+  height: 136rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #E6E6E6;
+}
+.express .title .icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+.express .title .index{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #332B2B;
+  margin: 0 12rpx;
+  flex: none;
+}
+.express .title .state{
+  flex: 1;
+  display: flex;
+}
+.express .title .state text{
+  background: #FFF0F0;
+  border-radius: 6rpx;
+  padding: 6rpx 12rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  color: #FF3633;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.express .title .detail{
+  display: flex;
+  justify-content: flex-end;
+  flex: none;
+  align-items: center;
+}
+.express .title .detail image{
+  width: 12rpx;
+  height: 24rpx;
+  margin-left: 18rpx;
+}
+.express .title .detail text{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #807474;
+}
+.express .content .item{
+  margin: 44rpx 0;
+  display: flex;
+  align-items: center;
+}
+.express .content .item .name{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  margin-right: 24rpx;
+}
+.express .content .item .info{
+  flex:1;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #332B2B;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}

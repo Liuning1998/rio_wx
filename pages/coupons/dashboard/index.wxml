@@ -14,51 +14,53 @@
     </swiper>
   </view>
 
-  <view class="products-title" wx:if="{{couponsList.length != 0 }}">
-    <text class="icon yellow-icon"></text>
-    <text class="icon red-icon"></text>
-    <text class="text">全场通用优惠券</text>
-    <text class="icon red-icon"></text>
-    <text class="icon yellow-icon"></text>
-  </view>
-
-  <view class="products">
-    <view class="products-item" wx:for="{{couponsList}}" wx:key="id">
-      <image class="products-images" src="../../../images/coupon/receive.jpg"></image>
-      <view class="products-content">
-        <view class="products-name">{{item.name}}</view>
-        <view class="products-value">
-          <text class="value-text">{{item.value}}</text>
-          <text class="condition-text">满{{item.limit_value}}可用</text>
-        </view>
-      </view>
-      <view class="products-button {{!item.show_status ? 'complete' : ''}}">
-        <view class="btn" data-item="{{item}}" data-index="{{index}}" bindtap="{{item.show_status ? 'receiveCoupons' : ''}}">
-          <block wx:if="{{item.show_status}}">
-            立即领取
-          </block>
-          <block wx:else>
-            已领取
-          </block>
-        </view>
-      </view>
-    </view>
-    <view class="empty-container" wx:if="{{ !loading && !loadErr && couponsList.length == 0 }}">
-      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_default_icon.png"></image>
-      <text>暂无可领取优惠券~</text>
+  <view class="coupons-box">
+    <view class="products-title" wx:if="{{couponsList.length != 0 }}">
+      精选好券
+      <text>（优惠券去“我的-优惠券”查看）</text>
     </view>
 
-    <!-- 加载状态 -->
-    <view class="loading" wx:if="{{noData && !loading && couponsList.length != 0 && !loadErr}}">
-      已加载全部!
-    </view>
-    <view class="loading" wx:if="{{loading}}">
-      加载中...
-    </view>
-    <view class="loading" wx:if="{{loadErr && !loading}}">
-      加载失败，请重试!
+    <view class="products">
+      <view class="products-item" wx:for="{{couponsList}}" wx:key="id">
+        <image class="products-images" src="../../../images/coupon/receive.jpg"></image>
+        <view class="products-content">
+          <view class="products-name">{{item.name}}</view>
+          <view class="products-value">
+            <text class="value-text">{{item.value}}</text>
+            <!-- <text class="condition-text">满{{item.limit_value}}可用</text> -->
+          </view>
+        </view>
+        <view class="products-button {{!item.show_status ? 'complete' : ''}}">
+          <view class="btn" data-item="{{item}}" data-index="{{index}}" bindtap="{{item.show_status ? 'receiveCoupons' : ''}}">
+            <block wx:if="{{item.show_status}}">
+              立即领取
+            </block>
+            <block wx:else>
+              已领取
+            </block>
+          </view>
+        </view>
+        <image hidden="{{item.show_status}}" class="finished-img" src="/images/finished.png"></image>
+      </view>
+      <view class="empty empty-container" wx:if="{{ !loading && !loadErr && couponsList.length == 0 }}">
+        <image class="empty-img" src="/images/v1.2/default/default.png"></image>
+        <text class="empty-text">暂时还没有优惠券哦</text>
+        <text class="empty-text-01">下次记得积极领券哦</text>
+      </view>
+
+      <!-- 加载状态 -->
+      <view class="loading" wx:if="{{noData && !loading && couponsList.length != 0 && !loadErr}}">
+        已加载全部!
+      </view>
+      <view class="loading" wx:if="{{loading}}">
+        加载中...
+      </view>
+      <view class="loading" wx:if="{{loadErr && !loading}}">
+        加载失败，请重试!
+      </view>
     </view>
   </view>
+
 </scroll-view>
 
 <!-- 领取成功弹窗 -->

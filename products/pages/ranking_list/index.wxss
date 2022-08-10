@@ -1,0 +1,356 @@
+/* products/pages/index/index.wxss */
+page {
+  background: #fff;
+  height: 100%;
+}
+
+.return-image-container {
+  position: absolute;
+  left: 0;
+  bottom: 0rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding-left: 30rpx;
+  padding-right: 60rpx;
+  z-index: 92;
+}
+
+.return-image {
+  height: 32rpx;
+  width: 18rpx;
+}
+
+.ad-image {
+  width: 750rpx;
+  height: 772rpx;
+}
+
+.products-container {
+  /* padding-top: 88rpx; */
+  padding-bottom: 100rpx;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+  top: -266rpx;
+}
+
+
+.products-container .product-item {
+  display: flex;
+  box-sizing: border-box;
+  margin: auto;
+  width: 702rpx;
+  border-radius: 8rpx;
+  background: #ffffff;
+  padding: 44rpx 0;
+  border-bottom: 1rpx solid rgba(230,230,230,1);
+}
+
+
+.products-container .product-item .sort{
+  padding: 0 20rpx 0 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #807474;
+  font-weight: 500;
+}
+
+.products-container .avatar-container {
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  border-radius: 8rpx;
+  position: relative;
+  /* overflow: hidden; */
+}
+
+.products-container .sort-badge {
+  position: absolute;
+  top: -12rpx;
+  left: -12rpx;
+  z-index: 3;
+  width: 44rpx;
+  height: 60rpx;
+}
+
+.products-container .product-item .avatar {
+  width: 224rpx;
+  height: 224rpx;
+  display: flex;
+}
+
+.products-container .item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.products-container .product-item .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  box-sizing: border-box;
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #332B2B;
+  font-weight: 400;
+  line-height: 44rpx;
+}
+
+.products-container .name .pre_name{
+  color: #F64C47;
+}
+
+.products-container .description {
+  font-size: 24rpx;
+  color: #D3B17D;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  box-sizing: border-box;
+}
+
+.product-item .price-and-cart {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  top: 10rpx;
+}
+
+.product-item .price {
+  line-height: 1;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #FF3633;
+  font-weight: 500;
+}
+
+.product-item .price::before {
+  content: '￥';
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FF3633;
+  font-weight: 400;
+}
+
+.product-item .go-product{
+  width: 192rpx;
+  height: 64rpx;
+  background: #FF3633;
+  border: 2rpx solid rgba(255,54,51,1);
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.product-item .origin-price {
+  font-size: 20rpx;
+  color: #999999;
+  margin-left: 20rpx;
+}
+
+.product-item .origin-price text {
+  text-decoration: line-through;
+}
+
+.product-item .cart-container {
+  flex-shrink: 0;
+  height: 56rpx;
+  width: 56rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(216, 216, 216, 0.5);
+  border-radius: 50%;
+}
+
+.product-item .cart-container image {
+  height: 22rpx;
+  width: 26rpx;
+}
+
+.product-item .cart-container .go-product {
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+  color: #999999;
+  margin-left: 4rpx;
+}
+
+.product-item .cart-container .go-product image {
+  width: 12rpx;
+  height: 14rpx;
+  display: flex;
+  margin-left: 2rpx;
+}
+
+/* 空列表样式 */
+
+.product-empty image {
+  margin-top: 120rpx;
+}
+/* 空列表样式 */
+
+/* 排行榜 s */
+.ranking{
+  width: 702rpx;
+  margin: 0 auto;
+  background-image: linear-gradient(180deg, #FFD7D6 0%, #FFFFFF 2%);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12rpx;
+}
+.ranking .item{
+  flex: 1;
+  padding: 12rpx 12rpx 38rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  position: relative;
+}
+.ranking .item.active{
+  width: 264rpx;
+  margin-top: -36rpx;
+  box-sizing: border-box;
+  flex: none;
+  padding: 12rpx 24rpx 38rpx;
+}
+.ranking .item .shadow{
+  max-width: 100%;
+  max-height: 100%;
+  width: 220rpx;
+  height: 282rpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.ranking .item .shadow-back{
+  left: 0;
+  right: auto;
+  transform: rotateY(180deg);
+}
+.ranking .item .avatar{
+  position: relative;
+}
+.ranking .item.active .avatar{
+  flex: 1;
+}
+.ranking .item .avatar .background{
+  width: 192rpx;
+  height: 192rpx;
+  border-radius: 6rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.ranking .item:nth-child(1) .background{
+  background-color: #FAD258;
+}
+.ranking .item:nth-child(2) .background{
+  background-color: #FF5E28;
+}
+.ranking .item:nth-child(3) .background{
+  background-color: #F7CBA5;
+}
+.ranking .item .avatar .avatar-img{
+  width: 192rpx;
+  height: 192rpx;
+  border-radius: 6rpx;
+  position: relative;
+  margin-top: 4rpx;
+  z-index: 1;
+  background: #fff;
+}
+.ranking .item.active .avatar .background{
+  width: 216rpx;
+}
+.ranking .item.active .avatar .avatar-img{
+  width: 216rpx;
+  height: 216rpx;
+}
+.ranking .item .avatar .icon{
+  width: 46rpx;
+  height: 54rpx;
+  position: absolute;
+  top: 4rpx;
+  left: 12rpx;
+  z-index: 2;
+}
+.ranking .item .name{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  line-height: 44rpx;
+  height: 88rpx;
+  color: #332B2B;
+  letter-spacing: -1px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  box-sizing: border-box;
+  flex: none;
+}
+/* .ranking .item.active .name{
+  margin-top: 10rpx;
+} */
+.ranking .item .price{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #FF3633;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  box-sizing: border-box;
+  margin-top: 12rpx;
+}
+.ranking .item .price::before{
+  content: "¥";
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FF3633;
+  font-weight: 400;
+  margin-right: 6rpx;
+}
+.ranking .item .btn{
+  width: 192rpx;
+  height: 64rpx;
+  margin-top: 16rpx;
+  background: #FF3633;
+  border-radius: 200rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+/* 排行榜 e */

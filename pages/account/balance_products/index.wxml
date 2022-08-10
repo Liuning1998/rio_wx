@@ -1,0 +1,30 @@
+<!--pages/account/balance/index.wxml-->
+<wxs module="price" src="/utils/price.wxs"></wxs>
+
+<navbar title="交易商品" />
+
+<scroll-view scroll-y   class='page-container' >
+  <view style='margin-top: {{pageMarginTop}}px; padding-top: 44px;'></view>
+
+    <view wx:if="{{products && products.length > 0}}" class="products"  wx:for="{{products}}" wx:key="index">
+      <view class="avatar">
+        <image class="avatar_border" src="{{item.avatar}}"></image>
+      </view>
+      <view class="info">
+        <view class="name">{{item.name}}</view>
+        <view class="bottom">
+          <view class="price">{{ price.tos(item.price) }}</view>
+          <view class="quantity">×{{item.quantity}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{ !products || products.length <= 0}}" class="order-empty">
+      <image src="https://jhqli.oss-cn-beijing.aliyuncs.com/rio_wxs/images/empty_order_icon.png"></image>
+      <text class="title">暂无商品~</text>
+    </view>
+
+  <view class="placeholder" style="width: 100%;height: {{ isIphoneX ? '200' : '100'}}rpx;"></view>
+</scroll-view>
+
+<msgToast msg-data="{{ _msgData }}"/>

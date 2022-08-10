@@ -10,14 +10,14 @@
   <!-- <image class="background-image" src="{{brand.banners[0]}}"></image> -->
   <view wx:if="{{!scollStatus}}" class="navbar-content" style="height: {{pageMarginTop+44}}px;">
     <view bindtap="goback" class="return-image-container">
-      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/arrow_o_black.png"></image>
-      <image wx:else class="return-image" src="/images/arrow_o_white_01.png"></image>
+      <image wx:if="{{navbarColor == 'dark'}}" class="return-image" src="/images/v1.2/return_black.png"></image>
+      <image wx:else class="return-image" src="/images/v1.2/return_white.png"></image>
     </view>
   </view>
 
   <view wx:else class="navbar-content light" style="height: {{pageMarginTop+44}}px;">
     <view bindtap="goback" class="return-image-container">
-      <image class="return-image" src="/images/arrow_o_black.png"></image>
+      <image class="return-image" src="/images/v1.2/return_black.png"></image>
     </view>
     <text class="title">{{pageTitle}}</text>
   </view>
@@ -25,9 +25,10 @@
 
 <scroll-view scroll-y class='page-container' bindtouchstart='changeNavbar'>
   <image class="ad-image" src="{{specialArea.background_images}}"></image>
-  <view wx:if="{{ loaded && products.length <= 0}}" class="product-empty">
-    <image src="../../images/products_empty_icon_001.png"></image>
-    <text>商品上架中，敬请期待</text>
+  <view wx:if="{{ loaded && products.length <= 0}}" class="empty product-empty">
+    <image class="empty-img" src="/images/v1.2/default/default_01.png"></image>
+    <text class="empty-text">商品上架中，敬请期待</text>
+    <text class="empty-text-01">返回上一级页面逛一逛吧</text>
   </view>
   <view wx:else class="products-container">
     <view bindtap="gotoProduct" data-item="{{item}}" wx:for="{{products}}" wx:key="index" class="product-item">

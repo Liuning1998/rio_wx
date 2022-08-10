@@ -57,9 +57,18 @@ Page({
    */
   onShow: function () {
     let cartData = cartApi.getCartCache()
+
     if (Object.keys(cartData).length <= 0) {
-      cartData = null
+      cartData = null;
+    }else{
+      //如果是旧版购物车商铺就删掉
+      for(var key in cartData.data){
+        if( cartData.data[key].store_code == null ){
+          cartData = cartApi.removeStoreLineOfSelect(cartData.data[key])
+        }
+      }
     }
+
     this.setData({ cartData: cartData, cartLoaded: true, deleteButtonShowId: -1 })
 
     if(Object.keys(this.data.avatars).length <= 0) {
@@ -73,6 +82,7 @@ Page({
           res = null
         }
         this.setData({ cartData: res, cartLoaded: true })
+    
       }
     })
 
@@ -187,7 +197,6 @@ Page({
       },
       success: res => {
         if(res.data.status =='ok'){
-          console.log([key])
           this.setData({
             successPopup:true,
             [key]:false
@@ -249,7 +258,7 @@ Page({
       return false
     }
 
-    var url = "/pages/orders/confirm/index?store_id=" + item.store_id
+    var url = "/pages/orders/confirm/index?store_code=" + item.store_code
     if (item.store_short_name == '京东') {
       url = url + "&store_short_name=京东"
     }
@@ -284,7 +293,6 @@ Page({
   },
 
   deleteItem: function (e) {
-    console.log(e)
     var item = e.currentTarget.dataset.item
     let _cartData = cartApi.removeFromCart(item)
 
@@ -349,11 +357,19 @@ Page({
 
   gotoStore: function (e) {
     var item = e.currentTarget.dataset.item
-    if (item == null || item.store_id == null) { return }
-    this.navigateTo("/products/pages/index/index?store_id="+item.store_id+"&pageType=store&store_name="+item.store_name)
+    if (item == null || item.store_code == null || item.store_code.trim() == '') { return }
+    this.navigateTo(`/products/pages/collect/index?store_code=${item.store_code}&store_short_name=${item.store_short_name}&total=${item.total}`)
+  },
+
+  goTop: function (e) {  // 一键回到顶部
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
   },
 
   addCart: function (e) {
+    this.goTop()
+
     var item = e.currentTarget.dataset.item
     if (item.tags != null && item.tags.indexOf('虚拟卡券') >= 0) {
       this.navigateTo("/pages/products/show/index?id=" + item.id)
@@ -363,6 +379,11 @@ Page({
     if (item.tags != null && item.tags.indexOf('特殊商品') >= 0) {
       this.navigateTo("/pages/products/show/index?id=" + item.id)
       return
+    }
+
+    if (item.store_code == null || item.store_code.trim() == '') {
+      this.errorToast('加入购物车失败', 500)
+      return false
     }
 
     let master = item.master
@@ -384,6 +405,7 @@ Page({
       available_on: master.available_on,
       stock: master.stock,
       store_id: master.store_id || '0',
+      store_code: item.store_code || '',
       product: item,
       // variant: master,
       show_name: master.show_name,
@@ -391,8 +413,8 @@ Page({
       product_limit_number: item.limit_number
     }
 
-    if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + master.store_id] != null && this.data.cartData.data['store_' + master.store_id].lineItems != null && this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id] != null) {
-      let _quantity = this.data.cartData.data['store_' + master.store_id].lineItems['variant_' + master.id].quantity
+    if(this.data.cartData != null && this.data.cartData.data != null && this.data.cartData.data['store_' + item.store_code] != null && this.data.cartData.data['store_' + item.store_code].lineItems != null && this.data.cartData.data['store_' + item.store_code].lineItems['variant_' + master.id] != null) {
+      let _quantity = this.data.cartData.data['store_' + item.store_code].lineItems['variant_' + master.id].quantity
 
       // 判断数量是否超过单品购买数量限制
       if (_quantity >= master.limit_number || _quantity >= item.limit_number) {

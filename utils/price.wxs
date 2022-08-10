@@ -1,8 +1,17 @@
+// 小于10补0
+function addZero (num) {
+  if (parseInt(num) < 10) {
+    num = '0' + num
+  }
+  return num
+}
+
 function priceTos (price) {
   if (price == null) {return ''}
   price = parseFloat(price)
   return price.toFixed(2)
 }
+
 
 function priceRound (price) {
   if (price == null) {return ''}
@@ -95,9 +104,7 @@ function vipDiscount(lineItems, user=null, couponValue=0){
   for(var i=0; i < lineItems.length; i++) {
     var item = lineItems[i]
     var item_total = item.price * item.quantity
-    if(item.product.tags == null || item.product.tags.indexOf('特殊商品') == -1){//非特殊商品
-      result += item_total
-    }
+    result += item_total
   }
 
   if(result - couponValue <= 0){
@@ -116,5 +123,6 @@ module.exports = {
   decimal: priceDecimal,
   discountTotal: discountTotal,
   vipDiscount:vipDiscount,
-  priceRound:priceRound
+  priceRound:priceRound,
+  addZero:addZero
 }

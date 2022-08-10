@@ -9,7 +9,8 @@ Page({
     email: 'contact@jhqli.com',
     adImages: [],
     swiperCurrent: 0,
-    nomal: true
+    nomal: true,
+    currentTab: 0,
   },
 
   /**
@@ -26,6 +27,26 @@ Page({
   onShow: function () {
 
   },
+
+  // 切换热门问题
+  swichNav:function(e){
+    var that = this;
+    if( this.data.currentTab === e.currentTarget.dataset.current ) {
+        return false;
+    } else {
+        that.setData( {
+            currentTab: e.currentTarget.dataset.current
+        })
+    }
+  },
+
+  // 切换热门问题
+  bindChange: function( e ) {
+    var that = this;
+    that.setData( {
+        currentTab: e.detail.current
+    });
+},
 
   getAds: function() {
     http.get({
@@ -47,6 +68,14 @@ Page({
           this.setData({adImages: images})
         }
       }
+    })
+  },
+
+  // 跳转问题详情
+  toAnswer:function(e){
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/contact_detail/index?id='+id,
     })
   },
 

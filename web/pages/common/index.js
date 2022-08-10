@@ -16,9 +16,10 @@ Page({
   onLoad: function (options) {
     getApp().commonBeforeOnLoad(this)
 
-    if (options.url == null && options.url.length <= 0) {
+    if (options.url == null || options.url.length <= 0) {
       wx.navigateBack({})
     }
+    // console.log(options)
 
     getApp().globalData.webviewUrl = options //跳转rural_pay页面必须设置
 

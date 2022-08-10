@@ -2,84 +2,148 @@
 <navbar appendStyle="background: #ffffff;" textStyle="color: #342F27; font-weight: 600;" title="售后详情" />
 <view style='margin-top: {{pageMarginTop+44}}px;'></view>
 
-<scroll-view scroll-y class='page-container'>
-  <view class="state-container">
-    <view class="state-desc">{{ saleService.state.title }}</view>
-    <view class="state-list">
-      <view class="state-item active">
-        <view class="icon">
-          <!-- <view class="left-split split"></view> -->
-          <view class="dot"></view>
-          <view class="right-split split"></view>
-        </view>
-        <text class="label">提交申请</text>
+
+<scroll-view scroll-y class="page-container">
+  <view class="header">
+    <view class="slogan">
+      <text>{{ saleService.state.title }}</text>
+    </view>
+    <view class="step">
+      <view class="step-text">
+        <text class="text">提交申请</text>
+        <text class="text">处理中</text>
+        <text class="text">售后完成</text>
       </view>
-      <view class="state-item {{ saleService.state.title != '等待审核' && 'active' }}">
+      <view class="step-icon {{ (saleService.state.title == '申请被拒' || saleService.state.title == '审核通过' || saleService.state.title == '售后完成') ? 'step3' : ''}} {{saleService.state.title != '等待审核' ? 'step2' : ''}}">
         <view class="icon">
-          <view class="left-split split"></view>
-          <view class="dot"></view>
-          <view class="right-split split"></view>
+          <view class="icon-round"><image src="/images/v1.2/order_02.png"></image></view>
         </view>
-        <text class="label">审核中</text>
-      </view>
-      <view class="state-item {{ (saleService.state.title == '申请被拒' || saleService.state.title == '审核通过') && 'active' }}">
         <view class="icon">
-          <view class="left-split split"></view>
-          <view class="dot"></view>
-          <!-- <view class="right-split split"></view> -->
+          <view class="icon-round"><image src="/images/v1.2/order_01.png"></image></view>
         </view>
-        <text wx:if="{{ saleService.state.title == '申请被拒' }}" class="label">申请被拒</text>
-        <text wx:else class="label">审核通过</text>
+        <view class="icon">
+          <view class="icon-round"><image src="/images/v1.2/order_04.png"></image></view>
+        </view>
       </view>
     </view>
   </view>
 
-  <view class="body-container">
-    <view class="product-container">
-      <text class="label">商品信息</text>
-      <view class="product-content">
-        <view class="avatar-container">
-          <image src="{{ saleService.master_image }}"></image>
+  <view class="detail" wx:if="{{!!saleService.state}}">
+    <view class="title">进度详情</view>
+    <view class="content">
+      <view class="item">
+        <view class="line">
+          <view class="line-big"><text></text></view>
+          <view class="line-line"></view>
         </view>
-        <view class="product-info">
-          <text class="name">{{ saleService.product_info }}</text>
-          <text class="quantity">数量：<text class="content">{{ saleService.quantity }}</text></text>
+        <view class="item-right">
+          <view class="item-text">{{ saleService.state.content }}</view>
+          <view class="item-time">{{ saleService.updated_at }}</view>
         </view>
       </view>
     </view>
-
-    <view class="sale-service-container">
-      <text class="name">审核进度：</text>
-
-      <text class="state-remark">【{{saleService.state.title}}】{{ saleService.state.content }}</text>
-    </view>
-
-    <view class="sale-service-container">
-      <view class="info-item">
-        <text class="label">服务类型</text>
-        <text class="desc">{{ saleService.service_type }}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">申请理由</text>
-        <text class="desc">{{ saleService.apply_reason }}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">申请时间</text>
-        <text class="desc">{{ saleService.created_at }}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">联系人</text>
-        <text class="desc">{{ saleService.link_name }}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">申请电话</text>
-        <text class="desc">{{ saleService.link_phone }}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">描述</text>
-        <text class="desc">{{ saleService.desc }}</text>
-      </view>
-    </view>
-
   </view>
+
+  <view class="refund" wx:if="{{saleService.refund_info.refund_total!=null}}">
+    <view class="title">
+      <text>退款总金额</text>
+      <text class="price">{{ saleService.refund_info.refund_total }}</text>
+    </view>
+    <view class="content">
+      <view class="item" wx:if="{{saleService.refund_info.refund_balance != null && saleService.refund_info.refund_balance > 0}}" bindtap="refundPopup" data-type="平台余额">
+        <view class="name">· 退回平台余额</view>
+        <view class="info">
+          <text class="price">{{saleService.refund_info.refund_balance}}</text>
+          <image src="/images/v1.2/arrow_02.png"></image>
+        </view>
+      </view>
+      <view class="item" wx:if="{{saleService.refund_info.bank_amount != null && saleService.refund_info.bank_amount > 0}}" bindtap="refundPopup" data-type="银行卡">
+        <view class="name">· 退回银行卡</view>
+        <view class="info">
+          <text class="price">{{saleService.refund_info.bank_amount}}</text>
+          <image src="/images/v1.2/arrow_02.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="product">
+    <view class="title">售后详情</view>
+    <view class="product-item">
+      <view class="avatar">
+        <image class="avatar_border" src="{{ saleService.master_image }}"></image>
+      </view>
+      <view class="name">{{ saleService.product_info }}</view>
+      <view class="info">
+        <view class="price"><text class="unit">¥</text>{{saleService.product_price}}</view>
+        <view class="quantity">×{{ saleService.quantity }}</view>
+      </view>
+    </view>
+    <view class="service-info">
+      <view class="name">服务类型</view>
+      <view class="info">{{ saleService.service_type }}</view>
+    </view>
+    <view class="service-info">
+      <view class="name">申请理由</view>
+      <view class="info">{{ saleService.apply_reason }}</view>
+    </view>
+    <view class="service-info">
+      <view class="name">订单编号</view>
+      <view class="info">{{ saleService.number }}</view>
+    </view>
+    <view class="service-info" wx:if="{{saleService.refund_info.refund_total != null}}">
+      <view class="name">退款金额</view>
+      <view class="info">{{ saleService.refund_info.refund_total }}</view>
+    </view>
+  </view>
+
+  <view class="go-contact" data-url="/pages/contact/index" bindtap="gotoLink">
+    <image class="img" src="/images/v1.2/mine_kf_01.png"></image>
+    <text>联系客服</text>
+  </view>
+
+  <view class="placeholder" style="width: 100%;height: 200rpx;"></view>
+
 </scroll-view>
+
+
+<!-- 退回详情弹框 -->
+<view class="refund-popup" hidden="{{!refundShow}}">
+  <view class="refund-mask" bindtap="refundPopup"></view>
+  <view class="popup">
+    <view class="title">
+      <text>退回详情</text>
+      <view class="close" bindtap="refundPopup">
+        <image src="/images/v1.2/close.png"></image>
+      </view>
+    </view>
+    <view class="content">
+      <view class="info">
+        <text>退回{{refundShowType}}</text>
+        <text wx:if="{{refundShowType == '银行卡'}}">{{saleService.refund_info.bank_amount}}</text>
+        <text wx:elif="{{refundShowType == '平台余额'}}">{{saleService.refund_info.refund_balance}}</text>
+      </view>
+      <view class="step">
+        <view class="item">
+          <view class="line">
+            <view class="line-big"></view>
+            <view class="line-line"></view>
+          </view>
+          <view class="item-right">
+            <view class="item-right-text">商家已退款</view>
+            <view class="explain" wx:if="{{refundShowType == '银行卡'}}">商家退款已提交至银行处理，退款通常会原路返回，预计1-5个工作日到账（每个银行处理时间存在差异）</view>
+          </view>
+        </view>
+        <view class="item">
+          <view class="line">
+            <view class="line-big"></view>
+            <view class="line-line"></view>
+          </view>
+          <view class="item-right">
+            <view class="item-right-text">退款成功</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

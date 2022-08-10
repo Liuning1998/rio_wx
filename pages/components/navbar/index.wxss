@@ -13,13 +13,19 @@
 .navbar-container-dark {
   display: flex;
   flex-direction: column;
-  /* background: linear-gradient(to right, rgb(132,89,236), rgb(205,110,241)); */
-  background: linear-gradient(to right, #EEDEB0, #D3B17D);
   position: fixed;
   left: 0;
   top: 0;
   z-index: 99990;
   width: 100%;
+  overflow: hidden;
+}
+
+.dark_bg{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
 }
 
 .navbar-content {
@@ -30,6 +36,7 @@
   position: relative;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .return-image-container {
@@ -46,12 +53,12 @@
 }
 
 .return-image {
-  height: 32rpx;
-  width: 18rpx;
+  height: 36rpx;
+  width: 20rpx;
 }
 
 .navbar-content .navbar-title {
-  font-size: 36rpx;
+  font-size: 40rpx;
   height: 44px;
   line-height: 44px;
   font-weight: 500;
@@ -62,5 +69,5 @@
 }
 
 .navbar-content .navbar-title.text-white {
-  color: #8E662F;
+  color: #fff;
 }

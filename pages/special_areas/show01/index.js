@@ -248,7 +248,6 @@ Page({
 
   callPhone: function (e) {
     var item = e.currentTarget.dataset.item
-    console.log(item)
     wx.makePhoneCall({
       phoneNumber: item
     })

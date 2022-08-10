@@ -14,17 +14,23 @@
     "live/pages/index/index",
     "pages/account/phone/validate",
     "pages/account/balance/index",
+    "pages/account/balance_detail/index",
+    "pages/account/balance_products/index",
     "pages/addresses/index/index",
     "pages/special_areas/show/index",
+    "pages/special_areas/show1.2/index",
     "pages/account/index/index",
     "pages/account/show/index",
     "pages/coupons/dashboard/index",
     "pages/orders/index/index",
     "pages/contact/index",
+    "pages/contact_detail/index",
     "pages/orders/expresses/show",
+    "pages/orders/expresses_list/index",
     "products/pages/yiyuangou/index",
     "agreement/pages/yiyuangou/index",
     "orders/pages/service/index",
+    "orders/pages/service_product/index",
     "agreement/pages/try_product/index",
     "agreement/pages/sale_service/index",
     "agreement/pages/yinsizhengce/index",
@@ -34,13 +40,16 @@
     "products/pages/search/index",
     "products/pages/search_all/index",
     "pages/addresses/edit/index",
+    "pages/addresses/choose/index",
     "pages/products/buy/index",
     "pages/coupons/protocol/index",
     "pages/activity_rule/index",
     "pages/coupons/list/index",
     "pages/login/index",
     "products/pages/index3/index",
+    "products/pages/ranking_list/index",
     "products/pages/index4/index",
+    "products/pages/collect/index",
     "products/pages/today/index",
     "agreement/pages/sale_service/show",
     "pages/card/index/index",
@@ -48,7 +57,8 @@
     "web/pages/yanglaohuodong/index",
     "web/pages/brcb_pay/index/index",
     "pages/member/index/index",
-    "web/pages/rural_pay/index"
+    "web/pages/rural_pay/index",
+    "web/pages/request/errors"
   ],
   "subpackages": [
     {
@@ -75,14 +85,14 @@
     "request": 30000
   },
   "tabBar": {
-    "color": "#B4AFAF",
-    "selectedColor": "#F64C47",
+    "color": "#807474",
+    "selectedColor": "#FF3633",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "商城",
+        "text": "首页",
         "iconPath": "/images/home.png",
         "selectedIconPath": "/images/home_active.png"
       },

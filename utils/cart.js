@@ -13,8 +13,11 @@ function addCart (lineItem) {
     return _cart
   }
 
-  let storeCart = cart['store_'+lineItem.store_id] || {}
+  // let storeCart = cart['store_'+lineItem.store_id] || {}
+  let storeCart = cart['store_'+lineItem.store_code] || {}
+
   storeCart.store_id = lineItem.store_id
+  storeCart.store_code = lineItem.store_code //合并支付
   storeCart.store_name = lineItem.product.store_name
   storeCart.store_short_name = lineItem.product.store_short_name
   if (storeCart['lineItems'] != null && storeCart['lineItems']['variant_'+lineItem.variant_id] != null) {
@@ -49,10 +52,21 @@ function addCart (lineItem) {
     }, lineItem)
     
     if (storeCart['lineItems'] == null) { storeCart['lineItems'] = {} }
-    storeCart['lineItems']['variant_' + lineItem.variant_id] = _line 
+    
+    let _lineCopy = {
+      ['variant_' + lineItem.variant_id] : _line
+    }
+    storeCart['lineItems'] = Object.assign(_lineCopy,storeCart['lineItems'])
   }
 
-  cart['store_' + lineItem.store_id] = storeCart
+
+  let storeCartCopy = {
+    ['store_' + lineItem.store_code] : storeCart
+  }
+
+  cart = Object.assign(storeCartCopy,cart)
+
+  // cart['store_' + lineItem.store_code] = storeCart
 
   return setCartToCache(cart)
 }
@@ -67,31 +81,54 @@ function getCartCache () {
 function setSelectedStatus (lineItem, status) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
-  let storeCart = cartData['store_' + lineItem.store_id]
+  // let storeCart = cartData['store_' + lineItem.store_id]
+  let storeCart = cartData['store_' + lineItem.store_code]
 
-  storeCart.lineItems['variant_' + lineItem.variant_id].selectStatus = status
+  try { 
+ 
+    storeCart.lineItems['variant_' + lineItem.variant_id].selectStatus = status
 
-  return setCartToCache(cartData)
+    return setCartToCache(cartData)
+ 
+  } catch (error) { 
+     
+    return false 
+ 
+  } 
 }
 
 // 设置购物车中 storeCart 的选中状态
 function triggerStoreSelectStatus(storeData, status) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
-  let storeCart = cartData['store_' + storeData.store_id]
+  // let storeCart = cartData['store_' + storeData.store_id]
+  let storeCart = cartData['store_' + storeData.store_code]
 
-  for(let line in storeCart.lineItems) {
-    storeCart.lineItems[line].selectStatus = status
-  }
+  try { 
+ 
+    for(let line in storeCart.lineItems) {
+      storeCart.lineItems[line].selectStatus = status
+    }
+  
+    return setCartToCache(cartData)
+ 
+  } catch (error) { 
+     
+    return false 
+ 
+  } 
 
-  return setCartToCache(cartData)
 }
 
 // 将 lineItem 从购物车中删除
 function removeFromCart (lineItem) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
-  let storeCart = cartData['store_' + lineItem.store_id]
+  if( lineItem.store_code != null ){
+    var storeCart = cartData['store_' + lineItem.store_code]
+  }else{
+    var storeCart = cartData['store_' + lineItem.store_id]
+  }
 
   try { 
  
@@ -109,7 +146,12 @@ function removeFromCart (lineItem) {
 function removeStoreLineOfSelect (storeData) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
-  let storeCart = cartData['store_' + storeData.store_id]
+  // let storeCart = cartData['store_' + storeData.store_id]
+  if( storeData.store_code != null ){
+    var storeCart = cartData['store_' + storeData.store_code]
+  }else{
+    var storeCart = cartData['store_' + storeData.store_id]
+  }
 
   try { 
  
@@ -132,7 +174,8 @@ function removeStoreLineOfSelect (storeData) {
 function alterQuantityCartCache (lineItem, quantity) {
   let cart = storage.getSyncWithExpire(cartKey) || {}
   let cartData = cart.data || {}
-  let storeCart = cartData['store_' + lineItem.store_id]
+  // let storeCart = cartData['store_' + lineItem.store_id]
+  let storeCart = cartData['store_' + lineItem.store_code]
 
   storeCart.lineItems['variant_' + lineItem.variant_id].quantity += quantity
   if (storeCart.lineItems['variant_' + lineItem.variant_id].quantity < 0) {

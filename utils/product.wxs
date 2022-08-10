@@ -28,5 +28,5 @@ function isYiyuangou (product) {
 module.exports = {
   virtualCard: virtualCard,
   canAddCart: canAddCart,
-  isYiyuangou: isYiyuangou
+  isYiyuangou: isYiyuangou,
 }

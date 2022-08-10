@@ -20,7 +20,7 @@ Page({
    },
    labelShow:false,
    topShow:false,
-   productsTitle:'全部分类'
+   productsTitle:'全部商品'
   },
 
   /**
@@ -88,7 +88,7 @@ Page({
       url: 'api/platform_categories',
       success: res => {
         res.data.forEach(function(ele,i){
-          ele.labelArr = [{id:ele.id,name:'全部分类',sort_value:false}]
+          ele.labelArr = [{id:ele.id,name:'全部商品',sort_value:false}]
           ele.secondId = ele.id
         })
         this.setData({ categories: res.data })
@@ -178,7 +178,7 @@ Page({
       return false
     }
 
-    this.setData({ currentCategory: category,productsTitle:'全部分类',topShow:false})
+    this.setData({ currentCategory: category,productsTitle:'全部商品',topShow:false})
     setTimeout(res=>{
       this.topShow()
     },50)
@@ -280,7 +280,6 @@ Page({
   labelSreen:function(e){
     //  点击后的标签居中
     var ele = 'ele' + e.currentTarget.dataset.index;
-    console.log(e.currentTarget.dataset.item)
     var id = e.currentTarget.dataset.item.id;
     var currentidKey = `currentCategory.secondId`
     var key = `id_${id}`;
@@ -347,7 +346,6 @@ Page({
         url: `api/platform_categories?q[father_id_eq]=${currentId}`,
         // data: _data,
         success: res => {
-          console.log('加载成功！',res.data)
           res.data.forEach(function(ele,i){
             ele.active = false
             categories[currentIndex].labelArr.push(ele)

@@ -145,10 +145,10 @@ Page({
     })
 
     if (this.data.newObject) {
-      console.log(formValue)
+      // console.log(formValue)
       this.createAddress(formValue)
     } else {
-      console.log(formValue)
+      // console.log(formValue)
       this.editAddress(formValue)
     }
   },
@@ -595,7 +595,6 @@ Page({
 
 
   changeTextareaLine: function (e) {
-    console.log(e.detail)
     let line = e.detail.lineCount
     if (line == null || line <= 0) { line = 1 }
     this.setData({ textareaLine: line })

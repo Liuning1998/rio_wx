@@ -214,11 +214,11 @@ page {
 
 .btn.pay-btn {
   /* margin-top: 16rpx; */
-  height: 72rpx;
+  height: 96rpx;
   width: 400rpx;
   text-align: center;
-  line-height: 72rpx;
-  border-radius: 36rpx;
+  line-height: 96rpx;
+  border-radius: 54rpx;
   background: linear-gradient(to right, #D3B27E, #EEDEB0, #D3B27E);
   font-size: 36rpx;
   color: #8E662F;

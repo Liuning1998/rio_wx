@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    saleService: {}
+    saleService: {},
+    refundShow:false,//催发货弹窗
   },
 
   /**
@@ -30,6 +31,20 @@ Page({
       fail: res => {
 
       }
+    })
+  },
+
+  //退回详情弹窗
+  refundPopup: function(e){
+    var type = e.currentTarget.dataset.type
+    if(type){
+      this.setData({
+        refundShowType: type
+      })
+    }
+    
+    this.setData({
+      refundShow: !this.data.refundShow
     })
   },
 

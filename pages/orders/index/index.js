@@ -1,6 +1,7 @@
 // pages/orders/index/index.js
 var http = require('../../../utils/http.js')
 var cartApi = require('../../../utils/cart.js')
+var storage = require('../../../utils/storage.js')
 
 Page({
 
@@ -9,11 +10,11 @@ Page({
    */
   data: {
     buttons:[{
-      text: '删除',
-      type: 'warn',
-      extClass: 'test'
-  }],
-  deleteButtonShowId: -1,
+        text: '删除',
+        type: 'warn',
+        extClass: 'test'
+    }],
+    deleteButtonShowId: -1,
     active: "all", // 'all', 'completed', 'new', 'paid', 'shipping', 'completed' ,'padding'(待收货)
     orders: {
       allOrders: [],
@@ -34,7 +35,8 @@ Page({
     emptyStatus: false,
     secondLoad: false,
     showLoading: false,
-    nowTime: Math.ceil((new Date).getTime()/1000)
+    nowTime: Math.ceil((new Date).getTime()/1000),
+    urgeShow:false,//催发货弹窗
   },
 
   /**
@@ -49,11 +51,18 @@ Page({
 
   onShow: function () {
     if (this.data.secondLoad) {
+      this.goTop()//跳到页面顶部
       this.refreshData()
     }
     this.setData({ secondLoad: true })
     this.resetUerInfo()
     this.setNowTime()
+  },
+
+  goTop: function (e) {  // 一键回到顶部
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
   },
 
   fetchOrders: function (state) {
@@ -91,26 +100,35 @@ Page({
     })
   },
 
-  queryParams: function (state) {
+  queryParams: function (state,refresh) {
     state = state || this.data.active
     // let params = {q: { order_type_not_in:[ '1', '4', '5'] }}
-    let params = {q: { order_type_not_in:[ '1'] }}
+    let params = {q: { order_type_not_in:['1'] }}
     if (state == 'saleService') {
       params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
       params.q.payment_state_not_eq = 'refunded'
+      params.q.sale_state_present = true
       params.q.order_type_eq = 2
+      // params.show_type = true
       delete params.q.order_type_not_in
     } else if ( state == 'padding' || state == 'shipping' ) {
-      params.q.sale_state_blank = true
+      // params.q.sale_state_blank = true
       params.q.ship_state_in = ['padding', 'shipping']
       params.q.payment_state_eq = 'completed'
+      // params.show_type = true
     } else if (state != 'all') {
       params.q.state_eq = state
     }
-    params.page = Math.ceil((this.data.orders[state+'Orders'].filter(item => item != 'deleted').length + 1)/getApp().globalData.perPage)
-    if(params.page <= 0) {
+    
+    if(refresh){
       params.page = 1
+    }else{
+      params.page = Math.ceil((this.data.orders[state+'Orders'].filter(item => item != 'deleted').length + 1)/getApp().globalData.perPage)
+      if(params.page <= 0) {
+        params.page = 1
+      }
     }
+
     return params
   },
 
@@ -132,6 +150,7 @@ Page({
     }
   },
   slideviewShow: function (e) {
+    console.log('ss')
     var order = e.currentTarget.dataset.order
     this.setData({ deleteButtonShowId: order.id })
   },
@@ -175,15 +194,30 @@ Page({
     for (let k=0; k < states.length; k++) {
       let offset = null
       let state = states[k]
+      let subOffset = null;
       let orders = this.data.orders[state + 'Orders']
       for (let i=0; i < orders.length; i++) {
-        if(orders[i].number == order.number) {
+        if(orders[i].sub_orders && orders[i].sub_orders.length > 0){
+          for (let j=0; j < orders[i].sub_orders.length; j++){
+            if(orders[i].sub_orders[j].number == order.number) {
+              offset = i
+              subOffset = j
+              break
+            }
+          }
+        }else if(orders[i].number == order.number){
           offset = i
           break
         }
       }
+
       if (offset != null) {
-        let key = `orders.${state}Orders[${offset}]`
+        let key;
+        if(subOffset != null){
+          key = `orders.${state}Orders[${offset}].sub_orders[${subOffset}]`
+        }else{
+          key = `orders.${state}Orders[${offset}]`
+        }
         this.setData({ [key]: 'deleted' })
       }
     }
@@ -208,6 +242,11 @@ Page({
         return false
       }
 
+      if (product.store_code == null || product.store_code.trim() == '') {
+        this.errorToast('加入购物车失败')
+        return false
+      }
+
       let variant = null
       for(var j=0; j < product.variants.length; j++) {
         if (product.variants[j].id == line_item.variant_id) {
@@ -229,6 +268,7 @@ Page({
         available_on: product.available_on,
         stock: variant.stock,
         store_id: product.store_id || '0',
+        store_code: product.store_code || '',
         product: product,
         // variant: master,
         show_name: variant.show_name,
@@ -311,24 +351,7 @@ Page({
   },
 
   refreshData: function () {
-    let state = this.data.active
-
-    // let params = { q: { order_type_not_in: ['1', '4', '5'] } }
-    let params = { q: { order_type_not_in: ['1'] } }
-
-    if (state == 'saleService') {
-      params.q.state_not_in = ['new', 'canceled', 'handle_canceled', 'deleted']
-      params.q.payment_state_not_eq = 'refunded'
-      params.q.order_type_eq = 2
-      delete params.q.order_type_not_in
-    } else if ( state == 'padding' || state == 'shipping' ) {
-      params.q.sale_state_blank = true
-      params.q.ship_state_in = ['padding', 'shipping']
-      params.q.payment_state_eq = 'completed'
-    } else if (state != 'all') {
-      params.q.state_eq = state
-    }
-    params.page = 1
+    var params = this.queryParams(this.data.active,true)
 
     http.get({
       url: 'api/orders',
@@ -343,7 +366,7 @@ Page({
           return
         }
 
-        this.replaceOrders(res.data, state)
+        this.replaceOrders(res.data, this.data.active)
         this.setData({ emptyStatus: false })
         // wx.stopPullDownRefresh()
         this.stopPDRefresh()
@@ -424,7 +447,7 @@ Page({
     //   this.errorToast('该订单不能申请售后')
     //   return false
     // }
-    this.navigateTo("/orders/pages/service/index",{
+    this.navigateTo("/orders/pages/service_product/index",{
       order: order
     })
   },
@@ -433,7 +456,45 @@ Page({
     this.setData({ nowTime: Math.ceil((new Date).getTime()/1000) })
     setTimeout( res => 
       this.setNowTime(), 1000)
-  }
+  },
+
+
+  // 检查是否能催发货(24小时内可以催一次) 
+  inspectUrgeOrder: function(e){
+    let order_id = e.currentTarget.dataset.order.id
+    let canUrgeOrder = storage.getSyncWithExpire('canUrgeOrder') || {}
+    let key = `order_id_${order_id}`;
+    let now = Math.ceil((new Date).getTime()/1000);
+    if(canUrgeOrder && !!canUrgeOrder[key]){
+      let expireTime = canUrgeOrder[key].expire_t;
+      //如果过24小时了就可以再次摧货了
+      if( (now - expireTime) > 24 * 60 * 60 ){
+        canUrgeOrder[key].expire_t = now;
+        storage.setSyncWithExpire('canUrgeOrder', canUrgeOrder, 24 * 60 * 60)
+        this.urgeOrder()
+      }else{
+        wx.showToast({
+          title: '已催商家发货',
+          duration: 2000,
+          icon: 'none'
+        })        
+      }
+    }else{
+      this.urgeOrder()
+      canUrgeOrder[key] = {
+        id: order_id,
+        expire_t: now
+      }
+      storage.setSyncWithExpire('canUrgeOrder', canUrgeOrder, 24 * 60 * 60)
+    }
+  },
+
+  //催发货
+  urgeOrder: function(){
+    this.setData({
+      urgeShow: !this.data.urgeShow
+    })
+  },
 
   /**
    * 用户点击右上角分享
